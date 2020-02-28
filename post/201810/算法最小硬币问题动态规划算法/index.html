@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="最小硬币问题 [动态规划]" />
+    <meta property="og:title" content="最小硬币问题 [动态规划]" />
+    <meta property="twitter:title" content="最小硬币问题 [动态规划]" />
+    
+
+    
+    <meta name="description" content="Wubba lubba dub dub">
+    <meta property="og:description" content="Wubba lubba dub dub" />
+    <meta property="twitter:description" content="Wubba lubba dub dub" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>最小硬币问题 [动态规划]-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201810/%E7%AE%97%E6%B3%95%E6%9C%80%E5%B0%8F%E7%A1%AC%E5%B8%81%E9%97%AE%E9%A2%98%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%AE%97%E6%B3%95/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                    </div>
+                    <h1>最小硬币问题 [动态规划]</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Friday, October 12, 2018
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#代码实现-python">代码实现（python）</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<blockquote>
+<p>问题 假设你当前拥有 3 元 6 元 7 元的硬币 数量为无限。问 假设你需要组合出 18 元，如何使硬币的数量最少
+分析：我认为这个问题有点类似于 01 背包问题，很明显是不能用贪心算法来解决的，因为贪心的去首选最大的硬币是无法做到最优的，所以需要一个回溯寻找最优的机制来帮助我们解决问题，很显然，动态规划是首选。让我们看看他是否能用动态规划解决。</p>
+</blockquote>
+
+<ul>
+<li>最优子结构 假设需要组合 18 元，那么他其实完全可以基于一个比 18 小的数额 i 作为基础来进行硬币拼接，同时数额 i 仍然能够向下降低。所以他是拥有最优子结构的.</li>
+</ul>
+
+<h3 id="代码实现-python">代码实现（python）</h3>
+
+<p>我们假设 <code>d[i]</code> 为当金额为 i 时，所需要的最小硬币数量，将 <code>dg[i]</code> 作为当金额为 i 时，所需要的最小硬币数量的组合方式。这是整个程序最核心的内容，并且将会保持不变，也就是循环不变式。在遍历硬币的过程中，去不断的尝试，能否找到使硬币的最小数量更小，直接的描述就是用于检测用一个 6 元的硬币能够抵消两个三元硬币，并且最小数量会降低，这就是回溯过程。举例:</p>
+
+<p>但 i = 6 时 d[i - coin] + 1 等于 d[6 - 6] + 1 等于 d[0] 等于 1,这个 1 的意思就是 要凑六块钱，硬币数量最小为 1</p>
+
+<pre><code class="language-python">def minNum(a, b):
+    return a if a &lt; b else b
+
+# i 当前计算的金额 从0开始 不断增长 结束于和目标金额相等
+# num 目标金额
+# coins 硬币规格数组
+def minCoins(i, num, coins):
+    d = [0] * (num + 1)
+    dg = [[]] * (num + 1)
+
+    def _minCoins(i, num, coins):
+        if(i == 0):
+            d[i] = 0
+            _minCoins(1, num, coins)
+            return
+        min = 9999
+        for coin in coins:
+            if(i &gt;= coin):
+                oMin = min
+                min = minNum(d[i - coin]+1, min) # 代码的核心，不断的回溯，去尝试硬币更少的组合方式
+                # 用于增加额外的信息 即组合方式
+                if(oMin != min):
+                    copy = dg[i - coin][:]
+                    copy.append(coin)
+                    dg[i] = copy
+        d[i] = min
+        if(i == num):
+            return
+        else:
+            _minCoins(i+1, num, coins)
+
+    _minCoins(i, num, coins)
+    return d
+
+
+# 硬币规格 无数量限制
+coins = [3, 6, 7]
+
+print(minCoins(0, 18, coins)[18])
+</code></pre>
+
+<p>最近在学python 感觉很有劲，简洁 语义化，不过字典没JS的对象字面量好用</p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201810/%E8%A7%A3%E5%86%B3%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fchooselocation%E5%9C%A8ios%E4%B8%8B%E4%B8%8D%E8%83%BD%E7%A8%B3%E5%AE%9A%E8%A7%A6%E5%8F%91%E7%9A%84%E9%97%AE%E9%A2%98/" data-toggle="tooltip" data-placement="top" title="解决微信小程序 chooselocation在ios下不能稳定触发的问题">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/201810/%E5%BE%AE%E4%BF%A1ios%E5%8A%A8%E6%80%81%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E6%97%A0%E6%B3%95%E6%AD%A3%E5%B8%B8%E6%92%AD%E6%94%BE%E7%9A%84%E9%97%AE%E9%A2%98/" data-toggle="tooltip" data-placement="top" title="微信浏览器 IOS下 动态音乐播放器无法正常播放的问题">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2020
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+</body>
+</html>

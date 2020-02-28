@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="算法导论笔记 九 动态规划" />
+    <meta property="og:title" content="算法导论笔记 九 动态规划" />
+    <meta property="twitter:title" content="算法导论笔记 九 动态规划" />
+    
+
+    
+    <meta name="description" content="Wubba lubba dub dub">
+    <meta property="og:description" content="Wubba lubba dub dub" />
+    <meta property="twitter:description" content="Wubba lubba dub dub" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>算法导论笔记 九 动态规划-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201807/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E4%B9%9D%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        <a class="tag" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        <a class="tag" href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                    </div>
+                    <h1>算法导论笔记 九 动态规划</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Saturday, July 21, 2018
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#动态规划">动态规划</a></li>
+<li><a href="#动态规划-1">动态规划</a>
+<ul>
+<li><a href="#特征">特征</a></li>
+<li><a href="#最长公共子序列">最长公共子序列</a></li>
+<li><a href="#动态规划-example">动态规划 example</a></li>
+<li><a href="#特征-1">特征</a></li>
+<li><a href="#最长公共子序列-1">最长公共子序列</a></li>
+<li><a href="#动态规划-example-1">动态规划 example</a></li>
+<li><a href="#改进-自底向上的设计-真-动态规划">改进 自底向上的设计 真！动态规划</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<h2 id="动态规划">动态规划</h2>
+
+<blockquote>
+<p>动态规划（英语：Dynamic programming，简称DP）是一种在数学、管理科学、计算机科学、经济学和生物信息学中使用的，通过把原问题分解为相对简单的子问题的方式求解复杂问题的方法。简单来说 他是一种设计方法。</p>
+</blockquote>
+
+<h2 id="动态规划-1">动态规划</h2>
+
+<h3 id="特征">特征</h3>
+
+<p>当你发现一个问题具有如下特征的时候，很有可能可以依赖动态规划来解决</p>
+
+<ul>
+<li>一个问题的最优解包含其子问题的最优解 也就是俗称的最优子结构</li>
+</ul>
+
+<h3 id="最长公共子序列">最长公共子序列</h3>
+
+<p>最长公共子序列利用排列组合的方式去找几乎是不太可行的，因为他的复杂度是指数级</p>
+
+<p>所以我们需要一种更加高效的方式来为我们解决这类问题。</p>
+
+<h3 id="动态规划-example">动态规划 example</h3>
+
+<p>让我们看看如何用动态规划来解决最长公共子序列问题</p>
+
+<ol>
+<li>找出序列x和y的LCS的长度</li>
+<li>扩展如上算法，并找出这个LCS，</li>
+</ol>
+
+<p>OK 现在我们的问题开始转化，变成了如何找到LCS的长度问题，那么，我们该怎么做呢？</p>
+
+<blockquote>
+<p>|S| 代表序列S的长度
+重点关注x y 的前缀 // 比如说一个序列X = <a,b,c,d> 那么X3 = <a,b,c> 其实就是把一个序列切成有i个值的片段
+定义 C[i,j] = |LCS(x[1,i],y[1,j])| 这里的C[i,j] 就是x与y的LCS长度
+C[m,n] = LCS(x,y)</p>
+</blockquote>
+
+<p><strong>伪代码</strong></p>
+
+<pre><code class="language-JS"> C[i,j] =  // i和j代表的是 xi yj序列片段下的LCS长度 
+  if(i==0 || j == 0) return 0 //一个序列为空 肯定为0
+  if(i&gt;0 &amp;&amp; j&gt;0 &amp;&amp; xi == yj) return C[i-1,j-1] + 1 // 匹配上了 在这一层加1 继续求子问题  +1 操作只在这里发生 这里是xi代表的是序列XI中的最后一个 是下标
+  if(i&gt;0 &amp;&amp; j&gt;0 &amp;&amp; xi !== yj) return max(C(i-1,j),C(i,j-1)) // 没有匹配上 继续向下 寻求匹配，由于不知道后续 开辟两条路线
+</code></pre>
+
+<blockquote>
+<p>这个东西的复杂度大概是 O(2 ^ (m+n)) 当然也是指数级别的 不过可以通过缓存技术进行加速</p>
+</blockquote>
+
+<p>在我看来这个递归式的图形大概是这样 可能有点丑，不过这是我的理解</p>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/%E6%97%A0%E6%A0%87%E9%A2%98.png" alt="" /></p>
+
+<p>想象一个人在这两个序列上走路 从右到左 如果他发现左脚和右脚内容一样 + 1 ，如果发现不一样，那么这里就会出现问题，到底是左脚迈一步，还是右脚迈一步，如果都迈，那么可能会错过x + 1 与 当前的y 相等的情况，所以只能创建两个分支，迈左脚和迈右脚都试试。## 动态规划</p>
+
+<h3 id="特征-1">特征</h3>
+
+<p>当你发现一个问题具有如下特征的时候，很有可能可以依赖动态规划来解决</p>
+
+<ul>
+<li>一个问题的最优解包含其子问题的最优解 也就是俗称的最优子结构</li>
+<li>重叠的子问题</li>
+</ul>
+
+<h3 id="最长公共子序列-1">最长公共子序列</h3>
+
+<p>最长公共子序列利用排列组合的方式去找几乎是不太可行的，因为他的复杂度是指数级</p>
+
+<p>所以我们需要一种更加高效的方式来为我们解决这类问题。</p>
+
+<h3 id="动态规划-example-1">动态规划 example</h3>
+
+<p>让我们看看如何用动态规划来解决最长公共子序列问题</p>
+
+<ol>
+<li>找出序列x和y的LCS的长度</li>
+<li>扩展如上算法，并找出这个LCS，</li>
+</ol>
+
+<p>OK 现在我们的问题开始转化，变成了如何找到LCS的长度问题，那么，我们该怎么做呢？</p>
+
+<blockquote>
+<p>|S| 代表序列S的长度
+重点关注x y 的前缀 // 比如说一个序列X = <a,b,c,d> 那么X3 = <a,b,c> 其实就是把一个序列切成有i个值的片段
+定义 C[i,j] = |LCS(x[1,i],y[1,j])| 这里的C[i,j] 就是x与y的LCS长度
+C[m,n] = LCS(x,y)</p>
+</blockquote>
+
+<p><strong>伪代码</strong></p>
+
+<pre><code class="language-JS"> C[i,j] =  // i和j代表的是 xi yj序列片段下的LCS长度 
+  if(i==0 || j == 0) return 0 //一个序列为空 肯定为0
+  if(i&gt;0 &amp;&amp; j&gt;0 &amp;&amp; xi == yj) return C[i-1,j-1] + 1 // 匹配上了 在这一层加1 继续求子问题  +1 操作只在这里发生 这里是xi代表的是序列XI中的最后一个 是下标
+  if(i&gt;0 &amp;&amp; j&gt;0 &amp;&amp; xi !== yj) return max(C(i-1,j),C(i,j-1)) // 没有匹配上 继续向下 寻求匹配，由于不知道后续 开辟两条路线
+</code></pre>
+
+<blockquote>
+<p>这个东西的复杂度大概是 O(2 ^ (m+n)) 当然也是指数级别的 不过可以通过缓存技术进行加速</p>
+</blockquote>
+
+<p>在我看来这个递归式的图形大概是这样 可能有点丑，不过这是我的理解</p>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/%E6%97%A0%E6%A0%87%E9%A2%98.png" alt="" /></p>
+
+<p>想象一个人在这两个序列上走路 从右到左 如果他发现左脚和右脚内容一样 + 1 ，如果发现不一样，那么这里就会出现问题，到底是左脚迈一步，还是右脚迈一步，如果都迈，那么可能会错过x + 1 与 当前的y 相等的情况，所以只能创建两个分支，迈左脚和迈右脚都试试。</p>
+
+<p>从分解子问题的角度上看，首先他设想已经拥有了最长子序列长度K  长度为k-1的LCS,并尝试寻找下一个可以让当前LCS + 1的匹配对应值，这很像分治法，设想我们已经快完成了，完成最后一步，其实是一步步的拆分问题，动态规划与普通递归的差别就在于，动态规划的子结构必须拥有最优子结构特性。分治法分解的是不相关的子问题，而动态规划分解的是重叠的子问题。</p>
+
+<p><strong>性能</strong></p>
+
+<p>动态规划算法会分解 <strong>重叠子问题</strong> 这意味着很多动态规范的算法都能用缓存技术来提高性能，比如LCS问题就能保存个ij的LCS在有结果的时候直接返回。</p>
+
+<p><strong>求LCS长度的实现 备忘法</strong></p>
+
+<pre><code class="language-js">
+let s1 = [10, 5, 3, 90, 20, 58, 78, 20, 76, 2304, 230]
+let s2 = [10, 3, 20, 78, 200, 40, 20, 230]
+
+
+const LCS_LENGTH = (...args) =&gt; {
+  let mem = []
+  const _LCS = (s1, s2, i, j) =&gt; {
+    if (mem['' + i + j]) return mem['' + i + j]
+    if (i &lt; 0 || j &lt; 0) return 0
+    if (s1[i] === s2[j]) {
+      return mem['' + i + j] = _LCS(s1, s2, i - 1, j - 1) + 1
+    } else {
+      return Math.max(_LCS(s1, s2, i - 1, j), _LCS(s1, s2, i, j - 1))
+    }
+  }
+  return _LCS(...args)
+}
+
+LCS_LENGTH(s1, s2, s1.length - 1, s2.length - 1)
+
+</code></pre>
+
+<blockquote>
+<p>时间复杂度 O(m*n)  空间O(m*n)</p>
+</blockquote>
+
+<h3 id="改进-自底向上的设计-真-动态规划">改进 自底向上的设计 真！动态规划</h3>
+
+<pre><code class="language-js">
+let s2 = ['A', 'B', 'C', 'B', 'D', 'A', 'B', 'F', 'G', 'J']
+let s1 = ['B', 'D', 'C', 'A', 'B', 'A', 'F', 'H', 'J']
+
+const LCS_TABLE = (s1, s2) =&gt; {
+  let x = s1.length
+  let y = s2.length
+  // 需要保证表格的便利与数组的访问同意 也就是从1 开始
+  // 所以需要在前面将数组踮起 并且为了避免越界 需要在获取长度之后进行
+  s1.unshift(null)
+  s2.unshift(null)
+  // 以下两个循环都是为了打出一个边界 也就是表格的最顶层和最左层都是0
+  let table = []
+  for (let i = 0; i &lt;= x; i++) {
+    table[i] = []
+    table[i][0] = {
+      val: 0
+    }
+  }
+  for (let i = 0; i &lt;= y; i++) {
+    table[0][i] = {
+      val: 0
+    }
+  }
+  // 正式开始
+  for (let i = 1; i &lt;= x; i++) {
+    for (let j = 1; j &lt;= y; j++) {
+      // 找到匹配 填入左上箭头
+      if (s1[i] === s2[j]) {
+        table[i][j] = {
+          val: table[i - 1][j - 1].val + 1,
+          lt: true
+        }
+      } else if (table[i - 1][j].val &gt;= table[i][j - 1].val) {
+        table[i][j] = {
+          val: table[i - 1][j].val,
+          top: true
+        }
+      } else {
+        table[i][j] = {
+          left: true,
+          val: table[i][j - 1].val
+        }
+      }
+    }
+  }
+  return table
+}
+
+let table = LCS_TABLE(s1, s2)
+
+const printLCS = (table, X, i, j) =&gt; {
+  if (i === 0 || j === 0) return
+  if (table[i][j].lt) {
+    console.log(X[i])
+    return printLCS(table, X, i - 1, j - 1)
+  }
+  if (table[i][j].top) {
+    return printLCS(table, X, i - 1, j)
+  }
+  return printLCS(table, X, i, j - 1)
+}
+
+printLCS(table, s1, s1.length - 1, s2.length - 1)
+
+
+</code></pre>
+
+<blockquote>
+<p>算法复杂度O(m*n)</p>
+</blockquote>
+
+<p>感觉特别像填表游戏，就是拿到一个表格然后按照规定去填表，可以分为两部分</p>
+
+<p>填表
+  1. Xi 与 Yi 匹配就填↖箭头
+  2. 如果不匹配 在左边的框和上面框里找出拥有最大LCS的那个（你看 找最优子结构 特点来了）
+搜索
+  1. 找到匹配就输出
+  2. 没匹配就往箭头的方向去走</p>
+
+<p>关键就在于如何去一步步的拼接那个LCS链路 不断的在比较短的LCS上 去接更长的LCS的 如此反复 就能获取到LCS</p>
+
+<p>不过这个LCS其实在大多数情况下并不唯一，和你的遍历顺序有非常大的关系。</p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201807/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E4%BA%94%E6%89%A9%E5%85%85%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%8A%A8%E6%80%81%E6%9C%89%E5%BA%8F%E7%BB%9F%E8%AE%A1%E5%92%8C%E5%8C%BA%E9%97%B4%E6%A0%91/" data-toggle="tooltip" data-placement="top" title="算法导论笔记 五 扩充的数据结构、动态有序统计和区间树">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/201807/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E4%B8%83%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90%E8%A1%A8%E7%9A%84%E6%89%A9%E5%A2%9E%E5%8A%BF%E8%83%BD%E6%96%B9%E6%B3%95/" data-toggle="tooltip" data-placement="top" title="算法导论 七 平摊分析，表的扩增，势能方法">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2020
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+</body>
+</html>

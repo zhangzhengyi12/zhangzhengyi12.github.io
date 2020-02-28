@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="初次尝试WebAssembly X Rust" />
+    <meta property="og:title" content="初次尝试WebAssembly X Rust" />
+    <meta property="twitter:title" content="初次尝试WebAssembly X Rust" />
+    
+
+    
+    <meta name="description" content="Wubba lubba dub dub">
+    <meta property="og:description" content="Wubba lubba dub dub" />
+    <meta property="twitter:description" content="Wubba lubba dub dub" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>初次尝试WebAssembly X Rust-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201901/%E5%88%9D%E6%AC%A1%E5%B0%9D%E8%AF%95webassemblyrust/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/rust" title="Rust">
+                            Rust
+                        </a>
+                        
+                        <a class="tag" href="/tags/webassembly" title="WebAssembly">
+                            WebAssembly
+                        </a>
+                        
+                    </div>
+                    <h1>初次尝试WebAssembly X Rust</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Wednesday, January 9, 2019
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#起步">起步</a></li>
+<li><a href="#搭建">搭建</a></li>
+<li><a href="#总结">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<p>这个东西其实我大约一年之前听到了解到，但是一直没有尝试。</p>
+
+<p>正巧最近自己写了个文本校对工具，公司内部的一些人员在用，功能上没有问题，主要就是因为需求是全部一行来进行对比，然后复杂度又高达 O(nm),在我们公司的使用情况下，n 基本等于 m 所以复杂度也就是 O(n^2)。简单来说就是一旦 5000 字以上就爆炸（内存直接溢出，超出 v8 引擎大约 1.5G 的限制），虽然这种高字数的对比并不多见，但身为一个有责任感的码农，很想找办法解决这个问题，所以我重新考虑了这个东西，想要用更高性能的语言来进行计算，也进行了一番尝试。</p>
+
+<p>在一众语言中选择了 Rust,因为据说对于<code>WebAssembly</code>的支持是最健全的，正好我也玩过一点点的 Rust。</p>
+
+<p>提前告知一下结果，可能会让大家失望。我做了一个 demo（模拟 LCS 需要的那个表结构）之后，发现比 JS 还慢，并且内存占用上也并没有特别大的优势。所以我想告诉大家，高性能不是那么好拿的，V8 引擎本身已经很快了，算法上一些复杂度降低不了，语言的那点性能差异可能完全不够看。</p>
+
+<p>当然 这只是我个人的使用场景。</p>
+
+<h2 id="起步">起步</h2>
+
+<p>第一部当然是安装 Rust 的整个编译环境</p>
+
+<blockquote>
+<p>curl <a href="https://sh.rustup.rs">https://sh.rustup.rs</a> -sSf | sh // 安装 Rust
+rustup target add wasm32-unknown-unknown &ndash;toolchain nightly // 安装 To wasm 的组件
+cargo +nightly install wasm-bindgen-cli</p>
+</blockquote>
+
+<h2 id="搭建">搭建</h2>
+
+<p>我这里会用到<code>wasm-bindgen</code>,他的作用是方便 JS 与 Rust 进行函数调用上的变量交互，否则你获取 Rust 运行的结果还需要读取内存（arrayBuffer） 然后进行编码。特别麻烦，就像下面这样</p>
+
+<pre><code class="language-js">function getStr(rust, fnKey, lenKey, args) {
+  const memory = rust.instance.exports.memory
+  const offset = rust.instance.exports[fnKey](args)
+  const stringBuffer = new Uint8Array(
+    memory.buffer,
+    offset,
+    rust.instance.exports[lenKey]()
+  )
+  let str = ''
+  for (let i = 0; i &lt; stringBuffer.length; i++) {
+    str += String.fromCharCode(stringBuffer[i])
+  }
+  return str
+}
+
+async function main() {
+  let res = await fetch(
+    './target/wasm32-unknown-unknown/debug/rust_diff_core.wasm'
+  )
+  const bytes = await res.arrayBuffer()
+  const rust = await WebAssembly.instantiate(bytes)
+}
+
+main()
+</code></pre>
+
+<p>让我们正式开始</p>
+
+<blockquote>
+<p>cargo +nightly new js-hello-world &ndash;lib 建立一个 project</p>
+</blockquote>
+
+<p>打开<code>Cargo.toml</code> 修改如下</p>
+
+<pre><code class="language-toml">[package]
+name = &quot;hello_world&quot;
+version = &quot;0.1.0&quot;
+authors = [&quot;The wasm-bindgen Developers&quot;]
+edition = &quot;2018&quot;
+
+[lib]
+crate-type = [&quot;cdylib&quot;]
+
+[dependencies]
+wasm-bindgen = &quot;0.2.30&quot;
+</code></pre>
+
+<p>修改<code>src/lib.rs</code></p>
+
+<pre><code class="language-rust">use wasm_bindgen::prelude::*;
+
+#[wasm_bindgen]
+extern &quot;C&quot; {
+    fn alert(s: &amp;str);
+    #[wasm_bindgen(js_namespace = console)]
+    fn log(s: &amp;str);
+    fn log_str(s: String);
+}
+
+
+#[wasm_bindgen]
+pub fn say(woo: &amp;str) -&gt; String {
+    woo.to_string()
+}
+</code></pre>
+
+<p>接下来我们需要一个 <code>build.sh</code>来帮助我们自动进行从 Rust &gt; wasm &gt; wasm-bindgen 包装 的步骤</p>
+
+<pre><code class="language-bash">cargo +nightly build --target wasm32-unknown-unknown &amp;&amp;
+wasm-bindgen ./target/wasm32-unknown-unknown/debug/hello_world.wasm  --out-dir .
+</code></pre>
+
+<p>现在 运行一下 <code>build.sh</code> 我们会发现根目录出现了 hello_world.wasm 以及 hello_world.js。没错，wasm-bindgen 的原理就是建立.js 的包装，方便我们进行通信</p>
+
+<p>创建<code>index.js</code></p>
+
+<pre><code class="language-js">const rust = import('./hello_world')
+
+rust.then(m =&gt; console.log(m.say('hello'))).catch(console.error)
+</code></pre>
+
+<p>创建<code>package.json</code></p>
+
+<pre><code class="language-json">{
+  &quot;scripts&quot;: {
+    &quot;build&quot;: &quot;webpack&quot;,
+    &quot;serve&quot;: &quot;webpack-dev-server&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;text-encoding&quot;: &quot;^0.7.0&quot;,
+    &quot;html-webpack-plugin&quot;: &quot;^3.2.0&quot;,
+    &quot;webpack&quot;: &quot;^4.11.1&quot;,
+    &quot;webpack-cli&quot;: &quot;^3.1.1&quot;,
+    &quot;webpack-dev-server&quot;: &quot;^3.1.0&quot;
+  }
+}
+</code></pre>
+
+<p>以及 webpack 的设置 建立 <code>webpack.config.js</code></p>
+
+<pre><code class="language-js">const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const webpack = require('webpack')
+
+module.exports = {
+  entry: './index.js',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'index.js'
+  },
+  plugins: [
+    new HtmlWebpackPlugin(),
+    new webpack.ProvidePlugin({
+      TextDecoder: ['text-encoding', 'TextDecoder'],
+      TextEncoder: ['text-encoding', 'TextEncoder']
+    })
+  ],
+  mode: 'development'
+}
+</code></pre>
+
+<p>安装依赖 开始运行</p>
+
+<blockquote>
+<p>npm i
+npm run server</p>
+</blockquote>
+
+<p>你的控制台应该已经成功输出了一个 hello,实际上这就是最简单的变量交互。你现在可以做更多的事情了。如果修改了 Lib.rs 请重新运行<code>build.sh</code></p>
+
+<h2 id="总结">总结</h2>
+
+<p>Rust真的有点难。</p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201901/vue.js%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E6%8C%87%E5%8D%97/" data-toggle="tooltip" data-placement="top" title="Vue.js源码 阅读引导">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/201901/%E8%AE%A9vue.js%E4%B8%AD%E7%9A%84provideinject%E6%94%AF%E6%8C%81%E5%93%8D%E5%BA%94%E5%BC%8F/" data-toggle="tooltip" data-placement="top" title="让 Vue.js 中的 provide / inject 支持响应式">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2020
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+</body>
+</html>

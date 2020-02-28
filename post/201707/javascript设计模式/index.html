@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="Javascript 设计模式" />
+    <meta property="og:title" content="Javascript 设计模式" />
+    <meta property="twitter:title" content="Javascript 设计模式" />
+    
+
+    
+    <meta name="description" content="Wubba lubba dub dub">
+    <meta property="og:description" content="Wubba lubba dub dub" />
+    <meta property="twitter:description" content="Wubba lubba dub dub" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Javascript 设计模式-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201707/javascript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/web" title="Web">
+                            Web
+                        </a>
+                        
+                    </div>
+                    <h1>Javascript 设计模式</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Friday, November 24, 2017
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li><a href="#单例模式">单例模式</a></li>
+<li><a href="#策略模式">策略模式</a></li>
+<li><a href="#代理模式">代理模式</a>
+<ul>
+<li><a href="#虚拟代理">虚拟代理</a></li>
+<li><a href="#缓存代理">缓存代理</a></li>
+</ul></li>
+<li><a href="#迭代器模式">迭代器模式</a></li>
+<li><a href="#发布订阅模式">发布订阅模式</a></li>
+<li><a href="#命令模式">命令模式</a></li>
+<li><a href="#组合模式">组合模式</a></li>
+<li><a href="#模版方法模式">模版方法模式</a>
+<ul>
+<li><a href="#钩子方法">钩子方法</a></li>
+</ul></li>
+<li><a href="#享元模式">享元模式</a>
+<ul>
+<li><a href="#对象池">对象池</a></li>
+</ul></li>
+<li><a href="#责任链模式">责任链模式</a></li>
+<li><a href="#中介者模式">中介者模式</a></li>
+<li><a href="#装饰者模式">装饰者模式</a></li>
+<li><a href="#状态模式">状态模式</a></li>
+<li><a href="#适配器模式">适配器模式</a></li>
+<li><a href="#设计原则与技巧">设计原则与技巧</a>
+<ul>
+<li><a href="#单一职责原则">单一职责原则</a></li>
+<li><a href="#最小知识原则">最小知识原则</a></li>
+<li><a href="#开放封闭原则">开放封闭原则</a></li>
+<li><a href="#面向接口编程">面向接口编程</a></li>
+<li><a href="#代码重构">代码重构</a>
+<ul>
+<li><a href="#提炼函数">提炼函数</a></li>
+<li><a href="#合并重复的片段">合并重复的片段</a></li>
+<li><a href="#把条件分支语句提炼成函数">把条件分支语句提炼成函数</a></li>
+<li><a href="#合理使用循环">合理使用循环</a></li>
+<li><a href="#提前让函数退出代替嵌套条件分支">提前让函数退出代替嵌套条件分支</a></li>
+<li><a href="#传递对象参数代替过多的参数">传递对象参数代替过多的参数</a></li>
+<li><a href="#少用三目">少用三目</a></li>
+<li><a href="#合理使用链式调用">合理使用链式调用</a></li>
+<li><a href="#分解大型类">分解大型类</a></li>
+<li><a href="#使用return退出多重循环">使用return退出多重循环</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<p>模式可以认为是前人对于编程问题的解决方案，而所有的设计模式的主题都是分离多变的部分和恒定的部分。</p>
+
+<h1 id="单例模式">单例模式</h1>
+
+<p>单例模式值得就是只有一个实例的模式。<strong>单例模式的核心是确保只有一个实例，并提供全局访问</strong>。</p>
+
+<pre><code class="language-js">	var getSingle = function( fn ){
+		var result;
+		return function , (){
+			return result || ( result = fn .apply(this, arguments ) );
+		}
+	};
+
+</code></pre>
+
+<p>通用的惰性单例。利用result来存放单例，每次获取首先尝试访问result。</p>
+
+<p>在合适的时候创建对象，且只创建一个。他同样能够用于很多你想只执行一次的情况，比如对某个DOM的多次事件绑定。只需你返回一个true来做验证</p>
+
+<pre><code class="language-js">var bindEvent = getSingle(function(){
+		document.getElementById( 'div1' ).onclick = function(){
+			alert ( 'click' );
+		}
+		return true;
+	});
+	var render = function(){
+		console.log( '开始渲染列表' );
+		bindEvent();
+	};
+	render();
+	render();
+	render();s  
+
+</code></pre>
+
+<h1 id="策略模式">策略模式</h1>
+
+<p><strong>策略模式的核心思想是：定义一系列的算法，封装这些算法，并且使他们可以互相替换</strong></p>
+
+<p>以下是一个策略模式的JS体现</p>
+
+<pre><code class="language-js">
+
+	var strategies = {
+		&quot;S&quot;: function( salary ){
+			return salary * 4;
+		},
+		&quot;A&quot;: function( salary ){
+			return salary * 3;
+		},
+		&quot;B&quot;: function( salary ){
+			return salary * 2;
+
+		}
+	};
+	var calculateBonus = function( level, salary ){
+		return strategies[ level ]( salary );
+	};
+
+	console.log( calculateBonus( 'S', 20000 ) ); // 输出：80000
+	console.log( calculateBonus( 'A', 10000 ) ); // 输出：30000
+
+</code></pre>
+
+<p>以下是利用策略模式进行表单验证的实例</p>
+
+<pre><code class="language-js">
+/***********************策略对象**************************/
+		var strategies = {
+			isNonEmpty: function( value, errorMsg ){
+				if ( value === '' ){
+					return errorMsg;
+				}
+			},
+			minLength: function( value, length, errorMsg ){
+				if ( value.length &lt; length ){
+					return errorMsg;
+				}
+			},
+			isMobile: function( value, errorMsg ){
+				if ( !/(^1[3|5|8][0-9]{9}$)/.test( value ) ){
+					return errorMsg;
+				}
+			}
+		};
+		/***********************Validator 类**************************/
+		var Validator = function(){
+			this.cache = [];
+		};
+		Validator.prototype.add = function( dom, rules ){
+			var self = this;
+			for ( var i = 0, rule; rule = rules[ i++ ]; ){
+				(function( rule ){
+					var strategyAry = rule.strategy.split( ':' );
+					var errorMsg = rule.errorMsg;
+					self.cache.push(function(){
+						var strategy = strategyAry.shift();
+						strategyAry.unshift( dom.value );
+						strategyAry.push( errorMsg );
+						return strategies[ strategy ].apply( dom, strategyAry );
+					});
+				})( rule )
+			}
+		};
+		Validator.prototype.start = function(){
+			for ( var i = 0, validatorFunc; validatorFunc = this.cache[ i++ ]; ){
+				var errorMsg = validatorFunc();
+				if ( errorMsg ){
+					return errorMsg;
+				}
+			}
+		};
+		/***********************客户调用代码**************************/
+		var registerForm = document.getElementById( 'registerForm' );
+		var validataFunc = function(){
+			var validator = new Validator();
+			validator.add( registerForm.userName, [{
+				strategy: 'isNonEmpty',
+				errorMsg: '用户名不能为空'
+			}, {
+				strategy: 'minLength:6',
+				errorMsg: '用户名长度不能小于10 位'
+			}]);
+			validator.add( registerForm.password, [{
+				strategy: 'minLength:6',
+				errorMsg: '密码长度不能小于6 位'
+			}]);
+			var errorMsg = validator.start();
+			return errorMsg;
+		}
+		registerForm.onsubmit = function(){
+			var errorMsg = validataFunc();
+			if ( errorMsg ){
+				alert ( errorMsg );
+				return false;
+			}
+
+		};
+
+</code></pre>
+
+<p>封装验证代码 利用Validator.add来存放代码 star来遍历执行验证 整个代码层次分明。调用方便。</p>
+
+<h1 id="代理模式">代理模式</h1>
+
+<p>代理的主要模式有保护代理（过滤请求）、虚拟代理（预加载等）、缓存代理（缓存结果以便加速）、</p>
+
+<p><strong>通常来说，代理对于用户而言是需要关系具体实现的，代理和本体的接口应该是一致的。</strong>
+7, M</p>
+
+<h2 id="虚拟代理">虚拟代理</h2>
+
+<p>虚拟代理常见于各种网络请求，网络请求是一种极为耗费资源的行为，如果直接发起请求，整个过程是不顺滑的。如果你是用虚拟代理，你可以做到汇聚请求，每隔x秒后统一处理。或者是在加载图片的情况下，虚拟代理可以为你提供一张loading图，在你的真正图片请求 完毕之后，在为你加入到document中。</p>
+
+<p>虚拟代理通常使用缓存数据，每当你访问虚拟代理对象，就存放入缓存数据数组之中，等待某个条件允许的时候，遍历数组，并对本体发出请求。</p>
+
+<h2 id="缓存代理">缓存代理</h2>
+
+<p><strong>缓存代理是主要目的是缓存数据，避免所有重复的网络请求或计算。</strong>如果此结果已经存在，就直接返回。以下是一个计算乘阶的例子。</p>
+
+<pre><code class="language-js">var mult = function(){
+		console.log( '开始计算乘积' );
+		var a = 1;
+		for ( var i = 0, l = arguments.length; i &lt; l; i++ ){
+			a = a * arguments[i];
+		}
+		return a;
+	};
+	mult( 2, 3 ); // 输出：6
+	mult( 2, 3, 4 ); // 输出：24
+	//现在加入缓存代理函数：
+
+	var proxyMult = (function(){
+		var cache = {};
+		return function(){
+			var args = Array.prototype.join.call( arguments, ',' );
+			if ( args in cache ){
+				return cache[ args ];
+			}
+			return cache[ args ] = mult.apply( this, arguments );
+		}
+	})();
+
+	proxyMult( 1, 2, 3, 4 ); // 输出：24
+	proxyMult( 1, 2, 3, 4 ); // 输出：24
+
+</code></pre>
+
+<p>·
+其中cache的key为传入的参数字符串，每当执行代理对象的时候都会事先执行判断参数是否一致。</p>
+
+<h1 id="迭代器模式">迭代器模式</h1>
+
+<p><strong>迭代器是指提供一种方法顺序访问一个聚合对象中的各个元素，而又不需要暴露该对象的内部表示。迭代器模式可以把迭代的过程从业务逻辑中分离出来，在使用迭代器模式之后，即使不关心对象的内部构造，也可以按顺序访问其中的每个元素。</strong></p>
+
+<p>迭代器分为内部迭代器和外部迭代器，他们之间的区别是内部迭代器帮你设定好了内部的迭代规则，使用不方便，但灵活性较低，外部迭代器需要显示的指定next，但灵活性较高，</p>
+
+<p>在一些我们需要做兼容性检测的情况下，我们就可以使用迭代器来帮助我们获取到合适的方案，</p>
+
+<p>把一些方案传入迭代器对象之中，随后遍历这个方案，如果行得通，就返回那个方案。从而让整个业务逻辑和方案可以分离开来。</p>
+
+<h1 id="发布订阅模式">发布订阅模式</h1>
+
+<p><strong>发布订阅模式又叫观察者模式，它定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖与它的对象都将得到通知，在JS中我们一般使用事件模型来替代发布-订阅模式。</strong></p>
+
+<p>其实DOM的事件模型就是一种典型的发布订阅模式</p>
+
+<p>发布订阅模式在JS中的常见做法就是创建一个事件对象，包含有listen和trigger方法、当listen的时候将相应的事件名称和回调函数放入到一个聚合对象之中，当有另外一个发布者trigger的时候，就遍历所有的聚合对象的事件名称，如果符合就触发内部的回调函数。</p>
+
+<p>你也可以把这个事件对象作为一个全局对象来使用，这样整个发布者和订阅者是完全不可见的，这种模式的优点在于时间和对象之间都是没有联系的。但缺点在于整个流程会变的很难定位，你很难知道这个事件到底由谁发布。</p>
+
+<h1 id="命令模式">命令模式</h1>
+
+<p><strong>命令模式是最简单和优雅的模式之一，命令模式中的命令值得是一个执行某些特定事情的指令。
+命令模式把请求封装成一个命令对象，通过对命令对象的操作，我们可以更方便的管理请求</strong>。</p>
+
+<pre><code class="language-js">var MenuBar = {
+			refresh: function(){
+				console.log( '刷新菜单界面' );
+			}
+		};
+
+
+		var RefreshMenuBarCommand = function( receiver ){
+			return {
+				execute: function(){
+					receiver.refresh();
+				}
+			}
+		};
+		var setCommand = function( button, command ){
+			button.onclick = function(){
+				command.execute();
+			}
+		};
+		var refreshMenuBarCommand = RefreshMenuBarCommand( MenuBar );
+		setCommand( button1, refreshMenuBarCommand );
+
+</code></pre>
+
+<p>让我来分析一下在命令模式中的角色扮演。</p>
+
+<ul>
+<li>MenuBar是一个特定事件的集合对象</li>
+<li>RefreshMenuBarCommand是一个函数，他的目的在于把特定事件封装成一个命令对象，命令对象包含一个execute方法</li>
+<li>setCommand 的目的在于把按钮和命令对象的某个方法进行绑定。</li>
+</ul>
+
+<h1 id="组合模式">组合模式</h1>
+
+<p><strong>组合模式就是用最小的子对象来构建更大的对象，而这些更小的子对象本身也许是由更小的孙对象构成的。</strong></p>
+
+<p>组合模式将对象组合成树形结构，来表示整体-部分的层次结构。</p>
+
+<p>组合模式有组合对象和基本对象，两者提供相同的接口，一个请求会在组合对象中向下传递到各个基本对象。比如都提供了execute接口。</p>
+
+<p>组合模式不是父子关系</p>
+
+<p>组合模式必须操作具有一致性，即对所有的节点都进行相同的操作</p>
+
+<p>双项隐射关系，一个节点不能同时属于两个不同的组合对象。</p>
+
+<h1 id="模版方法模式">模版方法模式</h1>
+
+<p><strong>模版方法由两部分结构组成，第一部分是抽象父类，第二部分是具体的实现子类。通常在抽象父类中封装了子类的算法框架，由子类去具体实现。</strong></p>
+
+<p>本质上就是抽离一些子类的共同之处，抽象成一个父类来设定其基本框架。</p>
+
+<p>在JS中，由于没有编译检测，最好在父类框架之中必须CreatBox方法 设定抛出异常，如果子类忘记了覆盖，就会抛出异常来警告，</p>
+
+<p>并且在JS中并不需要继承来实现模版方法，完全可以让子类对象和父类对象实现一个合并。</p>
+
+<h2 id="钩子方法">钩子方法</h2>
+
+<p>钩子方法（hook）是隔离变化的一种常用手段。我们在父类容易变化的地方放置钩子，<strong>通过改变子类的钩子，我们可以改变父类封装的代码走向。</strong></p>
+
+<pre><code class="language-js">super.prototype.render = function(){
+	this.creatBox();
+	this.bindEvent();
+
+	if (this.animateHook) {
+		this.animate();
+	}
+}
+
+</code></pre>
+
+<p>在这个例子中，我们从抽象父类设定的框架render中 就放置了一个钩子，我们通过修改子类对象的animateHook属性就能修改整个框架代码逻辑。</p>
+
+<h1 id="享元模式">享元模式</h1>
+
+<p>享元模式是一种用于性能优化的模式，他能够大量的节省内存。</p>
+
+<p><strong>享元模式的重点在于分离对象的内部状态和外部状态，其中内部状态通常是存在对象内部，可以被共享，通常不会被改变的。而外部状态就是那些能被改变的部分。</strong></p>
+
+<p>通过合成内部状态和外部状态，合并成一个完整对象，从而使用他。</p>
+
+<h2 id="对象池">对象池</h2>
+
+<p>对象池与享元模式有些类似，但并没有分离内部外部状态。</p>
+
+<p>他的核心思想是把我第一次创建的对象保存到一个数组之中，每当我需求的时候我就看对象池能否满足我的需求，如果有空余的对象就直接拿出来，没有就创建。
+当销毁对象的时候把他放入到对象池中。</p>
+
+<p>这种模式特别适合在网页中放入一些大量的元素的情况下，并且这些元素会历经一个快速的生命周期，他们可能经常被创建和删除。可以减少很多的开销。</p>
+
+<h1 id="责任链模式">责任链模式</h1>
+
+<p><strong>责任链模式的定义是：使多个对象都有机会处理请求，从而避免请求的发送者和接受者之间的耦合关系，将这些对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理他为止。</strong></p>
+
+<pre><code class="language-js">
+	var order500 = function( orderType, pay, stock ){
+		if ( orderType === 1 &amp;&amp; pay === true ){
+			console.log( '500 元定金预购，得到100 优惠券' );
+		}else{
+			return 'nextSuccessor'; // 我不知道下一个节点是谁，反正把请求往后面传递
+		}
+	};
+
+	var order200 = function( orderType, pay, stock ){
+		if ( orderType === 2 &amp;&amp; pay === true ){
+			console.log( '200 元定金预购，得到50 优惠券' );
+		}else{
+			return 'nextSuccessor'; // 我不知道下一个节点是谁，反正把请求往后面传递
+		}
+	};
+
+	var orderNormal = function( orderType, pay, stock ){
+		if ( stock &gt; 0 ){
+			console.log( '普通购买，无优惠券' );
+		}else{
+			console.log( '手机库存不足' );
+		}
+	};
+
+
+	Function.prototype.after = function( fn ){
+		var self = this;
+		return function(){
+			var ret = self.apply( this, arguments );
+			if ( ret === 'nextSuccessor' ){
+				return fn.apply( this, arguments );
+			}
+			return ret;
+		}
+	};
+
+	var order = order500yuan.after( order200yuan ).after( orderNormal );
+	order( 1, true, 500 ); // 输出：500 元定金预购，得到100 优惠券
+	order( 2, true, 500 ); // 输出：200 元定金预购，得到50 优惠券
+	order( 1, false, 500 ); // 输出：普通购买，无优惠券
+
+</code></pre>
+
+<p>利用AOP可以非常方便的实现责任链模式，</p>
+
+<p>把后续的函数编织入主函数，然后在前置函数返回无法处理的情况下就会传递给下一个函数。</p>
+
+<h1 id="中介者模式">中介者模式</h1>
+
+<p><strong>中介者模式的作用就是解除对象与对象之间的紧耦合关系。增加一个中介者对象后，所有的相关对象就通过中介者对象来通讯，而不是相互引用，所以当一个对象发生改变，只要通知中介者对象就够了。</strong></p>
+
+<p>在中介者模式中，对象之间不知道彼此的存在。</p>
+
+<p>比如在战地等游戏中，就肯定会使用中介者模式。利用中介者对象来管理，记录所有玩家的信息。</p>
+
+<p>中介者模式和发布订阅模式我认为区别在于，中介者模式的目的在于管理对象的状态，而发布订阅模式的目的在于即使提醒订阅者。</p>
+
+<h1 id="装饰者模式">装饰者模式</h1>
+
+<p>装饰者模式是目的在于动态的给对象增加指责。</p>
+
+<p>在不同的需求之下为对象增加不同的能力。</p>
+
+<p>在JS中 装饰者模式可以利用AOP方便的实现</p>
+
+<p>并且AOP可以实现动态的修改参数，只要在Before中修改传入的实参就可以了（参数是基于值传递的，而引用类型会被执行同一个外层对象）</p>
+
+<h1 id="状态模式">状态模式</h1>
+
+<p><strong>状态模式把状态封装成类，并在把请求委托给状态对象，在不同状态之下产生不同的行为。</strong></p>
+
+<pre><code class="language-js">var delegate = function( client, delegation ){
+		return {
+			buttonWasPressed: function(){ // 将客户的操作委托给delegation 对象
+				return delegation.buttonWasPressed.apply( client, arguments );
+			}
+		}
+	};
+
+	var FSM = {
+		off: {
+			buttonWasPressed: function(){
+				console.log( '关灯' );
+				this.button.innerHTML = '下一次按我是开灯';
+				this.currState = this.onState;
+			}
+		},
+		on: {
+			buttonWasPressed: function(){
+				console.log( '开灯' );
+				this.button.innerHTML = '下一次按我是关灯';
+				this.currState = this.offState;
+			}
+		}
+	};
+
+	var Light = function(){
+		this.offState = delegate( this, FSM.off );
+		this.onState = delegate( this, FSM.on );
+		this.currState = this.offState; // 设置初始状态为关闭状态
+		this.button = null;
+	};
+
+	Light.prototype.init = function(){
+		var button = document.createElement( 'button' ),
+		self = this;
+		button.innerHTML = '已关灯';
+		this.button = document.body.appendChild( button );
+		this.button.onclick = function(){
+			self.currState.buttonWasPressed();
+		}
+	};
+	var light = new Light();
+	light.init();
+
+</code></pre>
+
+<p>利用delegate委托行为到状态机，并在具体的状态机行为中修改下一次的状态。委托的作用在这里就是重新封装创建一个函数，以便轻松的委托给状态机。</p>
+
+<h1 id="适配器模式">适配器模式</h1>
+
+<p><strong>适配器模式可以被认为是接口不一致的弥补措施。</strong></p>
+
+<p>实质上就是对一个接口进行二次封装，从而满足我们的需求。</p>
+
+<h1 id="设计原则与技巧">设计原则与技巧</h1>
+
+<p>主要原则如下</p>
+
+<h2 id="单一职责原则">单一职责原则</h2>
+
+<p>SRP的原则体现为，一个对象，只做一件事。不要让某个对象的动机变得不存，那会让整个对象的行为变得模糊不堪，很难维护。</p>
+
+<p>当然不是必须遵守，但可以被认为大多数情况下的最佳实践。</p>
+
+<h2 id="最小知识原则">最小知识原则</h2>
+
+<p>指的是一个软件实体应尽量少的与其他实体发生互相作用。</p>
+
+<p>比如一个对象应提供最少接口，实现对其他对象的隐藏。不然关系错综复杂，一旦维护及其难定位。</p>
+
+<p>还有比如中介者模式</p>
+
+<h2 id="开放封闭原则">开放封闭原则</h2>
+
+<p>这是最重要的原则，</p>
+
+<p>当需要改变一个程序的功能或者给这个程序增加新功能的时候，允许增加代码，但是不能修改源代码。</p>
+
+<p>所以我们需要分离那些不变的部分和变化的部分，并把它们分离开来封装好</p>
+
+<h2 id="面向接口编程">面向接口编程</h2>
+
+<p>也就是鸭子类型，只要你提供了合格的接口，那你就是合格的。</p>
+
+<h2 id="代码重构">代码重构</h2>
+
+<p>重构的精髓主要有以下几方面</p>
+
+<h3 id="提炼函数">提炼函数</h3>
+
+<p>要让函数目的清晰，结构单一。</p>
+
+<p>避免超大函数</p>
+
+<h3 id="合并重复的片段">合并重复的片段</h3>
+
+<p>如果IF语句中产生了重复的代码，就应该将他们独立出来</p>
+
+<h3 id="把条件分支语句提炼成函数">把条件分支语句提炼成函数</h3>
+
+<p>比如说一些比较复杂的IF探测，提炼成函数 提供良好的命名，看起来会更好，并且方便修改</p>
+
+<h3 id="合理使用循环">合理使用循环</h3>
+
+<p>大量重复的代码可以使用循环来降低复杂度。
+比如获取页面内的ajax对象。循环获取，成功遍返回。</p>
+
+<h3 id="提前让函数退出代替嵌套条件分支">提前让函数退出代替嵌套条件分支</h3>
+
+<p>挑选一个语句，成立就立马退出，避免大量的else语句</p>
+
+<h3 id="传递对象参数代替过多的参数">传递对象参数代替过多的参数</h3>
+
+<p>没有参数最好，最多两个，实在太多用对象包裹</p>
+
+<h3 id="少用三目">少用三目</h3>
+
+<p>特别是一些大量使用的情况</p>
+
+<h3 id="合理使用链式调用">合理使用链式调用</h3>
+
+<p>异变化的情况下使用链式可能需要让你拆分链</p>
+
+<h3 id="分解大型类">分解大型类</h3>
+
+<p>使用组合模式</p>
+
+<h3 id="使用return退出多重循环">使用return退出多重循环</h3>
+
+<p>当我使用复杂的break的时候很难判别，</p>
+
+<p>最好直接return 可以将需要执行的代码组合成函数 return 目标函数 得以最后一次执行。</p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201707/javascript%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E5%BA%94%E7%94%A8/" data-toggle="tooltip" data-placement="top" title="Javascript 高阶函数">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/201711/js%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%B8%B8%E7%94%A8%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/" data-toggle="tooltip" data-placement="top" title="Javascript 中的函数式编程">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2020
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+</body>
+</html>

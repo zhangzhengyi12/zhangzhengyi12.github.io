@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Swift on Yinode Blog</title>
+    <link>https://zhaohuabing.com/tags/swift/</link>
+    <description>Recent content in Swift on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 02 Oct 2019 16:33:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhaohuabing.com/tags/swift/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>canvas判断用户是否点击在一条线上</title>
+      <link>https://zhaohuabing.com/post/201910/canvas%E5%88%A4%E6%96%AD%E7%94%A8%E6%88%B7%E6%98%AF%E5%90%A6%E7%82%B9%E5%87%BB%E5%9C%A8%E4%B8%80%E6%9D%A1%E7%BA%BF%E4%B8%8A/</link>
+      <pubDate>Wed, 02 Oct 2019 16:33:00 +0000</pubDate>
+      
+      <guid>https://zhaohuabing.com/post/201910/canvas%E5%88%A4%E6%96%AD%E7%94%A8%E6%88%B7%E6%98%AF%E5%90%A6%E7%82%B9%E5%87%BB%E5%9C%A8%E4%B8%80%E6%9D%A1%E7%BA%BF%E4%B8%8A/</guid>
+      <description>该实现为 IOS 的 swift，但是可以运用在任何 UI 平台，主要原理就是把一条线切分成一个个的点，然后判断用户的点击与这条线上的点进行逐一判断 是否距离</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="浅谈常见编程语言中的垃圾收集算法" />
+    <meta property="og:title" content="浅谈常见编程语言中的垃圾收集算法" />
+    <meta property="twitter:title" content="浅谈常见编程语言中的垃圾收集算法" />
+    
+
+    
+    <meta name="description" content="Wubba lubba dub dub">
+    <meta property="og:description" content="Wubba lubba dub dub" />
+    <meta property="twitter:description" content="Wubba lubba dub dub" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>浅谈常见编程语言中的垃圾收集算法-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201903/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95%E4%B8%8Enode.js%E4%B8%AD%E7%9A%84%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E6%9C%BA%E5%88%B6/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/gc" title="GC">
+                            GC
+                        </a>
+                        
+                    </div>
+                    <h1>浅谈常见编程语言中的垃圾收集算法</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Thursday, March 21, 2019
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#垃圾回收的几种方式">垃圾回收的几种方式</a>
+<ul>
+<li><a href="#引用计数">引用计数</a></li>
+<li><a href="#标记清除">标记清除</a></li>
+<li><a href="#标记紧缩">标记紧缩</a></li>
+<li><a href="#标记复制">标记复制</a></li>
+</ul></li>
+<li><a href="#实际上的内存回收">实际上的内存回收</a>
+<ul>
+<li><a href="#分代垃圾收集-node-js示例">分代垃圾收集(Node.js示例)</a></li>
+</ul></li>
+<li><a href="#总结">总结</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<blockquote>
+<p>垃圾回收（英语：Garbage Collection，缩写为GC），在计算机科学中是一种自动的存储器管理机制。当一个计算机上的动态存储器不再需要时，就应该予以释放，以让出存储器，这种存储器资源管理，称为垃圾回收。垃圾回收器可以让程序员减轻许多负担，也减少程序员犯错的机会。垃圾回收最早起源于LISP语言。当前许多语言如Smalltalk、Java、C#和D语言都支持垃圾回收器。</p>
+</blockquote>
+
+<p>事实上早期的一些语言是需要程序员手动释放内存的，但是对于程序员来说实在太累了，所以现在大部分的语言都是支持自动的垃圾回收的。</p>
+
+<h2 id="垃圾回收的几种方式">垃圾回收的几种方式</h2>
+
+<p>事实上，在关于垃圾回收的方式上，有不止一种的实现，并且这些实现各有优势，接下来我会一一介绍这些方法。</p>
+
+<h3 id="引用计数">引用计数</h3>
+
+<p>引用计数是最为早期的垃圾收集算法。</p>
+
+<p>简单来讲，每一个对象都会拥有一个<strong>引用计数器</strong>,在一开始这个计数器初始值为0，随后每当有一个变量指向这个对象后<strong>引用计数+1</strong>,一但释放引用<strong>引用计数器-1</strong>。</p>
+
+<p>如此，我们只要每隔一段时间检查所有对象，清除那些<strong>引用计数器为0</strong>的对象。</p>
+
+<p>但是这种方法有一个比较明显的缺点，<strong>一但出现循环引用，就可能导致永远无法释放内存，造成内存泄露</strong></p>
+
+<p>大致的示例类似于下面这样，即使我们手动释放了一开始的变量ab,但是这两个对象仍然在互相引用，并且其引用计数永远不会清零。</p>
+
+<pre><code class="language-js">// 假设js使用了引用计数的方法
+let a  = {}
+let b = {}
+a.b = b
+b.a = a
+
+a = null
+b = null
+</code></pre>
+
+<blockquote>
+<p>优点 简单，能够精准控制每个对象的回收，所以整个过程的是平滑收集，高性能的。
+缺点 容易出现内存泄露，消耗程序员的脑力</p>
+</blockquote>
+
+<p>当然这个问题也不是不可以解决，比如IOS APP使用的Object-c事实上就使用了引用计数的变种(自动引用计数ARC)，他里面使用一种叫做弱引用的办法来解决这个问题，这里就一笔带过了。</p>
+
+<p>接下来要介绍的几种算法，最大的特点就是自动化程度更高，他会每隔一段时间就执行，进行GC过程，但是这个GC的过程是很有可能会出现堵塞，无响应的。是一种触发GC颗粒度更加粗的做法，可以认为是丢弃一部分的性能，换来更高的开发效率，毕竟不可兼得嘛！</p>
+
+<h3 id="标记清除">标记清除</h3>
+
+<p>标记清除法事实上和引用计数一样古老。</p>
+
+<p>标记清除法的原理和遍历树的过程有点类似，首先我们需要定义一个根对象，找到在根上能够访问到的所有对象，然后对这些对象进行相同的操作，也就是不断的从根开始标记一切能够访问到的对象，如此一来，剩下的那些没有被标记的对象就是任何情况下都无法再次访问的对象，也就是说，这个对象可以被回收了。</p>
+
+<p>这种方法在现在仍旧被大量使用，不过他也有一些问题，主要就是当整个内存非常大的时候，遍历的过程是非常慢的，因为这个一棵树。有可能会造成一些性能上的问题。并且整个GC的过程是无法响应其他操作的，类似整个程序进入一种拒绝执行的阻塞状态</p>
+
+<blockquote>
+<p>适合相对较低的销毁率+不高频访问的情况</p>
+</blockquote>
+
+<h3 id="标记紧缩">标记紧缩</h3>
+
+<p>标记紧缩事实上是<strong>标记清除</strong>的一个变种，他改变了其中清除动作的部分。</p>
+
+<p>标记清除的清除方法是直接进行内存释放，而标记紧缩会让存活的对象紧紧的靠拢在一起，也就是说，他需要移动对象在内存中的位置。这样最大的好处就是内存访问变得更加高效(因为连续的内存有助于进行快速访问，类似数组，直接计算偏移即刻)</p>
+
+<p>但是显而易见的就是移动内存的过程会成为整个清除过程非常大的一个时间开销点，也就说，如果你的变量不是特别的稳定(这里不知道用什么词来描述，大致就是你的变量很少被回收)，那么中间的移动成本会很高，可能会得不偿失。</p>
+
+<blockquote>
+<p>适合低销毁率+需要访问加速的情况</p>
+</blockquote>
+
+<h3 id="标记复制">标记复制</h3>
+
+<p>这个方法在&lt;&lt;松本行弘的程序世界&gt;&gt;一书中称之为『复制』，但我认为加上一个标记来描述可能会更加的准确。</p>
+
+<p>首先，这个方法标记一个对象是否存活的办法和标记清除法是一样的，也就是通过一个根对象递归检查的方法。</p>
+
+<p>其次，我们的标记清除与标记事实上比较适合变量的销毁没有那么频繁的情况，因为我们需要去手动销毁那些没有被引用的变量，一但需要销毁的对象过多，就可能会造成性能上的问题，那么，复制方法就是进行反向思路，尽可能去操作那些需要保留的对象，以此获得在很多对象需要销毁情况下更高的性能。</p>
+
+<p>我们将内存分为两大块，分别是<strong>新空间</strong>和<strong>旧空间</strong>，分配变量只分配在旧空间里，一但旧空间爆满，就立即触发一次内存回收，回收的具体办法就是把旧空间里面的所有存活的变量复制到新空间中，直接废弃旧空间,接下来反转两者的角色，新空间变成旧空间，旧空间变成新空间，如此一来，我们每次在GC的时候，只需要复制那些存活的变量，在高销毁率的情况下，性能上是非常快的。</p>
+
+<blockquote>
+<p>适合高销毁率的情况 比如一个函数结束后 内部变量的回收(因为基本全部不要了)</p>
+</blockquote>
+
+<h2 id="实际上的内存回收">实际上的内存回收</h2>
+
+<p>现在介绍了这几种主流的内存GC算法，我们就会发现这些算法其实是各有优势的，有些可能适合回收没有那么激烈的情况，有些适合大量回收的情况，所以在实际的运用中，这些算法会被组合起来利用，这里就介绍一种<strong>分代垃圾收集</strong>技术。</p>
+
+<h3 id="分代垃圾收集-node-js示例">分代垃圾收集(Node.js示例)</h3>
+
+<p>据我所知，Java和Node.js都利用了这种技术，简单来说，这种技术的最大目的就是组合利用不同的内存回收算法,取长补短，达到综合效果提升的目的。</p>
+
+<p>接下来我就从Node.js的角度去聊聊这种技术。</p>
+
+<p>分带垃圾收集的基本思想是利用程序和对象的性质，一般的程序都拥有这样一个性质，几乎所有的对象都在比较短的时间内变成垃圾，存活时间超过一定程度的对象总是拥有更长的寿命。</p>
+
+<p>所以，我们将内存分为两个部分,<strong>新生代</strong>和<strong>老生代</strong>(也有一些语言是分为三代的，这里不做考虑),新生代使用<strong>标记复制回收</strong>方法，而老生带则使用<strong>标记清除算法+标记紧缩算法</strong>。一个新变量永远生成在新生代中，一但这个变量达成某种晋升条件，就会把这个变量分配到老生代中。</p>
+
+<p>在Node.js中，晋升的条件分为两种，一是新生代完成一次内存GC，并且这个变量没有被回收，二是新生代内部<strong>新空间</strong>的占比已经超过25%，当然不用关心这个具体的值。</p>
+
+<p>如此一来，就完美利用了不同内存回收算法的特性，达到一个非常棒的结果。短期变量存在新生代中，可以更快的销毁。长期变量存放在老生带中，可以减少回收的频率。这种方法其实在CS中非常参加，就是利用不同算法的不同特性，组合起来，最终能够得到比较好的结果，就好比TLS技术，用非对称密钥传输对等密钥。</p>
+
+<h2 id="总结">总结</h2>
+
+<p>一种技术永远不是非黑即白的，我们需要看清技术的优劣点，才能更好的运用，服务我们。</p>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li>《松本行弘的程序世界》</li>
+<li>《深入浅出Node.js》</li>
+<li>wiki百科 - 内存回收</li>
+</ul>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201903/%E7%AE%97%E6%B3%95%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97%E4%B8%8E01%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/" data-toggle="tooltip" data-placement="top" title="最长递增子序列 与 0 1 背包问题 [动态规划]">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/201903/%E5%88%A9%E7%94%A8%E7%8A%B6%E6%80%81%E6%9C%BA%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E7%BC%96%E8%AF%91%E5%99%A8/" data-toggle="tooltip" data-placement="top" title="利用状态机实现一个简单的解释器">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2020
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+</body>
+</html>

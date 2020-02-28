@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Chrome on Yinode Blog</title>
+    <link>https://zhaohuabing.com/tags/chrome/</link>
+    <description>Recent content in Chrome on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 30 Jan 2019 23:08:15 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhaohuabing.com/tags/chrome/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>从JS的阻塞角度谈谈浏览器渲染原理</title>
+      <link>https://zhaohuabing.com/post/201901/%E4%BB%8Ejs%E7%9A%84%E9%98%BB%E5%A1%9E%E8%A7%92%E5%BA%A6%E8%B0%88%E8%B0%88%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Wed, 30 Jan 2019 23:08:15 +0000</pubDate>
+      
+      <guid>https://zhaohuabing.com/post/201901/%E4%BB%8Ejs%E7%9A%84%E9%98%BB%E5%A1%9E%E8%A7%92%E5%BA%A6%E8%B0%88%E8%B0%88%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86/</guid>
+      <description>前言 这样，在解析包含的javascript代码之前，页面的内容将完全呈现在浏览器中。而用户也会因为浏览器窗口显示空白页面的时间缩短而感到打</description>
+    </item>
+    
+  </channel>
+</rss>

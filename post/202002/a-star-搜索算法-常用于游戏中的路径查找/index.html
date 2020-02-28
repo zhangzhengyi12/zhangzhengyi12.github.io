@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="A Star 搜索算法 常用于游戏中的路径查找" />
+    <meta property="og:title" content="A Star 搜索算法 常用于游戏中的路径查找" />
+    <meta property="twitter:title" content="A Star 搜索算法 常用于游戏中的路径查找" />
+    
+
+    
+    <meta name="description" content="Wubba lubba dub dub">
+    <meta property="og:description" content="Wubba lubba dub dub" />
+    <meta property="twitter:description" content="Wubba lubba dub dub" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>A Star 搜索算法 常用于游戏中的路径查找-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/202002/a-star-%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95-%E5%B8%B8%E7%94%A8%E4%BA%8E%E6%B8%B8%E6%88%8F%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84%E6%9F%A5%E6%89%BE/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                    </div>
+                    <h1>A Star 搜索算法 常用于游戏中的路径查找</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Tuesday, February 11, 2020
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                
+                
+                <p>非常酷的一个启发式搜索算法，整体类似于dij最短路径算法，只不过加入了预估距离的概念，当然由于博客数据丢失，之前的博客内容没了，不过还好代码还在，大家凑活看看吧。</p>
+
+<pre><code class="language-js">// 使用了 p5.js
+// 基本配置
+const GameConfig = {
+  col: 25,
+  row: 25,
+  width: 600,
+  height: 600
+}
+// 主矩阵
+let gameGrid
+// 所有还未确定最短路径的集合
+let openSet = []
+// 所有已经确定最短路径的集合
+let closedSet = []
+// 当前的路径集合
+let pathSet = []
+
+// 起点
+let start = null
+// 终点
+let end = null
+
+// 启发式距离预估函数
+// 常用的有 曼哈顿距离 欧几里得距离
+// 这里采用欧几里得距离
+function heuristic(a, b) {
+  return dist(a.x, a.y, b.x, b.y)
+  // return Math.abs(a.x - b.x) + Math.abs(a.y - b.y)
+}
+
+// 矩阵节点类
+class Spot {
+  constructor(x, y, width, height) {
+    this.x = x
+    this.y = y
+    // 距离起点的实际距离
+    this.g = 0
+    // 距离终点的预估距离
+    this.h = 0
+    // 综合距离 通过 g + h
+    this.f = 0
+    this.width = width
+    this.height = height
+    this.prev = null
+    // 所有邻接边
+    this.neighBors = []
+    this.isWall = Math.random() &lt; 0.2 ? true : false
+  }
+
+  draw(_color) {
+    if (this.isWall) {
+      _color = color(0)
+    }
+    fill(_color)
+    noStroke(0)
+    rect(
+      this.x * this.width,
+      this.y * this.height,
+      this.width - 1,
+      this.height - 1
+    )
+  }
+
+  // 记录所有邻接边
+  addNeighbors(grid, col, row) {
+    const { x, y } = this
+    // RIGHT
+    if (this.x &lt; col - 1) {
+      this.neighBors.push(grid[x + 1][y])
+    }
+    // LEFT
+    if (this.x &gt; 0) {
+      this.neighBors.push(grid[x - 1][y])
+    }
+    // TOP
+    if (this.y &lt; row - 1) {
+      this.neighBors.push(grid[x][y + 1])
+    }
+    // BOT
+    if (this.y &gt; 0) {
+      this.neighBors.push(grid[x][y - 1])
+    }
+    // LEFT TOP
+    if (this.x &gt; 0 &amp;&amp; this.y &gt; 0) {
+      this.neighBors.push(grid[x - 1][y - 1])
+    }
+    // RIGHT BOT
+    if (this.x &lt; col - 1 &amp;&amp; this.y &lt; row - 1) {
+      this.neighBors.push(grid[x + 1][y + 1])
+    }
+  }
+}
+
+class GameGrid {
+  constructor(col, row, width, height) {
+    this._grid = []
+    this.col = col
+    this.row = row
+
+    let spWidth = width / col
+    let spHeight = height / row
+    for (let i = 0; i &lt; col; i++) {
+      this._grid[i] = []
+      for (let j = 0; j &lt; row; j++) {
+        this._grid[i][j] = new Spot(i, j, spWidth, spHeight)
+      }
+    }
+
+    this.forEach(v =&gt; {
+      v.addNeighbors(this._grid, this.col, this.row)
+    })
+  }
+
+  get(i, j) {
+    return this._grid[i][j]
+  }
+
+  forEach(callback) {
+    for (let i = 0; i &lt; this.col; i++) {
+      for (let j = 0; j &lt; this.row; j++) {
+        callback(this._grid[i][j])
+      }
+    }
+  }
+
+  draw() {
+    this.forEach(item =&gt; {
+      item.draw(color(255))
+    })
+  }
+}
+
+function setup() {
+  createCanvas(GameConfig.width, GameConfig.height)
+
+  gameGrid = new GameGrid(
+    GameConfig.col,
+    GameConfig.row,
+    GameConfig.width,
+    GameConfig.height
+  )
+
+  start = gameGrid.get(0, 0)
+  end = gameGrid.get(GameConfig.col - 1, GameConfig.row - 1)
+  start.isWall = false
+  end.isWall = false
+
+  openSet.push(start)
+}
+
+function draw() {
+  let winner = null
+  if (openSet.length &gt; 0) {
+    // 找到 openSet 中 F 最小的节点
+    let winnerIndex = 0
+    openSet.forEach((item, index) =&gt; {
+      if (item.f &lt; openSet[winnerIndex].f) {
+        winnerIndex = index
+      }
+    })
+    
+    winner = openSet[winnerIndex]
+    
+    // 如果这个winner正好等于终点 结束
+    if (winner === end) {
+      console.log('END!')
+      console.log(end)
+      noLoop()
+    }
+    
+    // 将这个节点放入到 closedSet 中
+    openSet.splice(winnerIndex, 1)
+    closedSet.push(winner)
+
+    // 遍历该节点所有的邻接边
+    // 更新他们的预估最短距离
+    winner.neighBors.forEach(n =&gt; {
+      // 该节点必须还没有被确定 &amp;&amp; 不属于墙
+      if (!closedSet.includes(n) &amp;&amp; !n.isWall) {
+        let tempG = winner.g + 1
+        let newPath = false
+        if (openSet.includes(n)) {
+          // 为这个节点找到了一条更短的路径
+          if (tempG &lt; n.g) {
+            n.g = tempG
+            newPath = true
+          }
+        } else {
+          // 该节点属于新节点 放入到  openSet 中
+          n.g = tempG
+          openSet.push(n)
+          newPath = true
+        }
+        
+        // 如果路径有更新 更新 综合距离
+        if (newPath) {
+          n.h = heuristic(n, end)
+          n.f = n.h + n.g
+          n.prev = winner
+        }
+      }
+    })
+  } else {
+    console.log('i cant')
+    noLoop()
+  }
+  background(0)
+
+  gameGrid.draw()
+
+  openSet.forEach(item =&gt; {
+    item.draw(color(0, 255, 0))
+  })
+
+  closedSet.forEach(item =&gt; {
+    item.draw(color(255, 0, 0))
+  })
+
+  pathSet = []
+  let prev = winner
+  while (prev) {
+    pathSet.push(prev)
+    prev = prev.prev
+  }
+
+  pathSet.forEach(item =&gt; {
+    item.draw(color(0, 0, 255))
+  })
+
+  noFill()
+  stroke(255)
+  strokeWeight(1)
+  beginShape()
+  pathSet.forEach(item =&gt; {
+    const { x, y, width, height } = item
+    vertex(x * width + width / 2, y * height + height / 2)
+  })
+  endShape(0)
+}
+</code></pre>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/202002/%E8%BF%9E%E7%9C%8B%E4%B8%AD%E7%9A%84%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95/" data-toggle="tooltip" data-placement="top" title="连连看中的广度优先搜索算法">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2020
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+</body>
+</html>

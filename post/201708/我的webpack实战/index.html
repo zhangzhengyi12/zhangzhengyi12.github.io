@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="我的Webpack实战" />
+    <meta property="og:title" content="我的Webpack实战" />
+    <meta property="twitter:title" content="我的Webpack实战" />
+    
+
+    
+    <meta name="description" content="Wubba lubba dub dub">
+    <meta property="og:description" content="Wubba lubba dub dub" />
+    <meta property="twitter:description" content="Wubba lubba dub dub" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>我的Webpack实战-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201708/%E6%88%91%E7%9A%84webpack%E5%AE%9E%E6%88%98/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/vue.js" title="Vue.js">
+                            Vue.js
+                        </a>
+                        
+                    </div>
+                    <h1>我的Webpack实战</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Friday, November 24, 2017
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li><a href="#关于webpack">关于Webpack</a></li>
+<li><a href="#一份基本的webpack配置文件">一份基本的Webpack配置文件</a></li>
+<li><a href="#功能">功能</a>
+<ul>
+<li><a href="#入口">入口</a></li>
+<li><a href="#输出">输出</a></li>
+<li><a href="#loader">loader</a></li>
+<li><a href="#plugin">plugin</a></li>
+</ul></li>
+<li><a href="#常用启动参数">常用启动参数</a></li>
+<li><a href="#install-package">install package</a></li>
+<li><a href="#功能及用到的package">功能及用到的package</a>
+<ul>
+<li><a href="#一些比较高级的用法">一些比较高级的用法</a></li>
+</ul></li>
+<li><a href="#总结">总结</a></li>
+</ul>
+</nav>
+                
+                
+
+<h1 id="关于webpack">关于Webpack</h1>
+
+<blockquote>
+<p>Webpack 是一个前端资源加载/打包工具。
+它将根据模块的依赖关系进行静态分析，然后将这些模块按照指定的规则生成对应的静态资源。</p>
+</blockquote>
+
+<h1 id="一份基本的webpack配置文件">一份基本的Webpack配置文件</h1>
+
+<pre><code class="language-js">
+const HtmlWebpackPlugin = require(&quot;html-webpack-plugin&quot;); //模版生成文件
+const path = require(&quot;path&quot;);
+const ExtractTextPlugin = require(&quot;extract-text-webpack-plugin&quot;);
+const BabiliPlugin = require('babili-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
+var HappyPack = require('happypack');
+
+
+const PATHS = {
+	app: path.join(__dirname,&quot;app&quot;),
+	dist: path.join(__dirname,&quot;dist&quot;)
+}
+
+const plugin = new ExtractTextPlugin({
+	filename: 'css/[name].optimize.css',
+	ignoreOrder: true
+})
+
+module.exports = {
+    devServer: {
+        host: process.env.HOST, // Defaults to `localhost`
+        port: 80, // Defaults to 8080
+        overlay: {
+            errors: true,
+            warnings: true,
+        },
+    }, //网页显示错误 端口设置
+	entry: {
+		app: PATHS.app+&quot;/js&quot;,
+	},
+	output :{
+		path: PATHS.dist,
+		filename: &quot;js/[name].js&quot;
+	},
+	plugins: [
+		new HtmlWebpackPlugin({
+			title: &quot;webpack demo&quot;,
+			tmplete: &quot;app/view/templete.html&quot;
+		}),
+        plugin,
+        new BabiliPlugin(), //js压缩
+        new OptimizeCssAssetsPlugin({
+            assetNameRegExp: /\.optimize\.css$/g,
+            cssProcessor: require('cssnano'),
+            cssProcessorOptions: { discardComments: {removeAll: true } },
+            canPrint: true
+        }), //css压缩
+        new HappyPack({
+            loaders: [ 'babel-loader?presets[]=es2015' ],
+        })
+	],
+	module:{
+		rules:[
+			{
+                test: /\.js$/,
+                loader:'happypack/loader',
+                 include: path.join(__dirname, &quot;/app/js&quot;),
+                 exclude: path.join(__dirname, &quot;/node_modules&quot;), //加快编译速度
+			},
+			{
+				test:/\.css$/,
+                include: path.join(__dirname, &quot;/app/css&quot;),
+                exclude: path.join(__dirname, &quot;/node_modules&quot;), //加快编译速度
+				use: plugin.extract({
+                    fallback: &quot;style-loader&quot;, //在这里指定styleLoader 不要在use中
+                    use: [{
+                        loader: 'css-loader',
+                        query:{
+                            importLoaders : 1,
+                            moudle:true
+                        }
+                    },'postcss-loader'],
+				})
+			},
+            {
+                test: /\.less$/,
+                include: path.join(__dirname, &quot;/app/css&quot;),
+                exclude: path.join(__dirname, &quot;/node_modules&quot;), //加快编译速度
+                use: plugin.extract({
+                    fallback: &quot;style-loader&quot;, //在这里指定styleLoader 不要在use中
+                    use: [{
+                        loader: &quot;css-loader&quot; // translates CSS into CommonJS
+                    }, 'postcss-loader',{
+                        loader: &quot;less-loader&quot; // compiles Less to CSS
+                    }]
+                })
+            },
+            {
+                test:/\.(png|jpg|jpeg|gif|svg)$/,
+                include: path.join(__dirname, &quot;/app/img&quot;),
+                exclude: path.join(__dirname, &quot;/node_modules&quot;), //加快编译速度
+                use: 'url-loader?limit=8192&amp;name=../images/[name].[ext]?[hash]'
+            }
+		]
+	},
+}
+
+</code></pre>
+
+<p>以上的配置是根据我自己的喜好和需求来进行的，并且我创建的两份，一份是上面的完整版，另一分删除了文件压缩功能，以求更方便的代码调试和快速的打包过程。</p>
+
+<h1 id="功能">功能</h1>
+
+<p>我以我的这份配置来简单讲述一下webpack的功能</p>
+
+<h2 id="入口">入口</h2>
+
+<p>webpack既然是一个打包工具，就需要一个入口，从这个入口顺藤摸瓜，找到所有用到的资源。可以配置多个入口</p>
+
+<pre><code>entry: {
+    app: PATHS.app+&quot;/js&quot;,
+},
+</code></pre>
+
+<h2 id="输出">输出</h2>
+
+<pre><code>output :{
+        path: PATHS.dist,
+        filename: &quot;js/[name].js&quot;
+},
+</code></pre>
+
+<p>在设置了path之后，之后所有导出的东西都将会以这个为基础目录。
+如果要设置下输出路径，需要在具体loader的filename设置</p>
+
+<h2 id="loader">loader</h2>
+
+<p>loader是Webpack中一个核心的概念，我对它的理解就是给不同类型的文件做不同的处理，那么处理的工具就是Loader, 比如babel-loader就可以用来处理es6, less-loader可以处理less。</p>
+
+<h2 id="plugin">plugin</h2>
+
+<p>插件赋予了webpack更多更强大的功能，例如代码压缩，性能优化，自动生成HTML文件。</p>
+
+<p>以上就是webpack配置文件的基本组成</p>
+
+<h1 id="常用启动参数">常用启动参数</h1>
+
+<p>这方面我利用了npm的package.json来快速启动。
+简述下基本用途</p>
+
+<pre><code class="language-js">
+ &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot;, &amp;&amp; exit 1&quot;,
+    &quot;build&quot;: &quot;webpack --env production --config webpack.config.pro.js&quot;,
+    &quot;start&quot;: &quot;webpack-dev-server --env development  --config webpack.config.dev.js&quot;,
+    &quot;status&quot;: &quot;webpack --env production --config webpack.config.dev.js --profile --json &gt; stats.json&quot;
+  },
+
+</code></pre>
+
+<ul>
+<li>build 用于文件的最终打包，生产环境，webpack.config.pro.js中有完整的打包，类似代码的压缩</li>
+<li>start 用于工程的调试，开发环境，尽量以方便调试和快速打包为目的，利用WDS实现修改文件热刷新</li>
+<li>status 用于生成打包json文件，可以用来进行可视化分析</li>
+</ul>
+
+<h1 id="install-package">install package</h1>
+
+<pre><code class="language-js">
+&quot;devDependencies&quot;: {
+    &quot;autoprefixer&quot;: &quot;^7.1.2&quot;,
+    &quot;babel-core&quot;: &quot;^6.25.0&quot;,
+    &quot;babel-loader&quot;: &quot;^7.1.1&quot;,
+    &quot;babel-preset-es2015&quot;: &quot;^6.24.1&quot;,
+    &quot;babili-webpack-plugin&quot;: &quot;^0.1.2&quot;,
+    &quot;css-loader&quot;: &quot;^0.28.4&quot;,
+    &quot;eslint-loader&quot;: &quot;^1.9.0&quot;,
+    &quot;extract-text-webpack-plugin&quot;: &quot;^3.0.0&quot;,
+    &quot;file-loader&quot;: &quot;^0.11.2&quot;,
+    &quot;happypack&quot;: &quot;^4.0.0-beta.1&quot;,
+    &quot;html-webpack-plugin&quot;: &quot;^2.30.1&quot;,
+    &quot;less&quot;: &quot;^2.7.2&quot;,
+    &quot;less-loader&quot;: &quot;^4.0.5&quot;,
+    &quot;optimize-css-assets-webpack-plugin&quot;: &quot;^3.0.0&quot;,
+    &quot;postcss-loader&quot;: &quot;^2.0.6&quot;,
+    &quot;style-loader&quot;: &quot;^0.18.2&quot;,
+    &quot;url-loader&quot;: &quot;^0.5.9&quot;,
+    &quot;webpack&quot;: &quot;^3.4.1&quot;,
+    &quot;webpack-dev-server&quot;: &quot;^2.6.1&quot;
+  }
+
+</code></pre>
+
+<h1 id="功能及用到的package">功能及用到的package</h1>
+
+<p>具体的用法可以参考官方文档或者我的config，</p>
+
+<ul>
+<li>dev下自动热刷新    webpack-dev-server</li>
+<li>less处理    less-loader</li>
+<li>es6编译打包    babel-loader</li>
+<li>样式文件处理（经lessloader编译后）   style-loader 和 css-loader</li>
+<li>css压缩    optimize-css-assets-webpack-plugin</li>
+<li>将嵌入到js中的文件剥离为独立的css文件   extract-text-webpack-plugin</li>
+<li>打包多线程优化   happypack</li>
+<li>自动生成HTML文件并自动引入资源   html-webpack-plugin</li>
+<li>css自动加兼容性前缀   postcss-loader</li>
+<li>图片处理小图&gt;base64 大图src url-loader file-loader</li>
+</ul>
+
+<p>多页面可以再入口中设置多个入口</p>
+
+<h2 id="一些比较高级的用法">一些比较高级的用法</h2>
+
+<pre><code>模块热加载
+
+多页面配置
+
+利用模版语法让生成的HTML变得更加只能，比如访问当前页面的name并导入不同的script css
+</code></pre>
+
+<h1 id="总结">总结</h1>
+
+<p>Webpack与gulp相比能做的事情有些类似，但是webpack毫无疑问是更加贴近实际的需求的，gulp机械感会更强一些。而webpack它更像是一个从前端流程角度去思考问题解决问题的工具。</p>
+
+<p>DEMO地址
+<a href="https://github.com/zhangzhengyi12/WebpackDemo">https://github.com/zhangzhengyi12/WebpackDemo</a></p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201707/%E4%BD%BF%E7%94%A8promise%E6%9D%A5%E6%94%B9%E5%86%99node%E4%BC%A0%E7%BB%9F%E7%9A%84%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/" data-toggle="tooltip" data-placement="top" title="改写Node.js中的回调为Promise">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/201710/%E5%AF%B9dom%E6%A0%B7%E5%BC%8F%E6%93%8D%E4%BD%9C%E6%B5%8F%E8%A7%88%E5%99%A8%E5%89%8D%E7%BC%80%E5%81%9A%E6%8A%BD%E8%B1%A1%E5%8C%85%E8%A3%85/" data-toggle="tooltip" data-placement="top" title="对DOM样式操作浏览器前缀做抽象包装">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2020
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+</body>
+</html>

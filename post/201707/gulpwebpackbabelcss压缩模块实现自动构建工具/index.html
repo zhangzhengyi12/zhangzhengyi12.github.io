@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="gulp&#43;webpack&#43;babel&#43;css压缩模块 实现自动构建工具" />
+    <meta property="og:title" content="gulp&#43;webpack&#43;babel&#43;css压缩模块 实现自动构建工具" />
+    <meta property="twitter:title" content="gulp&#43;webpack&#43;babel&#43;css压缩模块 实现自动构建工具" />
+    
+
+    
+    <meta name="description" content="Wubba lubba dub dub">
+    <meta property="og:description" content="Wubba lubba dub dub" />
+    <meta property="twitter:description" content="Wubba lubba dub dub" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>gulp&#43;webpack&#43;babel&#43;css压缩模块 实现自动构建工具-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201707/gulpwebpackbabelcss%E5%8E%8B%E7%BC%A9%E6%A8%A1%E5%9D%97%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/web" title="Web">
+                            Web
+                        </a>
+                        
+                    </div>
+                    <h1>gulp&#43;webpack&#43;babel&#43;css压缩模块 实现自动构建工具</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Friday, November 24, 2017
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li><a href="#第一步-环境搭建流程">第一步 环境搭建流程</a>
+<ul>
+<li><a href="#创建工程目录">创建工程目录</a></li>
+<li><a href="#express基本搭建">express基本搭建</a></li>
+<li><a href="#建立解析脚本目录">建立解析脚本目录</a></li>
+<li><a href="#创建主目录的pkg-json">创建主目录的pkg.json</a></li>
+</ul></li>
+<li><a href="#第二步-编写配置文件">第二步 编写配置文件</a></li>
+</ul>
+</nav>
+                
+                
+
+<h1 id="第一步-环境搭建流程">第一步 环境搭建流程</h1>
+
+<p>以下均按照流程</p>
+
+<h2 id="创建工程目录">创建工程目录</h2>
+
+<pre><code>	C:.
+	├─.idea
+	├─app  //开发目录
+	│  ├─.idea
+	│  ├─css
+	│  ├─doc
+	│  ├─img
+	│  ├─js
+	│  │  └─vendor
+	│  └─views
+	├─server //展示引擎目录
+	└─tasks //任务中心
+</code></pre>
+
+<h2 id="express基本搭建">express基本搭建</h2>
+
+<p>express是一个基于node.js的应用框架</p>
+
+<p>在sever下运行以下命令</p>
+
+<pre><code>	npm install -g express-generator    #安装express命令行工具
+
+	express -e .    #生成标准文件
+
+	npm install     #安装模块库（依赖package.json）
+</code></pre>
+
+<h2 id="建立解析脚本目录">建立解析脚本目录</h2>
+
+<pre><code>	C:\Users\zhang\WebstormProjects\ES6\tasks
+	λ mkdir util
+	
+	C:\Users\zhang\WebstormProjects\ES6\tasks
+	λ cd util
+	
+	C:\Users\zhang\WebstormProjects\ES6\tasks\util
+	λ touch args.js
+
+</code></pre>
+
+<h2 id="创建主目录的pkg-json">创建主目录的pkg.json</h2>
+
+<pre><code>	C:\Users\zhang\WebstormProjects\ES6
+	λ npm init
+	
+	C:\Users\zhang\WebstormProjects\ES6  (es6@1.0.0)
+	λ touch .babelrc
+	
+	C:\Users\zhang\WebstormProjects\ES6  (es6@1.0.0)
+	λ touch gulpfile.babel.js
+
+</code></pre>
+
+<p>到现在为止基本的工程目录已经完成 剩下的就是编码的过程，让整个自动化过程跑起来。</p>
+
+<h1 id="第二步-编写配置文件">第二步 编写配置文件</h1>
+
+<p>中间省略很多 具体的配置文件在DEMO中会展示，这里就不贴了</p>
+
+<p>为了更好的理解gulp,我尝试分析一下gulp的运行过程已经文件的作用，首先看一下现在tasks的目录结构和具体作用</p>
+
+<pre><code class="language-js">
+
+
+&lt;ES6&gt;
+├.babelrc  #babel的配置文件 用于编译js
+├gulpfile.babel.js #gulp的第一入口
+├package.json&gt;
+├&lt;server&gt;
+│  ├app.js
+│  ├package.json
+│  ├&lt;bin&gt;
+│  ├&lt;node_modules&gt;
+│  ├&lt;public&gt;
+│  ├&lt;routes&gt;
+│  └&lt;views&gt;
+├&lt;tasks&gt;
+│  ├browser.js #监听app下的文件改动，并调用刷新
+│  ├build.js #gulp的第三入口 调用所有的文件
+│  ├clean.js #用于删除目录
+│  ├css.js  #用于移动css到public
+│  ├default.js #gulp的第二入口 调用build
+│  ├pages.js  #用于重新移动到public和进行刷新
+│  ├scripts.js #编译js 移动 并刷新
+│  ├server.js #开启服务器 并监听文件改动
+│  ├&lt;util&gt;
+		args.js #保存我们gulp时添加的参数
+
+
+</code></pre>
+
+<p><img src="http://i4.piimg.com/1949/06a2c96881c8e06e.png" alt="Markdown" /></p>
+
+<p>要理解流的概念，文件是一种流，它可以被做各种处理，</p>
+
+<p>注意的是gulp的dest移动某些文件是<strong>连带父级目录</strong>的 千万注意！</p>
+
+<p>第二要注意的是 如果你的gulp使用了ES6的模块语法 就必须要把入口文件gulpfile.js 改成gulpfile.babel.js 这样gulp就知道你这个用了ES6 他就会去调用babel先编译你的js</p>
+
+<p>第三</p>
+
+<p>app.use(express.static(path.join(__dirname, &lsquo;public&rsquo;)));的意思是所有静态文件的请求都会加上app.js的路径 加上 public ，所以/css/xx.css 的请求才会被正确返回</p>
+
+<p>第四</p>
+
+<p>当你合并文件并压缩的时候 会丢失那个附带的父文件夹</p>
+
+<p>第五</p>
+
+<p>如果有两个以上的监听任务需要放置到gulp-seq的参数数组内部，不能单独存放，后面的会无法运行</p>
+
+<pre><code>gulp.task(&quot;build&quot;,gulpSequence(&quot;clean&quot;,&quot;pages&quot;,&quot;css&quot;,&quot;img&quot;,&quot;script&quot;,[&quot;server&quot;,&quot;browser&quot;]))
+</code></pre>
+
+<p>这里server其实是监听server目录和启动expres的地方 browser监听app目录 所以需要放置到同一个数组内 并且位置一定要在最后</p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201711/js%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%B8%B8%E7%94%A8%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/" data-toggle="tooltip" data-placement="top" title="Javascript 中的函数式编程">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/201706/ecmascript6%E5%85%A5%E9%97%A8/" data-toggle="tooltip" data-placement="top" title="ECMAScript6 入门">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2020
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+</body>
+</html>

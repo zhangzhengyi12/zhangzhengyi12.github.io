@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vue.js on Yinode Blog</title>
+    <link>https://zhaohuabing.com/tags/vue.js/</link>
+    <description>Recent content in Vue.js on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 11 Jan 2019 22:59:32 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhaohuabing.com/tags/vue.js/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>让 Vue.js 中的 provide / inject 支持响应式</title>
+      <link>https://zhaohuabing.com/post/201901/%E8%AE%A9vue.js%E4%B8%AD%E7%9A%84provideinject%E6%94%AF%E6%8C%81%E5%93%8D%E5%BA%94%E5%BC%8F/</link>
+      <pubDate>Fri, 11 Jan 2019 22:59:32 +0000</pubDate>
+      
+      <guid>https://zhaohuabing.com/post/201901/%E8%AE%A9vue.js%E4%B8%AD%E7%9A%84provideinject%E6%94%AF%E6%8C%81%E5%93%8D%E5%BA%94%E5%BC%8F/</guid>
+      <description>provide / inject provide / inject Vue.js 2.2.0 版本后新增的 API. 还发出了这样的警告provide 和 inject 主要为高阶插件/组件库提供用例。并不推荐直接用于应用程序代码中。 provide 和 inject 绑定</description>
+    </item>
+    
+    <item>
+      <title>Vue.js源码 阅读引导</title>
+      <link>https://zhaohuabing.com/post/201901/vue.js%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E6%8C%87%E5%8D%97/</link>
+      <pubDate>Fri, 04 Jan 2019 05:36:09 +0000</pubDate>
+      
+      <guid>https://zhaohuabing.com/post/201901/vue.js%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E6%8C%87%E5%8D%97/</guid>
+      <description>前言 最近一直在看 Vue.js 源码，大约花了半个多月的时间阅读，有非常多的感悟，所以在这里希望能和大家分享一下我的成果。 首先我认为 Vue.js 这种牛逼框架的源码绝</description>
+    </item>
+    
+    <item>
+      <title>Vue源码中编程技巧记录</title>
+      <link>https://zhaohuabing.com/post/201812/vue%E6%BA%90%E7%A0%81%E4%B8%AD%E7%BC%96%E7%A8%8B%E6%89%8B%E6%B3%95/</link>
+      <pubDate>Wed, 19 Dec 2018 23:34:45 +0000</pubDate>
+      
+      <guid>https://zhaohuabing.com/post/201812/vue%E6%BA%90%E7%A0%81%E4%B8%AD%E7%BC%96%E7%A8%8B%E6%89%8B%E6%B3%95/</guid>
+      <description>记录下我在阅读过程，觉得非常有学习的必要，非常好的东西。 操作对象属性的引用 &amp;lt;性能-可读性&amp;gt; exp function name(vm) { let data = vm.$options.data // 接下来需要读取dat</description>
+    </item>
+    
+    <item>
+      <title>贡献你的力量 开发一个Vue组件并发布到npm</title>
+      <link>https://zhaohuabing.com/post/201810/%E8%B4%A1%E7%8C%AE%E4%BD%A0%E7%9A%84%E5%8A%9B%E9%87%8F%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AAvue%E7%BB%84%E4%BB%B6%E5%B9%B6%E5%8F%91%E5%B8%83%E5%88%B0npm/</link>
+      <pubDate>Sun, 28 Oct 2018 22:40:02 +0000</pubDate>
+      
+      <guid>https://zhaohuabing.com/post/201810/%E8%B4%A1%E7%8C%AE%E4%BD%A0%E7%9A%84%E5%8A%9B%E9%87%8F%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AAvue%E7%BB%84%E4%BB%B6%E5%B9%B6%E5%8F%91%E5%B8%83%E5%88%B0npm/</guid>
+      <description>最近在工作中写了一个面向 PC 端的 Vue 滚动组件，关于 PC 端的滚动组件以前也用过一些，但是没有找到特别满意的，所以自己想着把这个组件开源发布出去，希望</description>
+    </item>
+    
+    <item>
+      <title>Vue.js slot 初探</title>
+      <link>https://zhaohuabing.com/post/201709/vueslot%E4%BD%BF%E7%94%A8%E5%A6%82%E4%BD%95%E5%AF%B9%E5%85%B6%E8%BF%9B%E8%A1%8C%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C/</link>
+      <pubDate>Fri, 24 Nov 2017 05:27:33 +0000</pubDate>
+      
+      <guid>https://zhaohuabing.com/post/201709/vueslot%E4%BD%BF%E7%94%A8%E5%A6%82%E4%BD%95%E5%AF%B9%E5%85%B6%E8%BF%9B%E8%A1%8C%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C/</guid>
+      <description>假设你拥有父组件A,子轮播图组件B，你想在用A中使用B， 假设你使用slot对其进行模板的传递 &amp;lt;div class=&amp;quot;slider-wrapper&amp;quot;&amp;gt; &amp;lt;slider&amp;gt; &amp;lt;div v-for=&amp;quot;item of slider&amp;quot;&amp;gt; &amp;lt;a href=&amp;quot;&amp;quot;&amp;gt;&amp;lt;img :src=&amp;quot;item.pic&amp;quot; alt=&amp;quot;&amp;quot;&amp;gt;&amp;lt;/a&amp;gt; &amp;lt;/div&amp;gt; // slot &amp;lt;/slider&amp;gt; &amp;lt;/div&amp;gt; // 但是轮播必然牵</description>
+    </item>
+    
+    <item>
+      <title>Vue.js TODO APP</title>
+      <link>https://zhaohuabing.com/post/201708/%E7%94%A8vue%E5%86%99%E4%B8%AA%E7%A7%BB%E5%8A%A8%E7%AB%AF%E7%9A%84todoapp/</link>
+      <pubDate>Fri, 24 Nov 2017 05:27:33 +0000</pubDate>
+      
+      <guid>https://zhaohuabing.com/post/201708/%E7%94%A8vue%E5%86%99%E4%B8%AA%E7%A7%BB%E5%8A%A8%E7%AB%AF%E7%9A%84todoapp/</guid>
+      <description>展示 为了更好的学习vue，所以找个一个todoList的渲染图，动手制作一个todoApp。因为渲染图是纯移动端的，所以我的布局逻辑优化都是</description>
+    </item>
+    
+    <item>
+      <title>我的Webpack实战</title>
+      <link>https://zhaohuabing.com/post/201708/%E6%88%91%E7%9A%84webpack%E5%AE%9E%E6%88%98/</link>
+      <pubDate>Fri, 24 Nov 2017 05:27:33 +0000</pubDate>
+      
+      <guid>https://zhaohuabing.com/post/201708/%E6%88%91%E7%9A%84webpack%E5%AE%9E%E6%88%98/</guid>
+      <description>关于Webpack Webpack 是一个前端资源加载/打包工具。 它将根据模块的依赖关系进行静态分析，然后将这些模块按照指定的规则生成对应的静态资源。 一份基</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>前端工程化 on Yinode Blog</title>
+    <link>https://zhaohuabing.com/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/</link>
+    <description>Recent content in 前端工程化 on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 09 Jul 2019 18:54:46 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhaohuabing.com/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>构建一个用于创建组件库的项目脚手架工具 [类 Vue-cli-3]</title>
+      <link>https://zhaohuabing.com/post/201907/%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%94%A8%E4%BA%8E%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6%E5%BA%93%E7%9A%84%E9%A1%B9%E7%9B%AE%E8%84%9A%E6%89%8B%E6%9E%B6%E5%B7%A5%E5%85%B7%E7%B1%BBvuecli3/</link>
+      <pubDate>Tue, 09 Jul 2019 18:54:46 +0000</pubDate>
+      
+      <guid>https://zhaohuabing.com/post/201907/%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%94%A8%E4%BA%8E%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6%E5%BA%93%E7%9A%84%E9%A1%B9%E7%9B%AE%E8%84%9A%E6%89%8B%E6%9E%B6%E5%B7%A5%E5%85%B7%E7%B1%BBvuecli3/</guid>
+      <description>缘起 最近公司内部想搭建一个私有的 npm 仓库，用于将平时用到次数相当频繁的工具或者组件独立出来，方便单独管理，随着项目的规模变大，数量变多，单纯的</description>
+    </item>
+    
+  </channel>
+</rss>

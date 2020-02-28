@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PWA on Yinode Blog</title>
+    <link>https://zhaohuabing.com/tags/pwa/</link>
+    <description>Recent content in PWA on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 10 Jan 2018 00:33:58 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhaohuabing.com/tags/pwa/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>转制一个Todo App 为 PWA 应用</title>
+      <link>https://zhaohuabing.com/post/201801/%E8%BD%AC%E5%88%B6%E4%B8%80%E4%B8%AAtodoapp%E4%B8%BApwa%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Wed, 10 Jan 2018 00:33:58 +0000</pubDate>
+      
+      <guid>https://zhaohuabing.com/post/201801/%E8%BD%AC%E5%88%B6%E4%B8%80%E4%B8%AAtodoapp%E4%B8%BApwa%E5%BA%94%E7%94%A8/</guid>
+      <description>What is PWA? PWA全称Progress Web Application，也就是渐进式web应用，是由Google在2015年就提出的概念。它本质上是一个普</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="为React-native添加redux" />
+    <meta property="og:title" content="为React-native添加redux" />
+    <meta property="twitter:title" content="为React-native添加redux" />
+    
+
+    
+    <meta name="description" content="Wubba lubba dub dub">
+    <meta property="og:description" content="Wubba lubba dub dub" />
+    <meta property="twitter:description" content="Wubba lubba dub dub" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>为React-native添加redux-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201802/%E4%B8%BAreactnative%E6%B7%BB%E5%8A%A0redux/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/reactnative" title="ReactNative">
+                            ReactNative
+                        </a>
+                        
+                    </div>
+                    <h1>为React-native添加redux</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Monday, February 26, 2018
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#step-1-安装依赖">step 1 安装依赖</a></li>
+<li><a href="#step-2-开启-actions">step 2 开启 actions</a></li>
+<li><a href="#step-3-建立-reducer">step 3 建立 reducer</a></li>
+<li><a href="#step-4-建立-store">step 4 建立 store</a></li>
+<li><a href="#step-5-使用">step 5 使用</a></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<p>其实在网上随便一搜索 react 加 redux 的可以说特别的多，但是为 React-native 加的还真的很少，所以我在实践完成之后就打算记录一下在 RN 中如何启用 redux，其实和 React 的用法差别还真是不小。</p>
+
+<h2 id="step-1-安装依赖">step 1 安装依赖</h2>
+
+<p>主要的依赖有三个</p>
+
+<p>最后的那个 logger 其实是一个打印的模块，不然 debug 起来要配置一些东西，挺麻烦的。用了这个就能在控制台进行 debug。</p>
+
+<blockquote>
+<p>npm i react-redux redux redux-logger &ndash;save</p>
+</blockquote>
+
+<p>首先找个你喜欢的地方创建一个 <code>redux</code> 文件夹</p>
+
+<p>ps: 不要使用 cnpm 命令</p>
+
+<h2 id="step-2-开启-actions">step 2 开启 actions</h2>
+
+<p>actions 实质上的主要功能就是提供一个统一的对象交由给 reducer 进行统一处理。</p>
+
+<p>创建一个<code>actions</code>文件夹，内部建立一个<code>actions.js</code>文件</p>
+
+<pre><code class="language-js">import * as types from './types'
+
+const openBook = book =&gt; ({ type: types.OPEN_BOOK, book })
+
+export { openBook }
+</code></pre>
+
+<p>至于这个 <code>types</code> 文件我想就不需要我贴出来了吧，要注意的是你的 actions 函数应该接受一些新的状态，随后返回一个对象,它必须拥有 type 属性。</p>
+
+<h2 id="step-3-建立-reducer">step 3 建立 reducer</h2>
+
+<p>reducer 本身的角色有点像是核心处理者，他通过接收的 actios 对象的 type 来断定需要用何种方式处理</p>
+
+<p>在<code>redux</code> 目录下建立一个 reducers 文件夹，并建立一个 <code>reducer.js</code> 文件</p>
+
+<pre><code class="language-js">import { combineReducers } from 'redux'
+import { openBook } from '../actions/actions'
+import * as types from '../actions/types'
+// 原始默认state
+
+const initState = {
+  //某些初始化的东西
+  book: {},
+  books: []
+}
+
+// 按照type调用不同的处理函数，返回一个新的state并更新
+function dadaBook(state = initState, action) {
+  switch (action.type) {
+    case types.OPEN_BOOK:
+      return openBook(state, action)
+    default:
+      return state
+  }
+}
+
+// 实质上的处理函数，返回一个全新的state对象
+function openBook(state, action) {
+  return Object.assigin({}, state, { book: action.book })
+}
+
+export default combineReducers({
+  dadaBook
+})
+</code></pre>
+
+<p>在这里我推荐相应的处理函数都导出到另外一个单独的文件，有助于阅读。</p>
+
+<h2 id="step-4-建立-store">step 4 建立 store</h2>
+
+<p>在你的<code>redux</code> 文件夹下建立一个 <code>store</code>文件夹 ，内部创建一个 store 文件。</p>
+
+<pre><code class="language-js">import { createStore, applyMiddleware, compose } from 'redux'
+import createLogger from 'redux-logger'
+import rootReducer from '../reducers/reducers'
+
+const configureStore = preloadedState =&gt; {
+  return createStore(rootReducer, preloadedState, compose(applyMiddleware(createLogger)))
+}
+
+const store = configureStore()
+
+export default store
+</code></pre>
+
+<p>redux 的基本结构我们已经建立完成，接下来就需要在组件系统中使用它了。</p>
+
+<h2 id="step-5-使用">step 5 使用</h2>
+
+<p>首先让我们在 app.js 中全局导入这个 store</p>
+
+<pre><code class="language-js">import { Provider } from 'react-redux'
+import store from './redux/store/store'
+
+export default class App extends React.Component {
+  render() {
+    return (
+      &lt;Provider store={store}&gt;
+        &lt;RootStack /&gt;
+      &lt;/Provider&gt;
+    )
+  }
+}
+</code></pre>
+
+<p>最后我们需要在需要使用这个 redux 的组件中这样做。</p>
+
+<pre><code class="language-js">import { connect } from 'react-redux'
+import { openBook } from '../../redux/actions/actions'
+// 导入actions函数
+
+class aComponent extends Component {
+  // ...
+  componentDidMount() {
+    console.log(this.props.book)
+  }
+  _changeBook(book) {
+    this.dispath(openBook(book))
+  }
+}
+
+const mapStateToProps = state =&gt; ({
+  book: state.dadaBook.currentBook
+})
+// 把组件的状态与store对应起来
+// ps:中间不要忘了加上reducer函数的名字，他将会返回给你最新的state对象
+
+export default connect(mapStateToProps)(aComponent)
+</code></pre>
+
+<p>到这里你的 redux 应该已经可以正常运作了，并在更新 store 的时候还可以在控制台中显示前后差异</p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201802/%E5%88%A9%E7%94%A8git%E7%9A%84submodule%E5%AD%90%E6%A8%A1%E5%9D%97%E6%9D%A5%E7%AE%A1%E7%90%86%E9%A1%B9%E7%9B%AE/" data-toggle="tooltip" data-placement="top" title="利用git的submodule(子模块) 来管理项目">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/201804/%E4%BD%BF%E7%94%A8react%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91chrome%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F/" data-toggle="tooltip" data-placement="top" title="使用React快速开发Chrome扩展程序">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2020
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+</body>
+</html>

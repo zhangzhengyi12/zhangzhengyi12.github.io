@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="利用require组件化开发侧边栏和轮播图" />
+    <meta property="og:title" content="利用require组件化开发侧边栏和轮播图" />
+    <meta property="twitter:title" content="利用require组件化开发侧边栏和轮播图" />
+    
+
+    
+    <meta name="description" content="Wubba lubba dub dub">
+    <meta property="og:description" content="Wubba lubba dub dub" />
+    <meta property="twitter:description" content="Wubba lubba dub dub" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>利用require组件化开发侧边栏和轮播图-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201706/%E5%88%A9%E7%94%A8require%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91%E4%BE%A7%E8%BE%B9%E6%A0%8F%E5%92%8C%E8%BD%AE%E6%92%AD%E5%9B%BE/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/web" title="Web">
+                            Web
+                        </a>
+                        
+                    </div>
+                    <h1>利用require组件化开发侧边栏和轮播图</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Friday, November 24, 2017
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li><a href="#侧边栏插件">侧边栏插件</a></li>
+<li><a href="#轮播图">轮播图</a></li>
+</ul>
+</nav>
+                
+                
+
+<p>最近学习require趁热打铁写了两个非常常见的组件，一个是侧边栏的插件，一个是轮播图或者叫他选项卡。不得不说组件化开发非常的清晰，便于管理，特别是利用好抽象思想，整个代码结构会非常的清晰，易于理解和修改。</p>
+
+<p><img src="http://i1.piimg.com/596675/a9237117222949f9.gif" alt="Markdown" /></p>
+
+<p>我认为组件化最重要的就是一个思维问题。尽量把相关的事情抽象成一个方法。比如说状态比较少，像是侧边栏 只有开启和关闭。就可以抽象成visBox和hidBox两个方法。如果状态很多，像轮播图的状态一般有很多种。可以抽象成一个方法。通过传参数的方式来达到修改的目的。抽象是一种非常重要的能力，可以让复杂的东西变的有序简单。</p>
+
+<p>如果是一大串密密麻麻的代码 会非常难以后续增删代码。因为插入的位置成了一个很大的问题。也很难定位。</p>
+
+<p>另外是一个命名空间的问题。我都利用了组件名+_的方式 比如 <code>sbr_youname</code> CSS也是如此</p>
+
+<h1 id="侧边栏插件">侧边栏插件</h1>
+
+<p><img src="http://i1.piimg.com/596675/3b297eac5e0b8f69.gif" alt="Markdown" /></p>
+
+<pre><code>&lt;div id=&quot;sbr_sidebar&quot;&gt;
+        &lt;ul class=&quot;sbr_sidebarContent&quot;&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;列表1&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;列表2&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;列表3&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;列表4&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;列表5&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;列表6&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+
+//调用
+
+require([&quot;jquery&quot;,&quot;sbr&quot;],function ($,sbr) {
+
+    new sbr.sbr({
+        triggerBtnId:&quot;triggerBtn&quot;,
+        boxId:&quot;sbr_sidebar&quot;
+    }).on(&quot;visBox&quot;,function () {
+        console.log(&quot;vis&quot;);
+    }).on(&quot;hidBox&quot;,function () {
+        console.log(&quot;hid&quot;);
+    })
+
+})
+</code></pre>
+
+<p>整体比较简单，利用了jquery的动画来实现。普通状态让侧边栏 right:-300px 也就是在屏幕外 然后触发时候就变成0。并且可以指定按钮的ID和侧边栏盒子的ID。也实现了自定义事件。</p>
+
+<p>DEMO地址：<a href="https://github.com/zhangzhengyi12/require-sidebar">https://github.com/zhangzhengyi12/require-sidebar</a></p>
+
+<h1 id="轮播图">轮播图</h1>
+
+<pre><code>&lt;div class=&quot;js_tab tab&quot; id=&quot;thisMyTab&quot;&gt;
+            &lt;p style=&quot;color: #fff;font-size: 12px;&quot;&gt;切换方式：悬停 特效：淡入淡出 ：初始设定：4 自动播放：3秒 &lt;/p&gt;
+            &lt;ul class=&quot;tab_nav&quot;&gt;
+                &lt;li class=&quot;actived&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;新闻&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;娱乐&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;电影&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;科技&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;div class=&quot;content_wrap&quot;&gt;
+                &lt;div class=&quot;content_item current &quot;&gt;&lt;img src=&quot;img/a.jpg&quot; height=&quot;200&quot; width=&quot;290&quot;&gt;&lt;/div&gt;
+                &lt;div class=&quot;content_item&quot;&gt;&lt;img src=&quot;img/b.jpg&quot;  height=&quot;200&quot; width=&quot;290&quot;&gt;&lt;/div&gt;
+                &lt;div class=&quot;content_item&quot;&gt;&lt;img src=&quot;img/c.jpg&quot;  height=&quot;200&quot; width=&quot;290&quot;&gt;&lt;/div&gt;
+                &lt;div class=&quot;content_item&quot;&gt;&lt;img src=&quot;img/d.png&quot;  height=&quot;200&quot; width=&quot;290&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+//调用
+
+new js.jstab({
+    &quot;tabID&quot;:&quot;thisMyTab&quot;,
+    &quot;triggerType&quot;:&quot;mouseover&quot;,
+    &quot;effect&quot;:&quot;fade&quot;,
+    &quot;invoke&quot;:4,
+    &quot;auto&quot;:3000
+}).on(&quot;trigger&quot;,function () {
+    console.log(&quot;1&quot;);
+});
+</code></pre>
+
+<p>是重写之前的一个版本。也实现了自定义事件，支持一些常见的属性。</p>
+
+<p>DEMO地址：<a href="https://github.com/zhangzhengyi12/require-AdvTab">https://github.com/zhangzhengyi12/require-AdvTab</a></p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201710/%E5%AF%B9dom%E6%A0%B7%E5%BC%8F%E6%93%8D%E4%BD%9C%E6%B5%8F%E8%A7%88%E5%99%A8%E5%89%8D%E7%BC%80%E5%81%9A%E6%8A%BD%E8%B1%A1%E5%8C%85%E8%A3%85/" data-toggle="tooltip" data-placement="top" title="对DOM样式操作浏览器前缀做抽象包装">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/201706/%E5%88%A9%E7%94%A8ghpages%E5%B1%95%E7%A4%BA%E8%87%AA%E5%B7%B1%E7%9A%84demo/" data-toggle="tooltip" data-placement="top" title="利用gh-pages展示自己的DEMO">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2020
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+</body>
+</html>

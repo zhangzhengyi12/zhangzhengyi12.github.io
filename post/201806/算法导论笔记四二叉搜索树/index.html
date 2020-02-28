@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="算法导论笔记 四 二叉搜索树" />
+    <meta property="og:title" content="算法导论笔记 四 二叉搜索树" />
+    <meta property="twitter:title" content="算法导论笔记 四 二叉搜索树" />
+    
+
+    
+    <meta name="description" content="Wubba lubba dub dub">
+    <meta property="og:description" content="Wubba lubba dub dub" />
+    <meta property="twitter:description" content="Wubba lubba dub dub" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>算法导论笔记 四 二叉搜索树-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201806/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%9B%9B%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        <a class="tag" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        <a class="tag" href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                    </div>
+                    <h1>算法导论笔记 四 二叉搜索树</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Sunday, July 29, 2018
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#二叉树">二叉树</a></li>
+<li><a href="#二叉树的数据结构形式">二叉树的数据结构形式</a>
+<ul>
+<li><a href="#红黑树">红黑树</a>
+<ul>
+<li><a href="#红黑树的基本规则">红黑树的基本规则</a></li>
+<li><a href="#操作红黑树">操作红黑树</a></li>
+<li><a href="#红黑树的插入">红黑树的插入</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<h2 id="二叉树">二叉树</h2>
+
+<p>二叉树本身就是非常常见的一种数据结构了，对于这种数据结构当然有一些基本操作 增删改查最大最小等等，一个二叉树的的基本操作都和二叉树的高度成正比，如果一棵树为 AVL，即完全二叉树，那么他的时间成本就是<code>θ（logn）</code>，而一颗线性树则为<code>Θ（n^2）</code>，</p>
+
+<p>一颗完全二叉树的高度 h 应该是<code>logn + 1</code></p>
+
+<p>书中提到一个我以前没有注意到的特征，用比较来从一个数组建立一颗二叉树，如果你用中序遍历他，就能获得排序结果。</p>
+
+<p>以下是我的实现，其实完全没必要用 OOP</p>
+
+<pre><code class="language-js">// 单个节点
+class Node {
+  constructor(val) {
+    this.val = val
+    this.left = null
+    this.right = null
+  }
+}
+
+// 二叉树
+class Tree {
+  constructor() {
+    this.root = null
+  }
+  insert(node, root = this.root) {
+    if (root === null) {
+      this.root = node
+      return
+    }
+    if (node.val &lt;= root.val) {
+      if (root.left === null) {
+        root.left = node
+        return
+      } else {
+        this.insert(node, root.left)
+      }
+    }
+    if (node.val &gt; root.val) {
+      if (root.right === null) {
+        root.right = node
+        return
+      } else {
+        this.insert(node, root.right)
+      }
+    }
+  }
+}
+
+// 中序遍历二叉树
+const LDR = function(root) {
+  root.left &amp;&amp; LDR(root.left)
+  console.log(root.val)
+  root.right &amp;&amp; LDR(root.right)
+}
+
+const testArr = [5, 1, 66, 7, 89, 1, 2, 7, 4, 5, 1, 9, 2, 8]
+let tree = new Tree()
+
+testArr.forEach(i =&gt; tree.insert(new Node(i)))
+
+LDR(tree.root)
+</code></pre>
+
+<p>其实，这种二叉树的插入时间与快排十分相似，<code>Ω(nlgn)</code> <code>Θ(n^2)</code>，他本身非常依赖于插入元素的顺序，越乱的数组插入的越快，相反，最慢情况其实就是当数组已经排序完成，这时候你将会得到一个一直往一个方向发展的线性列表。</p>
+
+<p>那么为什么二叉树的排序和快排的性质如此接近呢？仔细思考就会发现，其实两者他们比较步骤是几乎一样的，只不过快排更倾向于将一个树和所有值相比较，而二叉树则是渐进式的。两者比较的步骤几乎相同，也会产生一颗一样的树，唯一的差别就是比较的顺序是不同的。</p>
+
+<p><em>故技重施</em></p>
+
+<p>既然我们已经了解了二叉树排序的基本性质，并且知道它本身和 quicksort 及其相似，那么我们就可以完全套用快速排序的增强方法来增强我们二叉树排序，没错，就是增加随机化机制，由于我们不能修改插入时的步骤，我们将会随机化元素的插入顺序，也就是每次从一个数组中随机取得一个值，并插入到二叉树之中。当然换个方式，先随机化排列一下原数组也是完全可以的。</p>
+
+<pre><code class="language-js">const testArr = [5, 1, 66, 7, 89, 1, 2, 7, 4, 5, 1, 9, 2, 8]
+let tree = new Tree()
+
+testArr.forEach(i =&gt; {
+  let index = parseInt(Math.random() * (testArr.length - 1))
+  let item = testArr.splice(index, 1)[0]
+  tree.insert(item)
+})
+
+LDR(tree.root)
+</code></pre>
+
+<p>我们不难发现，对于一颗 BST（binary search tree）而言，其最佳高度就是 logn（完全平衡二叉树），最差情况为根号 n。为了最高的搜索效率，一颗尽可能平衡的二叉树是我们的最佳选择。</p>
+
+<h2 id="二叉树的数据结构形式">二叉树的数据结构形式</h2>
+
+<p>其实已经出现了很多方法来构建一颗相对而言比较平衡的树形数据结构，从而获得 logn 的操作时间，比如说 AVL,他的方法就是在树的基础之上加上旋转算法来平衡化整个结构。而这次我们要了解的，是红黑树。</p>
+
+<h3 id="红黑树">红黑树</h3>
+
+<blockquote>
+<p>红黑树（英语：Red–black tree）是一种自平衡二叉查找树，是在计算机科学中用到的一种数据结构，典型的用途是实现关联数组。它是在 1972 年由鲁道夫·贝尔发明的，他称之为&rdquo;对称二叉 B 树&rdquo;，它现代的名字是在 Leo J. Guibas 和 Robert Sedgewick 于 1978 年写的一篇论文中获得的。它是复杂的，但它的操作有着良好的最坏情况运行时间，并且在实践中是高效的：它可以在 {\displaystyle {\text{O}}(\log n)} {\displaystyle {\text{O}}(\log n)}时间内做查找，插入和删除，这里的 {\displaystyle n} n 是树中元素的数目。- wiki</p>
+</blockquote>
+
+<p>所谓红黑树，就是他的节点是拥有颜色或者说类型的，红节点，黑节点。</p>
+
+<h4 id="红黑树的基本规则">红黑树的基本规则</h4>
+
+<ol>
+<li>节点是红色或黑色。</li>
+<li>根是黑色。</li>
+<li>所有叶子都是黑色（叶子是 NIL 节点）</li>
+<li>每个红色节点必须有两个黑色的子节点。（从每个叶子到根的所有路径上不能有两个连续的红色节点。）</li>
+<li>从任一节点到其每个叶子的所有简单路径都包含相同数目的黑色节点。</li>
+</ol>
+
+<p>让我们梳理一下，首先，所有的叶节点都是一个 null 指针，本身内容为空，但我们将它视为一个哨兵，并且其颜色为黑色。其次，所谓的从任一节点到叶节点过程中包含的黑色节点树我们称之为黑高（bh(x)）</p>
+
+<p>一颗红黑树的极限可能高度是<code>2logn(n + 1)</code>，也就是说相比于一颗真正意义上的完美二叉树，红黑树的最差高度也只可能是完美二叉树 log(n + 1)的两倍，看上去很不错。</p>
+
+<h4 id="操作红黑树">操作红黑树</h4>
+
+<p>其实一颗红黑树真正的难点就在于更新，插入，删除等操作，你的所有操作都必须维持上面的基本特性。一旦破坏他的基本特性，那么他就不能稳定给你带来<code>O(logn)</code>的操作时间。</p>
+
+<p>红黑树的基本操作可以被大致认为有三种</p>
+
+<ul>
+<li>上色</li>
+<li>给周围的节点重新上色</li>
+<li>旋转</li>
+</ul>
+
+<p>旋转拥有两种情况，左旋，右旋。</p>
+
+<blockquote>
+<p>左旋的准确定义：对节点 X 和他的的右子树进行左旋操作，使其 X 的右子节点成为 X 的父节点
+右旋的准确定义：对节点 X 和他的左子树进行右旋操作，使其 X 的左子节点成为 X 的父节点</p>
+</blockquote>
+
+<p>无论是左旋还是右旋，肯定是将进行旋转的节点和他的左右子树进行替换，把他换到下面去。</p>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/18-7-1/320593.jpg" alt="" /></p>
+
+<p>以上的图片有错误，本身情况 2 是为了情况 3 而服务的，只要进去情况 2 则肯定会进去情况 3，情况 2 做的操作目的是为了让他自身与祖父节点形成一条直线。
+以上就是左旋和右旋的基本逻辑，要注意观察的就是，旋转的目的在于保证 BST 基本性质不变的情况下能够去调换节点的位置。所以他在旋转过后其子节点左边小右边大的特性的保持不变的。</p>
+
+<h4 id="红黑树的插入">红黑树的插入</h4>
+
+<p>红黑树的最大的难点就在于，要维持性质，而维持性质就意味着我们需要不断的修改整颗树，修改就意味着进一步的破坏性质，为了达到最终的统一，我们需要将冲突不断的从下往上递交，直到递交到最终的根节点，以下是红黑树插入的伪代码</p>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/18-7-6/47305500.jpg" alt="" /></p>
+
+<p>case 4 5 6 与 123 正好相反</p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201806/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%9B%9B%E5%85%A8%E5%9F%9F%E5%93%88%E5%B8%8C%E5%92%8C%E5%AE%8C%E5%85%A8%E5%93%88%E5%B8%8C/" data-toggle="tooltip" data-placement="top" title="算法导论笔记 四 全域哈希和完全哈希">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/201806/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E4%B8%89%E4%B8%AD%E4%BD%8D%E6%95%B0%E4%B8%8E%E9%A1%BA%E5%BA%8F%E7%BB%9F%E8%AE%A1/" data-toggle="tooltip" data-placement="top" title="算法导论笔记 四 中位数与顺序统计">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2020
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+</body>
+</html>

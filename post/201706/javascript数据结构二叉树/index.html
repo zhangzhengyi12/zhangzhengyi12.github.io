@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="JavaScript数据结构 二叉树" />
+    <meta property="og:title" content="JavaScript数据结构 二叉树" />
+    <meta property="twitter:title" content="JavaScript数据结构 二叉树" />
+    
+
+    
+    <meta name="description" content="Wubba lubba dub dub">
+    <meta property="og:description" content="Wubba lubba dub dub" />
+    <meta property="twitter:description" content="Wubba lubba dub dub" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>JavaScript数据结构 二叉树-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201706/javascript%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BA%8C%E5%8F%89%E6%A0%91/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/web" title="Web">
+                            Web
+                        </a>
+                        
+                    </div>
+                    <h1>JavaScript数据结构 二叉树</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Friday, November 24, 2017
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li><a href="#javascript-二叉树">JavaScript 二叉树</a>
+<ul>
+<li><a href="#二叉树的创建">二叉树的创建</a></li>
+<li><a href="#二叉树的遍历">二叉树的遍历</a>
+<ul>
+<li><a href="#1-递归方式遍历">1.递归方式遍历</a></li>
+<li><a href="#2-栈堆方式遍历">2.栈堆方式遍历</a></li>
+</ul></li>
+<li><a href="#查找二叉树">查找二叉树</a></li>
+<li><a href="#二叉树的删除">二叉树的删除</a></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<h1 id="javascript-二叉树">JavaScript 二叉树</h1>
+
+<p>最近在学习一些数据结构方面的知识，稍作记录。</p>
+
+<h2 id="二叉树的创建">二叉树的创建</h2>
+
+<p>首先二叉树是一种树形的结构，那么他的特点就是每个构建树的节点最多只有两个子节点。他的效率非常之高，比如二分法查找他的路线就类似于一个二叉树。</p>
+
+<pre><code>function CreatTree() {
+
+    this.root = null;
+
+}//创建一个树
+
+CreatTree.prototype.CreatNode = function (data,l,r) {
+    //小心大小比较必须两个都是数字 如果是字符串永远为真
+    data = parseInt(data);
+    this.data = data;
+    this.right = r;
+    this.left = l;
+    this.show = show;
+    return this;
+} //创建一个节点
+
+function show() {
+    console.log(this.data);
+}//展示节点的数据
+var tree = new CreatTree();
+</code></pre>
+
+<p>首先，我们创建一个一个基本的工具代码，我们拥有了一棵树，以及节点的创建和展示方法。接下来我们要做的就是创建一个添加节点的方法。通常我们将值小、常用的值放在子left节点，值大、不常用的值放在子right。</p>
+
+<pre><code>CreatTree.prototype.addNode = function (data) {
+
+    //自动添加节点
+
+    var new_node = new this.CreatNode(data,null,null);
+
+    if(this.root === null){
+        this.root = new_node;
+        return;
+    }
+
+    //判断步骤
+
+    var curr_node = this.root;
+    //首先执行大小判断 沿着路线开始判断是否目标位置是否为空 插入 如果不为空，就进一步设置下个参照节点
+    while (curr_node){
+        // console.log(new_node.data &lt; curr_node.data);
+        if(new_node.data &lt;= curr_node.data){
+            if(curr_node.left === null){
+                curr_node.left = new_node;
+                break;
+            }else {
+                curr_node = curr_node.left;
+            }
+
+        }else if(new_node.data &gt; curr_node.data){
+            if(curr_node.right === null){
+                curr_node.right = new_node;
+                break;
+            }else {
+                curr_node = curr_node.right;
+            }
+
+        }
+
+    }
+
+}
+
+//开始添加
+tree.addNode(&quot;23&quot;);
+tree.addNode(&quot;45&quot;);
+tree.addNode(&quot;16&quot;);
+tree.addNode(&quot;1&quot;);
+tree.addNode(&quot;3&quot;);
+tree.addNode(&quot;99&quot;);
+</code></pre>
+
+<p>他的结构也很简单，按序挂载，对比与参照节点（最初是root节点）的大小关系(大于参照节点放在right,小于放在left)，如果参照节点left/right已经有了，那么就将参照节点更新，直到成功挂载为止。</p>
+
+<h2 id="二叉树的遍历">二叉树的遍历</h2>
+
+<p>二叉树的遍历方式主要有两种，一为利用递归函数，二为利用栈堆保存快照。
+这两种方式的行走路线是相同的。这两者方式其实都是利用了数据保存和回溯。可能堆栈的性能会更高占用的内存更少，但是递归函数更加简单明了</p>
+
+<h3 id="1-递归方式遍历">1.递归方式遍历</h3>
+
+<pre><code>function ergodicTree(node) {
+    if(node === null){
+        return
+    }
+    node.show();
+    ergodicTree(node.left);
+    ergodicTree(node.right);
+}
+// 遇到一个节点首先判断是不是不存在 接着打印他 然后进行递归调用
+
+ergodicTree(tree.root);
+</code></pre>
+
+<h3 id="2-栈堆方式遍历">2.栈堆方式遍历</h3>
+
+<pre><code> var inOrderUnRecur = function(node) {
+    if(!node) {
+        throw new Error('Empty Tree')
+    }
+    var stack = [] //stack存储器
+
+
+    while(stack.length !== 0 || node) {
+        if(node) {
+            stack.push(node)
+            node = node.left
+        } else {
+            node = stack.pop()
+            node.show();
+            node = node.right
+        }
+    }
+}
+</code></pre>
+
+<p>这个遍历函数可以被看作两部分操作。第一部分是一直向左走，直到走不通 不断将遇到的节点入栈。第二部分首先出栈检查他的子右节点是否存在，存在则调用第一部分。不存在则调用继续出栈。</p>
+
+<p>根据遍历时顺序的不同，可以被分为三种情况 分别为，前序遍历，中序遍历，后序遍历。实质上一个节点的被经过顺序正好有三次，比如有一个A节点，他第一次被访问是入栈前后 第二次访问出栈前 第三次访问是出栈后。所有只要正确的修改show()的放置位置就可以更改他的遍历顺序。但路线不变。</p>
+
+<h2 id="查找二叉树">查找二叉树</h2>
+
+<pre><code>//搜索对应值
+var search = function(sdata,tree) {
+
+    var currentNode = tree.root;
+    while(currentNode != null) {
+        if(sdata === currentNode.data){
+            return currentNode;
+        }else if(sdata &lt; currentNode.data){
+            currentNode = currentNode.left;
+        }else if(sdata &gt; currentNode.data){
+            currentNode = currentNode.right;
+        }
+    }
+
+    return null;
+}
+
+
+// 二叉树查找最小值
+function getMin(tree){
+    var current = tree.root;
+    while(!(current.left == null)) {
+        current = current.left;
+    }
+    return current.data;
+}
+
+// 二叉树上查找最大值
+function getMax(tree) {
+    var current = tree.root;
+    while(!(current.right == null)) {
+        current = current.right;
+    }
+    return current.data;
+}
+</code></pre>
+
+<h2 id="二叉树的删除">二叉树的删除</h2>
+
+<p>二叉树的删除操作会有四种基本情况。
+- 拥有一个左子节点
+- 拥有一个右子节点
+- 拥有两个子节点
+- 没有任何子节点</p>
+
+<p>相对而言，最简单的是没有子节点，我们只需要将他的父节点的指针指向null（在递归方式中就是递归底层返回一个null） 复杂一点的是拥有一个子节点，我们可以让他的父节点的指针指向他的子节点。</p>
+
+<p>更复杂的是拥有两个子节点，我们可以把相对复杂的问题简单化。（找到他右子树中的最小节点/找到他左子树的最大节点）将找到的这个节点替换到将被删除的节点。所以有两步，第一步是<strong>找到那个节点，然后替换将要删除节点</strong>。第二部是将原本的那个节点的父节点指向null。</p>
+
+<pre><code>function removeNode(root,data) {
+    var tmp;
+    rData = root.data;
+    if(data &lt; rData){
+        root.left = removeNode(root.left,data); //准备最后一层返回reutn
+    }else if(data &gt; rData){
+        root.right = removeNode(root.right,data)
+    }else {
+        if(root.right &amp;&amp; root.left){
+            tmp = getMin(root.right);
+            root.data = tmp;//替换内容 接下来就是递归删除那个tmp
+
+            root.right = removeNode(root.right,tmp.data);
+        } else {
+            if(!root.right){
+                root = root.left;
+            }else if(!root.left){
+                root = root.right
+            }
+        }//主体删除部分
+
+    }
+    // console.log(root.data);
+    return root;
+}
+</code></pre>
+
+<p>在这段代码之中，最底层的递归会返回一个对象 以供上一层的root.right来指向，要是没有任何子节点就会指向Null也就是被删除了。</p>
+
+<p>最近开始看一些Mooc，想提升一下自身的基础水平。对于数据结构这一课程，我认为难度还是比较高的。但是非常的重要，可以有效的提升自己的逻辑思维能力，以及理解能力。</p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201707/lol%E6%A8%A1%E6%8B%9F%E6%8A%BD%E5%A5%96/" data-toggle="tooltip" data-placement="top" title="LOL模拟抽奖">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/201707/javascript%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E5%BA%94%E7%94%A8/" data-toggle="tooltip" data-placement="top" title="Javascript 高阶函数">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2020
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+</body>
+</html>

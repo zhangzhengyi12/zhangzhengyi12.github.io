@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="算法导论笔记 动态规划番外篇 堆与优先队列" />
+    <meta property="og:title" content="算法导论笔记 动态规划番外篇 堆与优先队列" />
+    <meta property="twitter:title" content="算法导论笔记 动态规划番外篇 堆与优先队列" />
+    
+
+    
+    <meta name="description" content="Wubba lubba dub dub">
+    <meta property="og:description" content="Wubba lubba dub dub" />
+    <meta property="twitter:description" content="Wubba lubba dub dub" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>算法导论笔记 动态规划番外篇 堆与优先队列-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201809/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%95%AA%E5%A4%96%E7%AF%87%E5%A0%86%E4%B8%8E%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        <a class="tag" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        <a class="tag" href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                    </div>
+                    <h1>算法导论笔记 动态规划番外篇 堆与优先队列</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Saturday, September 8, 2018
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#堆">堆</a>
+<ul>
+<li><a href="#维持堆的特性">维持堆的特性</a></li>
+</ul></li>
+<li><a href="#优先队列">优先队列</a></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<p>最近在学习动态规划的时候发现非常需要优先队列的的基础，所以转而先学习一下优先队列算法。这里就找了比较通用的堆来入手了解优先队列。</p>
+
+<h2 id="堆">堆</h2>
+
+<p>首先这里的堆是指数据结构中的堆，和很多编程语言中的垃圾收集实现中的堆并不是一个概念。当然那个队也源自于这个数据结构中的堆。</p>
+
+<blockquote>
+<p>我们使用 A 来表示一个堆 他是一个数组，并且自身持有两个属性
+length = 代表整个堆的内容长度
+heap-size = 代表堆中的有效队列长度
+一般来说 一个队列中应该 0 &lt;= heap-size &lt;= length</p>
+</blockquote>
+
+<p><strong>一个堆的基本计算方法</strong></p>
+
+<blockquote>
+<p>假设我们需要计算的节点下标为 i 那么对应他的父节点 左节点 右节点的下标计算如下
+parent(i) = floor()
+left(i) = A[2i]
+right(i) =</p>
+</blockquote>
+
+<p><strong>最大堆与最小堆</strong></p>
+
+<blockquote>
+<p>一个最大堆应维持除了 root 节点以外 A[parent(i)] &gt; A[i]
+相反 最小堆 A[parent(i)] &lt;= A[i]</p>
+</blockquote>
+
+<p>从用途上说，最小堆可以帮助我们完成优先队列。</p>
+
+<h3 id="维持堆的特性">维持堆的特性</h3>
+
+<p>这就是整个堆解构最关键的地方，如何维持一个数组保持堆的特性。</p>
+
+<p>接下来是维持最大堆性质的<code>MAX_HEAPIFY</code>算法,同时也有通过 MAX_HEAPIFY 建造最大堆的实现。
+通过修改比较部分，你也能很方便的去实现一个最小堆。</p>
+
+<p>我写了一个简单的 JS 实现</p>
+
+<pre><code class="language-JS">const left = i =&gt; 2 * i
+const right = i =&gt; 2 * i + 1
+const parent = i =&gt; Math.floor(i / 2)
+/**
+ * @param {Array} A 堆数组
+ * @param {number} i 处理下标
+ */
+function MAX_HEAPIFY(A, i) {
+  let l = left(i)
+  let r = right(i)
+  let cur = A[i]
+  let largest = i
+  if (l &lt; A.headSize &amp;&amp; cur &lt; A[l]) {
+    largest = l
+  }
+  if (r &lt; A.headSize &amp;&amp; A[largest] &lt; A[r]) {
+    largest = r
+  }
+  // 以上总结一句话 我 左 右 三个里面找最大
+  if (largest !== i) {
+    ;[A[i], A[largest]] = [A[largest], A[i]] // es6语法 解构 互换值
+    MAX_HEAPIFY(A, largest)
+  }
+}
+
+// 吸收一个乱序数组构建一个最大堆
+function BUILD_MAX_HEAP(A) {
+  A.headSize = A.length
+  for (let i = Math.floor(A.length / 2); i &gt;= 0; i--) {
+    MAX_HEAPIFY(A, i)
+  }
+}
+
+let array = [5, 2, 6, 1, 6, 8, 2, 39, 2, 6, 89, 5, 6, 4, 7]
+
+console.log(BUILD_MAX_HEAP(array))
+//[89, 39, 8, 7, 6, 6, 6, 5, 2, 6, 2, 5, 2, 4, 1, headSize: 15]
+</code></pre>
+
+<p>值得注意的是他的构建过程是循环所有这个位置是某些节点的父节点，也就是自身是一个最大堆的子树。并且整个过程是从底部不断的向上，最后一次是运行在最上层的根节点上的，这个过程，每次循环基本不会发生递归，通常最多只要交换一次 i 与 largest 的值就可以完成运算，因为子堆已经完成排序。所以他的复杂度大约是 <code>O(lgn)</code> 也就是 <code>O(h)</code>。</p>
+
+<p>接下来是依赖这两个函数的堆排序算法</p>
+
+<pre><code class="language-JS">function HEAP_SORT(A) {
+  let heap = BUILD_MAX_HEAP(A)
+  for (let i = A.length - 1; i &gt;= 1; i--) {
+    ;[A[i], A[0]] = [A[0], A[i]] // 将当前能找到第i大的值放置到i中
+    A.headSize = A.headSize - 1 // 减少HEAPSIZE会让MAX_HEAPIFY跳过最后面已经完成排序的部分
+    MAX_HEAPIFY(A, 0)
+  }
+  return A
+}
+</code></pre>
+
+<p>循环里共循环 n 次 内部 MAX_HEAPIFY 的复杂度为<code>lgn</code> 所以总性能为 <code>O(nlogn)</code></p>
+
+<h2 id="优先队列">优先队列</h2>
+
+<p>虽然堆排序的性能不够出色，但是其自身的性质能够用来做很多特殊的数据结构，比如优先队列。</p>
+
+<p>先来看一下一个优先队列的基本操作</p>
+
+<blockquote>
+<p>insert(S,x) 插入 将元素 X 插入到集合 S 中
+MAX_OR_MIN(s) 获取最大或者是最小的元素（不从 S 中删除） 具体是 MAX 还是 MIN 取决于你的需要
+MAX_OR_MIN_EXT(S) 推出并返回 S 中 MAx_OR_MIN 的元素
+INCREASE_KEY(S,x,k) 将某个元素的权重改成 k</p>
+</blockquote>
+
+<p>以下是用上面的基本堆实现的一个最小优先队列</p>
+
+<pre><code class="language-JS">const left = i =&gt; 2 * i
+const right = i =&gt; 2 * i + 1
+const parent = i =&gt; Math.floor(i / 2)
+/**
+ * @param {Array} A 堆数组
+ * @param {number} i 处理下标
+ */
+function MIN_HEAPIFY(A, i) {
+  let l = left(i)
+  let r = right(i)
+  let cur = A[i]
+  let minimum = i
+  if (l &lt;= A.heapSize &amp;&amp; cur.key &gt; A[l].key) {
+    minimum = l
+  }
+  if (r &lt;= A.heapSize &amp;&amp; A[minimum].key &gt; A[r].key) {
+    minimum = r
+  }
+  // 以上总结一句话 我 左 右 三个里面找最小
+  if (minimum !== i) {
+    ;[A[i], A[minimum]] = [A[minimum], A[i]] // es6语法 解构 互换值
+    MIN_HEAPIFY(A, minimum)
+  }
+}
+
+function BUILD_MIN_HEAP(A) {
+  A.heapSize = A.length - 1
+  if (A.heapSize &lt; 0) return
+  for (let i = Math.floor(A.heapSize / 2); i &gt;= 0; i--) {
+    MIN_HEAPIFY(A, i)
+  }
+}
+
+const array = [
+  {
+    value: 'skfj',
+    key: 5
+  },
+  {
+    value: 'skfj2342',
+    key: 3
+  },
+  {
+    value: 'skfj111',
+    key: 9
+  },
+  {
+    value: 'skfj234346',
+    key: 9
+  },
+  {
+    value: '0',
+    key: 0
+  }
+]
+
+class Q {
+  constructor(arr = []) {
+    this.heap = arr
+    BUILD_MIN_HEAP(this.heap)
+  }
+  getMinimum() {
+    return this.heap[0]
+  }
+  extHeapMin() {
+    if (this.heap.heapSize &lt; 0) {
+      return false
+    }
+    let min = this.heap[0]
+    this.heap[0] = this.heap[this.heap.heapSize]
+    this.heap.heapSize--
+    MIN_HEAPIFY(this.heap, 0)
+    return min
+  }
+  incrHeapKey(i, key) {
+    if (key &lt; this.heap[i].key) {
+      return false
+    }
+    this.heap[i].key = key
+    // 修改权重可能会破坏本身的特性 不断向上修复这个问题。
+    while (i &gt; 0 &amp;&amp; this.heap[parent(i)].key &gt; this.heap[i].key) {
+      ;[this.heap[i], this.heap[parent(i)]] = [
+        this.heap[parent(i)],
+        this.heap[i]
+      ]
+      i = parent(i)
+    }
+  }
+  insert(value) {
+    this.heap.heapSize++
+    this.heap[this.heap.heapSize] = value
+    this.incrHeapKey(this.heap.heapSize, value.key)
+  }
+}
+
+let q = new Q(array)
+
+q.insert({
+  value: '我干',
+  key: 6
+})
+
+q.insert({
+  value: '我',
+  key: 3
+})
+
+</code></pre>
+
+<p>总的来说还是挺简单的，不过非常实用。
+试试我的自动同步</p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201808/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%8D%81%E4%B8%80%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/" data-toggle="tooltip" data-placement="top" title="算法导论笔记 十一 最短路径算法">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/201809/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%8D%81%E4%BA%8C%E5%85%A8%E7%82%B9%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/" data-toggle="tooltip" data-placement="top" title="算法导论笔记  全点最短路径算法">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2020
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="不用第三个Temp变量 实现两个变量之间交换的方法 [XOR 运算]" />
+    <meta property="og:title" content="不用第三个Temp变量 实现两个变量之间交换的方法 [XOR 运算]" />
+    <meta property="twitter:title" content="不用第三个Temp变量 实现两个变量之间交换的方法 [XOR 运算]" />
+    
+
+    
+    <meta name="description" content="使用计算机的基础位运算功能实现变量交换">
+    <meta property="og:description" content="使用计算机的基础位运算功能实现变量交换" />
+    <meta property="twitter:description" content="使用计算机的基础位运算功能实现变量交换" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>不用第三个Temp变量 实现两个变量之间交换的方法 [XOR 运算]-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201910/%E4%B8%8D%E7%94%A8%E7%AC%AC%E4%B8%89%E4%B8%AAtemp%E5%8F%98%E9%87%8F%E5%AE%9E%E7%8E%B0%E4%B8%A4%E4%B8%AA%E5%8F%98%E9%87%8F%E4%B9%8B%E9%97%B4%E4%BA%A4%E6%8D%A2%E7%9A%84%E6%96%B9%E6%B3%95xor%E6%8C%89%E4%BD%8D%E6%88%96%E5%BC%82%E8%BF%90%E7%AE%97/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/csapp" title="CSAPP">
+                            CSAPP
+                        </a>
+                        
+                        <a class="tag" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                    </div>
+                    <h1>不用第三个Temp变量 实现两个变量之间交换的方法 [XOR 运算]</h1>
+                    <h2 class="subheading">计算机中的基础位运算</h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Thursday, October 31, 2019
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#位运算">位运算</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<p>相信平时大家应该经常会遇到需要交换两个变量值的情况，最常见的做法就是建立一个 temp 临时变量，用于交换，代码大概是这样。</p>
+
+<pre><code class="language-js">// javascript
+// swap
+let a = 1 ,b = 2
+let temp = a
+a = b
+b = temp
+
+console.log(a) // 2
+console.log(b) // 1
+</code></pre>
+
+<p>当然某些语言会提供更高级的解构语法实现变量的互换从而避免 temp 的建立，但显然不是每一种语言都拥有这样的语法糖。</p>
+
+<p>事实如果借助位运算，我们可以在所有支持位运算的语言之中实现避免 temp 变量并实现变量互换。下面是一个典型示例</p>
+
+<pre><code>// javascript
+// swap
+let a = 1 ,b = 2
+
+a = a ^ b
+b = a ^ b
+a = a ^ b
+
+console.log(a) // 2
+console.log(b) // 1
+</code></pre>
+
+<p>那么这背后的原理究竟是什么呢？</p>
+
+<h2 id="位运算">位运算</h2>
+
+<p>想要了解原理，我们必须深入计算机的内部，来研究一下布尔代数。</p>
+
+<p>布尔代数拥有这些基本运算</p>
+
+<ol>
+<li>~ NOT   非</li>
+<li>&amp;  AND  与</li>
+<li>|  OR 或</li>
+<li>^  XOR 按位异或</li>
+</ol>
+
+<p>这里我们重点关注一下第四种，也就是我们使用的按位异或，他的计算规则如下</p>
+
+<p><strong>按位异或运算，对等长二进制模式或二进制数的每一位执行逻辑异或操作。操作的结果是如果某位不同则该位为1，否则该位为0。</strong></p>
+
+<p>举个例子：</p>
+
+<p>[1,0,1] ^ [1,1,1] = [0,1,0]</p>
+
+<p>XOR 运算拥有一个非常重要的特性: <strong>a ^ a = 0</strong> , 这个特性类似整数运算中的 <strong>加法逆元</strong> 概念 ，在 XOR 运算中，一个元素的&rdquo;加法逆元&rdquo;就是其自身。无论参与运算的元素是单个布尔代数还是一个布尔代数组成的向量，都是成立的。也就是说 <code>[1,1,1] ^ [1,1,1] = [0,0,0]</code> 同时 <code>1 ^ 1 = 0 ^ 0 = 0</code> 。除此之外，我们还拥有一个特性,即 <strong>(a ^ b) ^ a = b</strong>，可以展开成 <strong>(a ^ b) ^ a = (a ^ a) ^ b = 0 ^ b = b</strong>。非常相似我们的整数加法，可以随意组合。</p>
+
+<p>在了解到这些之后，我们就能对我们神奇的变量操作进行展开。见如下表格</p>
+
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>变量 a 的值</th>
+<th>变量 b 的值</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>初始</td>
+<td>a</td>
+<td>b</td>
+</tr>
+
+<tr>
+<td>第一步</td>
+<td>a ^ b</td>
+<td>a</td>
+</tr>
+
+<tr>
+<td>第二步</td>
+<td>a ^ b</td>
+<td>(a ^ b) ^ b</td>
+</tr>
+
+<tr>
+<td>第三步</td>
+<td>(a ^ b ) ^  (a ^ b) ^ b</td>
+<td>(a ^ b) ^ b</td>
+</tr>
+</tbody>
+</table>
+
+<p>我们只要按照上面两个核心特性进行化简即可</p>
+
+<blockquote>
+<p>a = (a ^ b ) ^ (a ^ b) ^ b = (a ^ a) ^ (b ^ b) ^ b = 0 ^ 0 ^ b = b</p>
+
+<p>b = (a ^ b) ^ b  = (b ^ b) ^ a = 0 ^ a =  a</p>
+</blockquote>
+
+<p>就这样，我们得到了 a = b ,  b = a 的效果</p>
+
+<h2 id="参考">参考</h2>
+
+<blockquote>
+<p>《CS:APP 深入了解计算机系统》</p>
+</blockquote>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201910/canvas%E5%88%A4%E6%96%AD%E7%94%A8%E6%88%B7%E6%98%AF%E5%90%A6%E7%82%B9%E5%87%BB%E5%9C%A8%E4%B8%80%E6%9D%A1%E7%BA%BF%E4%B8%8A/" data-toggle="tooltip" data-placement="top" title="canvas判断用户是否点击在一条线上">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/201910/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E8%A1%A5%E7%A0%81%E4%B8%8E%E6%97%A0%E7%AC%A6%E5%8F%B7%E7%BC%96%E7%A0%81%E7%AC%94%E8%AE%B0/" data-toggle="tooltip" data-placement="top" title="计算机中的补码与无符号编码 [笔记]">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2020
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Webpack on Yinode Blog</title>
+    <link>https://zhaohuabing.com/tags/webpack/</link>
+    <description>Recent content in Webpack on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 01 Mar 2019 05:17:33 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhaohuabing.com/tags/webpack/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Webpack JS模块化原理</title>
+      <link>https://zhaohuabing.com/post/201903/webpackjs%E6%A8%A1%E5%9D%97%E5%8C%96%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Fri, 01 Mar 2019 05:17:33 +0000</pubDate>
+      
+      <guid>https://zhaohuabing.com/post/201903/webpackjs%E6%A8%A1%E5%9D%97%E5%8C%96%E5%8E%9F%E7%90%86/</guid>
+      <description>最近一直在看一些和JS模块化发展历程的东西，正好呢，也想了解一下Webpack在我们背后帮我们做了那些事情，所以就有了今天的这篇文章。 首先我</description>
+    </item>
+    
+  </channel>
+</rss>

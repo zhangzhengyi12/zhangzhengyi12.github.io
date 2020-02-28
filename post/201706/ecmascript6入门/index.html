@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="ECMAScript6 入门" />
+    <meta property="og:title" content="ECMAScript6 入门" />
+    <meta property="twitter:title" content="ECMAScript6 入门" />
+    
+
+    
+    <meta name="description" content="Wubba lubba dub dub">
+    <meta property="og:description" content="Wubba lubba dub dub" />
+    <meta property="twitter:description" content="Wubba lubba dub dub" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>ECMAScript6 入门-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201706/ecmascript6%E5%85%A5%E9%97%A8/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/web" title="Web">
+                            Web
+                        </a>
+                        
+                    </div>
+                    <h1>ECMAScript6 入门</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Friday, November 24, 2017
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li><a href="#let-和-const">let 和 const</a>
+<ul>
+<li><a href="#let">let</a></li>
+<li><a href="#const">const</a></li>
+<li><a href="#全局对象">全局对象</a></li>
+</ul></li>
+<li><a href="#解构">解构</a>
+<ul>
+<li><a href="#解构的常见用途">解构的常见用途</a>
+<ul>
+<li><a href="#值的交换">值的交换</a></li>
+<li><a href="#遍历map结构">遍历map结构</a></li>
+<li><a href="#输入一个模块的某些方法">输入一个模块的某些方法</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#字符串扩展">字符串扩展</a>
+<ul>
+<li><a href="#unicode">Unicode</a></li>
+<li><a href="#字符串的遍历">字符串的遍历</a></li>
+<li><a href="#includes-startswith-endswith">includes(), startsWith(), endsWith()</a></li>
+<li><a href="#repeat">repeat()</a></li>
+<li><a href="#padstart-padend">padStart()，padEnd()</a></li>
+<li><a href="#模板字符串">模板字符串</a>
+<ul>
+<li><a href="#标签模板">标签模板</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#数值部分">数值部分</a></li>
+<li><a href="#数组">数组</a>
+<ul>
+<li><a href="#遍历">遍历</a></li>
+<li><a href="#数组实例的-includes">数组实例的 includes()</a>
+<ul>
+<li><a href="#空位">空位</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#函数">函数</a>
+<ul>
+<li><a href="#函数的默认值">函数的默认值</a></li>
+<li><a href="#函数的length">函数的length</a></li>
+<li><a href="#作用域">作用域</a></li>
+<li><a href="#应用">应用</a></li>
+<li><a href="#rest参数">rest参数</a></li>
+<li><a href="#箭头函数">箭头函数</a>
+<ul>
+<li><a href="#注意点">注意点</a></li>
+</ul></li>
+<li><a href="#this绑定">this绑定</a></li>
+<li><a href="#蹦床函数">蹦床函数</a></li>
+</ul></li>
+<li><a href="#对象">对象</a>
+<ul>
+<li><a href="#属性的简洁表示法">属性的简洁表示法</a></li>
+<li><a href="#属性名表达式">属性名表达式</a></li>
+<li><a href="#object-assign">Object.assign()</a></li>
+<li><a href="#原型对象三大操作">原型对象三大操作</a></li>
+<li><a href="#object-keys-object-values-object-entries">Object.keys()，Object.values()，Object.entries()</a></li>
+</ul></li>
+<li><a href="#symbol">Symbol</a></li>
+<li><a href="#set-map">Set Map</a>
+<ul>
+<li><a href="#set">set</a></li>
+<li><a href="#map">map</a></li>
+</ul></li>
+<li><a href="#proxy">Proxy</a></li>
+<li><a href="#reflect">Reflect</a></li>
+<li><a href="#promise">promise</a></li>
+<li><a href="#iterator-和-for-of-循环">Iterator 和 for&hellip;of 循环</a>
+<ul>
+<li><a href="#默认-iterator-接口">默认 Iterator 接口</a></li>
+</ul></li>
+<li><a href="#generator-函数的语法">Generator 函数的语法</a>
+<ul>
+<li><a href="#yield">yield</a></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<p>最近尝试了解一些函数式编程(Function program)的东西，但是很多的语法都用到了ES6，所以先开始学习一下ES6吧。特别是promise对象和箭头函数。</p>
+
+<p>主要的功能并不是详细的记录，毕竟在网上都可以很方便的找到，所以主要是为了让自己对ES6的新特性有一个映像。</p>
+
+<p>感谢阮一峰老师提供的ES6入门 <a href="http://es6.ruanyifeng.com">http://es6.ruanyifeng.com</a></p>
+
+<h1 id="let-和-const">let 和 const</h1>
+
+<p>这两个声明变量的方式是ES6之中很有代表性的部分，接下来对一些特性进行一下总结记录。</p>
+
+<h2 id="let">let</h2>
+
+<ul>
+<li><p><strong>不存在变量提升</strong>（不会存在var未声明就变成undefiend的情况）</p></li>
+
+<li><p><strong>暂时性死区</strong> 如果区块中存在let和const命令，这个区块对这些命令声明的变量，从一开始就形成了封闭作用域。凡是在声明之前就使用这些变量，就会报错。当变量被声明就解除死区</p></li>
+
+<li><p><strong>不允许重复声明</strong></p></li>
+
+<li><p><strong>块级作用域</strong> （需配合let）</p></li>
+</ul>
+
+<h2 id="const">const</h2>
+
+<p>const的本质是无法修改这个变量的内存地址 也就是说如果 <code>const a = {}; a.name = &quot;jack&quot;</code> 是可以被接受的</p>
+
+<p>他拥有和let相似的特性：不提升、死区、不允许重复声明，块作用域</p>
+
+<h2 id="全局对象">全局对象</h2>
+
+<p>在浏览器环境中 <code>let a = 1</code> 不会变成window的属性。</p>
+
+<hr />
+
+<h1 id="解构">解构</h1>
+
+<p>解构是指从数组和对象中提取值，对变量进行赋值。</p>
+
+<p>例子</p>
+
+<pre><code>let [a, b, c] = [1, 2, 3];
+</code></pre>
+
+<p>他尝试进行一种模式匹配，如果不成功，则undefined。两边必须都为数组，如果LHR不可以被迭代器迭代，则会报错。解构赋值允许指定默认值。</p>
+
+<h2 id="解构的常见用途">解构的常见用途</h2>
+
+<h3 id="值的交换">值的交换</h3>
+
+<pre><code class="language-js"> let x = 1;
+	let y = 2;
+	
+	[x, y] = [y, x]; //直接对xy的值进行交换 而不需要tmp来缓存
+
+</code></pre>
+
+<h3 id="遍历map结构">遍历map结构</h3>
+
+<pre><code class="language-js"> var map = new Map();
+	map.set('first', 'hello');
+	map.set('second', 'world');
+	
+	for (let [key, value] of map) {
+	  console.log(key + &quot; is &quot; + value);
+	}
+
+</code></pre>
+
+<h3 id="输入一个模块的某些方法">输入一个模块的某些方法</h3>
+
+<pre><code>const { SourceMapConsumer, SourceNode } = require(&quot;source-map&quot;);
+</code></pre>
+
+<h1 id="字符串扩展">字符串扩展</h1>
+
+<h2 id="unicode">Unicode</h2>
+
+<p>ES只支持<code>\u0000</code>~<code>\uFFFF</code>之间的UTF表示法</p>
+
+<p>在ES6之中得到了改进 可以使用大括号来表示大于这个范围的UTF字符串</p>
+
+<pre><code>&quot;\u{20BB7}&quot;
+</code></pre>
+
+<h2 id="字符串的遍历">字符串的遍历</h2>
+
+<p>ES6为字符串添加了遍历器接口，使得字符串可以被for&hellip;of循环遍历。</p>
+
+<h2 id="includes-startswith-endswith">includes(), startsWith(), endsWith()</h2>
+
+<p>在ES之中增加了检测一个字符串中是否包含参数字符串的方法只有IndexOf一种，现在增加了三种</p>
+
+<pre><code class="language-js">var s = 'Hello world!';
+	
+	s.startsWith('world', 6) // true
+	s.endsWith('Hello', 5) // true
+	s.includes('Hello', 6) // false
+</code></pre>
+
+<p>分别为是否包含，是否在起始位置包含，是否在结尾处包含</p>
+
+<h2 id="repeat">repeat()</h2>
+
+<p>字面意思，返回字符串，代表将原字符串重复指定次数</p>
+
+<h2 id="padstart-padend">padStart()，padEnd()</h2>
+
+<p>用于字符串的补全</p>
+
+<h2 id="模板字符串">模板字符串</h2>
+
+<p>在ES5之中写一个将被插入到HTML之中的HTML代码体验并不是很好，特别是要加入一些变量，这意味着复杂的引号。在ES6之中添加了模版字符串的概念。</p>
+
+<pre><code class="language-js">
+$('#result').append(`
+	  There are &lt;b&gt;${basket.count}&lt;/b&gt; items
+	   in your basket, &lt;em&gt;${basket.onSale}&lt;/em&gt;
+	  are on sale!
+	`);
+
+</code></pre>
+
+<p>模版字符串以反引号起始和结束，中途需要用到反引号需转义</p>
+
+<p>如果在模版字符串中使用变量标识符，需要使用 <code>${varname}</code> 来使用</p>
+
+<pre><code class="language-js"> let name  = &quot;zhang&quot;;
+	let box = `&lt;div&gt;${name}&lt;/div&gt;`;
+	
+	$(&quot;p&quot;).append(box);
+</code></pre>
+
+<h3 id="标签模板">标签模板</h3>
+
+<p>标签模版实质上是特殊的一种函数调用方式。其调用方法为在函数名的后面接着一个字符模版。字符模版可以被认为是调用的参数</p>
+
+<pre><code class="language-js">    var a = 5;
+	var b = 10;
+	
+	tag`Hello ${ a + b } world ${ a * b }`;
+	// 等同于
+	tag(['Hello ', ' world ', ''], 15, 50);
+
+</code></pre>
+
+<p>tag函数的第一个参数是一个数组，该数组的成员是模板字符串中那些没有变量替换的部分，也就是说，变量替换只发生在数组的第一个成员与第二个成员之间、第二个成员与第三个成员之间，以此类推。</p>
+
+<pre><code class="language-js">var total = 30;
+var msg = passthru`The total is ${total} (${total*1.05} with tax)`;
+
+function passthru(literals) {
+  var result = '';
+  var i = 0;
+
+  console.log(literals[0]);
+ 
+  while (i &lt; literals.length) {
+    result += literals[i++];
+    if (i &lt; arguments.length) {
+      result += arguments[i];
+    }
+  }
+
+  return result;
+
+  //literals中包含的是一个数组 其中包含了无法被解析的字符串
+  //argumens中的0为literals 12...成功被变量解析的部分 并且他从1开始
+  //literals中的字符串每一项可以被认为是两个变量之间的部分 
+  //也就是说结构基本上是间隔分布的 字符 变量 字符 变量 字符
+  //以上代码就是将接受的东西原生去返回
+}
+ 
+</code></pre>
+
+<p>以下为tag函数的应用实例。过滤用户的恶意输入。</p>
+
+<pre><code class="language-js">
+var message =
+  SaferHTML`&lt;p&gt;${sender} has sent you a message.&lt;/p&gt;`;
+
+function SaferHTML(templateData) {
+  var s = templateData[0];
+  for (var i = 1; i &lt; arguments.length; i++) {
+    var arg = String(arguments[i]);
+
+    // 通过正则匹配所有恶意内容替换
+    s += arg.replace(/&amp;/g, &quot;&amp;amp;&quot;)
+            .replace(/&lt;/g, &quot;&amp;lt;&quot;)
+            .replace(/&gt;/g, &quot;&amp;gt;&quot;);
+
+    // 拼接后续的字符串
+    s += templateData[i];
+  }
+  return s;
+}
+ 
+</code></pre>
+
+<h1 id="数值部分">数值部分</h1>
+
+<ul>
+<li>Number.MAX_SAFE_INTEGER<br /></li>
+<li>Number.MIN_SAFE_INTEGER</li>
+<li>Number.EPSILON  用于检测浮点精度</li>
+<li>Number.isInteger()</li>
+<li>Number.parseInt()</li>
+<li>Number.parseFloat()</li>
+<li>Number.isFinite()</li>
+<li>Number.isNaN()</li>
+</ul>
+
+<p>可以看到ES6想让JS往模块化的方向走，上面的parseInt和parseFloat都被整合进了Number里面，尽量减少对全局作用域的依赖。</p>
+
+<h1 id="数组">数组</h1>
+
+<ul>
+<li>Array.from() 讲一个类数组或者对象转换成数组</li>
+<li>Array.of() 将传入的参数创建成一个数组，弥补传统Array构造函数的不足</li>
+<li>数组实例的copyWithin() 用于数组部分的替换</li>
+<li>find() 用于找出第一个符合条件的数组成员 参数为回调函数 如果返回为ture则返回这个值</li>
+<li>findIndex() 类似find 但返回是一个index下标</li>
+</ul>
+
+<h2 id="遍历">遍历</h2>
+
+<p>entries()，keys()和values()
+ES6提供三个新的方法——entries()，keys()和values()——用于遍历数组。它们都返回一个遍历器对象。keys()是对键名的遍历、values()是对键值的遍历，entries()是对键值对的遍历。</p>
+
+<pre><code class="language-js">for (let index of ['a', 'b'].keys()) {
+  console.log(index);
+}
+// 0
+// 1
+
+for (let elem of ['a', 'b'].values()) {
+  console.log(elem);
+}
+// 'a'
+// 'b'
+
+for (let [index, elem] of ['a', 'b'].entries()) {
+  console.log(index, elem);
+}
+// 0 &quot;a&quot;
+// 1 &quot;b&quot;
+
+
+
+</code></pre>
+
+<p>如果不使用for&hellip;of循环，可以手动调用遍历器对象的next方法，进行遍历。</p>
+
+<h2 id="数组实例的-includes">数组实例的 includes()</h2>
+
+<p>Array.prototype.includes方法返回一个布尔值，表示某个数组是否包含给定的值，与字符串的includes方法类似。</p>
+
+<h3 id="空位">空位</h3>
+
+<p>在ES5中是对于空位的处理不太一致，知道ES6更加严格了一点，但是应该避免空位的出现。</p>
+
+<h1 id="函数">函数</h1>
+
+<h2 id="函数的默认值">函数的默认值</h2>
+
+<p>在ES6之前需要用 <code>var y = y||&quot;world&quot;</code> 这样来做到参数设置默认值，现在允许在直接创建默认值</p>
+
+<pre><code class="language-js">function log(x, y = 'World') {
+  console.log(x, y);
+}
+
+</code></pre>
+
+<p>如果参数默认值是变量，那么参数就不是传值的，而是每次都重新计算默认值表达式的值。</p>
+
+<pre><code class="language-js">function fetch(url, { method = 'GET' } = {}) {
+  console.log(method);
+}
+
+fetch('http://example.com')
+// &quot;GET&quot;
+</code></pre>
+
+<p>双重默认值 如果没有传入对象就利用一个空对象，如果传入对象就在内部进行一个解构。</p>
+
+<p>通常情况下，定义了默认值的参数，应该是函数的尾参数。因为这样比较容易看出来，到底省略了哪些参数。如果非尾部的参数设置默认值，实际上这个参数是没法省略的。</p>
+
+<pre><code class="language-js">function f(x = 1, y) {
+  return [x, y];
+}
+
+f() // [1, undefined]
+f(2) // [2, undefined])
+f(, 1) // 报错
+f(undefined, 1) // [1, 1]
+
+</code></pre>
+
+<p>除非你写Undefined 不然是不能省略参数而调用默认值的。</p>
+
+<h2 id="函数的length">函数的length</h2>
+
+<p>指定了默认值以后，函数的length属性，将返回没有指定默认值的参数个数。
+因为函数的length属性指的是函数的预期参数的个数，而指定了默认值了之后就会从预期参数中移除。</p>
+
+<h2 id="作用域">作用域</h2>
+
+<p><strong>一旦设置了参数的默认值，函数进行声明初始化时，参数会形成一个单独的作用域（context）。等到初始化结束，这个作用域就会消失。这种语法行为，在不设置参数默认值时，是不会出现的。</strong></p>
+
+<p>关键在于声明初始化的时候 以及后期函数运行期间的变量是分成两个层次的，具有严格的先后顺序。</p>
+
+<h2 id="应用">应用</h2>
+
+<ul>
+<li><p>利用默认值来做到如果不传入参数就爆一个异常</p>
+
+<pre><code class="language-js">
+function throwIfMissing() {
+throw new Error('Missing parameter');
+}
+
+function foo(mustBeProvided = throwIfMissing()) {
+return mustBeProvided;
+}
+
+foo()
+// Error: Missing parameter
+
+</code></pre></li>
+</ul>
+
+<h2 id="rest参数">rest参数</h2>
+
+<p>以前通常调用函数内部的所有参数数组需要将arguments转换成数组 这个rest可以来简化这一操作</p>
+
+<pre><code class="language-js">
+function add(...values) {
+  let sum = 0;
+
+  for (var val of values) {
+    sum += val;
+  }
+
+  return sum;
+}
+
+add(2, 5, 3) // 10
+
+//取代arguments取代arguments取代arguments取代arguments
+
+// arguments变量的写法
+function sortNumbers() {
+  return Array.prototype.slice.call(arguments).sort();
+}
+
+// rest参数的写法
+const sortNumbers = (...numbers) =&gt; numbers.sort();
+
+
+</code></pre>
+
+<p><strong>注意，rest 参数之后不能再有其他参数（即只能是最后一个参数），否则会报错。</strong></p>
+
+<h2 id="箭头函数">箭头函数</h2>
+
+<pre><code class="language-js">var f = () =&gt; 5;
+// 等同于
+var f = function () { return 5 };
+
+var sum = (num1, num2) =&gt; num1 + num2;
+// 等同于
+var sum = function(num1, num2) {
+  return num1 + num2;
+};
+
+</code></pre>
+
+<p>主要规则如下</p>
+
+<ul>
+<li>如果箭头函数不需要参数或需要多个参数，就使用一个圆括号代表参数部分。</li>
+<li>如果箭头函数的代码块部分多于一条语句，就要使用大括号将它们括起来，并且使用return语句返回。</li>
+<li>箭头函数可以与变量解构结合使用。</li>
+</ul>
+
+<p>用法展示</p>
+
+<ul>
+<li>简化回调函数</li>
+
+<li><pre><code class="language-js">// 正常函数写法
+[1,2,3].map(function (x) {
+return x * x;
+});
+
+// 箭头函数写法
+[1,2,3].map(x =&gt; x * x);
+
+</code></pre></li>
+
+<li><p>与rest结合</p>
+
+<pre><code class="language-js">const numbers = (...nums) =&gt; nums;
+
+numbers(1, 2, 3, 4, 5)
+// [1,2,3,4,5]
+
+const headAndTail = (head, ...tail) =&gt; [head, tail];
+
+headAndTail(1, 2, 3, 4, 5)
+// [1,[2,3,4,5]]
+
+</code></pre></li>
+</ul>
+
+<h3 id="注意点">注意点</h3>
+
+<ol>
+<li><p>函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。</p></li>
+
+<li><p>不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。</p></li>
+
+<li><p>不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用 rest 参数代替。</p></li>
+
+<li><p>不可以使用yield命令，因此箭头函数不能用作 Generator 函数。</p></li>
+</ol>
+
+<p>箭头函数导致this总是指向函数定义生效时所在的对象.</p>
+
+<p>转换成ES5代码之后其实利用的也是that这方法来生成一个tmp保存this对象。虽然可能只是一种语法糖，但确实很方便</p>
+
+<p>除了this，以下三个变量在箭头函数之中也是不存在的，指向外层函数的对应变量：arguments、super、new.target。所以你无法对箭头函数使用bind方法apply call方法。</p>
+
+<p>一定要小心这个问题，自身永远不拥有this,都是引用的外层。</p>
+
+<p>非常适合在callback这种情况下下使用，其他情况还是少用为妙。</p>
+
+<h2 id="this绑定">this绑定</h2>
+
+<p>箭头函数可以绑定this对象，大大减少了显式绑定this对象的写法（call、apply、bind）。但是，箭头函数并不适用于所有场合，所以ES7提出了“函数绑定”（function bind）运算符，用来取代call、apply、bind调用。虽然该语法还是ES7的一个提案，但是Babel转码器已经支持。</p>
+
+<h2 id="蹦床函数">蹦床函数</h2>
+
+<pre><code class="language-js">function trampoline(f) {
+  while (f &amp;&amp; f instanceof Function) {
+    f = f();
+  }
+  return f;
+}
+
+</code></pre>
+
+<p>上面就是蹦床函数的一个实现，它接受一个函数f作为参数。只要f执行后返回一个函数，就继续执行。注意，这里是返回一个函数，然后执行该函数，而不是函数里面调用函数，这样就避免了递归执行，从而就消除了调用栈过大的问题。</p>
+
+<pre><code class="language-js">function tco(f) {
+  var value;
+  var active = false;
+  var accumulated = [];
+
+  return function accumulator() {
+    accumulated.push(arguments);
+    if (!active) {
+      active = true;
+      while (accumulated.length) {
+        value = f.apply(this, accumulated.shift());
+      }
+      active = false;
+      return value;
+    }
+  };
+}
+
+var sum = tco(function(x, y) {
+  if (y &gt; 0) {
+    return sum(x + 1, y - 1)
+  }
+  else {
+    return x
+  }
+});
+
+sum(1, 100000)
+// 100001
+
+</code></pre>
+
+<p>上面代码中，tco函数是尾递归优化的实现，它的奥妙就在于状态变量active。默认情况下，这个变量是不激活的。一旦进入尾递归优化的过程，这个变量就激活了。然后，每一轮递归sum返回的都是undefined，所以就避免了递归执行；而accumulated数组存放每一轮sum执行的参数，总是有值的，这就保证了accumulator函数内部的while循环总是会执行。这样就很巧妙地将“递归”改成了“循环”，而后一轮的参数会取代前一轮的参数，保证了调用栈只有一层。</p>
+
+<h1 id="对象">对象</h1>
+
+<h2 id="属性的简洁表示法">属性的简洁表示法</h2>
+
+<pre><code class="language-js">function f(x, y) {
+  return {x, y};
+}
+
+// 等同于
+
+function f(x, y) {
+  return {x: x, y: y};
+}
+
+f(1, 2) // Object {x: 1, y: 2}
+
+</code></pre>
+
+<p>也就是说他允许直接使用变量作为对象的属性或者方法，其中变量的标识符等于属性的名字，变量的内容等同于属性的内容</p>
+
+<p>适用于模块的暴露</p>
+
+<pre><code class="language-js">module.exports = { getItem, setItem, clear };
+// 等同于
+module.exports = {
+  getItem: getItem,
+  setItem: setItem,
+  clear: clear
+};
+
+</code></pre>
+
+<h2 id="属性名表达式">属性名表达式</h2>
+
+<pre><code class="language-js">let propKey = 'foo';
+
+let obj = {
+  [propKey]: true,
+  ['a' + 'bc']: 123
+};
+
+</code></pre>
+
+<p>ES6 允许字面量定义对象时，用方法二（表达式）作为对象的属性名，即把表达式放在方括号内。</p>
+
+<p>适用于你需要在name上调用表达式的情况</p>
+
+<p>不要与简洁表达式法同用，报错</p>
+
+<h2 id="object-assign">Object.assign()</h2>
+
+<p>Object.assign方法用于对象的合并，将源对象（source）的所有可枚举属性，复制到目标对象（target）。</p>
+
+<p>他的实现原理和jQuery的exanted基本类似，注意是浅复制也就是复制指针的方式，当源对象内部有属性为对象时，这种复制是复制指针的，source和target对象共享一个内部属性对象。如果要深复制完全隔离。可以通过转成字符串对象，然后再转换成js对象。</p>
+
+<pre><code class="language-js">var target = { a: 1 };
+
+var source1 = { b: 2 };
+var source2 = { c: 3 };
+
+Object.assign(target, source1, source2);
+target // {a:1, b:2, c:3}
+
+</code></pre>
+
+<p>主要用途，添加属性，添加方法，克隆对象，实现一个对象合并几个对象，实现默认值（参数1为目标对象，2为默认的对象内部有默认参数，3为用户传入的具体对象参数）</p>
+
+<h2 id="原型对象三大操作">原型对象三大操作</h2>
+
+<p>Object.setPrototypeOf()（写操作）、Object.getPrototypeOf()（读操作）、Object.create()（生成操作）
+在ES6中都是推荐的标准</p>
+
+<h2 id="object-keys-object-values-object-entries">Object.keys()，Object.values()，Object.entries()</h2>
+
+<ul>
+<li>ES2017 引入了跟Object.keys配套的Object.values和Object.entries，作为遍历一个对象的补充手段，供for&hellip;of循环使用。</li>
+</ul>
+
+<p>这三者单独使用都是返回一个相应内容的数组，前提是可遍历。</p>
+
+<pre><code class="language-js">var obj = { foo: 'bar', baz: 42 };
+Object.keys(obj)
+// [&quot;foo&quot;, &quot;baz&quot;]
+
+var obj = { foo: 'bar', baz: 42 };
+Object.values(obj)
+// [&quot;bar&quot;, 42]
+
+var obj = { foo: 'bar', baz: 42 };
+Object.entries(obj)
+// [ [&quot;foo&quot;, &quot;bar&quot;], [&quot;baz&quot;, 42] ]
+
+</code></pre>
+
+<p>Object.entries方法的另一个用处是，将对象转为真正的Map结构。x</p>
+
+<pre><code class="language-js">let {keys, values, entries} = Object;
+let obj = { a: 1, b: 2, c: 3 };
+
+for (let key of keys(obj)) {
+  console.log(key); // 'a', 'b', 'c'
+}
+
+for (let value of values(obj)) {
+  console.log(value); // 1, 2, 3
+}
+
+for (let [key, value] of entries(obj)) {
+  console.log([key, value]); // ['a', 1], ['b', 2], ['c', 3]
+}
+
+</code></pre>
+
+<h1 id="symbol">Symbol</h1>
+
+<p>一种新的数据类型，用于避免属性名冲突。</p>
+
+<p>所有的symbol都是不相等的，传入的参数也只是描述符而已。</p>
+
+<pre><code class="language-js">
+var mySymbol = Symbol();
+
+// 第一种写法
+var a = {};
+a[mySymbol] = 'Hello!';
+
+// 第二种写法
+var a = {
+  [mySymbol]: 'Hello!'
+};
+
+// 第三种写法
+var a = {};
+Object.defineProperty(a, mySymbol, { value: 'Hello!' });
+
+// 以上写法都得到同样结果
+a[mySymbol] // &quot;Hello!&quot;
+
+
+</code></pre>
+
+<p>所有的symbol都不会被遍历出来，但是可以由<code>Object.getOwnPropertySymbols</code>获取</p>
+
+<h1 id="set-map">Set Map</h1>
+
+<h2 id="set">set</h2>
+
+<p>类似数组，但里面没有重复的值</p>
+
+<pre><code class="language-js">
+const s = new Set();
+
+[2, 3, 5, 4, 5, 2, 2].forEach(x =&gt; s.add(x));
+
+for (let i of s) {
+  console.log(i);
+}
+// 2 3 5 4
+
+
+</code></pre>
+
+<p>上面代码通过add方法向 Set 结构加入成员，结果表明 Set 结构不会添加重复的值。</p>
+
+<p>Set 函数可以接受一个数组（或者具有 iterable 接口的其他数据结构）作为参数，用来初始化。</p>
+
+<p><strong>WeakSet</strong> 结构与 Set 类似，也是不重复的值的集合。但是，它与 Set 有两个区别。</p>
+
+<p>首先，WeakSet 的成员只能是对象，而不能是其他类型的值。其次，WeakSet 中的对象都是弱引用，即垃圾回收机制不考虑 WeakSet 对该对象的引用，也就是说，如果其他对象都不再引用该对象，那么垃圾回收机制会自动回收该对象所占用的内存，不考虑该对象还存在于 WeakSet 之中。</p>
+
+<p>所以他比较适合临时存放数据，</p>
+
+<h2 id="map">map</h2>
+
+<p>传统的JS对象也是类似map的键值对，但是键只能为字符串。</p>
+
+<p>而在ES6新增的map中，允许值-值，键可以是任意一种数据。</p>
+
+<p>所以map是一种更加完善的hash结构</p>
+
+<pre><code class="language-js">
+
+const m = new Map();
+const o = {p: 'Hello World'};
+
+m.set(o, 'content')
+m.get(o) // &quot;content&quot;
+
+m.has(o) // true
+m.delete(o) // true
+m.has(o) // false
+
+</code></pre>
+
+<p>Map 也可以接受一个数组作为参数。该数组的成员是一个个表示键值对的数组。</p>
+
+<pre><code class="language-js">
+const map = new Map([
+  ['name', '张三'],
+  ['title', 'Author']
+]);
+
+map.size // 2
+map.has('name') // true
+map.get('name') // &quot;张三&quot;
+map.has('title') // true
+map.get('title') // &quot;Author&quot;
+
+</code></pre>
+
+<p>map不用考虑键名碰撞的问题，因为实际上键里保存的是内存地址。</p>
+
+<p>结合数组的map方法、filter方法，可以实现 Map 的遍历和过滤（Map 本身没有map和filter方法）。</p>
+
+<pre><code class="language-js">
+const map0 = new Map()
+  .set(1, 'a')
+  .set(2, 'b')
+  .set(3, 'c');
+
+const map1 = new Map(
+  [...map0].filter(([k, v]) =&gt; k &lt; 3)
+);
+// 产生 Map 结构 {1 =&gt; 'a', 2 =&gt; 'b'}
+
+const map2 = new Map(
+  [...map0].map(([k, v]) =&gt; [k * 2, '_' + v])
+    );
+// 产生 Map 结构 {2 =&gt; '_a', 4 =&gt; '_b', 6 =&gt; '_c'}
+</code></pre>
+
+<h1 id="proxy">Proxy</h1>
+
+<p>可以理解为在某个对象的外层套了一个壳 当你set或者get操作的时候，可以进行拦截，比如get的时候检查属性是否存在，set的时候参数是否正确。</p>
+
+<h1 id="reflect">Reflect</h1>
+
+<p>他的作用有很多，一部分是简化操作，一部分是确保在代理的时候也能调用原生的操作。</p>
+
+<h1 id="promise">promise</h1>
+
+<p>promise是一种异步解决方案，</p>
+
+<pre><code class="language-js">
+Promise构造函数接受一个函数作为参数，该函数的两个参数分别是resolve和reject。它们是两个函数，由 JavaScript 引擎提供，不用自己部署。
+
+resolve函数的作用是，将Promise对象的状态从“未完成”变为“成功”（即从 Pending 变为 Resolved），在异步操作成功时调用，并将异步操作的结果，作为参数传递出去；reject函数的作用是，将Promise对象的状态从“未完成”变为“失败”（即从 Pending 变为 Rejected），在异步操作失败时调用，并将异步操作报出的错误，作为参数传递出去。
+
+Promise实例生成以后，可以用then方法分别指定Resolved状态和Reject状态的回调函数。
+</code></pre>
+
+<pre><code class="language-js">
+function timeout(ms) {
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(resolve, ms, 'done');
+  });
+}
+
+timeout(100).then((value) =&gt; {
+  console.log(value);
+});
+
+</code></pre>
+
+<p>promise新建后会立即执行</p>
+
+<pre><code class="language-js">
+var getJSON = function(url) {
+  var promise = new Promise(function(resolve, reject){
+    var client = new XMLHttpRequest();
+    client.open(&quot;GET&quot;, url);
+    client.onreadystatechange = handler;
+    client.responseType = &quot;json&quot;;
+    client.setRequestHeader(&quot;Accept&quot;, &quot;application/json&quot;);
+    client.send();
+
+    function handler() {
+      if (this.readyState !== 4) {
+        return;
+      }
+      if (this.status === 200) {
+        resolve(this.response);
+      } else {
+        reject(new Error(this.statusText));
+      }
+    };
+  });
+
+  return promise;
+};
+
+getJSON(&quot;/posts.json&quot;).then(function(json) {
+  console.log('Contents: ' + json);
+}, function(error) {
+  console.error('出错了', error);
+});
+
+</code></pre>
+
+<h1 id="iterator-和-for-of-循环">Iterator 和 for&hellip;of 循环</h1>
+
+<p>JavaScript 原有的表示“集合”的数据结构，主要是数组（Array）和对象（Object），ES6 又添加了Map和Set。这样就有了四种数据集合，用户还可以组合使用它们，定义自己的数据结构，比如数组的成员是Map，Map的成员是对象。这样就需要一种统一的接口机制，来处理所有不同的数据结构。</p>
+
+<p>遍历器（Iterator）就是这样一种机制。它是一种接口，为各种不同的数据结构提供统一的访问机制。任何数据结构只要部署Iterator接口，就可以完成遍历操作（即依次处理该数据结构的所有成员）。</p>
+
+<p>Iterator 的作用有三个：一是为各种数据结构，提供一个统一的、简便的访问接口；二是使得数据结构的成员能够按某种次序排列；三是ES6创造了一种新的遍历命令for&hellip;of循环，Iterator接口主要供for&hellip;of消费。</p>
+
+<p>Iterator 的遍历过程是这样的。</p>
+
+<p>（1）创建一个指针对象，指向当前数据结构的起始位置。也就是说，遍历器对象本质上，就是一个指针对象。</p>
+
+<p>（2）第一次调用指针对象的next方法，可以将指针指向数据结构的第一个成员。</p>
+
+<p>（3）第二次调用指针对象的next方法，指针就指向数据结构的第二个成员。</p>
+
+<p>（4）不断调用指针对象的next方法，直到它指向数据结构的结束位置。</p>
+
+<p>每一次调用next方法，都会返回数据结构的当前成员的信息。具体来说，就是返回一个包含value和done两个属性的对象。其中，value属性是当前成员的值，done属性是一个布尔值，表示遍历是否结束。</p>
+
+<p>下面是一个模拟next方法返回值的例子。</p>
+
+<pre><code class="language-js">
+function makeIterator(array) {
+  var nextIndex = 0;
+  return {
+    next: function() {
+      return nextIndex &lt; array.length ?
+        {value: array[nextIndex++]} :
+        {done: true};
+    }
+  };
+}
+</code></pre>
+
+<h2 id="默认-iterator-接口">默认 Iterator 接口</h2>
+
+<p>Iterator 接口的目的，就是为所有数据结构，提供了一种统一的访问机制，即for&hellip;of循环（详见下文）。当使用for&hellip;of循环遍历某种数据结构时，该循环会自动去寻找 Iterator 接口。</p>
+
+<p>一种数据结构只要部署了 Iterator 接口，我们就称这种数据结构是”可遍历的“（iterable）。</p>
+
+<p>原生具备 Iterator 接口的数据结构如下。</p>
+
+<ul>
+<li>Array</li>
+<li>Map</li>
+<li>Set</li>
+<li>String</li>
+<li>TypedArray</li>
+<li>函数的 arguments 对象</li>
+</ul>
+
+<h1 id="generator-函数的语法">Generator 函数的语法</h1>
+
+<p>Generator 函数是 ES6 提供的一种异步编程解决方案，语法行为与传统函数完全不同。本章详细介绍 Generator 函数的语法和 API，它的异步编程应用请看《Generator 函数的异步应用》一章。</p>
+
+<p>Generator 函数有多种理解角度。从语法上，首先可以把它理解成，Generator 函数是一个状态机，封装了多个内部状态。</p>
+
+<p>执行 Generator 函数会返回一个遍历器对象，也就是说，Generator 函数除了状态机，还是一个遍历器对象生成函数。返回的遍历器对象，可以依次遍历 Generator 函数内部的每一个状态。</p>
+
+<p>形式上，Generator 函数是一个普通函数，但是有两个特征。一是，function关键字与函数名之间有一个星号；二是，函数体内部使用yield表达式，定义不同的内部状态（yield在英语里的意思就是“产出”）。</p>
+
+<pre><code class="language-js">
+function* helloWorldGenerator() {
+  yield 'hello';
+  yield 'world';
+  return 'ending';
+}
+
+var hw = helloWorldGenerator();
+</code></pre>
+
+<p>上面代码定义了一个 Generator 函数helloWorldGenerator，它内部有两个yield表达式（hello和world），即该函数有三个状态：hello，world 和 return 语句（结束执行）。</p>
+
+<p>然后，Generator 函数的调用方法与普通函数一样，也是在函数名后面加上一对圆括号。不同的是，调用 Generator 函数后，该函数并不执行，返回的也不是函数运行结果，而是一个指向内部状态的指针对象，也就是上一章介绍的遍历器对象（Iterator Object）。</p>
+
+<p>下一步，必须调用遍历器对象的next方法，使得指针移向下一个状态。也就是说，每次调用next方法，内部指针就从函数头部或上一次停下来的地方开始执行，直到遇到下一个yield表达式（或return语句）为止。换言之，Generator 函数是分段执行的，yield表达式是暂停执行的标记，而next方法可以恢复执行。</p>
+
+<h2 id="yield">yield</h2>
+
+<p>如果把Generator函数看成是一种可以断点的函数，那么yield可以被认为是设置断点的方法。</p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201707/gulpwebpackbabelcss%E5%8E%8B%E7%BC%A9%E6%A8%A1%E5%9D%97%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/" data-toggle="tooltip" data-placement="top" title="gulp&#43;webpack&#43;babel&#43;css压缩模块 实现自动构建工具">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/201712/%E8%A7%A3%E5%86%B3%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%B5%8F%E8%A7%88%E5%99%A8%E6%97%A0%E6%B3%95%E8%B0%83%E7%94%A8audio%E7%9A%84play%E6%96%B9%E6%B3%95/" data-toggle="tooltip" data-placement="top" title="解决移动端浏览器无法调用audio的play方法">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2020
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+</body>
+</html>

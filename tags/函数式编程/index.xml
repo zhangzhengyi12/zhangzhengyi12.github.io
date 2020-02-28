@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>函数式编程 on Yinode Blog</title>
+    <link>https://zhaohuabing.com/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/</link>
+    <description>Recent content in 函数式编程 on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 24 Nov 2017 05:27:33 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhaohuabing.com/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Javascript 中的函数式编程</title>
+      <link>https://zhaohuabing.com/post/201711/js%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%B8%B8%E7%94%A8%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Fri, 24 Nov 2017 05:27:33 +0000</pubDate>
+      
+      <guid>https://zhaohuabing.com/post/201711/js%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%B8%B8%E7%94%A8%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/</guid>
+      <description>函数式编程 作为一种越来越重要的编程泛型，我在学习完SICP之后也见识到了他极为强大的抽象能力，但是如何把函数式编程中的技巧合理合适的运用到J</description>
+    </item>
+    
+    <item>
+      <title>SICP 计算机程序的构造与解释笔记</title>
+      <link>https://zhaohuabing.com/post/201711/sicp%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9E%84%E9%80%A0%E4%B8%8E%E8%A7%A3%E9%87%8A%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Mon, 13 Nov 2017 00:20:53 +0000</pubDate>
+      
+      <guid>https://zhaohuabing.com/post/201711/sicp%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9E%84%E9%80%A0%E4%B8%8E%E8%A7%A3%E9%87%8A%E7%AC%94%E8%AE%B0/</guid>
+      <description>前言 最近一直在学习SICP这本书，基本上结合书与视频一起学习，可以说这真的是一本奇书，他从高阶抽象开始到介绍DSL乃至流，最后又开始讨论la</description>
+    </item>
+    
+  </channel>
+</rss>

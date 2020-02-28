@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="计算机中的补码与无符号编码 [笔记]" />
+    <meta property="og:title" content="计算机中的补码与无符号编码 [笔记]" />
+    <meta property="twitter:title" content="计算机中的补码与无符号编码 [笔记]" />
+    
+
+    
+    <meta name="description" content="什么事补码以及无符号数">
+    <meta property="og:description" content="什么事补码以及无符号数" />
+    <meta property="twitter:description" content="什么事补码以及无符号数" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>计算机中的补码与无符号编码 [笔记]-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201910/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E8%A1%A5%E7%A0%81%E4%B8%8E%E6%97%A0%E7%AC%A6%E5%8F%B7%E7%BC%96%E7%A0%81%E7%AC%94%E8%AE%B0/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/csapp" title="CSAPP">
+                            CSAPP
+                        </a>
+                        
+                        <a class="tag" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                    </div>
+                    <h1>计算机中的补码与无符号编码 [笔记]</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Thursday, October 31, 2019
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#表示范围">表示范围</a>
+<ul>
+<li><a href="#无符号数的表示范围">无符号数的表示范围</a></li>
+<li><a href="#补码的表示范围">补码的表示范围</a></li>
+</ul></li>
+<li><a href="#两者之间的转换">两者之间的转换</a>
+<ul>
+<li><a href="#补码转无符号">补码转无符号</a></li>
+<li><a href="#无符号转补码">无符号转补码</a></li>
+</ul></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<p>在计算机中，我们可以采用 <strong>补码</strong> 以及 <strong>无符号</strong> 两种方式来存储我们的整数，两者的主要差别如下</p>
+
+<ul>
+<li>补码</li>
+</ul>
+
+<p>第一位为符号位，当符号为 = 1 时，代表一个负权，= 0 时，权也为 0</p>
+
+<p>每一位都有响应的权，最终十进制表示就等于 整个向量的加权</p>
+
+<p>比如 [0,1,1,1] 为四位长度 其十进制等于 7, [1,0,0,0] 最高位为负权 = - 2 ^ 3 = -8</p>
+
+<ul>
+<li>无符号</li>
+</ul>
+
+<p>全部为有效位，无法表示负数</p>
+
+<p>比如 [1,1,1,1] 其十进制等于 16</p>
+
+<h2 id="表示范围">表示范围</h2>
+
+<p>既然作为一种编码方式，自然会拥有表示的上下限，这里记录一下两者的上下限</p>
+
+<h3 id="无符号数的表示范围">无符号数的表示范围</h3>
+
+<p>我们用 <code>U</code>表示无符号数这种编码方式(usigned) , 用 <code>w</code>代表其位长(也就是有多少个位的情况下)</p>
+
+<ol>
+<li>其下限自然等于所有位都为0也就是 <code>0</code></li>
+<li>他的上限等于 <code>(2 ^ w) - 1</code>  最后减一自然是因为你还得表示0</li>
+</ol>
+
+<p>给出数学表示</p>
+
+<p><code>UMin(w) = 0</code>
+<code>UMax(w) = (2 ^ w) - 1</code></p>
+
+<p>公式不太好输，见谅</p>
+
+<h3 id="补码的表示范围">补码的表示范围</h3>
+
+<p>我们用 T 表示补码(Two&rsquo;s complement)这种编码方式</p>
+
+<p>由于最高位作为符号位，所以我们获得了表达负数的能力，但是在正数这一块的最大值也降低了。这里直接给出数学表达</p>
+
+<p><code>TMin(w) = - (2 ^ (w - 1) )</code>
+<code>TMax(w) = (2 ^ (w - 1) ) - 1</code></p>
+
+<p>你发现两者在数轴上并不对称，这主要是因为 0 只能被分配到非负的空间，在符号位=1, w = 4 的情况他 最大的可能值就是 [1,1,1,1] = -1 所以负数方向会拥有更大的编码空间。</p>
+
+<p>还有值得一提的就是 <code>UMax(w) = TMax(w) * 2 + 1</code> 这个能通过换算得到。</p>
+
+<p><code>TMax(w) * 2 + 1 = ( (2 ^ (w - 1) ) - 1 ) * 2 + 1 = 2 ^ w - 2 + 1 = 2 ^ w - 1 = UMax(w)</code></p>
+
+<h2 id="两者之间的转换">两者之间的转换</h2>
+
+<p>在一般语言之中，如果你要对这两种表示法进行转换，语言的默认行为是保持保持二进制上的存储，但是由于编码方式的转变，必然会造成一些程度上的变化</p>
+
+<h3 id="补码转无符号">补码转无符号</h3>
+
+<p>由于有条件，所以给出类似流程判断的伪代码</p>
+
+<pre><code>// T2U 表示补码转无符号
+// w 代表位数
+// x 被转化的10进制整数
+
+ T2Uw(x) = 
+    if x &lt; 0
+      return x + 2 ^ 2
+    else if x &gt;= 0
+      return x
+</code></pre>
+
+<h3 id="无符号转补码">无符号转补码</h3>
+
+<pre><code>// U2T 代表无符号转补码
+// w 代表位数
+// x 被转换的10进制整数
+
+  U2Tw(x) = 
+    if x &lt;= TMax(w)
+      return u
+    else if x &gt; TMax(w)
+      return u - 2 ^ w
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
+<ol>
+<li>《CS:APP》</li>
+</ol>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201910/%E4%B8%8D%E7%94%A8%E7%AC%AC%E4%B8%89%E4%B8%AAtemp%E5%8F%98%E9%87%8F%E5%AE%9E%E7%8E%B0%E4%B8%A4%E4%B8%AA%E5%8F%98%E9%87%8F%E4%B9%8B%E9%97%B4%E4%BA%A4%E6%8D%A2%E7%9A%84%E6%96%B9%E6%B3%95xor%E6%8C%89%E4%BD%8D%E6%88%96%E5%BC%82%E8%BF%90%E7%AE%97/" data-toggle="tooltip" data-placement="top" title="不用第三个Temp变量 实现两个变量之间交换的方法 [XOR 运算]">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/201911/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E8%BD%AC/" data-toggle="tooltip" data-placement="top" title="计算机中的 原码、反码、补码 [转]">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2020
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+</body>
+</html>

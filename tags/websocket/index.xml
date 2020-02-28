@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Websocket on Yinode Blog</title>
+    <link>https://zhaohuabing.com/tags/websocket/</link>
+    <description>Recent content in Websocket on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 15 Dec 2017 09:00:23 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhaohuabing.com/tags/websocket/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>利用websocket技术实现一个俄罗斯方块对战游戏</title>
+      <link>https://zhaohuabing.com/post/201712/%E5%88%A9%E7%94%A8websocket%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E4%BF%84%E7%BD%97%E6%96%AF%E6%96%B9%E5%9D%97%E5%AF%B9%E6%88%98%E6%B8%B8%E6%88%8F/</link>
+      <pubDate>Fri, 15 Dec 2017 09:00:23 +0000</pubDate>
+      
+      <guid>https://zhaohuabing.com/post/201712/%E5%88%A9%E7%94%A8websocket%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E4%BF%84%E7%BD%97%E6%96%AF%E6%96%B9%E5%9D%97%E5%AF%B9%E6%88%98%E6%B8%B8%E6%88%8F/</guid>
+      <description>预览 技术栈 主要利用了websocket，由于ws天生是可以跨域的，所以我将静态页面部署在了gh-page上，而负责后端交互的部分我放在了我的</description>
+    </item>
+    
+    <item>
+      <title>使用socket.io实现极简即时通讯</title>
+      <link>https://zhaohuabing.com/post/201709/%E4%BD%BF%E7%94%A8socket.io%E5%AE%9E%E7%8E%B0%E6%9E%81%E7%AE%80%E5%8D%B3%E6%97%B6%E9%80%9A%E8%AE%AF/</link>
+      <pubDate>Fri, 24 Nov 2017 05:27:33 +0000</pubDate>
+      
+      <guid>https://zhaohuabing.com/post/201709/%E4%BD%BF%E7%94%A8socket.io%E5%AE%9E%E7%8E%B0%E6%9E%81%E7%AE%80%E5%8D%B3%E6%97%B6%E9%80%9A%E8%AE%AF/</guid>
+      <description>展示 代码 两份文件，client server //test.html &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html lang=&amp;quot;en&amp;quot;&amp;gt; &amp;lt;head&amp;gt; &amp;lt;title&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;meta charset=&amp;quot;UTF-8&amp;quot;&amp;gt; &amp;lt;meta name=&amp;quot;viewport&amp;quot; content=&amp;quot;width=device-width, initial-scale=1&amp;quot;&amp;gt; &amp;lt;script src=&amp;quot;https://cdn.bootcss.com/socket.io/2.0.3/socket.io.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;input type=&amp;quot;text&amp;quot; id=&amp;quot;input&amp;quot;&amp;gt; &amp;lt;button id=&amp;quot;sendMess&amp;quot;&amp;gt;send&amp;lt;/button&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt; let socket = io(&amp;quot;ws://localhost:4500/&amp;quot;) //show APi function showMessage(str,type){ let box = document.createElement(&amp;quot;div&amp;quot;) box.innerHTML = str if(type === &amp;quot;enter&amp;quot;){ box.style.color = &amp;quot;#33B5FF&amp;quot;; }else if(type === &amp;quot;leave&amp;quot;){ box.style.color === &amp;quot;red&amp;quot; }else{</description>
+    </item>
+    
+  </channel>
+</rss>

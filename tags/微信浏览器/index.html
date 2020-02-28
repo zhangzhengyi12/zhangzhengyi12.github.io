@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="微信浏览器" />
+    <meta property="og:title" content="微信浏览器" />
+    <meta property="twitter:title" content="微信浏览器" />
+    
+
+    
+    <meta name="description" content="Wubba lubba dub dub">
+    <meta property="og:description" content="Wubba lubba dub dub" />
+    <meta property="twitter:description" content="Wubba lubba dub dub" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>微信浏览器-Yinode Blog</title>
+
+    <link rel="canonical" href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+<header class="intro-header" style="background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>Yinode Blog </h1>
+                    
+		    <span class="subheading">Wubba lubba dub dub</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+  
+<div class="container">
+    <div class="row">
+        
+        
+   	    <div class="
+            col-lg-8 col-lg-offset-1
+            col-md-8 col-md-offset-1
+            col-sm-12
+            col-xs-12
+            post-container
+        ">
+            
+
+<div class="post-preview">
+    <a href="https://zhaohuabing.com/post/201810/%E5%BE%AE%E4%BF%A1vue%E4%BB%BB%E6%84%8F%E9%A1%B5%E9%9D%A2%E7%9B%B4%E6%8E%A5%E9%80%9A%E8%BF%87%E8%B7%AF%E7%94%B1%E8%BF%9B%E5%85%A5%E5%B9%B6%E6%8B%A6%E6%88%AA%E6%8C%89%E9%92%AE%E8%BF%94%E5%9B%9E%E4%BB%BB%E6%84%8F%E9%A1%B5%E9%9D%A2/">
+        <h2 class="post-title">
+            微信&#43;vue 任意页面直接通过路由进入并拦截按钮  返回任意页面
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            先来阐述一下需求 首先我拥有一个详情页面 B 用户可以进入到页面 B 之中分享出去页面 B 但别的用户通过地址直接进入页面 B 这时候 如果用户按了一下返回按钮
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Tuesday, October 30, 2018
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhaohuabing.com/post/201810/%E5%BE%AE%E4%BF%A1webapp%E5%88%86%E4%BA%AB%E5%87%BA%E5%8E%BB%E5%B8%A6%E5%88%86%E4%BA%AB%E5%8F%82%E6%95%B0form%E5%AF%BC%E8%87%B4%E8%BF%9B%E5%85%A5%E5%88%86%E4%BA%AB%E6%97%A0%E6%B3%95%E6%AD%A3%E5%B8%B8%E5%8C%B9%E9%85%8D%E8%B7%AF%E7%94%B1vue/">
+        <h2 class="post-title">
+            微信webapp分享出去带分享参数 form 导致进入分享无法正常匹配路由 vue
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            以下是某个单页应用的地址 http://m.cswh.me/dh/#/activity/flagRaisingPolice?act_token=b5f01112731d4c47bc5a7214d17365b2 而在这个页面使用微信的JSAPI进行分享之后，即使你设置了 wx.ready(function() { wx.onMenuShareAppMessage({ link: window.location.href , title: that.config.share_title, imgUrl: uploadURL + that.config.share_icon, desc: that.config.share_text }) wx.onMenuShareTimeline({ link: window.location.href, title: that.config.share_title, imgUrl: uploadURL + that.config.share_icon, desc: that.config.share_text }) })
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Tuesday, October 30, 2018
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhaohuabing.com/post/201810/%E5%9C%A8%E5%BE%AE%E4%BF%A1spa%E4%B8%AD%E6%A8%A1%E6%8B%9F%E4%B8%80%E4%B8%AA%E8%B7%AF%E7%94%B1%E5%A0%86%E6%A0%88%E7%B3%BB%E7%BB%9F/">
+        <h2 class="post-title">
+            在微信spa中模拟一个路由堆栈系统
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            最近再写一个活动模块，用 vue 写的。这个活动模块需要融合到我们的主项目之中，这就意味着在用路由做其实不太好，活动本身的数据交换比较频繁，用 vuex 太大
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Sunday, October 14, 2018
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhaohuabing.com/post/201810/%E5%BE%AE%E4%BF%A1ios%E5%8A%A8%E6%80%81%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%E6%97%A0%E6%B3%95%E6%AD%A3%E5%B8%B8%E6%92%AD%E6%94%BE%E7%9A%84%E9%97%AE%E9%A2%98/">
+        <h2 class="post-title">
+            微信浏览器 IOS下 动态音乐播放器无法正常播放的问题
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            这个其实算是老生常谈的问题了，IOS 的安全机制导致你无法自动播放音频，很多人用一些触摸事件来模拟用户操作，然后去触发 play 事件。不过今天我的问题
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Friday, October 12, 2018
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhaohuabing.com/post/201712/%E8%A7%A3%E5%86%B3%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%B5%8F%E8%A7%88%E5%99%A8%E6%97%A0%E6%B3%95%E8%B0%83%E7%94%A8audio%E7%9A%84play%E6%96%B9%E6%B3%95/">
+        <h2 class="post-title">
+            解决移动端浏览器无法调用audio的play方法
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            最近在写一个移动端音乐播放器的时候遇到一个非常难受的问题，在PC可以正常调用audio标签的play方法，在在手机移动端上的绝大部分浏览器都
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Friday, December 15, 2017
+    
+    
+    </p>
+
+</div>
+<hr>
+
+
+            
+
+
+
+       	</div>
+        
+
+<div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+    
+    
+    <section>
+        <hr class="hidden-sm hidden-xs">
+        <h5>FEATURED TAGS</h5>
+        <div class="tags">
+             
+            
+                
+                    <a href="/tags/canvas" title="canvas">
+                        canvas
+                    </a>
+                
+            
+                
+            
+                
+                    <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                        chrome扩展
+                    </a>
+                
+            
+                
+                    <a href="/tags/csapp" title="csapp">
+                        csapp
+                    </a>
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    <a href="/tags/github" title="github">
+                        github
+                    </a>
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    <a href="/tags/nginx" title="nginx">
+                        nginx
+                    </a>
+                
+            
+                
+            
+                
+            
+                
+                    <a href="/tags/reactnative" title="reactnative">
+                        reactnative
+                    </a>
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    <a href="/tags/vue.js" title="vue.js">
+                        vue.js
+                    </a>
+                
+            
+                
+                    <a href="/tags/web" title="web">
+                        web
+                    </a>
+                
+            
+                
+            
+                
+            
+                
+                    <a href="/tags/websocket" title="websocket">
+                        websocket
+                    </a>
+                
+            
+                
+                    <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                        函数式编程
+                    </a>
+                
+            
+                
+            
+                
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                        微信公众号
+                    </a>
+                
+            
+                
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                        微信小程序
+                    </a>
+                
+            
+                
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                        微信浏览器
+                    </a>
+                
+            
+                
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                        数据结构
+                    </a>
+                
+            
+                
+            
+                
+            
+                
+                    <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                        算法
+                    </a>
+                
+            
+                
+                    <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                        算法导论
+                    </a>
+                
+            
+                
+            
+                
+            
+                
+                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                        计算机原理
+                    </a>
+                
+            
+                
+            
+                
+            
+        </div>
+    </section>
+    
+
+    
+	
+    <section class="visible-md visible-lg">
+	<hr><h5><a href="/top/about">ABOUT ME</a></h5>
+        <div class="short-about">
+            
+            <a href="/top/about">
+               <img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229005935.jpeg" alt="avatar" style="cursor: pointer" />
+            </a>
+            
+            
+                <p>Software Developer</p>
+            
+           
+           <ul class="list-inline"> 
+               
+               <li>
+                   <a href='/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8/index.xml' rel="alternate" type="application/rss+xml" title="Yinode Blog" >
+                       <span class="fa-stack fa-lg">
+                           <i class="fa fa-circle fa-stack-2x"></i>
+                           <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                       </span>
+                   </a>
+               </li>
+               
+               
+               
+               
+               
+               
+               <li>
+                   <a target="_blank" href="/eizoniko">
+                       <span class="fa-stack fa-lg">
+                           <i class="fa fa-circle fa-stack-2x"></i>
+                           <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                       </span>
+                   </a>
+               </li>
+               
+               
+               <li>
+                   <a target="_blank" href="https://github.com/zhangzhengyi12">
+                       <span class="fa-stack fa-lg">
+                           <i class="fa fa-circle fa-stack-2x"></i>
+                           <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                       </span>
+                   </a>
+               </li>
+               
+               
+               
+               
+               
+               
+            
+            
+               
+               
+                </ul>
+            </div>
+    </section>
+	
+    
+    
+
+    
+    
+</div>
+
+	</div>
+</div>
+
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8/index.xml' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2020
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="Nginx 简单配置转发 显示一个基本的多服务结构" />
+    <meta property="og:title" content="Nginx 简单配置转发 显示一个基本的多服务结构" />
+    <meta property="twitter:title" content="Nginx 简单配置转发 显示一个基本的多服务结构" />
+    
+
+    
+    <meta name="description" content="Wubba lubba dub dub">
+    <meta property="og:description" content="Wubba lubba dub dub" />
+    <meta property="twitter:description" content="Wubba lubba dub dub" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Nginx 简单配置转发 显示一个基本的多服务结构-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201805/%E4%BD%BF%E7%94%A8nginx%E6%9D%A5%E8%AE%A9%E4%BD%A0%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2%E5%A4%9A%E4%B8%AAweb%E5%BA%94%E7%94%A8/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/nginx" title="Nginx">
+                            Nginx
+                        </a>
+                        
+                    </div>
+                    <h1>Nginx 简单配置转发 显示一个基本的多服务结构</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Sunday, July 29, 2018
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#step-1-install-nginx">STEP 1 Install Nginx</a></li>
+<li><a href="#step-2-set-dns-and-port">STEP 2 Set DNS AND PORT</a></li>
+<li><a href="#step-3-nginx-config-node-js">STEP 3 nginx config Node.js</a></li>
+<li><a href="#step-4-nginx-config-php">STEP 4 nginx config PHP</a></li>
+<li><a href="#step-5-repeat">STEP 5 Repeat</a></li>
+<li><a href="#step-6-restart-nginx">STEP 6 Restart nginx</a></li>
+<li><a href="#step-7-run">STEP 7 Run</a></li>
+<li><a href="#后续更新">后续更新</a></li>
+<li><a href="#在转发请求到本地node-js服务端的时候出现502bad-gateway">在转发请求到本地NODE.js服务端的时候出现502Bad Gateway</a></li>
+<li><a href="#https无法正常启用">HTTPS无法正常启用</a></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<p>最近捣鼓了不少时间，起初想到要弄这个就是因为 node 直接起 server 的方式有点暴力，因为占用了 80 端口就是真的占用了，很难在用一个 80 端口挂多个 WebServer。你只能挂载在多个端口上，访问起来后面还得加个端口，太丑了，所以摸索了一下，用 Nginx 配置了一个多服务结构。这样就能通过不同的子域名来访问不同的应用了！</p>
+
+<blockquote>
+<p>大致的结构</p>
+</blockquote>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/18-5-18/95590032.jpg" alt="" /></p>
+
+<p>本质上就是 nginx 负责转发进来的请求，那么转发的依据就是判断不同的子域名</p>
+
+<h2 id="step-1-install-nginx">STEP 1 Install Nginx</h2>
+
+<p>第一步当然是安装 nginx，各个平台不太一样，也没法分享了。我自己的 ubuntu 的环境</p>
+
+<blockquote>
+<p>apt-get isntall nginx</p>
+</blockquote>
+
+<h2 id="step-2-set-dns-and-port">STEP 2 Set DNS AND PORT</h2>
+
+<p>去你的域名管理商那里分配你想要的子域名，当然都是 A 记录并全部解析到你的 VPS 公网 IP 上.</p>
+
+<p>另外一个准备就是修改你所有的 NodeWebServer 的端口，可以按你的爱好设置，但是不要占用 80 以及 443 端口</p>
+
+<h2 id="step-3-nginx-config-node-js">STEP 3 nginx config Node.js</h2>
+
+<p>切换到你的<strong>nginx 配置目录</strong></p>
+
+<p>我的目录位置</p>
+
+<blockquote>
+<p>/etc/nginx/</p>
+</blockquote>
+
+<p>这里要说明 nginx 是拥有 Include 机制的，他会自动加载 conf.d 目录下的所有 _.conf_（默认配置下） ，所以我们并不需要修改 nginx.conf 文件。我们接下来需要在 conf.d 目录下创建一系列的配置文件，文件名请使用你相应的工程名，比如 <strong>project1.conf</strong></p>
+
+<p>如果没有请手动加入</p>
+
+<pre><code class="language-nginx">        include /etc/nginx/conf.d/*.conf;
+        # include /etc/nginx/sites-enabled/*; // 最好给他注释了 默认页面没啥用
+</code></pre>
+
+<p>开始编写项目配置</p>
+
+<blockquote>
+<p>cd conf.d</p>
+
+<p>touch project1.conf</p>
+
+<p>vim project1.conf</p>
+</blockquote>
+
+<p>让我们编写详细的转发规则</p>
+
+<pre><code class="language-nginx">// 这是一个NODE Web Server
+// 我已经将这个服务的端口改成了8000端口
+// 当nginx捕获到访问域名为api.yinode.tech的时候
+// 就会转发到本地的8000端口
+server{
+    server_name api.yinode.tech;
+    listen 80;
+    location / {
+        # proxy_http_version 1.1;
+        proxy_set_header Connection &quot;&quot;;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-NginX-Proxy true;
+        proxy_pass http://127.0.0.1:8000$request_uri;
+        proxy_redirect off;
+    }
+}
+</code></pre>
+
+<p>如果你需要转发 HTTPS，请复制一份上面的内容粘贴到下面，修改监听端口为 443，转发端口就是你监听的 https 端口！</p>
+
+<h2 id="step-4-nginx-config-php">STEP 4 nginx config PHP</h2>
+
+<p>php 的转发设置会稍有一些不同，（默认你已经安装好了 PHP）</p>
+
+<pre><code class="language-nginx">server {
+  listen 80;
+  root /var/www/longqiyoutian/wordpress; // 你的根目录
+  index index.php;
+  server_name dragon.yinode.tech;
+  error_page 404 /404.html;
+  location ~ \.php$ {
+    try_files $uri = 404;
+    fastcgi_pass unix:/var/run/php/php7.0-fpm.sock; // 你的fpm地址
+    fastcgi_index index.php;
+    include fastcgi_params;
+    fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name; // 必须填写，注意顺序
+  }
+}
+</code></pre>
+
+<p>逐个讲解，首先我们的 Root 目录会变的重要，Nginx 将会把这个目录转发给 FPM 来跑 PHP 代码，所以不要写错了，第二是后面的转发必须加上 <code>fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;</code>这能引导 fpm 进行正确的地址拼接</p>
+
+<blockquote>
+<p>TIPS:提醒</p>
+</blockquote>
+
+<p>nginx 和 FPM 的默认启动用户都是 www-data,所以你的网站根目录请务必修改所属者为 www-data,并且不要将这个目录放置到/root/ 下，会出现权限问题，最好复制到/var/www 目录下，并设置所属者！</p>
+
+<h2 id="step-5-repeat">STEP 5 Repeat</h2>
+
+<p>重复 3 4 步骤，创建所有你需要的项目配置</p>
+
+<h2 id="step-6-restart-nginx">STEP 6 Restart nginx</h2>
+
+<blockquote>
+<p>service nginx restart</p>
+</blockquote>
+
+<p>如果出现报错，仔细查看信息，去网上找，一般都是因为配置文件格式错误。</p>
+
+<h2 id="step-7-run">STEP 7 Run</h2>
+
+<p>打开你的网站吧，应该可以正常运行了！以后新增 Server 其实也只要增加一个对应的 conf 文件，非常的方便，并且整个网站访问起来非常美观！</p>
+
+<h2 id="后续更新">后续更新</h2>
+
+<p>在后续我迁移服务器的时候出现了了一些问题 在此发出我的解决办法 如果你们也有相同问题，希望能帮到你们</p>
+
+<h2 id="在转发请求到本地node-js服务端的时候出现502bad-gateway">在转发请求到本地NODE.js服务端的时候出现502Bad Gateway</h2>
+
+<p>我的解决办法是 proxy_pass <a href="http://127.0.0.1:8000$request_uri">http://127.0.0.1:8000$request_uri</a>;
+删除后面的$request_uri</p>
+
+<h2 id="https无法正常启用">HTTPS无法正常启用</h2>
+
+<p>我的选择是让nginx进行HTTPS处理 放弃用Node.js处理https请求</p>
+
+<p>在<code>/etc/nginx/</code>下创建crt目录 放置你的公钥私钥</p>
+
+<pre><code class="language-nginx">server{
+    server_name api.yinode.tech;
+    ssl on;
+    ssl_certificate crt/api.yinode.tech.crt;
+    ssl_certificate_key crt/api.yinode.tech.key;
+    ssl_session_timeout 5m;
+    ssl_protocols SSLv2 SSLv3 TLSv1;
+    ssl_ciphers ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
+    ssl_prefer_server_ciphers on;
+    listen 443 ;
+    location / {
+        # proxy_http_version 1.1;
+        proxy_set_header Connection &quot;&quot;; 
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-NginX-Proxy true;
+        proxy_pass http://127.0.0.1:8000;
+        proxy_redirect off;
+    }
+}
+</code></pre>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201805/%E5%B8%B8%E8%A7%81%E7%9A%84%E5%87%A0%E7%A7%8D%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" data-toggle="tooltip" data-placement="top" title="几种排序算法">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/201808/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E5%8D%81%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/" data-toggle="tooltip" data-placement="top" title="算法导论笔记 十一 贪心算法 最小生成树">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2020
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+</body>
+</html>

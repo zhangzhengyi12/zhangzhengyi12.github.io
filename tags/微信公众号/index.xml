@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>微信公众号 on Yinode Blog</title>
+    <link>https://zhaohuabing.com/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7/</link>
+    <description>Recent content in 微信公众号 on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 16 Nov 2018 00:20:24 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhaohuabing.com/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>利用AOP的思路完成微信公众号网页中的分享来源统计功能</title>
+      <link>https://zhaohuabing.com/post/201811/%E5%88%A9%E7%94%A8aop%E7%9A%84%E6%80%9D%E8%B7%AF%E5%AE%8C%E6%88%90%E5%BE%AE%E4%BF%A1spa%E4%B8%AD%E7%9A%84%E6%9D%A5%E6%BA%90%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD/</link>
+      <pubDate>Fri, 16 Nov 2018 00:20:24 +0000</pubDate>
+      
+      <guid>https://zhaohuabing.com/post/201811/%E5%88%A9%E7%94%A8aop%E7%9A%84%E6%80%9D%E8%B7%AF%E5%AE%8C%E6%88%90%E5%BE%AE%E4%BF%A1spa%E4%B8%AD%E7%9A%84%E6%9D%A5%E6%BA%90%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD/</guid>
+      <description>需求 最近遇到了这么一个需求，我们拥有一个主要容器是微信浏览器的移动端 WebAPP 。他的主要功能是运营一些活动比如说抢红包啦，答题啦，所以我们需要对用户</description>
+    </item>
+    
+    <item>
+      <title>解决微信浏览器中登录后缓存页面导致无法进入Vue.js组件生命周期的问题</title>
+      <link>https://zhaohuabing.com/post/201810/%E8%A7%A3%E5%86%B3%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E7%99%BB%E5%BD%95%E5%90%8E%E7%BC%93%E5%AD%98%E9%A1%B5%E9%9D%A2%E5%AF%BC%E8%87%B4%E6%97%A0%E6%B3%95%E8%BF%9B%E5%85%A5%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%9A%84%E9%97%AE%E9%A2%98vue/</link>
+      <pubDate>Sat, 20 Oct 2018 23:42:55 +0000</pubDate>
+      
+      <guid>https://zhaohuabing.com/post/201810/%E8%A7%A3%E5%86%B3%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E7%99%BB%E5%BD%95%E5%90%8E%E7%BC%93%E5%AD%98%E9%A1%B5%E9%9D%A2%E5%AF%BC%E8%87%B4%E6%97%A0%E6%B3%95%E8%BF%9B%E5%85%A5%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%9A%84%E9%97%AE%E9%A2%98vue/</guid>
+      <description>先来阐述一下我的登录逻辑 进入组件 A 请求接口 api 请求会被拦截器拦截 检查该接口是否需要登录 如果用户未登录 跳转到 login 组件 xx.com/#/login?</description>
+    </item>
+    
+    <item>
+      <title>解决微信小程序 chooselocation在ios下不能稳定触发的问题</title>
+      <link>https://zhaohuabing.com/post/201810/%E8%A7%A3%E5%86%B3%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fchooselocation%E5%9C%A8ios%E4%B8%8B%E4%B8%8D%E8%83%BD%E7%A8%B3%E5%AE%9A%E8%A7%A6%E5%8F%91%E7%9A%84%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Tue, 02 Oct 2018 23:19:48 +0000</pubDate>
+      
+      <guid>https://zhaohuabing.com/post/201810/%E8%A7%A3%E5%86%B3%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fchooselocation%E5%9C%A8ios%E4%B8%8B%E4%B8%8D%E8%83%BD%E7%A8%B3%E5%AE%9A%E8%A7%A6%E5%8F%91%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
+      <description>setTimeout(() =&amp;gt; { this.moveToLocation() // chooseLocation的包装函数 }, 150) 在页面onLoad生命周期里 用150ms的延迟来保证触发。具体原因未知，官方文档没有写，</description>
+    </item>
+    
+  </channel>
+</rss>

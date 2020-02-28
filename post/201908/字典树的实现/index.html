@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="字典树的实现" />
+    <meta property="og:title" content="字典树的实现" />
+    <meta property="twitter:title" content="字典树的实现" />
+    
+
+    
+    <meta name="description" content="字典树也被称之为前缀树，是一种根据字母序列为基础的快速检索数据结构">
+    <meta property="og:description" content="字典树也被称之为前缀树，是一种根据字母序列为基础的快速检索数据结构" />
+    <meta property="twitter:description" content="字典树也被称之为前缀树，是一种根据字母序列为基础的快速检索数据结构" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>字典树的实现-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201908/%E5%AD%97%E5%85%B8%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                    </div>
+                    <h1>字典树的实现</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Friday, August 9, 2019
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#字典树的构建">字典树的构建</a></li>
+<li><a href="#字典树的查找">字典树的查找</a></li>
+<li><a href="#具体的实现">具体的实现</a></li>
+<li><a href="#总结">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<blockquote>
+<p>在计算机科学中，trie，又称前缀树或字典树，是一种有序树，用于保存关联数组，其中的键通常是字符串。与二叉查找树不同，键不是直接保存在节点中，而是由节点在树中的位置决定。一个节点的所有子孙都有相同的前缀，也就是这个节点对应的字符串，而根节点对应空字符串。一般情况下，不是所有的节点都有对应的值，只有叶子节点和部分内部节点所对应的键才有相关的值。</p>
+</blockquote>
+
+<p>字典树的运用其实相当常见，我们在浏览器中输入英文单词的时候，一旦发生错误的单词，就会帮你进行提示，事实上，这个过程就可以利用字典树进行快速的查询实现，与此类似的示例还有搜索建议，提前给你可能需要的搜索内容。</p>
+
+<p>当然，这个过程也可以依赖遍历整个字典实现，但是这样的时间复杂度就是<code>O(n)</code>级别的，而前缀树的查找复杂度可以控制在<code>O(L) L = 搜索内容的长度</code>。</p>
+
+<p>以下是一颗典型的字典树构造</p>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20190809143915.png" alt="" /></p>
+
+<p>我们可以观察这棵树的细节，该树的每个节点拥有一个label字段，或者叫prefix也行，标记了这个节点所代表的字符，并且每个节点可以拥有多个子节点，代表从该字符开始，往下连结的字符。</p>
+
+<p>所以一个典型的字典树节点大致有三个属性</p>
+
+<ol>
+<li>label 代表该节点代表的字符</li>
+<li>word 从根节点到该节点的路线能够构成一个单词 存放单词的内容(这里面和图里的做法不太相同，图里的做法其实是吧label和word进行了合并, 两种做法其实都可以，看你需求)</li>
+<li>children 该节点的所有下沿节点</li>
+</ol>
+
+<p>当然在具体的编程之中，你可以灵活的添加自定义属性，对该算法进行改装，进一步提升性能。</p>
+
+<p>字典树大致可以分为两部分，<strong>字典树的构建</strong> <strong>字典树的查询</strong></p>
+
+<h2 id="字典树的构建">字典树的构建</h2>
+
+<p>字典树的构建非常简单，大致步骤如下</p>
+
+<p>假设我们拥有一颗字典树，以及一个即将加入字典树的单词 <code>hello</code></p>
+
+<p>建立两个基本变量</p>
+
+<p>当前节点 <strong>curNode</strong> 初始值为根节点
+当前子字符 <strong>curChar</strong> 初始值为 hello 中的第一个字符 <code>h</code></p>
+
+<ol>
+<li>找<strong>curNode</strong>下的节点 是否有节点label等于<strong>curChar</strong>的 有&gt;进入步骤2 没有&gt;进入步骤3</li>
+<li>设置<strong>curNode</strong> 为匹配的node</li>
+<li>新建一个 label = <strong>curChar</strong> 的新节点 设置新节点为<strong>curNode</strong> 如果<strong>curChar</strong>已经到最后一位 设置node的word为 &ldquo;hello&rdquo;</li>
+<li>让<strong>curChar</strong>继续向下延续 重复上述步骤 直到curChar处理完毕</li>
+</ol>
+
+<p>字典树的插入过程可以被看作是把需要插入到单词，与我们的树形结构建立对应关系的过程。</p>
+
+<h2 id="字典树的查找">字典树的查找</h2>
+
+<p>字典的查找事实上步骤和插入其实是完全一致的，也是一个深度优先的遍历过程。</p>
+
+<p>同样是从根节点向下查询，每次向下操作都会让<strong>curChar</strong>向后延续。</p>
+
+<p>查找会有一些特殊情况</p>
+
+<ol>
+<li>如果我们已经到了叶子节点，<strong>curChar</strong>还没结尾 说明查找肯定失败了</li>
+<li>如果我们到达了叶子节点 <strong>curChar</strong>也结束了 但是结尾的label不等于<strong>curChar</strong> 同样说明失败</li>
+<li>还没到叶子节点 就发生匹配失败了 同样失败</li>
+</ol>
+
+<p>出现上述的错误情况就可以直接结束循环了。</p>
+
+<p>所以其实正确的情况只有一种，<strong>curChar</strong>已经结尾，并且当前的节点label == <strong>curChar</strong></p>
+
+<h2 id="具体的实现">具体的实现</h2>
+
+<pre><code class="language-java">class ArrayStack&lt;T&gt; {
+    private ArrayList&lt;T&gt; stack = new ArrayList&lt;T&gt;();
+
+    public void push(T ele) {
+        stack.add(ele);
+    }
+
+    public T pop() {
+        T ele = stack.get(stack.size() - 1);
+        stack.remove(stack.size() - 1);
+        return ele;
+    }
+
+    public Boolean isEmpty() {
+        return stack.size() &lt;= 0;
+    }
+}
+
+/***
+ * @deprecated 字典树
+ * */
+class DictTree {
+    private static class TreeNode {
+        public ArrayList&lt;TreeNode&gt; children;
+        public String word = &quot;&quot;;
+        public String prefix = &quot;&quot;;
+        public Boolean isRoot = false;
+
+        TreeNode(String prefix, String word) {
+            this.children = new ArrayList&lt;TreeNode&gt;();
+            this.word = word;
+            this.prefix = prefix;
+        }
+    }
+
+    public TreeNode root;
+
+    DictTree() {
+        this.root = new TreeNode(&quot;&quot;, &quot;&quot;);
+        this.root.isRoot = true;
+    }
+
+    // 添加一个单词进字典树
+    public void add(String word) {
+        ArrayStack&lt;TreeNode&gt; stack = new ArrayStack&lt;TreeNode&gt;();
+        int wordIndex = 0;
+        stack.push(this.root);
+        while (!stack.isEmpty() &amp;&amp; wordIndex &lt; word.length()) {
+            TreeNode node = stack.pop();
+            String wordItem = word.substring(wordIndex, wordIndex + 1);
+            TreeNode foundNode = null;
+
+            for (TreeNode child : node.children) {
+                // 找到匹配 直接结束遍历
+                if (child.prefix.equals(wordItem)) {
+                    foundNode = child;
+                    break;
+                }
+            }
+
+            // 未找到匹配 手动新建
+            if (foundNode == null) {
+                String endWord = wordIndex &lt; (word.length() - 1) ? &quot;&quot; : word;
+                TreeNode newNode = new TreeNode(wordItem, endWord);
+                node.children.add(newNode);
+                foundNode = newNode;
+            }
+
+            wordIndex++;
+            stack.push(foundNode);
+        }
+    }
+
+    // 在字典树中进行搜索
+    public String search(String word) {
+        ArrayStack&lt;TreeNode&gt; stack = new ArrayStack&lt;TreeNode&gt;();
+        int wordIndex = 0;
+        stack.push(this.root);
+        String result = &quot;404 Not found&quot;;
+
+        // stack.isEmpty() 代表没有找到能和当前 wordItem 匹配的下一个子节点
+        // wordIndex &lt; word.length() 代表要搜索的字符已经结尾
+        while (!stack.isEmpty() &amp;&amp; wordIndex &lt; word.length()) {
+            TreeNode node = stack.pop();
+            String wordItem = word.substring(wordIndex, wordIndex + 1);
+
+            for (TreeNode child : node.children) {
+                if (child.prefix.equals(wordItem)) {
+                    // 找到匹配 当前字符正好结尾 &amp;&amp; node确实是一个单词 &amp;&amp; node.word == word
+                    if (wordIndex == word.length() - 1 &amp;&amp; child.word.equals(word)) {
+                        result = word;
+                    } else { /* 继续循环 */
+                        stack.push(child);
+                        wordIndex++;
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
+}
+
+class Index {
+
+    public static void main(String[] args) throws Exception {
+        DictTree dt = new DictTree();
+        dt.add(&quot;geek&quot;);
+        dt.add(&quot;geometry&quot;);
+        println(dt.search(&quot;good&quot;)); // 404 Not Fount
+        println(dt.search(&quot;geek&quot;)); // geek
+    }
+}
+</code></pre>
+
+<h2 id="总结">总结</h2>
+
+<p>字典树是一种典型的利用空间换时间的算法。</p>
+
+<p>字典树可以被用于，字符串检索，词频统计，热门搜索, 字符串排序等用途。</p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201907/%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%94%A8%E4%BA%8E%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6%E5%BA%93%E7%9A%84%E9%A1%B9%E7%9B%AE%E8%84%9A%E6%89%8B%E6%9E%B6%E5%B7%A5%E5%85%B7%E7%B1%BBvuecli3/" data-toggle="tooltip" data-placement="top" title="构建一个用于创建组件库的项目脚手架工具 [类 Vue-cli-3]">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/201909/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0k%E5%9D%87%E5%80%BC%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/" data-toggle="tooltip" data-placement="top" title="机器学习 K均值分类算法">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2020
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+</body>
+</html>

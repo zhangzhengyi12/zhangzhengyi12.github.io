@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="SICP 计算机程序的构造与解释笔记" />
+    <meta property="og:title" content="SICP 计算机程序的构造与解释笔记" />
+    <meta property="twitter:title" content="SICP 计算机程序的构造与解释笔记" />
+    
+
+    
+    <meta name="description" content="Wubba lubba dub dub">
+    <meta property="og:description" content="Wubba lubba dub dub" />
+    <meta property="twitter:description" content="Wubba lubba dub dub" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>SICP 计算机程序的构造与解释笔记-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201711/sicp%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9E%84%E9%80%A0%E4%B8%8E%E8%A7%A3%E9%87%8A%E7%AC%94%E8%AE%B0/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/sicp" title="SICP">
+                            SICP
+                        </a>
+                        
+                        <a class="tag" href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        <a class="tag" href="/tags/lisp" title="LISP">
+                            LISP
+                        </a>
+                        
+                    </div>
+                    <h1>SICP 计算机程序的构造与解释笔记</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Monday, November 13, 2017
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li><a href="#前言">前言</a>
+<ul>
+<li><a href="#纲要">纲要</a></li>
+<li><a href="#cs中控制复杂度的方法">CS中控制复杂度的方法</a></li>
+<li><a href="#一门编程语言的基本元素">一门编程语言的基本元素</a></li>
+</ul></li>
+<li><a href="#lisp">LISP</a>
+<ul>
+<li><a href="#组合式">组合式</a></li>
+<li><a href="#lambda">lambda</a></li>
+<li><a href="#lisp中基本抽象">LISP中基本抽象</a></li>
+<li><a href="#lisp中的判断">LISP中的判断</a></li>
+<li><a href="#实例-连续法求平分根">实例 连续法求平分根</a></li>
+<li><a href="#结尾">结尾</a></li>
+</ul></li>
+<li><a href="#代换模型">代换模型</a>
+<ul>
+<li><a href="#两种加法算法">两种加法算法</a></li>
+<li><a href="#过程分析对比">过程分析对比</a></li>
+<li><a href="#代换模型分析">代换模型分析</a></li>
+</ul></li>
+<li><a href="#高阶过程">高阶过程</a>
+<ul>
+<li><a href="#假想法">假想法</a></li>
+<li><a href="#实例">实例</a></li>
+<li><a href="#构造复合数据">构造复合数据</a></li>
+</ul></li>
+<li><a href="#数据抽象">数据抽象</a>
+<ul>
+<li><a href="#序对的本质">序对的本质</a></li>
+<li><a href="#lisp中的闭包">LISP中的闭包</a></li>
+<li><a href="#list">LIST</a></li>
+<li><a href="#实例-escher">实例 Escher</a></li>
+</ul></li>
+<li><a href="#模式匹配">模式匹配</a>
+<ul>
+<li><a href="#匹配器">匹配器</a></li>
+<li><a href="#实例化">实例化</a></li>
+<li><a href="#化简器">化简器</a></li>
+</ul></li>
+<li><a href="#通用运算符">通用运算符</a>
+<ul>
+<li><a href="#抽象屏障存在的问题">抽象屏障存在的问题</a></li>
+<li><a href="#复数模型">复数模型</a></li>
+<li><a href="#type">Type</a>
+<ul>
+<li><a href="#分派系统存在的问题">分派系统存在的问题</a></li>
+</ul></li>
+<li><a href="#分派系统完善">分派系统完善</a></li>
+<li><a href="#结尾-1">结尾</a></li>
+</ul></li>
+<li><a href="#赋值-状态与副作用">赋值、状态与副作用</a>
+<ul>
+<li><a href="#函数式编程">函数式编程</a></li>
+<li><a href="#赋值">赋值</a></li>
+<li><a href="#实例-阶乘">实例：阶乘</a></li>
+<li><a href="#环境模型">环境模型</a></li>
+<li><a href="#总结">总结</a></li>
+<li><a href="#队列">队列</a></li>
+<li><a href="#cons的函数式实现-一">CONS的函数式实现 一</a></li>
+<li><a href="#cons的函数式实现-二">CONS的函数式实现 二</a></li>
+</ul></li>
+<li><a href="#流streams">流Streams</a>
+<ul>
+<li><a href="#流的构造">流的构造</a></li>
+<li><a href="#流解决了什么问题">流解决了什么问题？</a></li>
+<li><a href="#流的构建">流的构建</a>
+<ul>
+<li><a href="#定义流">定义流</a></li>
+<li><a href="#操作流">操作流</a>
+<ul>
+<li><a href="#大功告成">大功告成</a></li>
+</ul></li>
+<li><a href="#实例展示">实例展示</a></li>
+</ul></li>
+<li><a href="#增强流">增强流</a>
+<ul>
+<li><a href="#真正流的实现">真正流的实现</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#总结-1">总结</a></li>
+</ul>
+</nav>
+                
+                
+
+<hr />
+
+<h1 id="前言">前言</h1>
+
+<p>最近一直在学习SICP这本书，基本上结合书与视频一起学习，可以说这真的是一本奇书，他从高阶抽象开始到介绍DSL乃至流，最后又开始讨论lambda演算以及编译器的原理。这实质上是一种类似圆的结构,整本书的头和尾连在一起。</p>
+
+<h2 id="纲要">纲要</h2>
+
+<p>计算机科学的核心在于<strong>复杂度的控制</strong>（大规模程序的复杂度尽可能的低）</p>
+
+<p>我们的程序要变成一个个抽象单元，可以随意的组合，要超脱与现实的一个制约。</p>
+
+<p>而SICP的重点，其实就在于 抽象 抽象 再抽象。</p>
+
+<h2 id="cs中控制复杂度的方法">CS中控制复杂度的方法</h2>
+
+<ol>
+<li>黑箱抽象（无需了解内部实现细节）</li>
+<li>面向接口编程 （通过约定，定制接口，利用接口组合程序）</li>
+<li>创造一门新的语言（元编程，DSL）</li>
+</ol>
+
+<h2 id="一门编程语言的基本元素">一门编程语言的基本元素</h2>
+
+<ol>
+<li>组合的方法</li>
+<li>抽象的方法</li>
+</ol>
+
+<h1 id="lisp">LISP</h1>
+
+<h2 id="组合式">组合式</h2>
+
+<p>组合式的基本内容有运算符和运算对象，一个组合式可以再次含有组合式，成为一个树形结构</p>
+
+<p>只要理解好组合关系 就非常好阅读Lisp代码</p>
+
+<p>记住 所有被括号包括的部分 都可以看成是组合式</p>
+
+<h2 id="lambda">lambda</h2>
+
+<p>lambda在LISP中用于构建一个过程</p>
+
+<pre><code>(define (squ x) (* x x)) // 简写
+</code></pre>
+
+<p>等同于</p>
+
+<pre><code>（define squx (lambda (x) (* x x)) ）
+</code></pre>
+
+<p>在LISP的解释器看来是完全相同的，只是语法糖而已</p>
+
+<h2 id="lisp中基本抽象">LISP中基本抽象</h2>
+
+<p>LISP的最基本的抽象就是利用一个名称来指向一个过程，在调用这个过程的时候，你是符合黑箱原则的，也就是说你无须关心这个过程的细节</p>
+
+<p>而这个过程可以被当成一普通元素一样任意的组合&amp;使用</p>
+
+<p>所以+-*/等基本操作符你也可以看作是一个定义好的过程 他的核心就是读取你的参数并操作，这一点上，语言内建的过程和你自定义的过程没有区别</p>
+
+<h2 id="lisp中的判断">LISP中的判断</h2>
+
+<pre><code>(define (abs x)(
+              cond ((&lt; x 0)(- x))
+                   ((= x 0) 0)
+                   ((&gt; x 0) x)
+              ))
+</code></pre>
+
+<p>这个例子中 cond 完全可以看作一种过程 其后的三个括号就是其参数
+而这三个参数又是一个组合式 其中前面的括号为判断 后面的可能是单独的值 也可以是另外一个组合式</p>
+
+<pre><code>(define (abs x)
+  (if (&lt; x 0)
+      (- x )
+      x)) // 另外一个受限形势
+</code></pre>
+
+<h2 id="实例-连续法求平分根">实例 连续法求平分根</h2>
+
+<p>这个例子的重点在于的是一种模块化的思想，也就是说一个平分根函数会调用其他的函数，并且递归的调用自身来不断修正自己的猜测值</p>
+
+<p>整个猜测修正的过程其实就在于数轴上不断的跳动去修正 如果数值猜测太大 经过 <code>( /  (+ g (/ x g) ) 2) )</code> 数值变小 如果猜测太小 则相反 一步步    的接近足够精确的数值</p>
+
+<pre><code>(define (sqrt x)
+  (define (improve guess)
+(average guess (/ x guess)))
+  (define (good-enough? guess)
+(&lt; (abs (- (square guess) x)) 0.001))
+  (define (try guess)
+(if (good-enough? guess)
+   guess
+   (try (improve guess))))
+  (try 1))
+</code></pre>
+
+<p>这种定义多个过程+最后调用的形式叫块，将一系列的过程进行一个打包黑箱，并且其中的x可以被所有小过程所公用</p>
+
+<h2 id="结尾">结尾</h2>
+
+<p>最后，注意在define过程中 用括号包裹的才代表一个过程，就像是一个函数，而不用括号包裹的，则是一个简单的变量
+比如</p>
+
+<pre><code>(define a (*  5 5 )) // 在刚定义的时候 实质上就已经运算完毕 a绑定的是25而不是过程
+(define (b) (* 5 5 ))
+</code></pre>
+
+<p>其中a代表的是一个简单的变量 可以通过a访问
+而b则代表过程 需要用（b）来访问25</p>
+
+<h1 id="代换模型">代换模型</h1>
+
+<p>代换模型是对于LISP程序执行的一种工程解读，实际程序的执行可能并不相同，但这有利于我们理解LISP程序的执行。</p>
+
+<p>代换模型可以简单的认为，任何组合式都是先用实际参数代换过程中的形式参数，在过程中计算所有的计算对象，然后对计算对象的结果进行一个计算。</p>
+
+<p>这个过程可以形象的看作一个深度优先的搜索树算法。代换&gt;计算&gt;代换&gt;计算， <strong>优先求值</strong>。</p>
+
+<p>一个简单的组合式会被不断的代换求值。</p>
+
+<h2 id="两种加法算法">两种加法算法</h2>
+
+<pre><code>(define (+ x y)
+  (if (= x 0)
+      y
+      ( + (+ (- x 1) y) 1))) // 算法a
+(define (+ x y)(
+  if (= x 0)
+     y
+     (+ (- x 1)(+ y 1)))) //算法b
+</code></pre>
+
+<h2 id="过程分析对比">过程分析对比</h2>
+
+<p>算法a的方法是不断减少x的值 知道触底（x = 0）之后，在y的基础之上一步步的加上1。整个过程就像是不断的开栈 每个栈都有一个1等待相加。直到触底回升的时候，就开始在Y的基础上逐步加1。这里面开栈的个数就等于x的值</p>
+
+<p>算法b的方法就是同时减小a与增大y，就好比是从x中取值送给y当x = 0 ,直接返回y</p>
+
+<p>这两者的区别在于，a不断的开栈，利用栈来存放一个小计数器。并在最后返回的时候才执行真正计数</p>
+
+<p>而b则是在不断的修正x与y的值</p>
+
+<p>如果用两堆弹柱之和来说明，a方法是把堆x中的弹柱一个个拿到手心中，拿光了就一个个的从手心放到堆y中
+b方法就是直接将堆x中的弹柱一个个放到堆y中</p>
+
+<h2 id="代换模型分析">代换模型分析</h2>
+
+<p>a方法呈现出一个逐渐展开，之后收紧的形状 其中最长的空间点是刚触底，也就是x = 0的时候</p>
+
+<p>b方法呈现一个线性，没有任何展开，直上直下的形状。</p>
+
+<p>b算法我们称为<strong>迭代计算过程</strong>，其中程序执行的空间等于 <code>O(1)</code> 也就是说执行的空间是固定的，而执行的时间取决于x的大小（迭代多少次为0）所以执行时间等于<code>O(x)</code></p>
+
+<p>a算法我们称为 <strong>递归计算过程</strong>  ，他的空间复杂度随着x的提高而提高，x有多大，就需要在最大空间的时候开启多少个调用栈，多少个+1都在各自的空间内等待，所以为 <code>O(x)</code>时间复杂度相同 为 <code>o(x)</code></p>
+
+<p>所以再次我们用两个弹柱的形象描述来说，要是你的手心不够大，是很难暂时存放那x个柱子的，在计算机中，这个手心就是内存。b算法就不需要手心来暂存数据</p>
+
+<p>虽让两者都是递归过程，递归算法，但两者仍旧有很大的区别，a在栈空间中存放了数据，b则没有</p>
+
+<p>当然这些都基于代换模型，并不代表真实的计算机运行过程</p>
+
+<p>除了这两种形状以外，还有树形的递归算法，这种算法一般耗费的资源更加多
+，这种算法通常出现于递归调用的时候调用两乃至多次次 这样就会产生一个非常大规模的分裂。
+递归程序的编写方法重点在于不同情况下下的分支判断，以及触底判断。</p>
+
+<h1 id="高阶过程">高阶过程</h1>
+
+<p>所谓高阶过程，就是程序的输入输出都可以是过程
+以下是个简单的高阶过程</p>
+
+<pre><code>(define (calu a b go)
+  ( if (&gt; a  b)
+       0
+       (go a (calu (+ a 1) b go))))
+&gt; (calu 0 15 + )
+</code></pre>
+
+<p>这里面ab为普通数据，但是go为过程，让过程的内部的过程用参数填充，使得整个程序更加抽象，组合化能力更强。</p>
+
+<p>通过这样类似插槽的能力，你完全可以用他作为基础定义很多结构类似的过程。</p>
+
+<h2 id="假想法">假想法</h2>
+
+<p>在面对一个相对复杂的算法设计的时候，如果从底层开始写，我们很难堆整个程序的部分拥有一个清晰的认识。
+我们可以通过假想的办法来设计整个程序，从高层假象其他需要的组件，假想他的输入与输出，然后从高层向下谢谢详细的代码。</p>
+
+<p>简单来说： 我们优先从高层假象一些组件模块已经存在，如此来构建一个大致上的结构，至于细节，我们可以在后续再去编写，这样可以降低编写大型程序的难度,ps 这是最棒的一招</p>
+
+<p>最后，如果你想要获得程序的抽象最大化，你需要随时把函数看作一等公民，这也是FP的基本准则之一</p>
+
+<h2 id="实例">实例</h2>
+
+<p>假设我们需要设计一个分数计算程序，首先我们就需要在程序中表示分数，但是lisp并没有这么一种数据，他的一面是一个数，另一面是另外一个数。所有我们就需要一种方法来表达一种更为抽象的数据。</p>
+
+<p>现在让我利用假想法来构造分数</p>
+
+<pre><code>(define (make-f d n) （some）&gt; 返回一个复合数据对象
+(define (get-d x) ( some ) &gt; 传入分数对象，获得分母
+(define (get-n x) ( some ) &gt; 传入分数对象，获得分子
+</code></pre>
+
+<p>其实我们可以通过更多的独立数据而不是一种复合数据来实现这个算法，那么我们为什么要使用复合数据呢，答案是 过多的参数会导致程序内部的临时变量过多，程序的结构会因此变得松散.</p>
+
+<h2 id="构造复合数据">构造复合数据</h2>
+
+<p>回到我们的分数问题上来，既然我们需要的是一种复合对象，那么关键就在于如何复合，LISP已经为我们提供了复合的办法，他类似于一种键值对.</p>
+
+<p>cons返回一个拥有两个空间的序对</p>
+
+<pre><code>(cons x y ) 返回一个序对
+（car x）返回一个序对的第一空间内容
+（cdr x）返回一个序对的第二空间内容
+</code></pre>
+
+<p>这样我们的问题就简单多了，只要利用以上的方法做一层包装就可以了。</p>
+
+<pre><code>( define (make-f n d )
+  (let ((g (gcd n d))) // 找到并存放最大公约数 用let声明的变量不会被返回
+    (cons (/ n g)
+          (/ d g))))
+</code></pre>
+
+<p>LISP中的序对是可以存放其他类型的结构的，也就是说一个序对的两个空间内可以存放其他序对，这样就可以依赖序对演变成一种复杂的结构，如果序对的空间只能存放普通的Number和String那就没什么用处了</p>
+
+<h1 id="数据抽象">数据抽象</h1>
+
+<p>我们来分析一下整个系统的结构</p>
+
+<pre><code> USE层 &gt; 加分数方法/减分数方法
+    ↓
+ 抽象屏障层 &gt; make-f get-n get-d
+    ↓
+ 内建层(表示层) &gt; cons car cdr
+</code></pre>
+
+<p>我们可以看到，我们利用了系统内建的工具给我门最终use层做了一层抽象屏障，通过这层屏障，我们把本来底层的东西包装了一下，变得就像真的提供了一种构建分数的方法。</p>
+
+<p>这种方法我们就称之为 数据抽象-数据抽象是一种将构造函数与使用函数与他的表示所分割开来的编程方法学。他的本质，就是分隔使用层与表示层。</p>
+
+<blockquote>
+<blockquote>
+<p>那么数据抽象真正的意义在哪呢？</p>
+</blockquote>
+</blockquote>
+
+<p>其实，在大型程序构建之中，往往会遇到非常多的更改以及维护（当你初次撰写代码的时候，无法预知后续的需求），这意味着我们必须留下弹性的<strong>空间</strong>，假设我们某天构建的分数对象不需要化简了，那么我们修改make-f的代码就可以了，这就是留给我们的余地，我们修改维护的余地。
+<strong>一个程序具有足够的层次会让你后续的修改更加方便</strong></p>
+
+<h2 id="序对的本质">序对的本质</h2>
+
+<p>现在让我们的目光重新回到LISP为我们提供的序对上。
+我们已经看到了序对所展现的强大威力，那么有没有一种办法，在不依赖内建过程的情况下自己构造一个序对算法呢，当然可以</p>
+
+<p>让我们看序对的一种实现</p>
+
+<pre><code> (define (cons a b)
+   (lambda(pick)
+     (cond ((= pick 1) a)
+           ((= pick 2) b))))
+ (define (car x)(x 1))
+ (define (cdr x)(x 2))
+</code></pre>
+
+<p>我们可以看到，我们定义的cons会接受AB两个值，之后返回一个匿名过程。而car 和cdr则会运行这个过程 并传入不同的索引。这里面返回的匿名过程会引用外部的ab变量。形成一种类似JS闭包的过程。</p>
+
+<p>也就是说我们可以利用过程抽象做一切的抽象数据，我们建立抽象数据不需要任何真正的数据，有过程有足以做到所有事。</p>
+
+<blockquote>
+<p>这时，<strong>数据与过程的界限逐渐的变得模糊</strong></p>
+</blockquote>
+
+<h2 id="lisp中的闭包">LISP中的闭包</h2>
+
+<p>LISP中的序对具有封闭性质，也就意味着我们可以在序对中存放序对，这里的序对也可以看作过程。</p>
+
+<p>这种封闭性质在LISP中称之为闭包（closer)</p>
+
+<p>但要注意并不是所有的语言都提供了这种封闭性，某些语言的复合结构并不允许存放其他的复合结构</p>
+
+<h2 id="list">LIST</h2>
+
+<p>Lisp中利用序对可以组成非常复杂的结构，但是我们仍旧需要建立一种规则。LIST（表）就是一种规则化结构，其基本规则就是每个序对的car都是存放具体数据的地方，而cdr则是存放另外一个序对。</p>
+
+<p>这样就建立了一种类似链表的结构，比如我们需要存放1234</p>
+
+<p><img src="https://ot7z7wqqo.bkt.clouddn.com/TIM%E5%9B%BE%E7%89%8720171030191033.png" alt="LIST" /></p>
+
+<p>严格按照规则，并在末尾添加一个标记来表示来到了末尾</p>
+
+<p>当然我们如果单纯的使用cons来定义是非常麻烦的，所以LISP已经为我们提供语法糖 使用List关键词来快速新建一个链表</p>
+
+<pre><code>（define one-to-four (list 1 2 3 4)）
+</code></pre>
+
+<p>但其实我们需要从中取出某个值来是非常困难的 <code>(car (cdr ( cdr 1-to4)))</code> 可以看到整体步骤比较的复杂，我们需要不断使用cdr来获取下一部的序对，这个过程叫做cdring</p>
+
+<p>以下是一个对Lisp做操作的基本结构，就是利用递归来解决问题</p>
+
+<pre><code>(define (scale s l)
+( if (null? l)
+     nil
+     (cons (* (car l) s )
+           (scale s (cdr l)))))
+</code></pre>
+
+<p>为了更高的抽象等级，我们从中获取通用模式，进行进一步的抽象</p>
+
+<pre><code>(define (map p l)
+( if (null? l)
+     nil
+     (cons (P (car l) )
+           (map p (cdr l)))))
+</code></pre>
+
+<p>我们把对list做操作的抽象成一个过程</p>
+
+<p>这就是一种通用方法，从相似的模式中抽离共性的部分，然后抽离出一个通用过程，之后在这个通用过程的基础之上再衍生出其他过程</p>
+
+<p>这种Map公共模式还有另外一种类似的模式 就是for-each 两者的差距就在 map返回一个新的的复合数据结构 for-each直接对里面的项进行操作。</p>
+
+<h2 id="实例-escher">实例 Escher</h2>
+
+<p>Escher是一种图形编程语言，能利用基本的缩放，组合构建一个复杂的递归图形。</p>
+
+<p>而Escher利用的缩放原理其实就是利用基本线段的缩放，计算线段start点和end点的xy轴值，这个比例来自于外围是矩形。然后对xy轴进行一个缩放。</p>
+
+<p>Escher如此高效的原因来自于其每次变形组合之后返回的又是一个图形对象，你可以再次用这个图形进行操作</p>
+
+<p>书中这个实例的重点在于，
+当一个语言嵌入到另外一个语言之中时，母语言的所有能力将会为你的子语言所用，也就说 Escher拥有了lisp的所有能力</p>
+
+<p>这种嵌入的方式从层次上来讲与软件工程倡导的问题分解有很大的不同，软件工程所倡导的在于问题的分解，大问题分解成小问题，小问题分解成更小的问题，而嵌入的核心在于分层，底层提供构建基本图像的方法，中层提供操作基本图像的方法，而高层提供工厂化操作图像的方法。所以这两者的方式与关心的地方的是不同的，嵌入方法具有更好的论述性，因为每层的提供接口都有命名。他可以被更好的描述与理解。</p>
+
+<h1 id="模式匹配">模式匹配</h1>
+
+<p>模式匹配阐述了这么一种思想，新表达式中的模式变量都被左边式子中所匹配的值所替换，具体的过程类似于，匹配器负责匹配，然后将结果发送给实例化器，由它实例化生成一个全新的表达式，也就是说你可以建立一个类似于模板的东西，然后依赖模式匹配来快速生成实例一个真正的对象。
+模式匹配要利用循环或递归来不断的测试能否匹配，变成极限化的一个表达式</p>
+
+<h2 id="匹配器">匹配器</h2>
+
+<p>匹配器接受一个模式，一个表达式，还有一个字典，输出一个字典。
+模式 ： 模式是一种规则表达式，没有确定的参与者。用于和实际的表达式匹配
+表达式 ： 表达式是确立的过程表达式，已经有确定的参与者。</p>
+
+<p>模式和表达式都是一个树形结构，所以我们要做的事情就是对比两棵树，来确定两棵树是否匹配，这两者都是利用的序对来进行存放的，不然无法去里面取得内容。并且把匹配到的内容放入到字典中，并且如果遇到匹配失败，比如模式中利用了两处代数x,而表达式中两处的值不相同，那么就代表两者匹配失败了。</p>
+
+<p>其实编译器也是类似的原理，构建一个语法树，并且与预设的一些语法树进行对比，如果匹配失败就报错，如果成功则实例化底层代码，再运行这些代码</p>
+
+<h2 id="实例化">实例化</h2>
+
+<p>实例化是用来将给定的表达式，词典和骨架生成新的表达式，
+他将骨架上赋予从字典而来的变量，成为一个完整体</p>
+
+<h2 id="化简器">化简器</h2>
+
+<p>在词典和骨架合成完毕之后其实并没有直接实例，而是要经过一个化简的步骤，面对复合步骤，要使用规则尝试匹配并化简</p>
+
+<h1 id="通用运算符">通用运算符</h1>
+
+<h2 id="抽象屏障存在的问题">抽象屏障存在的问题</h2>
+
+<p>抽象屏障虽然做到了底层与高层的隔离，但是还存在问题。主要是底层的同层的邻居之间存在着问题。比如说a写了一个调用库A ,b写了一个调用库B。但是这两个库的数据是有差异化的，当你从高层想要获取到库中的数据时，得到数据自然也是差异化的。</p>
+
+<p>所以解决的办法有两种，第一种是让所有的库数据格式相同，
+第二种是 构成一个get_xx过程，每当从中获取数据时，就让这个过程进行一个重新的过滤整合，无论进去的是什么数据，他的输出都具有相同的格式，就好比是一种代理模式</p>
+
+<h2 id="复数模型">复数模型</h2>
+
+<p>书中介绍了这么一种建立复数运算模型的方法</p>
+
+<pre><code>// 从复数模型中取得一部分
+( REAL-PART Z)
+( IMAG-PART Z)
+( MAGNITUDE Z)
+( ANGLE Z)
+// 建立一个复数
+( MAKE-RECTANGULAR X Y)
+( MAKE-POLAR R A)
+</code></pre>
+
+<p>那么我们假设有两个都被要求去实现这些方法，但是A喜欢用虚数+实数的序对来表示复数 而B则喜欢用模+角度是方式来实现复数，所以两者就出现了差异化。</p>
+
+<p>那么我们从使用层的角度上看，我们的所有的加减乘除复数的方法并不应该去处理任何复数实现上的差异化，也就是说，我们需要一个层来帮助我们填补这两种方式的差别，我们暂且称之为垂直的抽象屏障</p>
+
+<p>那么问题就在于我们应该如何判断一个复合的数据他由谁来生成的呢，这里我们就要引入一个新的概念  - TYPE</p>
+
+<h2 id="type">Type</h2>
+
+<p>通过为一个数据添加标签，来标识他的类型，我们就能通过判断类型来做不到不同的操作。</p>
+
+<p>于是我们利用序对 对复合数据进行一次二次的封装。将一个数据的type放入到另一个序对的car中 而数据的content放入到cdr中</p>
+
+<pre><code>(define (attach-type type contents)
+  (cons type contens))
+
+(define (type datum)
+  (car datum))
+
+(define (type datum)
+  (cdr datum))
+
+// 类型检查
+
+(define (rectangular? z)
+  (eq? (type z) 'rectangular'))
+</code></pre>
+
+<p>接着只要把这个包装方法交给a和b两个人，ab的构造方法就会在返回序对之前进行一次包装，但是现在仍旧不够，因为有了类型，我们就需要在一个地方检测并调用不同的函数，所以我们仍旧需要一个经理。要注意的是ab提供的use方法应该标识着类型，方便经理调用。</p>
+
+<pre><code>接下来我们把判断以及调用植入到use方法之中，以下是获取实部的方法
+
+(define (real-part z)
+  (cond ((rectangular? z)
+         (real-part-rectangular (contens z)))
+        ((polar? z)
+          (real-part-polar
+          (contens z)))))
+</code></pre>
+
+<p>在获取实部的方法之中，我们从中进行判断，以具体类型提供的方法进行调用</p>
+
+<p>这些操作意义在于，让a制造的数据用a制造的使用方法使用，让b制造的数据用B制造的使用方法使用，这就是一种隔离。</p>
+
+<p>这种策略有一个名字 <strong>基于类型的分派</strong></p>
+
+<h3 id="分派系统存在的问题">分派系统存在的问题</h3>
+
+<p>现在我们已经拥有了一个分派的系统，但他仍旧存在不灵活的地方，首先是创建者ab的use方法总需要在后面添加自己的标签，
+第二是 经理的高层use方法需要增加非常大量的判断式，假设再来一个创建者，那么就需要对所有的use方法进行增加判断。</p>
+
+<p>我们的系统从组织分工上说，经理做的事远远不够，他只做了简单的任务分派。</p>
+
+<h2 id="分派系统完善">分派系统完善</h2>
+
+<p>我们继续来看之前的结构，其实经理要做的事就是从类型&gt;到该类型对应的use方法的一个对应关系，我们可以用表的结构来表示他。</p>
+
+<p>我们使用假象法来想象出一种表的存放方法</p>
+
+<pre><code>(put key1 key2 value)
+(get key1 key2)
+</code></pre>
+
+<p>put方法用于往表中增加数据 key1对应横向的表头 key2对应竖向的表头</p>
+
+<p>然后我们就需要让ab将自己的方法注册到这个表之中，注册完成之后我们实现自动化的调用过程</p>
+
+<pre><code>(define (operate op obj)
+ (let ((proc (get (type obj) op)))
+    (if(NOT (null? proc))
+       (proc (contents obj))
+       (ERROR &quot;undefined&quot;))))
+</code></pre>
+
+<p>我们可以看到 传入的参数有两个 op为需要调用方法的名称，而obj就是那个需要调用方法的对象。首先从表中查询数据，传入key1和key2，也就是方法名和数据类型，返回一个过程存放到局部变量中，如果数据不为空 就执行这个数据。否则，返回error</p>
+
+<p>这就是我们实现的方法，从增加数据的类型，然后建立一个查询表，在表中存放过程。最后利用operate来从表中获取到过程并执行</p>
+
+<h2 id="结尾-1">结尾</h2>
+
+<p>我们建立了一个可以无限在横向延伸的通用运算符add,其原理是通过了类型分派以及递归调用add，这样方式的好处在于垂直建立了抽象屏障。从而让多人合作建立系统提供了一种方式。</p>
+
+<h1 id="赋值-状态与副作用">赋值、状态与副作用</h1>
+
+<h2 id="函数式编程">函数式编程</h2>
+
+<p>现在让我从来回到这门语言上来，我们所写的语言是一种函数式编程语言，函数式编程是一种对数学事实的编码。也就是说我们目前编写的程序其实都源于一些数学事实。并且我们利用递归来不断修正我们的参数。</p>
+
+<p>我们的程序实质上是对于数学事实的排序，这决定了我们程序的运行步骤。</p>
+
+<h2 id="赋值">赋值</h2>
+
+<p>赋值是意味很简单，给一个变量绑定一个新的value</p>
+
+<p><code>(SET! x 5)</code></p>
+
+<p>我们目前的所有程序都是没有副作用的，无论输入多少次相同参数，输出的内容永远相等。现在我们引入赋值系统，我们就可以让程序与外部形成一个交互</p>
+
+<p>来看这个例子</p>
+
+<pre><code>(define count 1 )
+(define (demo x)
+  (SET! count (+ count 1))
+  (+ x count)
+</code></pre>
+
+<p>可以看到因为他引用了外部的count并不断的重设他的变量。导致尽管输入了相同的参数，多次执行他的输出却是不一样的。我们的demo与外界产生了关系，带来了一些额外的修改。</p>
+
+<p>从时间上的角度来说，赋值操作会导致赋值前和赋值后的代码产生了差异化。这是一个值得重视的时间点</p>
+
+<p>所以我们的DEMO不是数学意义上的函数（数学上的函数相同的参数总会带来相同的输出），或者是已经不是纯函数，并且赋值的出现扼杀了我们的代换模型，因为你发现define出来的变量会不断的变化，无法代换。</p>
+
+<h2 id="实例-阶乘">实例：阶乘</h2>
+
+<pre><code>// 函数版 迭代
+(define (FACT N)
+  ( (define (iter m i)
+       (cond ((&gt; i n) m )
+             (else (iter (* m i)(+ i 1))))
+  (iter 1 1))
+//面向过程
+(define (FACT N))
+  (LET (( i 1 )(m 1))
+    (define (loop) (
+       (cond (( &gt; i n) m)
+             (else
+                (SET! m (* i m))
+                (SET! i (+ i 1)) //需要注意引用关系 顺序
+                 (loop))
+  (loop)))
+</code></pre>
+
+<p>他们之间的最大差异就在于，函数式使用参数自然的传递前面的总和，而面向过程则是使用并不断的修改变量来进行传递</p>
+
+<p>在增加这么一种时间观念之后，我们的程序会更加容易出现一些关于时间的问题，比如某个过程的调用应该在另外一个过程的后面。并且面向过程的多了非常多的代码，比如那个丑陋的loop</p>
+
+<h2 id="环境模型">环境模型</h2>
+
+<p>这么一种面向过程的编程范式他实际上遵守的是环境模型，这种一种比代换模式复杂的模型。接下来记录一下环境模式的一些术语。</p>
+
+<ul>
+<li>约束变量 可以简单认为是参数，一个名称不重要，可以换成其他名字，过程仍然相同，在LISP中我们认为他被lambda所约束</li>
+<li>自由变量 或者说是未约束变量，一个名称重要，不能随意代换 比如说 (lambda(x)(* x y)) y就是自由变量，如果y变成g 整个过程立马就改变了，甚至连* 都可以是自由变量，如果我替换*的内容 ，过程也会变化</li>
+<li>作用域 也就是变量所能被使用的空间，如果在某个地方我们可以获取到某个变量，那么那个地方就处在变量的作用域内</li>
+<li>环境结构 可以看作是前面规则的集合，也就是作用域链机制，就近查询 自动向上查找，父环境被约束的变量在子环境中仍然被约束。</li>
+</ul>
+
+<p>一个对象其实由执行代码与他的环境所组合，而当我们创建一个表达式的时候，他会带上他所处环境的内容，这类似与JS的闭包机制，当返回一个函数式，相应的外部环境的变量也被带出来了。这里过程出现在构建表达式而不是执行表达式的时候。</p>
+
+<pre><code>&gt; (define make-counter
+  ( lambda (n)
+    ( lambda ()
+            (set! n (+ n 1))
+              n)))
+
+&gt; (define count (make-counter 0))
+&gt;
+&gt; (count)
+1
+&gt; (count)
+2
+&gt; (count)
+3
+&gt; (count)
+4
+</code></pre>
+
+<p>这就是利用闭包机制来做到持续计数的例子，我们使用make-counter将返回一个过程，并且这个过程会连接上一层的环境，也就是拥有约束变量n的那一层，这样返回的过程count将会一直能够引用到n的值。如果你再创建一个count2 那这两个计数器的n部分的环境是独立的，全局是共享的，</p>
+
+<p>如果我们得到了两个分离的计数器，我们能否认为这是两个对象呢，其实关于对象的判断，分离，与状态的界定目前来讲还非常的难解决，这甚至可以上升到哲学问题，如何判定两个对象是否相同，判断的准则是什么，如果一个对象改变的内部的某种值，他还说原来的对象吗。也就是我们一旦引入对象、赋值之类的概念，一些的关系都会很复杂</p>
+
+<p>但是谨慎的使用赋值操作任然能为我提供某些便利，比如在某个过程内部封装一些东西而避免对外暴露，比如这个例子我门可以让n封闭在自己的环境中，而不是每次调用count得传递n</p>
+
+<h2 id="总结">总结</h2>
+
+<p>谨慎使用SET!,他带来更强的内部封装，更好的隐藏细节，但是他摧毁了我们的代换模型，并且引入一些新概念</p>
+
+<h2 id="队列">队列</h2>
+
+<p>在文中介绍了使用cons来实现了一个关于事件的队列，抽象的看，队列就是在一段时间内要做的事情。</p>
+
+<p>具体结构省略</p>
+
+<h2 id="cons的函数式实现-一">CONS的函数式实现 一</h2>
+
+<p>以下两种序对的实现都用JS实现</p>
+
+<pre><code class="language-js">
+function cons( x,y){
+  return function(fn){
+    return fn(x,y)
+  }
+}
+
+function car(cons){
+  return cons(function(a,b){return a})
+}
+
+
+function cdr(cons){
+  return cons(function(a,b){return b})
+}
+
+</code></pre>
+
+<p>具体的解释就不作记录了，简单来讲就是通过在cons的匿名函数内部传入参数给实际执行的函数。</p>
+
+<h2 id="cons的函数式实现-二">CONS的函数式实现 二</h2>
+
+<pre><code class="language-js">
+function cons (x,y) {
+return function(pr){
+return pr(()=&gt;{return x},()=&gt;{return y},(nx)=&gt;{x = nx},(ny)=&gt;{y = ny})
+}
+}
+
+function car(co){
+return co(function(x,y,sx,sy){return x()})
+}
+function cdr(co){
+return co(function(x,y,sx,sy){return y()})
+}
+
+</code></pre>
+
+<p>这种方法相比方法1而言，用了比较类似的方法，区别在于把实际执行的代码放在了cons的构造函数内部，并把set方法封装进去</p>
+
+<p>但无论如何，尽管JS拥有很大一部分函数式编程的能力，但是依旧无法和LISP相比，毕竟要写非常非常多的return。这一点可以通过ES6的箭头函数缓解</p>
+
+<h1 id="流streams">流Streams</h1>
+
+<p>通常来讲，我们认为一个函数的输出成为另一个函数的输入，这就构成了流，流是一种抽象的方法，并且具有惊人的能量。</p>
+
+<h2 id="流的构造">流的构造</h2>
+
+<p>在我们面对流之前，必须抛弃我们对现实的一个认知，我们通常认为的世界总是由时间构成，比如在某个时间我们作为个人修改了其他对象的一些状态，加入时间这一因素会为我们带来麻烦，这意味着我们必须理清这里面的先后关系。</p>
+
+<p>所以我们现在抛弃之前对世界的认知，尝试使用一种全新的系统来描述世界。</p>
+
+<p>这种系统我们称之为<strong>流处理</strong></p>
+
+<h2 id="流解决了什么问题">流解决了什么问题？</h2>
+
+<p>我们通常的递归代码会遇到一些问题，即明明是很分离的一些小问题容易被我们混合在一起，造成一个递归内部的结构非常不清晰。我们在一个递归内部做了很多事情，但这些事情不够集中化。</p>
+
+<p>如果在递归中再次增加一些步骤呢？比如再某个二叉叔遍历算法时加上一个节点的多次运算，我们会很难理解我们的代码。他太复杂了。</p>
+
+<p>所以我们可以利用流来处理一组事件，大家都能接收处理流，大家都返回流以便在不同支持流处理的组件内部流动处理数据。他能把那些一类事件从中抽离出来，变成一个个的组件。</p>
+
+<h2 id="流的构建">流的构建</h2>
+
+<p>那么应该如何构建一个流处理系统呢，关键在于如何定义流。接下来我们就定义流的构造方法，流是一种数据结构，其类似于一种表（即复合序对）。</p>
+
+<h3 id="定义流">定义流</h3>
+
+<pre><code>  流的基本定义
+  (cons-stream x y)
+  (HEAD s)
+(TAIL s)
+(HEAD (cons-stream x y)) = x
+(TAIL (cons-stream x y)) = y
+</code></pre>
+
+<p>你会发现他的定义与序对完全相同，一般来说类似表，我们会在流的尾部再次嵌套一个流对象，一直到流空为止。</p>
+
+<h3 id="操作流">操作流</h3>
+
+<pre><code>(define (map-stream proc s)
+  (if (empty-stream? s)
+      the-empty-stream
+      (cons-stream
+        (proc (head s))
+        (map-stream proc (tail s)))))
+</code></pre>
+
+<p>以上是一个对流内部的数据做操作并返回一个流的遍历函数，他接受一个流一个过程，对内部所有数据施加过程并返回一个流。</p>
+
+<pre><code>(define (filter pred s)
+  (cond
+    ((empty-stream? s) the-empty-stream)
+    ((pred (head s))
+      (cons-stream (head-s)
+                  (filter pred (tail s))))
+    (else (filter pred (tail s)))))
+</code></pre>
+
+<p>以上是对流内部的数据进行过滤的过程，其方法类似map。接受一个过滤条件Pred，如果通过就放入到返回的流中</p>
+
+<p>剩下的其他利用流的方法滤过</p>
+
+<h4 id="大功告成">大功告成</h4>
+
+<pre><code>(define (sum-odd-square tree)
+  (accumulate
+  +
+  0
+  (map
+    square
+    (filter odd
+            (enumerate-tree tree)))))
+</code></pre>
+
+<p>他的作用是计算一个树中所有节点为奇数的平方的总和。
+我们从内而外分析他</p>
+
+<ol>
+<li>从树中获取所有数据 构建出一个流</li>
+<li>输入一个流，获取所有为奇数的值，输出流</li>
+<li>输入一个流，对其所有内部的值做平方操作，输出流</li>
+<li>输入一个流，进行计算，输出最终值</li>
+</ol>
+
+<p>我们可以看到所有的步骤都很明了，所有的事件都被解耦成一个个对单纯流做处理的模块。</p>
+
+<p>我们的数据如同水流一样在个个模块之中流动并被处理，优雅。</p>
+
+<p><em>所以，流的关键就在于，定义相同接口，并让事物粘合起来。他让我们看到了程序的共性</em></p>
+
+<h3 id="实例展示">实例展示</h3>
+
+<p>书中记录了两种利用流来处理的例子。</p>
+
+<p>一是利用流来处理流嵌套，其实也非常简单，就利用一个输入嵌套流然后输出线性展开流的模块就可以了。</p>
+
+<p>二是一个回溯搜索，例子讲的是八皇后问题，即在某些限定规则下，不断的尝试并回溯的问题。（通常解法就是递归回溯）
+一般的回溯是逐渐生成一个树的过程，但我们是假想所有可以下落的节点并在上面计算是否safe,也就是我们避免时间与过程，而是假想所有的节点都可以下落，生成一个完整的树，全部补全，然后进行合理检测。剔除其中不合理的节点</p>
+
+<p>从这一点上我们的观念开始改变，不再关系那些随着时间演进的细碎的状态，而是把一些想象成一个整体，我们关注的是过程。</p>
+
+<h2 id="增强流">增强流</h2>
+
+<p>现在我们已经拥有了一个类似表的流，但这还远远不够，因为我们的流实质上是在第一个流处理器中完全处理完，再送到第二个流之中，以此类推，这样会导致很大的性能损耗，因为有时候我们希望流能够提前中断，一个真正的流是一部分一部分被处理的，而不是被完全处理完后再交给下一个处理器。就好比是多个流处理器同时处理数据。</p>
+
+<h3 id="真正流的实现">真正流的实现</h3>
+
+<p>我们现在需要一种更加聪明的流，它可以按需前进，让末端流处理器去索求前端的流处理器。我们要保持一个想法，数据和过程没有明确界限。</p>
+
+<p>首先让我们观察流构造的真实情况</p>
+
+<pre><code>  (cons-stream x y)
+    (cons x (delay y))
+  (head s)(car s)
+  (tail s)(force(cdr s))
+</code></pre>
+
+<p>一个流的tail实质上是一个匿名函数，这个匿名函数将在被force的时候被真正求值，这意味着你之前所 创建的流本质上只有两个部分head和tail除了这两个部分以外其他嵌套都是不存在的，只有当真正获取tail的时候，才会返回一个真正意义上的流对象。这就像是惰性求值。你需要多少值，就生产多少！</p>
+
+<p>以下是计算10000到1000000第二个质数的例子</p>
+
+<p>(head (tail (filter pr (e-1 1000 100000s))))</p>
+
+<p>省略前面的head和tail我们从过滤器上开始分析，过滤不断的递归运行tail取head部分，实质上就是不断进行tail运算的过程，他第一部分会生成一个head让你获取，第二部分生成下一个tail过程，这个迭代过程中的参数来源于闭包外部的1000。</p>
+
+<p>这其实有点类似于函数的嵌套，每个函数外部都有自己的迭代参数。最外层的调用会让嵌套的函数进行求值。一个简单的东西不断的展开，而不用关心到底在何时展开，这让我们不用关心时间上的碎片。</p>
+
+<p>最后可以让dealy记忆化，即对已经执行过的直接返回结果。</p>
+
+<p><em>流的本质就在于，创建一个过程的数据接口，并让这个结构变得可控</em></p>
+
+<p>后面的关于编译器以及Lambda演算的部分就不做记录了,至此整个笔记结束</p>
+
+<h1 id="总结-1">总结</h1>
+
+<p>LISP这门语言在工程上可能并不够强大，但是绝对足够适合教学，用来展示那些神奇的抽象手段。这门语言最令人震惊的就是简单的语法以及强大的扩展能力。他让我从单纯的OO走到了更广阔的世界之中，可以说我进入了一个更高的层次来观察编程这件事。虽然只是简单的学习了一下这本书，但收获绝对非常的惊人。</p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201906/%E5%88%A9%E7%94%A8github%E7%9A%84webhooks%E8%83%BD%E5%8A%9B%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BA%E5%8F%91%E5%B8%83%E5%8D%9A%E5%AE%A2/" data-toggle="tooltip" data-placement="top" title="利用Github的Webhooks自动构建博客">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/201711/%E7%AE%97%E6%B3%95%E9%9B%86%E5%90%88%E9%98%B2%E6%8A%96%E4%B8%8E%E8%8A%82%E6%B5%81%E5%87%BD%E6%95%B0shufflejsonp%E8%BD%AC%E6%8D%A2json%E5%AF%B9%E8%B1%A1%E6%B7%B1%E5%BA%A6%E5%85%8B%E9%9A%86/" data-toggle="tooltip" data-placement="top" title="节流与防抖函数">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2020
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+</body>
+</html>

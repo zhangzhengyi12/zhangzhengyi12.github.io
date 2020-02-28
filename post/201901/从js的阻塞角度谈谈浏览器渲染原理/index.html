@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="从JS的阻塞角度谈谈浏览器渲染原理" />
+    <meta property="og:title" content="从JS的阻塞角度谈谈浏览器渲染原理" />
+    <meta property="twitter:title" content="从JS的阻塞角度谈谈浏览器渲染原理" />
+    
+
+    
+    <meta name="description" content="Wubba lubba dub dub">
+    <meta property="og:description" content="Wubba lubba dub dub" />
+    <meta property="twitter:description" content="Wubba lubba dub dub" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>从JS的阻塞角度谈谈浏览器渲染原理-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201901/%E4%BB%8Ejs%E7%9A%84%E9%98%BB%E5%A1%9E%E8%A7%92%E5%BA%A6%E8%B0%88%E8%B0%88%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/chrome" title="Chrome">
+                            Chrome
+                        </a>
+                        
+                        <a class="tag" href="/tags/web" title="Web">
+                            Web
+                        </a>
+                        
+                    </div>
+                    <h1>从JS的阻塞角度谈谈浏览器渲染原理</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Wednesday, January 30, 2019
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#前言">前言</a></li>
+<li><a href="#perfermance">perfermance</a></li>
+<li><a href="#基本指标">基本指标</a>
+<ul>
+<li><a href="#fp">FP</a></li>
+<li><a href="#fcp">FCP</a></li>
+</ul></li>
+<li><a href="#fmp">FMP</a>
+<ul>
+<li><a href="#dcl-domcotentload-event">DCL DOMCotentLoad Event</a></li>
+<li><a href="#load-event">load Event</a></li>
+</ul></li>
+<li><a href="#浏览器解析原理">浏览器解析原理</a></li>
+<li><a href="#启动测试">启动测试</a>
+<ul>
+<li><a href="#情况1-两者都放头部">情况1 两者都放头部 </a></li>
+<li><a href="#情况2-css放头部-js放-body-前">情况2 css放头部 js放&lt;/body&gt;前</a></li>
+<li><a href="#情况3-css放头部-js放-body-前-css会更快的加载">情况3 css放头部 js放&lt;/body&gt;前 css会更快的加载</a></li>
+<li><a href="#情况4-加入一个新的css">情况4 加入一个新的CSS</a></li>
+<li><a href="#情况5-加入新css-js在前">情况5 加入新css js在前</a></li>
+<li><a href="#情况6-混合">情况6 混合</a></li>
+<li><a href="#情况7-混合反向-header中的资源变得更慢">情况7 混合反向 header中的资源变得更慢</a></li>
+</ul></li>
+<li><a href="#总结">总结</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<h2 id="前言">前言</h2>
+
+<blockquote>
+<p>这样，在解析包含的javascript代码之前，页面的内容将完全呈现在浏览器中。而用户也会因为浏览器窗口显示空白页面的时间缩短而感到打开页面的速度加快了。 —— 《JavaSciprt高级程序设计 》</p>
+</blockquote>
+
+<p>相信你在一些书籍，博客中，经常看到这样的描述，因为JavaScript会堵塞DOM的解析，所以将JS放置到body标签的结束前能够加快页面的首次渲染。</p>
+
+<p>但是，他们似乎对这些行为的细节总是描述的不够清楚，导致我很长时间内对于这个东西都是一知半解。</p>
+
+<p>凭什么在header中的js标签会堵塞DOM解析，放到body处就不会了，就能让页面进行渲染了呢？抱着疑问，我进行了求知之路。</p>
+
+<h2 id="perfermance">perfermance</h2>
+
+<p>为了更直观的查看整个DOM解析渲染，执行的过程，我们需要一个强大的工具，好消息是Chrome已经为我们打造好了。</p>
+
+<p>在这里，我推荐使用Canary版本的Chrome进行观测，原因是它具有更好的Perfermance面板，可以一些东西变得更加直观。</p>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20190130220211.png" alt="" /></p>
+
+<p>这是一个基本的性能面板，使用它你需要先打开某个页面，接着勾选截图模式，关闭Network面板下的缓存，随后点击性能面板左上方的刷新按钮，等待页面加载完成，点击一下结束按钮，随后你就能看到整个页面加载的详细情况。具体的使用方式可以参考Google的 <a href="https://developers.google.com/web/tools/chrome-devtools/?hl=zh-cn#_7">Devtools文档</a></p>
+
+<h2 id="基本指标">基本指标</h2>
+
+<p>在开始正式的测试前，首先需要明确一些页面加载的基本术语</p>
+
+<h3 id="fp">FP</h3>
+
+<p>First Paint,也就是浏览器的第一次绘制，通常这时候只能显示背景图片等，没有实际上的DOM</p>
+
+<h3 id="fcp">FCP</h3>
+
+<p>First Contentful Paint,浏览器第一次带有DOM内容的渲染，也就说再发生这个事件的时候，用户应该能够看到一部分页面了</p>
+
+<h2 id="fmp">FMP</h2>
+
+<p>First Meaningful Paint,真正有意义的绘制，他的核心在于，这个页面是否具有可用性，比如一些基本的事件响应必须得有了，用户能够和页面进行交互了。</p>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/demo.png" alt="" />
+这张图可以很好的解释以上概念,来自<a href="https://developers.google.com/web/fundamentals/performance/user-centric-performance-metrics">
+User-centric Performance Metrics</a></p>
+
+<p>这些概念都是为了帮助我们了解一个页面对于用户来说，有哪些极为重要的概念，通常来说FP的结果是白屏，而FCP是结果通常是DOM中已经拥有了一定量的结构，用户能够感知到这个页面已经展现。而FMP这代表用户已经可以正常的操作了。</p>
+
+<p>所以，我们可以大胆猜测，JS的放置位置能够影响FCP的发生时机。</p>
+
+<h3 id="dcl-domcotentload-event">DCL DOMCotentLoad Event</h3>
+
+<p>他代表了整个HTML文档被完整的加载并解析，这时候触发该事件。</p>
+
+<h3 id="load-event">load Event</h3>
+
+<p>他其实就是我们的window.onload事件，他指的是DOM中的所有资源被加载完成。</p>
+
+<p>指的一提的是大家不要混乱DCL和LoadEvent的关系，他们的关系就是没有太大的关系，也没有强行的时间顺序，两者发生的顺序并不是固定的。</p>
+
+<p>现在我们获得了一些概念，能够进一步开始我们的研究，其实Chrome的Perfermance面板可以方便的查看上面的一些概念。</p>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20190130220211.png" alt="" /></p>
+
+<p>我们能够看到有Onload（红色），DCL(蓝色)，FCP(绿色)，由于我这个页面东西很少，没有触发FMP,FP等事件，实际上一些复杂的页面是会出现这些状态的。</p>
+
+<p>现在我们正式开始探寻脚本位置与页面加载之间的关系。</p>
+
+<h2 id="浏览器解析原理">浏览器解析原理</h2>
+
+<p>这里面讲的好的文章有太多了，我这里就稍微提及一下。</p>
+
+<ol>
+<li>DOM的解析是一个从上到下的过程</li>
+<li>所有外链资源(css,image,script)浏览器都会已接近并发的情况来发起请求</li>
+<li>同一时间内的最大HTTP请求是有上限的</li>
+<li>解析DOM获取DOM树 解析CSS获取CSSDOM树 两者合成渲染树(渲染树内部是拥有布局的，以及盒子模型的)</li>
+<li>获取到渲染树之后将会进行绘制Paint,进行像素级别的渲染，绘制到屏幕上。</li>
+<li>js会堵塞DOM树的解析</li>
+<li>当JS面前有一个link css ，无论两者谁先下载完毕，JS都会等待CSS加载并解析完成后再执行。这是因为浏览器不知道JS是否会需要查询CSSDOM，所以需要等待CSS准备完毕</li>
+<li>渲染必须依赖CSSDOM树，可以认为CSS是堵塞渲染，但是不堵塞DOM解析</li>
+</ol>
+
+<p>想要更好更详细的文档可以查看这篇文章 <a href="https://developers.google.com/web/fundamentals/performance/critical-rendering-path/analyzing-crp?hl=zh-cn">分析关键渲染路径性能</a></p>
+
+<h2 id="启动测试">启动测试</h2>
+
+<p>开始正式的测试，我们这里需要一个可以被我们任意控制的返回延迟的web服务器，我这里用了node</p>
+
+<pre><code class="language-js">const express = require('express')
+const app = express()
+const fs = require('fs')
+
+app.all('*', function(req, res, next) {
+  res.header('Access-Control-Allow-Credentials', true)
+  res.header('Access-Control-Allow-Origin', req.headers['origin'] || '*')
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With')
+  res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS')
+  res.header('Content-Type', 'application/json;charset=utf-8')
+  next()
+})
+
+const jsDealy = 2000
+const cssDealy = 3000
+
+app.get('/test.js', function(req, res) {
+  setTimeout(() =&gt; {
+    res.contentType('application/javascript')
+    res.send(fs.readFileSync('./test.js'))
+  }, jsDealy)
+})
+
+app.get('/test.css', function(req, res) {
+  setTimeout(() =&gt; {
+    res.contentType('text/css')
+    res.send(fs.readFileSync('./test.css'))
+  }, cssDealy)
+})
+
+app.listen(9527, () =&gt; console.log('Example app listening on port 9527!'))
+</code></pre>
+
+<p>写的糙还请见谅，就是能够控制JS与CSS的返回时间</p>
+
+<h3 id="情况1-两者都放头部">情况1 两者都放头部 </h3>
+
+<blockquote>
+<p>css延迟3s js延迟2s</p>
+</blockquote>
+
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot; /&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;http://localhost:9527/test.css&quot; /&gt;
+    &lt;script src=&quot;http://localhost:9527/test.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20190130223600.png" alt="" /></p>
+
+<p>这个性能检测其实frame一开始的画面是上一次的残留，所以无视就好，关键还是在FCP的发生时间</p>
+
+<p>我们可以看到，整个页面的FCP发生时间出现在test.css加载完成的后面，尽管JS脚本很快加载完毕，但依旧要等待CSS加载并解析完毕，才会执行JS脚本（符合上文第7条规则），并继续向下解析DOM。</p>
+
+<p>假设header中如果只有CSS，那么结果其实也是类似的（这里限于篇幅就不放图了），FCP依旧需要到CSS加载解析完毕，才会去绘制画面。原因其实很简单，如果没有加载CSS就绘制，那么用户会感知到一张没有样式的丑陋网页，随后过了可能500ms变化成有样式的网页，这个过程是一种很差的体验，所有浏览器需要等待CSSDOM就绪后，才会进行布局渲染。</p>
+
+<p>整个流程可以这样描述（尽可能的简短）</p>
+
+<ul>
+<li>获取到文档内容，开始解析</li>
+<li>浏览器开始获取资源</li>
+<li>解析到link css</li>
+<li>解析到script发现上面有css 等待上面的css加载并解析完毕后 在进行执行 这时候进入阻塞DOM解析截断</li>
+<li>js加载完毕 css还没有 继续等待css</li>
+<li>css加载解析完毕</li>
+<li>js执行完毕</li>
+<li>继续解析DOM</li>
+<li>DOM解析完毕，两个树进行合并渲染，接着绘制到屏幕上</li>
+</ul>
+
+<h3 id="情况2-css放头部-js放-body-前">情况2 css放头部 js放&lt;/body&gt;前</h3>
+
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;http://localhost:9527/test.css&quot; /&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;script src=&quot;http://localhost:9527/test.js&quot;&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20190130225524.png" alt="" /></p>
+
+<p>WTF? 看上去好像没有任何的变化整个过程依旧需要CSS加载完毕后，才会出现FCP。但是不要慌，我们试试调转资源的延迟。我们把CSS的延迟设置为2s,js的延迟设置为3s</p>
+
+<h3 id="情况3-css放头部-js放-body-前-css会更快的加载">情况3 css放头部 js放&lt;/body&gt;前 css会更快的加载</h3>
+
+<p>HTML与上面相同，不过我们互换了资源的延迟</p>
+
+<pre><code class="language-js">const jsDealy = 3000
+const cssDealy = 2000
+</code></pre>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20190130230114.png" alt="" /></p>
+
+<p>我们可以惊喜的发现，整个页面的FCP时间被缩短了，他在CSS加载完成后，立马进行一次渲染。触发这种提前FP的关键就在于，当浏览器解析到body标签中的第一个脚本的时候，如果<strong>header中的资源已经被加载解析完毕并且第一个脚本还未加载完毕时，浏览器将会进行一次提前渲染</strong></p>
+
+<p>不对啊，不是说JS会堵塞DOM的解析吗，怎么明明堵塞了，解析不完怎么还渲染呢？</p>
+
+<blockquote>
+<p>实际上，这时候的提前渲染，CSSDOM是健全的，但是DOM是残缺的，JS的确阻塞了DOM的解析。</p>
+</blockquote>
+
+<p>试着在JS标签下面放点内容就能明白这个过程</p>
+
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;http://localhost:9527/test.css&quot; /&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;script src=&quot;http://localhost:9527/test.js&quot;&gt;&lt;/script&gt;
+    &lt;h1&gt;我说一个在JS下面的标签&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20190130231152.png" alt="" /></p>
+
+<p>大家发现了吗。FCP中的DOM显然只有script标签前面的部分，而后面的在JS加载解析执行完毕后，才会渲染出来。这时候的FP渲染实际上是残缺的DOM树与完整的CSSDOM进行合并渲染后的结果。也可以被认为是部分提前渲染。</p>
+
+<p>现在我们已经能够了解script标签放到body前面确实是有一定道理的，在某些情况下能够让浏览器提前进行一次渲染。那么，css与js标签的顺序又会给加载带来怎样的影响呢？</p>
+
+<h3 id="情况4-加入一个新的css">情况4 加入一个新的CSS</h3>
+
+<p>我们来试试在body中放置在script标签前后的css是如何影响FP时间的</p>
+
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;http://localhost:9527/test.css&quot; /&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;http://localhost:9527/test2.css&quot; /&gt;
+    &lt;script src=&quot;http://localhost:9527/test.js&quot;&gt;&lt;/script&gt;
+    &lt;h1&gt;我说一个在JS下面的标签&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>我在底部脚本前面放置了一个CSS标签，他的延迟比css1高了100ms，大家可以试着猜测一下FP的发生在什么时机。</p>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20190131092655.png" alt="" /></p>
+
+<p>浏览器将会在所有CSS就绪之后，开始进行一次提前渲染。</p>
+
+<p>如果我们反转顺序呢？</p>
+
+<h3 id="情况5-加入新css-js在前">情况5 加入新css js在前</h3>
+
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;http://localhost:9527/test.css&quot; /&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;script src=&quot;http://localhost:9527/test.js&quot;&gt;&lt;/script&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;http://localhost:9527/test2.css&quot; /&gt;
+    &lt;h1&gt;我说一个在JS下面的标签&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20190131093000.png" alt="" /></p>
+
+<p>哇哦，看上去JS堵塞了DOM的解析，从而让浏览器不会等待这个脚本之后的CSS就绪。在CSS1就绪后就进行了一次提前渲染。所以我们可以认为，如果我们需要一些不是非常重要的非首屏CSS，那么放到body尾部的JS后面可以降低他的优先级，如果是首屏CSS就千万不要这么做了，等CSS加载完成后，浏览器又会发生一次重绘。浪费了不必要的资源。</p>
+
+<p>其实想要提前加载一些不是特别重要的还有另外一种方式，将CSS放置到头部，并添加如下两种通知浏览器预加载</p>
+
+<pre><code class="language-html">&lt;link rel=&quot;preload&quot;&gt;  &lt;link rel=&quot;prefetch&quot;&gt;
+</code></pre>
+
+<p>这里可以看这篇文章<a href="https://juejin.im/post/58e8acf10ce46300585a7a42">Preload，Prefetch 和它们在 Chrome 之中的优先级</a></p>
+
+<p><strong>对于当前页面很有必要的资源使用 preload，对于可能在将来的页面中使用的资源使用 prefetch</strong></p>
+
+<h3 id="情况6-混合">情况6 混合</h3>
+
+<p>我们这里进行一些混合操作。</p>
+
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;link href=&quot;https://cdn.bootcss.com/twitter-bootstrap/4.2.1/css/bootstrap.css&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;script src=&quot;https://cdn.bootcss.com/twitter-bootstrap/4.2.1/js/bootstrap.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;h1&gt;sdfidsajfoasdkl&lt;/h1&gt;
+    &lt;script src=&quot;http://localhost:9527/test.js&quot;&gt;&lt;/script&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;http://localhost:9527/test2.css&quot; /&gt;
+    &lt;h1&gt;我说一个在JS下面的标签&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20190131095310.png" alt="" /></p>
+
+<p>我们可以看到header中的资源拥有非常高的优先级，无论是JS和CSS，在header中的资源加载就绪后，发现第一脚本还在加载，就直接触发了FP。我们再来试试反过来。让header中的资源变得很慢。</p>
+
+<h3 id="情况7-混合反向-header中的资源变得更慢">情况7 混合反向 header中的资源变得更慢</h3>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20190131095458.png" alt="" /></p>
+
+<p>这时候由于第一脚本实在太快，在Header中的资源加载完毕前早就加载完毕了，所以这时候没有触发提前FCP，等待Header中的资源加载完毕后再进行FCP。</p>
+
+<h2 id="总结">总结</h2>
+
+<p>我们可以看出</p>
+
+<p><strong>当浏览器解析到body标签中的第一个脚本时(当解析到这里都时候，说明header中的资源已经全部就绪)，发现这脚本依旧在等待加载，那么浏览器会触发一次提前渲染，并且这次的提前渲染是残缺的DOM与完整的CSSDOM进行合并渲染后的产物</strong></p>
+
+<p>所以，如果你想要触发这种FCP来优化用户体验，让用户更快的能够看到页面，应该尽可能的<strong>减小header中资源的数量与体积</strong>。这才是优化体验最关键的东西，CSSDOM的优先级是非常非常高的，不是非常必要的css请用preload,prefetch进行延后加载。</p>
+
+<p>如有错误，还请指正！谢谢</p>
+
+<h2 id="参考">参考</h2>
+
+<p><a href="https://www.cnblogs.com/hongrunhui/p/8929001.html">Chrome的First Paint触发的时机探究</a></p>
+
+<p><a href="https://juejin.im/post/58e8acf10ce46300585a7a42">Preload，Prefetch 和它们在 Chrome 之中的优先级</a></p>
+
+<p><a href="https://developers.google.com/web/fundamentals/performance/critical-rendering-path/analyzing-crp?hl=zh-cn">分析关键渲染路径性能</a></p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201901/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%BA%E5%88%B6%E6%A8%AA%E5%B1%8F%E6%96%B9%E6%A1%88/" data-toggle="tooltip" data-placement="top" title="移动端强制横屏方案">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/201903/webpackjs%E6%A8%A1%E5%9D%97%E5%8C%96%E5%8E%9F%E7%90%86/" data-toggle="tooltip" data-placement="top" title="Webpack JS模块化原理">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2020
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+</body>
+</html>

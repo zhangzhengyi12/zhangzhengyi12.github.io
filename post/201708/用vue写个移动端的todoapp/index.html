@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhaohuabing.com/https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="Vue.js TODO APP" />
+    <meta property="og:title" content="Vue.js TODO APP" />
+    <meta property="twitter:title" content="Vue.js TODO APP" />
+    
+
+    
+    <meta name="description" content="Wubba lubba dub dub">
+    <meta property="og:description" content="Wubba lubba dub dub" />
+    <meta property="twitter:description" content="Wubba lubba dub dub" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Vue.js TODO APP-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201708/%E7%94%A8vue%E5%86%99%E4%B8%AA%E7%A7%BB%E5%8A%A8%E7%AB%AF%E7%9A%84todoapp/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/vue.js" title="Vue.js">
+                            Vue.js
+                        </a>
+                        
+                    </div>
+                    <h1>Vue.js TODO APP</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Friday, November 24, 2017
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li><a href="#展示">展示</a></li>
+<li><a href="#技术栈">技术栈</a>
+<ul>
+<li><a href="#布局">布局</a></li>
+<li><a href="#vue-router">Vue-router</a></li>
+<li><a href="#vuex">vuex</a></li>
+<li><a href="#本地存储">本地存储</a></li>
+<li><a href="#开发总结">开发总结</a></li>
+</ul></li>
+<li><a href="#地址">地址</a></li>
+</ul>
+</nav>
+                
+                
+
+<h1 id="展示">展示</h1>
+
+<p>为了更好的学习vue，所以找个一个todoList的渲染图，动手制作一个todoApp。因为渲染图是纯移动端的，所以我的布局逻辑优化都是纯移动端的。</p>
+
+<p>话不多少，先上图！</p>
+
+<p><img src="https://ws1.sinaimg.cn/large/0061RWEngy1fn9qo109xij30bn0ifwep.jpg" alt="" />
+<img src="https://ws1.sinaimg.cn/large/0061RWEngy1fn9qo0egruj30bq0j03ys.jpg" alt="" /></p>
+
+<h1 id="技术栈">技术栈</h1>
+
+<h2 id="布局">布局</h2>
+
+<p>整个app都是利用了rem来进行一个布局的，在不同的移动设备上都拥有还算不错的显示效果。</p>
+
+<p>所有图形都是字体图标，非常的小并且可以无损放大，非常好用</p>
+
+<h2 id="vue-router">Vue-router</h2>
+
+<p>vue-router我感觉非常适合这种切换的情况，比单组件切换的体验会更好一些，毕竟单纯组件做返回会非常麻烦，毕竟这是一个单页应用。单击返回的感觉真的很好。</p>
+
+<p><strong>在使用vue-router的时候有一个问题，就是keep-alive的组件他的数据是会缓存的，这样当你切换组件的时候，数据就无法重新获取，我的解决办法是利用router的钩子</strong></p>
+
+<pre><code class="language-js">
+beforeRouteEnter(to,from,next){
+      next(vm=&gt;{
+          vm.todoListData = vm.$store.state.nowTodoListData
+      })
+  },
+
+</code></pre>
+
+<p>每当路由进去之间就尝试获取新数据</p>
+
+<h2 id="vuex">vuex</h2>
+
+<p>在我使用vue-router的时候出现一个棘手的问题，就是组件之间的通讯问题。在我这个应用之中，有着非常高频率的内部通讯。如果使用事件和props通讯，会出现非常大量的通讯路线，整个程序的复杂度会大大提高。</p>
+
+<p>但vue的作者早就想到了这个问题。所以我使用vuex来管理整个数据模型。我仅仅使用了60行的vuex配置就完成了所有的数据管理，并且这些操作都是在一个文件之中，非常方便查看与分析！</p>
+
+<h2 id="本地存储">本地存储</h2>
+
+<p>既然这是一个todoApp,那么本地存储就很有必要了，毕竟一旦刷新丢失数据是种非常难受的体验，所以我使用了h5的localstorageAPI进行本地存储，在vuex中添加了两组mutations</p>
+
+<pre><code class="language-js">
+localSave(state) {
+            let storage = window.localStorage
+            let data  = {
+                notes: state.noteListData,
+                todos:state.todoListData
+            }
+            storage.setItem(&quot;data&quot;,JSON.stringify(data))
+        },
+        localLoad(state) {
+            let storage = window.localStorage
+            let data = JSON.parse(storage.getItem(&quot;data&quot;))
+            if (data) {
+                state.noteListData = data.notes;
+                state.todoListData = data.todos;
+            }
+        }
+
+
+</code></pre>
+
+<h2 id="开发总结">开发总结</h2>
+
+<p>我觉得在vue框架之下开发一个webapp是一件非常自然而又愉快的事情，感觉真的很棒。可以让我专注于数据的更新，专注业务本身的逻辑。并且性能非常之高，感谢虚拟DOM。感谢VUE。</p>
+
+<p>另：默认配置下vue-cli build的路径是/ 所以可能会出现资源找不到的错误。</p>
+
+<p>解决办法：修改项目config文件夹里index.js中的assetsPublicPath，默认是/，改成你想设置的子目录名称
+比如在改成./就能在当前目录下去查找资源文件。</p>
+
+<h1 id="地址">地址</h1>
+
+<p>Demo地址：<a href="https://github.com/zhangzhengyi12/vue-todolist-app/tree/master">https://github.com/zhangzhengyi12/vue-todolist-app/tree/master</a></p>
+
+<p>预览地址：<a href="https://yinode.tech/vue-todolist-app/#/">https://yinode.tech/vue-todolist-app/#/</a></p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201709/%E4%BD%BF%E7%94%A8socket.io%E5%AE%9E%E7%8E%B0%E6%9E%81%E7%AE%80%E5%8D%B3%E6%97%B6%E9%80%9A%E8%AE%AF/" data-toggle="tooltip" data-placement="top" title="使用socket.io实现极简即时通讯">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/201709/vueslot%E4%BD%BF%E7%94%A8%E5%A6%82%E4%BD%95%E5%AF%B9%E5%85%B6%E8%BF%9B%E8%A1%8C%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C/" data-toggle="tooltip" data-placement="top" title="Vue.js slot 初探">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2020
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+</body>
+</html>
