@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Notebooks on Yinode Blog</title>
+    <link>https://zhangzhengyi12.github.io/notebook/</link>
+    <description>Recent content in Notebooks on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    
+	<atom:link href="https://zhangzhengyi12.github.io/notebook/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>https://zhangzhengyi12.github.io/notebook/algo-road-map/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/notebook/algo-road-map/</guid>
+      <description> 算法训练路径图 数据结构模块  Array Stack/Queue PriorityQueue(Heap) LinkedList(Single/Double) Tree / Binary Tree HashTable Disjoint Set Trie BloomFilter LRU Cache  算法模块  General Coding In-order/Pre-order/Post-order traversal Greedy Recursion/Backtrace BFS/DFS Divide and Conquer DP Binary Search Grap  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangzhengyi12.github.io/notebook/algo-template/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/notebook/algo-template/</guid>
+      <description>基础 递归 const recursion = (level,param1,param2)=&amp;gt;{ // 终止条件 if(level &amp;gt; xx) { return xx } // 处理当前层的数据 processData() // 继续向下递归 recursion(level+1,param1,param2) // 进行状态后处理 组装 moreProcess() }  DFS let visited = new Set() const dfs = (node,visited)=&amp;gt;{ visited.add(node) for(let childNode of node.children){ if(!visited.has(childNode)){ dfs(childNode,visited) } } }  BFS const bfs = (G,start)=&amp;gt;{ let q = [start] let visited = new Set() while(q.length &amp;gt; 0){ node = q.shift() visited.add(node) // 如果需要按层级递进 那么这里需要创建一个 for 循环 process(node) for(let childNode of node.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangzhengyi12.github.io/notebook/algorithm/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/notebook/algorithm/</guid>
+      <description>Review 复杂度计算的几种方式 递归树方法 递归树方法的核心就是构造一个子任务分解树，然后对每个节点的复杂度进行汇总分析，尝试找出规律。下面是一颗常见的归并排序的递归树。
+fib数列会相对麻烦一点。每个节点的复杂度其实是一次加法。 然后可以根据每次子任务的分解情况计算出这个树的最终高度是多少。
+主方法 适用于满足递推关系的算法
+$$ f(n) = af(n/b) + cn^d 其中 n = b^k ，k是一个正整数，a &amp;gt;= 1,c 和 d 是实数 \ 满足c是正的且b是非负的 $$
+$$ 如果 a &amp;lt; b^d 那么 f(n) = O(n^d) $$
+$$ 如果 a = b^d 那么 f(n) = O(n^dlogn) $$
+$$ 如果 a &amp;gt; b^d 那么 f(n) = O(n^{log_ba}) $$
+举个例子，归并排序满足公式 $f(n) = 2f(n/2) + 1 * n^1$
+$a = 2 并且 a = 2^1$ 所以可以得到复杂度 $O(n^1logn) = O(nlogn)$</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangzhengyi12.github.io/notebook/computer_graphics/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/notebook/computer_graphics/</guid>
+      <description>math 向量夹角定义
+$$ \cos \theta = \frac{\bar{v} \cdot \bar{k}}{||\bar{v}|| \cdot ||\bar{k}||} $$
+缩放矩阵
+s1 s2 s3 分为对应你想要缩放的向量分量
+$$ \begin{bmatrix} \color{red}{S_1} &amp;amp; \color{red}0 &amp;amp; \color{red}0 &amp;amp; \color{red}0 \ \color{green}0 &amp;amp; \color{green}{S_2} &amp;amp; \color{green}0 &amp;amp; \color{green}0 \ \color{blue}0 &amp;amp; \color{blue}0 &amp;amp; \color{blue}{S_3} &amp;amp; \color{blue}0 \ \color{purple}0 &amp;amp; \color{purple}0 &amp;amp; \color{purple}0 &amp;amp; \color{purple}1 \end{bmatrix} \cdot \begin{pmatrix} x \ y \ z \ 1 \end{pmatrix} = \begin{pmatrix} \color{red}{S_1} \cdot x \ \color{green}{S_2} \cdot y \ \color{blue}{S_3} \cdot z \ 1 \end{pmatrix} $$</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangzhengyi12.github.io/notebook/cses/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/notebook/cses/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangzhengyi12.github.io/notebook/data_structures/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/notebook/data_structures/</guid>
+      <description>数据结构分类 从最高层面上来说，数据结构分为线性表和非线性表
+线性表的最大特征是只拥有前后两个方向
+线性表 数组 最大特点是支持随机访问,因为内部可以使用偏移直接寻址，但是不可避免的会让删除插入等操作变麻烦</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangzhengyi12.github.io/notebook/desgin_patterns/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/notebook/desgin_patterns/</guid>
+      <description>设计模式 五大OOP基本原则 创建型模式 AbstractFactory (抽象工厂) 意图 提供一个接口以创建一系列相关或相互依赖的对象，而无需指定它们具体的类。
+简单来说就是建立一个抽象工厂接口,以及一组继承了抽象工厂接口的具体工厂，让这些具体的工厂够能相互替换，提供拥有统一接口的产品。消除客户端在创建这些产品时候所产生的类耦合现象，同时增强同一类产品的依赖关系。
+适用场景  一个系统要独立于他的产品的创建、组合和表示(不希望与具体的类产品类耦合) 一个系统要由多个产品系列中的一个来配置(比如可以轻易切换 macos 风格组件 和 ubuntu 风格组件) 要强调一系列相关的产品对象的设计以便进行联合适用(工厂能够创建一组相关对象) 提供一个产品类库，但只想显示它们的接口而不是实现  缺点 想要扩展工厂从而生产更多类型的产品会有些困难，因为你不仅需要修改接口，每个具体工厂都需要增加这方面的能力
+代码实现 // MARK: Window Product protocol Window { func close() } class MacOSWindow: Window { func close() { // some code } } class UbuntuWindow: Window { func close() { // some code } } // MARK: ScrollBar Product protocol Scrollbar { func scrollTo(x: Float, y: Float) } class MacOSScrollbar: Scrollbar { func scrollTo(x: Float, y: Float) { // some code } } class UbuntuScrollBar: Scrollbar { func scrollTo(x: Float, y: Float) { // some code } } // Abstract Factory protocol WidgetFactory { // singleton static var shared: WidgetFactory { get } func createWindow() -&amp;gt; Window func createScrollBar() -&amp;gt; Scrollbar } // Concreate Factory class UbuntuWidgetFactory: WidgetFactory { static let shared: WidgetFactory = UbuntuWidgetFactory() func createWindow() -&amp;gt; Window { return UbuntuWindow() } func createScrollBar() -&amp;gt; Scrollbar { return UbuntuScrollBar() } } class MacOSWidgetFactory: WidgetFactory { static let shared: WidgetFactory = MacOSWidgetFactory() func createWindow() -&amp;gt; Window { return MacOSWindow() } func createScrollBar() -&amp;gt; Scrollbar { return MacOSScrollbar() } } // MARK: Using Factory create widget func run(widgetFactory: WidgetFactory) { let window = widgetFactory.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangzhengyi12.github.io/notebook/discrete_mathematics/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/notebook/discrete_mathematics/</guid>
+      <description>计数 排列与组合 求 n 的 r 排列
+$$ P(n,r) = \frac{(n!)}{(n - r)!} $$
+求 n 的 r 组合
+$$ C(n,r) = \frac{(n!)}{r!(n - r)!} $$
+求 n 的 r 排列 允许重复
+$$ n ^ r $$
+求 n 的 r 组合 允许重复
+$$ C(n + r - 1 , r) $$</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangzhengyi12.github.io/notebook/distributed-systems/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/notebook/distributed-systems/</guid>
+      <description> 分布式系统 intro 什么是分布式系统 为什么要用分布式系统 可伸缩性
+分布式系统中涉及到的基础架构 抽象层面
+ 存储 通信 计算  实现层面
+ 线程 并发控制 RPC  分布式系统中的一些关注点 性能
+ 伸缩性 2x的机器应该提供2x的性能  容错
+任何节点都可能出错 崩溃
+ 可访问性 可恢复性  一致性
+ 强一致性 同一时刻所有节点都访问到相同数据 弱一致性 允许同一时刻访问到不同的数据 更为常用  RPC and Threads Threads 使用线程的理由  IO并发 多核并行 比起RPC更为简单  事件驱动 事件驱动无法真正意义上完全驱动多核CPU,事件驱动可以用低廉的成本带来IO层面的高并发，但是并不适合重CPU程序
+协程 协程一般构建在语言层面上，与事件驱动类似，无法实现并行，但能够实现并发
+GFS Big Storage 难点
+ 性能 - 分片 自动化的容错机制 容错机制需要我们实现数据冗余 数据冗余需要创建多个副本 多个副本要求实现一致性 而过于频繁的同步又会导致性能降低  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangzhengyi12.github.io/notebook/leetcode/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/notebook/leetcode/</guid>
+      <description>笔记本 求两数之和等于某个数 sum2
+var twoSum = function(nums, target) { const sortedNums = nums.map((v, i) =&amp;gt; ({ v, i })) sortedNums.sort((a, b) =&amp;gt; a.v - b.v) let left = 0 let right = nums.length - 1 while (left &amp;lt; right) { let sum = sortedNums[left].v + sortedNums[right].v if (sum === target) { return [sortedNums[left].i, sortedNums[right].i] } else if (sum &amp;lt; target) { left++ } else { right-- } } }  求三数之和等于某个数 所有匹配项 而且去重 sum3</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangzhengyi12.github.io/notebook/machine_learning/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/notebook/machine_learning/</guid>
+      <description>线性回归 $$ Θ_j = Θj - \partial \sum{i=1}^m (hΘ(x^i) - y^i) * x_j^i $$</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangzhengyi12.github.io/notebook/refactoring/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/notebook/refactoring/</guid>
+      <description>refactoring 快速回忆，不追求细节，一句话表达意图
+坏味道 神秘命名 好的命名很难，多想多重构
+重复代码 多提炼
+过长函数 过长参数列表 全局数据 可变数据 发散变化 程序的变化应该集中，要修改的时候应该尽可能少的触碰其他代码
+散弹修改 改起来到处都是细小的更改点
+依恋情节 模块过于亲密
+数据泥团 总是成群结队的三两个数据，尝试把数据改成对象
+基本类型偏执 尽量自己构建一些基本类型，不要天天用字符串和number
+重复的switch 要是增加一个可选项，直接爆炸
+循环语句 少用循环多Map
+夸夸其谈通用性 过于离谱的通用型设计
+临时字段 特例情况的字段要干掉
+过长的消息链 猛委托谁顶得住呢？隐藏起来吧，对外不暴露委托对象
+中间人 一半的函数都委托给别人，可以考虑直接暴露委托，或者把委托对象直接进行应用
+内幕交易 两个模块过于高频率的交换数据
+过大的类 多抽离
+异曲同工的类 相似的类接口最好一致
+纯数据类 只拥有数据的类一般都会过渡耦合，最好是尝试把一些操作函数搬移到数据类里
+被拒绝的遗增 父类的某些东西子类不想要，需要对继承体系进行重构
+注释 让注释变得更有意义
+基本手法 提炼函数 写颗粒度足够细的函数，可以消除注释
+提炼变量 将长表达式内部的子表达式抽离成解释性变量
+封装变量 针对全局数据建立get set函数 更好的控制访问
+引入参数对象 将常见的参数组合成一个对象或者结构，比如 iOS中的 CGFloat CGRect CGPoint 通常都是含有 x y 等值
+函数组合成类 如果一组函数+一组变量高频率的出现，抽离成一个类
+拆分阶段 将一个函数拆分成多个阶段，并建立起 第一阶段的输出是第二阶段的输入这一过程。可以建立一个中转数据结构</description>
+    </item>
+    
+  </channel>
+</rss>

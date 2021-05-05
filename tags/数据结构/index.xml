@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>数据结构 on Yinode Blog</title>
+    <link>https://zhangzhengyi12.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
+    <description>Recent content in 数据结构 on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 09 Aug 2019 19:39:33 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhangzhengyi12.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>字典树的实现</title>
+      <link>https://zhangzhengyi12.github.io/post/201908/%E5%AD%97%E5%85%B8%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Fri, 09 Aug 2019 19:39:33 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201908/%E5%AD%97%E5%85%B8%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+      <description>在计算机科学中，trie，又称前缀树或字典树，是一种有序树，用于保存关联数组，其中的键通常是字符串。与二叉查找树不同，键不是直接保存在节点中</description>
+    </item>
+    
+    <item>
+      <title>哈希表的实现</title>
+      <link>https://zhangzhengyi12.github.io/post/201904/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Sun, 21 Apr 2019 04:06:57 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201904/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+      <description>哈希表 散列表（Hash table，也叫哈希表），是根据键（Key）而直接访问在内存存储位置的数据结构。也就是说，它通过计算一个关于键值的函数</description>
+    </item>
+    
+    <item>
+      <title>算法导论笔记 多线程算法</title>
+      <link>https://zhangzhengyi12.github.io/post/201809/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Fri, 28 Sep 2018 05:59:40 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201809/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%AE%97%E6%B3%95/</guid>
+      <description>多线程算法 相对我来说比较局限，因为 js 是单线程的，所以只做了解，后续如果要用到可以在进行进一步的掌握。 首先来讲，目前的大部分算法都是基于单线程</description>
+    </item>
+    
+    <item>
+      <title>算法导论笔记  全点最短路径算法</title>
+      <link>https://zhangzhengyi12.github.io/post/201809/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%8D%81%E4%BA%8C%E5%85%A8%E7%82%B9%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Thu, 27 Sep 2018 06:17:11 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201809/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%8D%81%E4%BA%8C%E5%85%A8%E7%82%B9%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/</guid>
+      <description>复习 在我们之前的学习之中，已经了解三种不同的最短路径算法，他们在某些条件限制下拥有不同的性能 无权图 或者说权重全部相同 可以使用 广度优先搜索(借</description>
+    </item>
+    
+    <item>
+      <title>算法导论笔记 动态规划番外篇 堆与优先队列</title>
+      <link>https://zhangzhengyi12.github.io/post/201809/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%95%AA%E5%A4%96%E7%AF%87%E5%A0%86%E4%B8%8E%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/</link>
+      <pubDate>Sat, 08 Sep 2018 06:00:43 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201809/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%95%AA%E5%A4%96%E7%AF%87%E5%A0%86%E4%B8%8E%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/</guid>
+      <description>最近在学习动态规划的时候发现非常需要优先队列的的基础，所以转而先学习一下优先队列算法。这里就找了比较通用的堆来入手了解优先队列。 堆 首先这里的</description>
+    </item>
+    
+    <item>
+      <title>算法导论笔记 十一 最短路径算法</title>
+      <link>https://zhangzhengyi12.github.io/post/201808/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%8D%81%E4%B8%80%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Fri, 31 Aug 2018 05:04:52 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201808/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%8D%81%E4%B8%80%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/</guid>
+      <description>最短路径 最短路径问题是图论研究中的一个经典算法问题，旨在寻找图（由结点和路径组成的）中两结点之间的最短路径。 假设我们拥有一条路径 P P 经过一些</description>
+    </item>
+    
+    <item>
+      <title>算法导论笔记 十一 贪心算法 最小生成树</title>
+      <link>https://zhangzhengyi12.github.io/post/201808/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E5%8D%81%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/</link>
+      <pubDate>Tue, 21 Aug 2018 06:08:06 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201808/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E5%8D%81%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/</guid>
+      <description>图论 最小生成树需要你掌握基本的图论 在书的附录中有介绍，可以先去看看 设 V 为 有向图（v,e）的顶点集 那么遍历这个图的成本为 O(V ^ 2) 如果一个有向图 G</description>
+    </item>
+    
+    <item>
+      <title>算法导论笔记 一 起步</title>
+      <link>https://zhangzhengyi12.github.io/post/201805/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E4%B8%80%E8%B5%B7%E6%AD%A5/</link>
+      <pubDate>Sun, 29 Jul 2018 18:43:00 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201805/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E4%B8%80%E8%B5%B7%E6%AD%A5/</guid>
+      <description>算法 什么是算法 算法（algorithm），在数学（算学）和计算机科学之中，为任何良定义的具体计算步骤的一个序列，常用于计算、数据处理和自动推</description>
+    </item>
+    
+    <item>
+      <title>算法导论笔记 二 分治法</title>
+      <link>https://zhangzhengyi12.github.io/post/201806/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E4%BA%8C%E5%88%86%E6%B2%BB%E6%B3%95/</link>
+      <pubDate>Sun, 29 Jul 2018 18:43:00 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201806/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E4%BA%8C%E5%88%86%E6%B2%BB%E6%B3%95/</guid>
+      <description>名词解释 多项式级 即 n^2 n^3 可以被认为是可控的算法复杂度级别 指数级 x^n 级别 非常恐怖 分治法 分治法是一种极为重要的算法设计思想，他的核心思想就是把大问题</description>
+    </item>
+    
+    <item>
+      <title>算法导论笔记 八 竞争性分析，自组织表</title>
+      <link>https://zhangzhengyi12.github.io/post/201807/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%85%AB%E7%AB%9E%E4%BA%89%E6%80%A7%E5%88%86%E6%9E%90%E8%87%AA%E7%BB%84%E7%BB%87%E8%A1%A8/</link>
+      <pubDate>Sun, 29 Jul 2018 18:43:00 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201807/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%85%AB%E7%AB%9E%E4%BA%89%E6%80%A7%E5%88%86%E6%9E%90%E8%87%AA%E7%BB%84%E7%BB%87%E8%A1%A8/</guid>
+      <description>自组织表 先来理解两个概念 在线算法与离线算法 在线算法（也成为线上算法）：是一个处理数据的一种方式，他不要求建立数据结构的时候所有数据源全部就绪</description>
+    </item>
+    
+    <item>
+      <title>算法导论笔记 四 中位数与顺序统计</title>
+      <link>https://zhangzhengyi12.github.io/post/201806/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E4%B8%89%E4%B8%AD%E4%BD%8D%E6%95%B0%E4%B8%8E%E9%A1%BA%E5%BA%8F%E7%BB%9F%E8%AE%A1/</link>
+      <pubDate>Sun, 29 Jul 2018 18:43:00 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201806/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E4%B8%89%E4%B8%AD%E4%BD%8D%E6%95%B0%E4%B8%8E%E9%A1%BA%E5%BA%8F%E7%BB%9F%E8%AE%A1/</guid>
+      <description>选择算法 所谓的选择算法，其基本规则就是从一个无序的数组中，找到第 i 小的值。 最简单的做法其实就是将数组排序，下标+1 就是它的 i。但是，就算依托</description>
+    </item>
+    
+    <item>
+      <title>算法导论笔记 四 二叉搜索树</title>
+      <link>https://zhangzhengyi12.github.io/post/201806/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%9B%9B%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/</link>
+      <pubDate>Sun, 29 Jul 2018 18:43:00 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201806/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%9B%9B%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/</guid>
+      <description>二叉树 二叉树本身就是非常常见的一种数据结构了，对于这种数据结构当然有一些基本操作 增删改查最大最小等等，一个二叉树的的基本操作都和二叉树的高度</description>
+    </item>
+    
+    <item>
+      <title>算法导论笔记 四 全域哈希和完全哈希</title>
+      <link>https://zhangzhengyi12.github.io/post/201806/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%9B%9B%E5%85%A8%E5%9F%9F%E5%93%88%E5%B8%8C%E5%92%8C%E5%AE%8C%E5%85%A8%E5%93%88%E5%B8%8C/</link>
+      <pubDate>Sun, 29 Jul 2018 18:43:00 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201806/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%9B%9B%E5%85%A8%E5%9F%9F%E5%93%88%E5%B8%8C%E5%92%8C%E5%AE%8C%E5%85%A8%E5%93%88%E5%B8%8C/</guid>
+      <description>HASH 算法的缺陷 首先，我们所了解到的所有简单的复杂的 HASH 函数总会拥有一些薄弱点，即输入一些特殊的 key 会很容易返回相同 KEY 导致多条数据插入到同一个槽中，</description>
+    </item>
+    
+    <item>
+      <title>算法导论笔记 四 哈希表</title>
+      <link>https://zhangzhengyi12.github.io/post/201806/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E4%BA%8C%E5%93%88%E5%B8%8C%E8%A1%A8/</link>
+      <pubDate>Sun, 29 Jul 2018 18:43:00 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201806/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E4%BA%8C%E5%93%88%E5%B8%8C%E8%A1%A8/</guid>
+      <description>直接寻址 相对于哈希表来说，直接寻址是一种更为简单的方法，即使用一组键集合 K 来代表一组相应的值 U,但是直接寻址受限于一个重要的缺陷，即K可能相</description>
+    </item>
+    
+    <item>
+      <title>算法导论 七 平摊分析，表的扩增，势能方法</title>
+      <link>https://zhangzhengyi12.github.io/post/201807/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E4%B8%83%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90%E8%A1%A8%E7%9A%84%E6%89%A9%E5%A2%9E%E5%8A%BF%E8%83%BD%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Sat, 21 Jul 2018 06:00:06 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201807/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E4%B8%83%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90%E8%A1%A8%E7%9A%84%E6%89%A9%E5%A2%9E%E5%8A%BF%E8%83%BD%E6%96%B9%E6%B3%95/</guid>
+      <description>动态表 简单阐述一下动态表的基本思想，先建立一个表，当插入的元素大于表的大小时，建立一个新表（大小为旧表的两倍），并将旧表中的所有数据复制到新</description>
+    </item>
+    
+    <item>
+      <title>算法导论笔记 九 动态规划</title>
+      <link>https://zhangzhengyi12.github.io/post/201807/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E4%B9%9D%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</link>
+      <pubDate>Sat, 21 Jul 2018 06:00:06 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201807/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E4%B9%9D%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</guid>
+      <description>动态规划 动态规划（英语：Dynamic programming，简称DP）是一种在数学、管理科学、计算机科学、经济学和生物信息学中使用的，通过</description>
+    </item>
+    
+    <item>
+      <title>算法导论笔记 五 扩充的数据结构、动态有序统计和区间树</title>
+      <link>https://zhangzhengyi12.github.io/post/201807/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E4%BA%94%E6%89%A9%E5%85%85%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%8A%A8%E6%80%81%E6%9C%89%E5%BA%8F%E7%BB%9F%E8%AE%A1%E5%92%8C%E5%8C%BA%E9%97%B4%E6%A0%91/</link>
+      <pubDate>Sat, 21 Jul 2018 06:00:06 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201807/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E4%BA%94%E6%89%A9%E5%85%85%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%8A%A8%E6%80%81%E6%9C%89%E5%BA%8F%E7%BB%9F%E8%AE%A1%E5%92%8C%E5%8C%BA%E9%97%B4%E6%A0%91/</guid>
+      <description>这一章的主要内容其实是如何利用现有的数据结构来扩充成一个新的数据结构，并让这种新的数据结构具有一些神奇的特性。 动态顺序统计 我们在前面就学习了</description>
+    </item>
+    
+    <item>
+      <title>算法导论笔记 六 跳跃表</title>
+      <link>https://zhangzhengyi12.github.io/post/201807/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%85%AD%E8%B7%B3%E8%B7%83%E8%A1%A8/</link>
+      <pubDate>Sat, 21 Jul 2018 06:00:06 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201807/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%85%AD%E8%B7%B3%E8%B7%83%E8%A1%A8/</guid>
+      <description>跳跃表（skiplists） 跳跃表是一种增强版的链表，他能在O(lgn)的时间内完成搜索。 首先，我们熟知的链表本身具有的特性就是容易删除与增</description>
+    </item>
+    
+  </channel>
+</rss>

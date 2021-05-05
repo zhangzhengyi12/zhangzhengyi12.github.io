@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>缓存管理 on Yinode Blog</title>
+    <link>https://zhangzhengyi12.github.io/tags/%E7%BC%93%E5%AD%98%E7%AE%A1%E7%90%86/</link>
+    <description>Recent content in 缓存管理 on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 06 Sep 2019 14:23:27 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhangzhengyi12.github.io/tags/%E7%BC%93%E5%AD%98%E7%AE%A1%E7%90%86/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>LRU 缓存算法</title>
+      <link>https://zhangzhengyi12.github.io/post/201909/lru%E7%BC%93%E5%AD%98%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Fri, 06 Sep 2019 14:23:27 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201909/lru%E7%BC%93%E5%AD%98%E7%AE%97%E6%B3%95/</guid>
+      <description>缓存的主要目的就是提高访问速度，当我们需要从某个容器中获取一个元素的时候，将会优先从缓存中获取，如果缓存中正好存在，那么我们就可以直接取走这</description>
+    </item>
+    
+  </channel>
+</rss>

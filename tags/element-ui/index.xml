@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Element-UI on Yinode Blog</title>
+    <link>https://zhangzhengyi12.github.io/tags/element-ui/</link>
+    <description>Recent content in Element-UI on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 16 Jul 2020 14:02:16 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhangzhengyi12.github.io/tags/element-ui/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Element-UI Table组件用户自定义配置方案分享-自定义列宽、排序、显隐</title>
+      <link>https://zhangzhengyi12.github.io/post/202007/element-ui-table%E7%BB%84%E4%BB%B6%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E6%89%A9%E5%B1%95%E6%96%B9%E6%A1%88%E5%88%86%E4%BA%AB/</link>
+      <pubDate>Thu, 16 Jul 2020 14:02:16 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/202007/element-ui-table%E7%BB%84%E4%BB%B6%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E6%89%A9%E5%B1%95%E6%96%B9%E6%A1%88%E5%88%86%E4%BA%AB/</guid>
+      <description>起因 最近有接受到这样的一个需求 用户够能自定义表格列的 宽度/排序/显隐 用户的设置能够持久化(保存到后端) 目前该项目主要由 Vue.js 2.0 + Element-UI 构成，在经过一</description>
+    </item>
+    
+  </channel>
+</rss>

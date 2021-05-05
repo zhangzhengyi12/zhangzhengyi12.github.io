@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>V8 on Yinode Blog</title>
+    <link>https://zhangzhengyi12.github.io/tags/v8/</link>
+    <description>Recent content in V8 on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 13 Sep 2019 20:24:17 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhangzhengyi12.github.io/tags/v8/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>V8 Lite - 轻量级的V8引擎 [译]</title>
+      <link>https://zhangzhengyi12.github.io/post/201909/v8lite%E8%BD%BB%E9%87%8F%E7%BA%A7%E7%9A%84v8%E5%BC%95%E6%93%8E%E8%AF%91/</link>
+      <pubDate>Fri, 13 Sep 2019 20:24:17 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201909/v8lite%E8%BD%BB%E9%87%8F%E7%BA%A7%E7%9A%84v8%E5%BC%95%E6%93%8E%E8%AF%91/</guid>
+      <description>在2018年晚些时候，我们启动了一个全新的项目 - V8 Lite，旨在大幅度减少V8引擎对于内存的使用。最初这个项目被设想成一个独立于V8引擎的L</description>
+    </item>
+    
+  </channel>
+</rss>

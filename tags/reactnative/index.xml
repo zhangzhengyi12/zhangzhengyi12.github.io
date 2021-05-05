@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ReactNative on Yinode Blog</title>
+    <link>https://zhangzhengyi12.github.io/tags/reactnative/</link>
+    <description>Recent content in ReactNative on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 29 Apr 2018 07:40:56 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhangzhengyi12.github.io/tags/reactnative/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>React-Native 达达看书阅读器</title>
+      <link>https://zhangzhengyi12.github.io/post/201803/reactnative%E8%BE%BE%E8%BE%BE%E7%9C%8B%E4%B9%A6%E9%98%85%E8%AF%BB%E5%99%A8/</link>
+      <pubDate>Sun, 29 Apr 2018 07:40:56 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201803/reactnative%E8%BE%BE%E8%BE%BE%E7%9C%8B%E4%B9%A6%E9%98%85%E8%AF%BB%E5%99%A8/</guid>
+      <description>What is React Native? React Native (简称RN)是Facebook于2015年4月开源的跨平台移动应用开发框架，是Facebook早先开源的UI框架 React 在原生移动应用</description>
+    </item>
+    
+    <item>
+      <title>为React-native添加redux</title>
+      <link>https://zhangzhengyi12.github.io/post/201802/%E4%B8%BAreactnative%E6%B7%BB%E5%8A%A0redux/</link>
+      <pubDate>Mon, 26 Feb 2018 05:20:15 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201802/%E4%B8%BAreactnative%E6%B7%BB%E5%8A%A0redux/</guid>
+      <description>其实在网上随便一搜索 react 加 redux 的可以说特别的多，但是为 React-native 加的还真的很少，所以我在实践完成之后就打算记录一下在 RN 中如何启用 redux，其实和 React 的用</description>
+    </item>
+    
+  </channel>
+</rss>

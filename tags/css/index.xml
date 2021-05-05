@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CSS on Yinode Blog</title>
+    <link>https://zhangzhengyi12.github.io/tags/css/</link>
+    <description>Recent content in CSS on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 07 Jan 2018 08:14:18 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhangzhengyi12.github.io/tags/css/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>CSS3 transform 实现星球大战开场动画效果</title>
+      <link>https://zhangzhengyi12.github.io/post/201801/css3transform%E5%AE%9E%E7%8E%B0%E6%98%9F%E7%90%83%E5%A4%A7%E6%88%98%E5%BC%80%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/</link>
+      <pubDate>Sun, 07 Jan 2018 08:14:18 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201801/css3transform%E5%AE%9E%E7%8E%B0%E6%98%9F%E7%90%83%E5%A4%A7%E6%88%98%E5%BC%80%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/</guid>
+      <description>灵感来自于segmentfault的一个页面，在看到之后仔细研究了一下transform的3d变形效果。 其实css3的3d效果也是伪3d,依</description>
+    </item>
+    
+  </channel>
+</rss>

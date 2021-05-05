@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="构建一个用于创建组件库的项目脚手架工具 [类 Vue-cli-3]" />
+    <meta property="og:title" content="构建一个用于创建组件库的项目脚手架工具 [类 Vue-cli-3]" />
+    <meta property="twitter:title" content="构建一个用于创建组件库的项目脚手架工具 [类 Vue-cli-3]" />
+    
+
+    
+    <meta name="description" content="有没有觉得创建一个独立NPM组件过于费时费力呢?">
+    <meta property="og:description" content="有没有觉得创建一个独立NPM组件过于费时费力呢?" />
+    <meta property="twitter:description" content="有没有觉得创建一个独立NPM组件过于费时费力呢?" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>构建一个用于创建组件库的项目脚手架工具 [类 Vue-cli-3]-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201907/%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%94%A8%E4%BA%8E%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6%E5%BA%93%E7%9A%84%E9%A1%B9%E7%9B%AE%E8%84%9A%E6%89%8B%E6%9E%B6%E5%B7%A5%E5%85%B7%E7%B1%BBvuecli3/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/atom-one-dark.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+    <script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/gist/">Gist</a></li>
+                    
+                        <li><a href="/top/notebook/">Notebooks</a></li>
+                    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96" title="前端工程化">
+                            前端工程化
+                        </a>
+                        
+                    </div>
+                    <h1>构建一个用于创建组件库的项目脚手架工具 [类 Vue-cli-3]</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Tuesday, July 9, 2019
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#缘起">缘起</a></li>
+<li><a href="#私有-npm">私有 NPM</a></li>
+<li><a href="#工具">工具</a>
+<ul>
+<li><a href="#npm-bin">npm bin</a></li>
+<li><a href="#commander-js">Commander.js</a></li>
+<li><a href="#inquirer">inquirer</a></li>
+</ul></li>
+<li><a href="#开始构建">开始构建</a>
+<ul>
+<li><a href="#目录结构">目录结构</a></li>
+<li><a href="#package-json">package.json</a></li>
+<li><a href="#主程序">主程序</a></li>
+<li><a href="#主创建器">主创建器</a></li>
+<li><a href="#复制">复制</a></li>
+<li><a href="#模板的构建">模板的构建</a>
+<ul>
+<li><a href="#types-推荐">types 推荐</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<h2 id="缘起">缘起</h2>
+
+<p>最近公司内部想搭建一个私有的 <code>npm</code> 仓库，用于将平时用到次数相当频繁的工具或者组件独立出来，方便单独管理，随着项目的规模变大，数量变多，单纯的复制粘粘无疑在优雅以及实用性上都无法满足我们的需求，所以进一步模块化是必然的。</p>
+
+<p>但是一个组件库的建立其实是一个非常麻烦的过程，基础 webpack 的配置不用多说，接着你还要配合增加一些 es-lint 之类的工具来规范化团队成员的代码。在开发过程中，你自然需要一个目录来承载使用示例，方便 dev 这个组件，随后呢，你还得建立一个打包规范，发布到私有 <code>npm</code> 仓库中。</p>
+
+<p>如此一来，必然大大降低我们的积极性，所以不如创建一个用于建立模块包的脚手架工具，方便我们项目的初始化。</p>
+
+<p>tips:最终成品在底部</p>
+
+<h2 id="私有-npm">私有 NPM</h2>
+
+<p>这里简单提及一下 私有 <code>npm</code> 的搭建。</p>
+
+<blockquote>
+<p>npm i verdaccio -g
+pm2 start verdaccio</p>
+</blockquote>
+
+<p>推荐配合 nrm 使用 快速切换仓库地址</p>
+
+<p><a href="https://github.com/verdaccio/verdaccio">verdaccio github</a></p>
+
+<p>还整个意大利名，属实洋气。</p>
+
+<h2 id="工具">工具</h2>
+
+<p>在进入正题之前，我先介绍一些要点和工具，有了这写关键点，写起来其实就相当简单了。</p>
+
+<h3 id="npm-bin">npm bin</h3>
+
+<p>大家有没有想过一些全局安装的工具，他是如何做到在命令行里面自由调用的呢?</p>
+
+<p>事实上这个东西是 npm 提供的链接功能</p>
+
+<pre><code class="language-json">// package.json
+{
+  &quot;name&quot;: &quot;lucky-for-you&quot;,
+  &quot;bin&quot;: {
+    &quot;lucky&quot;: &quot;bin/lucky&quot;
+  }
+}
+</code></pre>
+
+<p>当这样的一个模块被发布之后，一旦有人使用 -g 参数全局安装</p>
+
+<blockquote>
+<p>sudo npm i luck-for-you -g</p>
+
+<p>/usr/local/bin/lucky -&gt; /usr/local/lib/node_modules/luckytiger-package-cli/bin/lucky # npm 帮你进行链接</p>
+</blockquote>
+
+<p>npm 事实上会帮你进行一次链接,链接到你操作系统的 Path 之中，从而但你敲出 Lucky 这个命令的时候，能从 path 中成功找到对应的程序</p>
+
+<p>另外一点就是用于链接执行的文件 一般在开头都要加上如下内容，让 bash 能够正确识别该文件应该如何执行</p>
+
+<pre><code class="language-bash">#!/usr/bin/env node
+// 意味使用 node 运行该文件
+// next script
+</code></pre>
+
+<h3 id="commander-js">Commander.js</h3>
+
+<p>tj 大神的作品，可以方便的书写命令行工具。能够自动生成帮助命令</p>
+
+<pre><code class="language-js">const program = require('commander');
+
+program.version('0.0.1').usage('&lt;command&gt; [options]');
+
+program
+  .command('create &lt;app-name&gt;')
+  .description('创建一个全新的 npm 组件模块')
+  .action((name, cmd) =&gt; {
+    const options = cleanArgs(cmd);
+    require('../lib/create')(name, options);
+  });
+
+// 用户未输入完整命令 输出帮助
+if (!process.argv.slice(2).length) {
+  program.outputHelp();
+}
+
+program.parse(process.argv);
+</code></pre>
+
+<p><a href="https://github.com/tj/commander.js">Commander.js github</a></p>
+
+<h3 id="inquirer">inquirer</h3>
+
+<p>事实上当我第一次使用 vue-cli3.0 的时候，里面的命令行表单真是非常惊艳，翻了 vue-cli3 的源码 找到了这款工具，用于命令行的表单。能够更加直观的配置选项。</p>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20190709114553.png" alt="" /></p>
+
+<pre><code class="language-js">inquirer
+  .prompt([
+    {
+      type: 'list',
+      name: 'template',
+      message: 'template: 请选择项目起始模板',
+      choices: [
+        {
+          key: '1',
+          name: 'JavaScript Library - 适用于普通 JS 库',
+          value: 'js-lib',
+        },
+        {
+          key: '2',
+          name: 'Vue-components - 适用于 Vue 组件库',
+          value: 'vue-component',
+        },
+      ],
+    },
+    {
+      type: 'input',
+      name: 'author',
+      message: 'author: 请输入你的名字',
+      validate: function(value) {
+        return !!value;
+      },
+    },
+    {
+      type: 'input',
+      name: 'desc',
+      message: 'desc: 请输入项目描述',
+      validate: function(value) {
+        return !!value;
+      },
+    },
+    {
+      type: 'confirm',
+      name: 'confirm',
+      message: 'confirm: 完成配置了?',
+      default: false,
+    },
+  ])
+  .then(answers =&gt; {
+    console.log(answers.template);
+    console.log(answers.author);
+    console.log(answers.desc);
+  });
+</code></pre>
+
+<p>还有很多的表单类型，我这里几个最简单的 list + input + confirm 就足够了。</p>
+
+<p><a href="https://github.com/SBoudrias/Inquirer.js">inquire github</a></p>
+
+<h2 id="开始构建">开始构建</h2>
+
+<p>现在开始分享我的构建流程。由于代码量比较大，挨个文件帖出来没有什么必要，所以我这里只做简单介绍，具体的可以查看我的 github项目。</p>
+
+<p>我把我的 cli 工具大致分为两部分 <code>template模板 + 创建器</code>
+z
+创建器的主要功能是<strong>吸收用户的可选项,基于模板进行复制+渲染</strong>。Vue-cli3.0对于这部分操作会更加复杂，他把模板里面具体的功能都抽象成了一个 Plugin，可以按需组建模板，对于面向普遍大众当然是更好的。</p>
+
+<p>但是我这个项目因为是公司内部用，所以不太需要太过泛化的设计，一个模板直接解决一个问题，简化模型就可以了。比如一个模板用于创建 Vue 的组件库，一个模板用于创建 React 的组件库，还有一个模板用于创建JavaScript 的工具函数类库。</p>
+
+<p>如此一来我们的 <code>template模板</code> <code>创建器</code>在一定程度上可以做到解耦，也就是说日后需要更多类型的模板，不需要修改创建器部分的代码。</p>
+
+<h3 id="目录结构">目录结构</h3>
+
+<pre><code class="language-bash">├── README.md
+├── bin
+│   └── lucky #主程序
+├── lib
+│   ├── copy.js #复制
+│   └── create.js #主创建器
+├── package-lock.json
+├── package.json
+├── templates
+│   ├── config.js #模板配置 解耦
+│   ├── js-lib #预设模板1
+│   └── vue-component #预设模板2
+├── utils # 工具目录
+│   └── dir.js
+</code></pre>
+
+<h3 id="package-json">package.json</h3>
+
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;luckytiger-package-cli&quot;,
+  &quot;version&quot;: &quot;1.1.14&quot;,
+  &quot;description&quot;: &quot;package-cli&quot;,
+  &quot;bin&quot;: {
+    &quot;lucky&quot;: &quot;bin/lucky&quot;
+  },
+  &quot;scripts&quot;: {
+    &quot;lucky&quot;: &quot;node bin/lucky&quot;,
+    &quot;bootstarp&quot;: &quot;cnpm i &amp;&amp; cd ./templates/js-lib/ &amp;&amp;  cnpm i   &amp;&amp; cd ../vue-component/ &amp;&amp; cnpm i  &quot;,
+    &quot;dev:js-lib&quot;: &quot;cd templates/js-lib  &amp;&amp; npm run dev&quot;,
+    &quot;dev:vue-component&quot;: &quot;cd templates/vue-component &amp;&amp; npm run dev&quot;,
+    &quot;dev:create&quot;: &quot;rm -rf test-app &amp;&amp; node bin/lucky create test-app&quot;,
+    &quot;clear&quot;: &quot;sudo rm -rf node_modules &amp;&amp; sudo rm -rf templates/js-lib/node_modules &amp;&amp; sudo rm -rf templates/vue-component/node_modules&quot;
+  },
+  &quot;author&quot;: &quot;zhangzhengyi&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;dependencies&quot;: {
+    &quot;chalk&quot;: &quot;^2.4.2&quot;,
+    &quot;commander&quot;: &quot;^2.20.0&quot;,
+    &quot;ejs&quot;: &quot;^2.6.2&quot;,
+    &quot;inquirer&quot;: &quot;^6.4.1&quot;,
+    &quot;validate-npm-package-name&quot;: &quot;^3.0.0&quot;
+  }
+}
+</code></pre>
+
+<p>配置了一些脚本 方便快速 DEV 模板的效果。</p>
+
+<p>这样运行
+&gt; npm run dev:js-lib</p>
+
+<p>就能查看和开发 js-lib 这个模板</p>
+
+<h3 id="主程序">主程序</h3>
+
+<blockquote>
+<p>bin/lucky</p>
+</blockquote>
+
+<pre><code class="language-js">#!/usr/bin/env node
+
+const program = require('commander')
+
+program.version('0.0.1').usage('&lt;command&gt; [options]')
+
+program
+  .command('create &lt;app-name&gt;')
+  .description('创建一个全新的 npm 组件模块')
+  .action((name, cmd) =&gt; {
+    const options = cleanArgs(cmd)
+    require('../lib/create')(name, options)
+  })
+
+if (!process.argv.slice(2).length) {
+  program.outputHelp()
+}
+
+program.parse(process.argv)
+
+// commander passes the Command object itself as options,
+// extract only actual options into a fresh object.
+function cleanArgs(cmd) {
+  const args = {}
+  cmd.options.forEach(o =&gt; {
+    const key = camelize(o.long.replace(/^--/, ''))
+    // if an option is not present and Command has a method with the same name
+    // it should not be copied
+    if (typeof cmd[key] !== 'function' &amp;&amp; typeof cmd[key] !== 'undefined') {
+      args[key] = cmd[key]
+    }
+  })
+  return args
+}
+
+</code></pre>
+
+<p>这个文件主要是做一下基本的命令设置 利用了 commander这个库</p>
+
+<p>如果用户调用了创建命令，就会转发给 <code>lib/create.js</code> 处理</p>
+
+<h3 id="主创建器">主创建器</h3>
+
+<blockquote>
+<p>lib/cerate.js</p>
+</blockquote>
+
+<pre><code class="language-js">const path = require('path')
+const inquirer = require('inquirer')
+const validateProjectName = require('validate-npm-package-name')
+const chalk = require('chalk')
+const copy = require('./copy')
+const fs = require('fs')
+const dir = require('../utils/dir')
+const templates = require('../templates/config')
+
+async function create(projectName, options) {
+  const cwd = options.cwd || process.cwd()
+  const inCurrent = projectName === '.'
+  const name = inCurrent ? path.relative('../', cwd) : projectName
+  const targetDir = path.resolve(cwd, projectName || '.')
+
+  const result = validateProjectName(name)
+  if (!result.validForNewPackages) {
+    console.error(chalk.red(`无效的项目名: &quot;${name}&quot;`))
+    result.errors &amp;&amp;
+      result.errors.forEach(err =&gt; {
+        console.error(chalk.red.dim('Error: ' + err))
+      })
+    result.warnings &amp;&amp;
+      result.warnings.forEach(warn =&gt; {
+        console.error(chalk.red.dim('Warning: ' + warn))
+      })
+    return
+  }
+
+  if (!dir.isDir(targetDir)) {
+    fs.mkdirSync(targetDir)
+  } else {
+    console.error(chalk.red(`该目录下已经存在该文件夹 请删除或者修改项目名`))
+    return
+  }
+
+  const answers = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'template',
+      message: 'template: 请选择项目模板',
+      choices: templates.map((v, i) =&gt; ({
+        key: i,
+        name: v.name,
+        value: v.dir
+      }))
+    },
+    {
+      type: 'input',
+      name: 'author',
+      message: 'author: 请输入你的名字',
+      validate: function(value) {
+        return !!value
+      }
+    },
+    {
+      type: 'input',
+      name: 'desc',
+      message: 'desc: 请输入项目描述',
+      validate: function(value) {
+        return !!value
+      }
+    },
+    {
+      type: 'confirm',
+      name: 'confirm',
+      message: 'confirm: 完成配置了?',
+      default: false
+    }
+  ])
+
+  // 启动复制流程
+  const sourceDir = path.resolve(__dirname, '..', 'templates', answers.template)
+  console.log(chalk.blue(`🚀    开始创建...`))
+
+  try {
+    await copy({
+      from: sourceDir,
+      to: targetDir,
+      renderData: {
+        desc: answers.desc,
+        author: answers.author,
+        name: projectName
+      },
+      ignore: ['node_modules', 'package.json']
+    })
+  } catch (e) {
+    console.error(chalk.red(e))
+    return
+  }
+
+  console.log(chalk.green('🎉    创建完毕!'))
+  console.log()
+  console.log(chalk.cyan(` $ cd ${projectName}`))
+  console.log(chalk.cyan(` $ npm i &amp;&amp; npm run dev`))
+}
+
+module.exports = create
+</code></pre>
+
+<p>这里主要做了几件事</p>
+
+<ol>
+<li>保证项目名合法。</li>
+<li>确认项目在当前目录不存在</li>
+<li>收集用户的填写信息</li>
+<li>启动复制流程</li>
+</ol>
+
+<p>这里面 chalk 这个库能够输出带颜色的命令行，美观一点。</p>
+
+<p>我把模板的一些配置信息都放到了 <code>templates/config.js</code> 中，目的是为了解耦</p>
+
+<pre><code class="language-js">//templates/config.js
+module.exports = [
+  {
+    name: 'JavaScript Library - 适用于普通 JS 库',
+    dir: 'js-lib'
+  },
+  {
+    name: 'Vue-components - 适用于 Vue 组件库',
+    dir: 'vue-component'
+  }
+]
+</code></pre>
+
+<p>接下来让我们看看复制流程</p>
+
+<h3 id="复制">复制</h3>
+
+<blockquote>
+<p>lib/copy</p>
+</blockquote>
+
+<pre><code class="language-js">const fs = require('fs')
+const path = require('path')
+const dir = require('../utils/dir')
+const ejs = require('ejs')
+
+async function copy({ from, to, renderData, ignore = [] }) {
+  let files = fs.readdirSync(from)
+  // 区分 文件 和 目录
+  let rFiles = []
+  let dirs = []
+  for (const fileName of files) {
+    if (dir.isDir(path.resolve(from, fileName))) {
+      dirs.push(fileName)
+    } else {
+      rFiles.push(fileName)
+    }
+  }
+
+  // 复制并编译文件
+  rFiles.forEach(fileName =&gt; {
+    // 需要忽略
+    if (ignore.some(v =&gt; v === fileName)) {
+      return
+    }
+    let content = fs.readFileSync(path.resolve(from, fileName), 'utf-8')
+    // 该文件需要调用 ejs 模板引擎进行编译
+    if (/ejs$/.test(fileName)) {
+      content = ejs.render(content, renderData)
+      fileName = fileName.replace('.ejs', '')
+    }
+    fs.writeFileSync(path.resolve(to, fileName), content)
+  })
+
+  // 递归复制 目录
+  dirs.forEach(dirName =&gt; {
+    // 需要忽略
+    if (ignore.some(v =&gt; v === dirName)) {
+      return
+    }
+    const fromDir = path.resolve(from, dirName)
+    const toDir = path.resolve(to, dirName)
+    if (!dir.isDir(toDir)) {
+      fs.mkdirSync(toDir)
+    }
+    copy({ from: fromDir, to: toDir, renderData, ignore })
+  })
+}
+
+module.exports = copy
+
+</code></pre>
+
+<p>copy 是一个递归复制文件和目录的结构，深度优先。</p>
+
+<p>其中他拥有四个参数源文件夹，目标文件夹，渲染数据，忽略列表。</p>
+
+<p>我们的模板其实是需要一些按需渲染内容的能力的，比如生成的 package.json 应该拥有用户创建时填写的项目名，创建者，描述等等信息。所以我这里采用了 EJS 模板引擎进行渲染，所有以.ejs 结尾的文件，都将经过引擎+渲染数据的渲染，接着再输出,比如<code>package.json.ejs</code></p>
+
+<p>另外做了一些忽略的设计，原因是某些文件在开发模板的过程中需要，实际生成的时候需要进行过滤。</p>
+
+<p>全部采用同步 API，因为我们的文件都是比较小的，并且不是服务器上用，阻塞一下也没有问题。</p>
+
+<h3 id="模板的构建">模板的构建</h3>
+
+<p>我的这里设计了两个预设模板，分别是 Vue-component 组件库模板 另外一个是 JS 库的模板(示例同样基于 Vue)。如果你们有类似的 需求可以去看看。这两个模板都是先用 vue-cli3.0生成之后进行改装。</p>
+
+<p>改装的目的就是为了更加契合组件库这一需求，跟普通的项目不太一样，组件库需要在 DEV 模式下对组件进行测试和开发，然后必须拥有单独打包这个组件的能力，接着进行发布。</p>
+
+<p>具体可以直接看代码</p>
+
+<p>构建的过程中有些坑需要注意</p>
+
+<p><strong>模板内部应该拥有两个 package.json 文件</strong></p>
+
+<blockquote>
+<p>package.json 用于模板的 DEV 模式</p>
+
+<p>package.json.ejs 用于创建时的最终导出</p>
+</blockquote>
+
+<p>并且不要在 package.json 里面使用 files 字段做文件 publish 白名单，这会导致你的 cli 工具无法正常发布整个模板(这个应该是模板内部的 package.json 与整个 cli 工具的 package.json 产生了覆盖关系)。</p>
+
+<p><strong>模板内部的.gitignore文件加个.ejs</strong></p>
+
+<p>同样是 cli publish 的时候无法正常 上传模板里面的.gitignore 文件，所以加个 ejs 可以让他伪装成普通文件。</p>
+
+<p>所以我觉得 npm包 的嵌套是不是太容易产生干扰了一点。</p>
+
+<h4 id="types-推荐">types 推荐</h4>
+
+<p>这里推荐大家写组件库的时候，可以手写一下 TS 的类型声明 types，在 VSCode 下能获得非常好的代码提示效果。</p>
+
+<p>首先你需要在组件库的 package.json 里面添加一个属性</p>
+
+<pre><code class="language-json">{
+  &quot;typings&quot;: &quot;types/index.d.ts&quot;,
+}
+</code></pre>
+
+<p>我这里写一个简单的函数</p>
+
+<pre><code class="language-js">// 最终导出
+export default {
+  say (name) {
+    return `your name: ${name}`
+  }
+}
+</code></pre>
+
+<pre><code class="language-ts">// index.d.ts
+function say(name: String): String
+
+export default {
+  say
+}
+</code></pre>
+
+<p>这样 VSCode 就能在你使用这个模块的时候，给你更加健全的提示。</p>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20190709144205.png" alt="" /></p>
+
+<p>这里额外提醒下，经过我的研究，element-ui 这样的组件库，能有 props 的提示是因为人家 vetur 组件专门给开的后门，写 types 只能拥有 JS 层面的提示，写 Vue-template 的时候依旧没有，期待后续能够支持。</p>
+
+<h2 id="参考">参考</h2>
+
+<p><a href="https://github.com/vuejs/vue-cli">vue-cli</a></p>
+
+<p><a href="https://www.jb51.net/article/148692.htm">Vue cli3 库模式搭建组件库并发布到 npm的流程</a></p>
+
+<p><a href="https://github.com/ElemeFE/element">element-ui</a></p>
+
+<p><a href="https://blog.yinode.tech/">我的个人博客</a></p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201906/centos7%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85nginx%E9%85%8D%E5%90%88ssl%E6%A8%A1%E5%9D%97/" data-toggle="tooltip" data-placement="top" title="CentOS 7 编译安装 Nginx 配合 SSL 模块">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/201908/%E5%AD%97%E5%85%B8%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0/" data-toggle="tooltip" data-placement="top" title="字典树的实现">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/javascript" title="javascript">
+                            javascript
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6" title="离散数学">
+                            离散数学
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2021
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-114001572-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+</body>
+</html>
