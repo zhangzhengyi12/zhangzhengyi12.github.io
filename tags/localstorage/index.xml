@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LocalStorage on Yinode Blog</title>
+    <link>https://zhangzhengyi12.github.io/tags/localstorage/</link>
+    <description>Recent content in LocalStorage on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 27 Oct 2021 22:56:40 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhangzhengyi12.github.io/tags/localstorage/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>树形递归结构过滤算法</title>
+      <link>https://zhangzhengyi12.github.io/post/202110/%E6%A0%91%E5%BD%A2%E9%80%92%E5%BD%92%E7%BB%93%E6%9E%84%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Wed, 27 Oct 2021 22:56:40 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/202110/%E6%A0%91%E5%BD%A2%E9%80%92%E5%BD%92%E7%BB%93%E6%9E%84%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95/</guid>
+      <description>对某个树形结构进行过滤是一个比较常见的场景，但同时想要写出没有问题，并且简洁的代码也并非易事，本文将对这种算法进行简单的分析，并在最后给出代</description>
+    </item>
+    
+    <item>
+      <title>JS LocalStorage 导出导入工具</title>
+      <link>https://zhangzhengyi12.github.io/post/202110/js-localstorage-%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Thu, 14 Oct 2021 22:56:40 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/202110/js-localstorage-%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%B7%A5%E5%85%B7/</guid>
+      <description>let genStorageSyncCode = () =&amp;gt; { const kvList = [] for (let i = 0; i &amp;lt; localStorage.length; i++) { const k = localStorage.key(i) const v = localStorage.getItem(k) kvList.push({ k, v }) } const code = `${kvList.map((item) =&amp;gt; { return `localStorage.setItem(&#39;${item.k}&#39;,&#39;${item.v}&#39;)` }).join(&#39;;&#39;)}` return code } console.log(genStorageSyncCode()) 直接导出代码，复制到另外一个页面控制台conso</description>
+    </item>
+    
+  </channel>
+</rss>

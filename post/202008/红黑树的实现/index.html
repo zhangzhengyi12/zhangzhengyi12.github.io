@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="红黑树的实现" />
+    <meta property="og:title" content="红黑树的实现" />
+    <meta property="twitter:title" content="红黑树的实现" />
+    
+
+    
+    <meta name="description" content="红黑树是一种非常高效的数据结构">
+    <meta property="og:description" content="红黑树是一种非常高效的数据结构" />
+    <meta property="twitter:description" content="红黑树是一种非常高效的数据结构" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>红黑树的实现-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/202008/%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/atom-one-dark.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+    <script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E5%93%B2%E5%AD%A6">哲学</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90">精神分析</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/gist/">Gist</a></li>
+                    
+                        <li><a href="/top/notebook/">Notebooks</a></li>
+                    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/javascript" title="JavaScript">
+                            JavaScript
+                        </a>
+                        
+                        <a class="tag" href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        <a class="tag" href="/tags/%E7%BA%A2%E9%BB%91%E6%A0%91" title="红黑树">
+                            红黑树
+                        </a>
+                        
+                    </div>
+                    <h1>红黑树的实现</h1>
+                    <h2 class="subheading">JavaScript Version</h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Friday, August 14, 2020
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#代码实现">代码实现</a></li>
+<li><a href="#demo">demo</a></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<p>手写了一下，用 canvas 简单可视化了一下，方便理解其结构.</p>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200815171249.png" alt="" /></p>
+
+<h2 id="代码实现">代码实现</h2>
+
+<p>后面有空再重新树立编写一些更加易于理解的一步步来的文章把，先把代码贴上去，红黑树的修复过程其实就是凑 combo 不断去演化整个过程，直到凑出一个终极 combo 直接完成修复，当然最烂情况就是一路向上修，修到根节点也成功了。</p>
+
+<p>红黑树的所有操作都是<code>O(logN)</code> 级别的，非常快，但是实现起来确实相当复杂，用跳跃表很多时候可能会更加方便一点。</p>
+
+<pre><code class="language-js">const layerOffstY = 70
+const layerOffsetBaseX = 300
+const layerOffsetRatioX = 40
+
+class Node {
+  constructor(key, value) {
+    // 默认为红色
+    this.color = 'red'
+    this.key = key
+    this.value = value
+    this.parent = null
+    this.left = null
+    this.right = null
+  }
+
+  isRed() {
+    return this.color === 'red'
+  }
+
+  isBlack() {
+    return this.color === 'black'
+  }
+
+  setBlack() {
+    this.color = 'black'
+  }
+
+  setRed() {
+    this.color = 'red'
+  }
+
+  setColor(color) {
+    this.color = color
+  }
+
+  toggleColor() {
+    if (this.isRed()) {
+      this.color = 'black'
+    } else {
+      this.color = 'red'
+    }
+  }
+
+  // 交换颜色
+  swapColor(node) {
+    let temp = node.color
+    node.color = this.color
+    this.color = temp
+  }
+
+  toggleDrawBgFillStyle() {
+    if (this.isRed()) {
+      ctx.fillStyle = &quot;#F30&quot;
+    } else {
+      ctx.fillStyle = &quot;#333&quot;
+    }
+  }
+
+  // 获取子树的宽度
+  getChildWidth() {
+    let leftWidth = 0
+    let righgWidth = 0
+
+    if (this.left) {
+      leftWidth = this.left.getChildWidth()
+    }
+    if (this.right) {
+      righgWidth = this.right.getChildWidth()
+    }
+
+    return leftWidth + righgWidth
+  }
+
+  drawLine(ctx, startX, startY, endX, endY) {
+    ctx.beginPath()
+    ctx.moveTo(startX, startY)
+    ctx.lineTo(endX, endY)
+    ctx.stroke()
+  }
+
+  draw(ctx, x, y) {
+    this.toggleDrawBgFillStyle()
+    ctx.beginPath()
+    ctx.arc(x, y, 25, 0, 2 * Math.PI, true)
+    ctx.fill()
+
+    // 绘制key文字
+    ctx.font = &quot;16px serif&quot;;
+    ctx.fillStyle = &quot;#fff&quot;
+    let text = ctx.measureText(this.key)
+    ctx.fillText(this.key, x - text.width / 2, y + 6)
+  }
+}
+
+let sharedNullNode = new Node(null, null)
+sharedNullNode.setBlack()
+
+class RedBlackTree {
+  constructor() {
+    this.root = sharedNullNode
+  }
+
+  // 搜索
+  search(key) {
+    let x = this.root
+    while (x !== sharedNullNode &amp;&amp; x.key !== key) {
+      if (key &lt; x.key) {
+        x = x.left
+      } else {
+        x = x.right
+      }
+    }
+
+    return x === sharedNullNode ? null : x
+  }
+
+  // 插入
+  insert(key, value) {
+    let y = sharedNullNode
+    let x = this.root
+    let z = new Node(key, value)
+
+    while (x !== sharedNullNode) {
+      y = x
+      if (z.key &lt; x.key) {
+        x = x.left
+      } else {
+        x = x.right
+      }
+    }
+    z.parent = y
+
+    if (y === sharedNullNode) { // 只有一个节点的情况
+      this.root = z
+    } else if (z.key &lt; y.key) {
+      y.left = z
+    } else {
+      y.right = z
+    }
+
+    z.left = sharedNullNode
+    z.right = sharedNullNode
+
+    // 修复
+    this.insertFixUp(z)
+  }
+
+  // 主要角色
+  // Z 节点 一个颜色为红色的节点 初始为刚插入到新节点
+  // y z 节点的叔叔节点
+  // 修复过程的核心理念是让 Z 节点在整棵树中不断的上移 最坏情况就是一路上移到根节点
+  insertFixUp(z) {
+    while (z.parent.isRed()) { // 终止条件为没有产生双红
+      // 这里注意下 z.parent.parent 必然为黑，因为我们的破坏节点为 z ，不会影响到上层的性质，简单来说就是目前的破坏只限于 z 和 z.parent 两者出现双红
+      if (z.parent === z.parent.parent.left) { // 和下面的 else 互为镜像
+        let y = z.parent.parent.right
+        if (y.isRed()) {
+          // 情况1 叔节点为红色
+          // 解决方案 把叔叔节点和自己的父节点都涂黑 设置祖父节点为红色 并设置祖父为新的 z 节点
+          // 这样一来就在没有破坏新的性质的情况下 让 z 节点成功上移
+          z.parent.setBlack()
+          y.setBlack()
+          z.parent.parent.setRed()
+          z = z.parent.parent
+        } else if (z === z.parent.right) {
+          // 情况2 叔节点为黑色 并且 z 是 其父节点的右节点
+          // 解决方案 对z.parent 进行 左旋 目的是进入 case3 而且必然进入 case3
+          // 由于z 和 z.parent 都为红色 所以不会造成破坏新的性质
+          z = z.parent
+          this.leftRotate(z)
+        } else {
+          // 情况3 叔节点为红色 并且 z 是 其父节点的左节点
+          // 解决方案 交换 z 的父亲和祖父节点的颜色 并对 祖父进行右旋
+          // 等于说是利用颜色交换消除双红 但是 z.parent.parent 左右的黑高其实被破坏了(右边的黑高因为z.parent.parent 变成红色 减少了1)
+          // 所以我们利用旋转 让z.parent 接替 z.parent.parent 的位置 得以完全修复
+          // 结束后由于 z.parent 必然为黑 所有循环直接结束
+          z.parent.setBlack()
+          z.parent.parent.setRed()
+          this.rightRotate(z.parent.parent)
+        }
+      } else {
+        let y = z.parent.parent.left
+        if (y.isRed()) {
+          z.parent.setBlack()
+          y.setBlack()
+          z.parent.parent.setRed()
+          z = z.parent.parent
+        } else if (z === z.parent.left) {
+          z = z.parent
+          this.rightRotate(z)
+        } else {
+          z.parent.setBlack()
+          z.parent.parent.setRed()
+          this.leftRotate(z.parent.parent)
+        }
+      }
+    }
+
+    this.root.setBlack()
+  }
+
+  remove(key) {
+    // 先搜索 再删除
+    const removeNode = this.search(key)
+    if (removeNode) {
+      console.log('new remove')
+      this.delete(removeNode)
+    }
+  }
+
+  // 主要角色:
+  // z = 目标删除节点
+  // y = 将要替换到 z 位置的节点
+  // x = 将要替换到 y 位置的节点
+  // originYColor = y 的原始颜色 可以判断删除结束后 是否有有可能破坏了一条或者多条红黑规则
+  delete(z) {
+    let y = z
+    // 保存原始的 Y 颜色
+    let originYColor = y.color
+    let x = y
+    if (z.left === sharedNullNode) { // 删除节点只有一个右节点 case1
+      x = z.right
+      this.transplant(z, z.right)
+    } else if (z.right === sharedNullNode) { // 删除节点只有一个左节点 case 2
+      x = z.left
+      this.transplant(z, z.left)
+    } else {  // 删除节点拥有两组节点 case 3
+      y = this.minimum(z.right) // 找到能够代替 z 节点的 y 节点 也就是 z 的右子树里面最小的
+      originYColor = y.color
+      x = y.right
+      if (y.parent === z) { // y 和 z 有直接连接 不需要处理 y 移动后的断连问题
+        x.parent = y
+      } else { // y 移动之后 y.parent  和 y.right 需要进行连接 所以提前进行移动
+        this.transplant(y, y.right)
+        y.right = z.right
+        y.right.parent = y
+      }
+
+      // 把 Y 移动到原来 Z 的位置上
+      this.transplant(z, y)
+      y.left = z.left
+      y.left.parent = y
+      y.color = z.color // 这个很重要 可以维持从 z 点开始的黑高保持不变
+
+      // case1/2 的情况下 y == z 并且 y 是红色，那么因为只有单子树 不会造成黑高变化 同时 双红肯定不会出现
+      // case3 的情况下 如果 y 是红色 那么 x 必然为黑色 所以把 x 放到 y 的位置上 不会造成双红 由于 y.left 必然为 null 所有不用考虑黑高变化
+      // 并且由于 y.color = z.color 所以不用担心 z 的颜色发生变化 所以也是安全的
+      // 综上所述 originYColor === red 是绝对安全的
+      if (originYColor === 'black') { // 可能被破坏 开始修复
+        this.deleteFixUp(x)
+      }
+    }
+  }
+
+  // 主要角色:
+  // x 目前有双重黑色的节点 如果该节点为黑色 你可以认为他自带两个黑高 如果红色 你可以认为是黑红
+  // w x的兄弟节点 全部的case按照这个节点的具体情况展开
+  // 修复的核心理念在于让x作为一个拥有额外一层黑色的节点，不断的让这个黑色节点向上转移，直到可以通过旋转等手段把这个额外的黑色给消化掉，同时不破坏任何性质
+  deleteFixUp(x) {
+    while (x !== this.root &amp;&amp; x.isBlack()) {
+      // root === x 代表多余的黑高已经放到root上 而root本身代表100个黑高也不会影响到所有根节点的黑高
+      // 而红色则代表该节点可以被认为是黑红的 直接设置成黑色 就能抵消黑高的变化 并且由于这个节点是红色 x.parent 必然为黑色 也不会出现双红冲突 所以问题结束
+      if (x === x.parent.left) { // 和下面的else 互为镜像
+        let w = x.parent.right // x 的兄弟节点
+        if (w.isRed()) {
+          // 情况1 兄弟节点是红色
+          // 方案 染红x.parent 并且对x.parent进行左旋 结束后 x.parent 必然为红 并且 新的w必然为黑（新的w是老w的left，而w为红）
+          // 该情况可以被认为是进入case2/3/4的手段 让w的颜色转换为黑色
+          w.setBlack()
+          x.parent.setRed()
+          this.leftRotate(x.parent)
+          w = x.parent.right
+        }
+
+        // 这里可以断言 w 必然为黑色
+
+        if (w.left.isBlack() &amp;&amp; w.right.isBlack()) {
+          // 情况2 w 是黑色的同时 左右子节点都为黑
+          // 方案 把w设置为红色 然后把x.parent设置为 x 这代表着额外黑高的向上转移
+          // 如果这种情况是从情况1转换来的，那么其实到这里循环就结束了，因为我们之前给x.parent设置为红色 所以下一次while不会进循环了
+          w.setRed()
+          x = x.parent
+        } else {
+          if (w.right.isBlack()) {
+            // 情况3 w的右节点为黑色 左节点是红色
+            // 方案 交换w.left 和 w 的颜色，w.left就变成了黑色 w变成红色 接着对w进行右旋 w.left和w交换位置 w变成w.left的右子节点
+            // 这样一来 w.right自然变成了红色 就能进入case4
+            w.left.setBlack()
+            w.setRed()
+            this.rightRotate(w)
+            w = x.parent.right
+          }
+
+          // 情况4 w的右节点E为红色 左节点是黑色
+          // 方案 本质上通过颜色交换和旋转 让原本的 x.parent 节点来分担 x 额外的黑高 ， w 作为新的子树根节点，w 的黑色就传递到 e 上面
+          w.setColor(x.parent.color)
+          x.parent.setBlack()
+          w.right.setBlack()
+          this.leftRotate(x.parent)
+          x = this.root // 不破坏原本性质的情况下 分担了额外的黑色 所以直接结束
+        }
+      } else {
+        let w = x.parent.left
+        if (w.isRed()) {
+          w.setBlack()
+          x.parent.setRed()
+          this.rightRotate(x.parent)
+          w = x.parent.left
+        }
+        if (w.right.isBlack() &amp;&amp; w.left.isBlack()) {
+          w.setRed()
+          x = x.parent
+        } else {
+          if (w.left.isBlack()) {
+            w.right.setBlack()
+            w.setRed()
+            this.rightRotate(w)
+            w = x.parent.left
+          }
+          w.setColor(x.parent.color)
+          x.parent.setBlack()
+          w.left.setBlack()
+          this.rightRotate(x.parent)
+          x = this.root
+        }
+      }
+    }
+
+    x.setBlack()
+  }
+
+  // 让 v 接替 u 的位置
+  transplant(u, v) {
+    if (u.parent === sharedNullNode) {
+      this.root = v
+    } else if (u === u.parent.left) {
+      u.parent.left = v
+    } else {
+      u.parent.right = v
+    }
+    v.parent = u.parent
+  }
+
+  // 获取子树中的最小节点
+  minimum(x) {
+    while (x.left !== sharedNullNode) {
+      x = x.left
+    }
+    return x
+  }
+
+
+  // MARK: Utils 工具库
+
+  // 获取叔节点
+  getUncleNode(node) {
+    if (!node || !node.parent || !node.parent.parent) return null
+
+    const grandfatherNode = node.parent.parent
+    if (grandfatherNode.left === node.parent) {
+      return node.parent.parent.right
+    } else {
+      return node.parent.left
+    }
+  }
+
+  // 获取兄弟节点
+  getBrotherNode(node) {
+    if (!node || !node.parent) return null
+
+    if (node.parent.left === node) {
+      return node.right
+    } else {
+      return node.left
+    }
+  }
+
+  // 左旋
+  // 围绕X与他的右节点Y进行旋转
+  // 结束时 Y 将会处于 X 的位置 并且 X 作为 Y 的左子节点
+  leftRotate(x) {
+    const y = x.right
+
+    // 1. 把 y 的 左子树放到 x 的右边
+    x.right = y.left
+    if (y.left !== sharedNullNode) {
+      y.left.parent = x
+    }
+
+    // 2. 更新 y 对 parent的引用
+    y.parent = x.parent
+
+    // 更新parent 到 Y 的引用
+    if (x.parent === sharedNullNode) {
+      this.root = y
+    } else if (x === x.parent.left) {
+      x.parent.left = y
+    } else {
+      x.parent.right = y
+    }
+
+    // 重新建立x y 之间的关系
+    y.left = x
+    x.parent = y
+  }
+
+  // 右旋
+  // 围绕X与他的左节点Y进行旋转
+  // 结束时 Y 将会处于 X 的位置 并且 X 作为 Y 的右子节点
+  rightRotate(x) {
+    const y = x.left
+
+    // 1. 把 y 的 右子树放到 x 的左边
+    x.left = y.right
+    if (y.right !== sharedNullNode) {
+      y.right.parent = x
+    }
+
+    // 2. 更新 y 对 parent的引用
+    y.parent = x.parent
+
+    // 更新parent 到 Y 的引用
+    if (x.parent === sharedNullNode) {
+      this.root = y
+    } else if (x === x.parent.left) {
+      x.parent.left = y
+    } else {
+      x.parent.right = y
+    }
+
+    // 重新建立x y 之间的关系
+    y.right = x
+    x.parent = y
+  }
+
+  getChildWidthMap(node, map) {
+    if (!node) return 0
+    if (!map[node.key]) {
+      let leftWidth = 0
+      let rightWidth = 0
+      let base = 0
+      if (!node.left &amp;&amp; !node.right) {
+        base = 60
+      }
+      if (node.left) {
+        leftWidth = this.getChildWidthMap(node.left, map)
+      }
+      if (node.right) {
+        rightWidth = this.getChildWidthMap(node.right, map)
+      }
+      const width = leftWidth + rightWidth + base
+      map[node.key] = width
+    }
+    return map[node.key]
+  }
+
+  draw(ctx, width, height) {
+    let widthMap = {}
+    this.getChildWidthMap(this.root, widthMap)
+    const _draw = (node, x, y, parentX, parentY) =&gt; {
+      let leftWidth = 0
+      if (node.left) {
+        leftWidth = widthMap[node.left.key]
+      }
+      let rightWidth = 0
+      if (node.right) {
+        rightWidth = widthMap[node.right.key]
+      }
+      // X 偏离计算 左右子树的宽度不同 所以需要重新偏移
+      if (leftWidth &amp;&amp; rightWidth) {
+        x -= (rightWidth - leftWidth) / 2
+      }
+      if (node.left) {
+        let leftX = leftWidth / 2
+        _draw(node.left, x - leftX, y + 60, x, y)
+      }
+      if (node.right) {
+        let rightX = rightWidth / 2
+        _draw(node.right, x + rightX, y + 60, x, y)
+      }
+      node.drawLine(ctx, x, y, parentX, parentY)
+      node.draw(ctx, x, y)
+    }
+
+    _draw(this.root, width / 2, 50)
+  }
+}
+</code></pre>
+
+<h2 id="demo">demo</h2>
+
+<p><a href="https://rbtree.yinode.tech/">live</a></p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/202007/element-ui-table%E7%BB%84%E4%BB%B6%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E6%89%A9%E5%B1%95%E6%96%B9%E6%A1%88%E5%88%86%E4%BA%AB/" data-toggle="tooltip" data-placement="top" title="Element-UI Table组件用户自定义配置方案分享-自定义列宽、排序、显隐">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/202009/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%BA%8C%E7%BB%B4%E5%B9%B3%E9%9D%A2%E4%B8%8A%E5%AF%BB%E6%89%BE%E6%9C%80%E8%BF%91%E7%9A%84%E4%B8%A4%E4%B8%AA%E7%82%B9%E5%88%86%E6%B2%BB%E6%B3%95/" data-toggle="tooltip" data-placement="top" title="如何在二维平面上寻找最近的两个点(分治法)">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/javascript" title="javascript">
+                            javascript
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/localstorage" title="localstorage">
+                            localstorage
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%93%B2%E5%AD%A6" title="哲学">
+                            哲学
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%B7%E5%9B%BD%E8%A7%82%E5%BF%B5%E8%AE%BA" title="德国观念论">
+                            德国观念论
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%84%8F%E8%AF%86%E5%BD%A2%E6%80%81" title="意识形态">
+                            意识形态
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%8B%89%E5%BA%B7" title="拉康">
+                            拉康
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6" title="离散数学">
+                            离散数学
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90" title="精神分析">
+                            精神分析
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E9%BB%91%E6%A0%BC%E5%B0%94" title="黑格尔">
+                            黑格尔
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E9%BD%90%E6%B3%BD%E5%85%8B" title="齐泽克">
+                            齐泽克
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2023
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-114001572-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+</body>
+</html>

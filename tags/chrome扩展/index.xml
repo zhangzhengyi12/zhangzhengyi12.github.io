@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Chrome扩展 on Yinode Blog</title>
+    <link>https://zhangzhengyi12.github.io/tags/chrome%E6%89%A9%E5%B1%95/</link>
+    <description>Recent content in Chrome扩展 on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 29 Apr 2018 07:40:56 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhangzhengyi12.github.io/tags/chrome%E6%89%A9%E5%B1%95/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>使用React快速开发Chrome扩展程序</title>
+      <link>https://zhangzhengyi12.github.io/post/201804/%E4%BD%BF%E7%94%A8react%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91chrome%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F/</link>
+      <pubDate>Sun, 29 Apr 2018 07:40:56 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201804/%E4%BD%BF%E7%94%A8react%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91chrome%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F/</guid>
+      <description>首先要说明的是这个文章其实属于翻译或者说转述，我是从google上搜索到了这篇原文，并且用它的构建流程成功开发了一个扩展，很爽，速度很快，五</description>
+    </item>
+    
+    <item>
+      <title>Chrome扩展：电影资源提醒</title>
+      <link>https://zhangzhengyi12.github.io/post/201712/chrome%E6%89%A9%E5%B1%95%E7%94%B5%E5%BD%B1%E8%B5%84%E6%BA%90%E6%8F%90%E9%86%92/</link>
+      <pubDate>Wed, 10 Jan 2018 04:36:50 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201712/chrome%E6%89%A9%E5%B1%95%E7%94%B5%E5%BD%B1%E8%B5%84%E6%BA%90%E6%8F%90%E9%86%92/</guid>
+      <description>预览 其实这个插件很早以前就完成了，但是实现的逻辑完全不一样，直接AJAX获取然后插入到插件页面中，问题就在最近Chrome版本一升级炸了，和</description>
+    </item>
+    
+  </channel>
+</rss>

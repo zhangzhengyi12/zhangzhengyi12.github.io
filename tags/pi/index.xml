@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pi on Yinode Blog</title>
+    <link>https://zhangzhengyi12.github.io/tags/pi/</link>
+    <description>Recent content in Pi on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 06 May 2020 22:56:40 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhangzhengyi12.github.io/tags/pi/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>计算π [蒙特卡洛&#43;碰撞计数&#43;巴塞尔]</title>
+      <link>https://zhangzhengyi12.github.io/post/202004/%E8%AE%A1%E7%AE%97%CF%80-%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B&#43;%E7%A2%B0%E6%92%9E%E8%AE%A1%E6%95%B0&#43;%E5%B7%B4%E5%A1%9E%E5%B0%94/</link>
+      <pubDate>Wed, 06 May 2020 22:56:40 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/202004/%E8%AE%A1%E7%AE%97%CF%80-%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B&#43;%E7%A2%B0%E6%92%9E%E8%AE%A1%E6%95%B0&#43;%E5%B7%B4%E5%A1%9E%E5%B0%94/</guid>
+      <description>仅供娱乐 蒙特卡洛方法 基于统计的方法 发射大量的随机点，通过这个比值就能换算出π的值 至于判断点是否在圆内用简单的通项公式 sqrt((a - x) ^ 2 + (b - y) ^ 2) &amp;lt;=</description>
+    </item>
+    
+  </channel>
+</rss>

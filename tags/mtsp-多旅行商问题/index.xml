@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MTSP 多旅行商问题 on Yinode Blog</title>
+    <link>https://zhangzhengyi12.github.io/tags/mtsp-%E5%A4%9A%E6%97%85%E8%A1%8C%E5%95%86%E9%97%AE%E9%A2%98/</link>
+    <description>Recent content in MTSP 多旅行商问题 on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 17 Sep 2020 22:00:30 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhangzhengyi12.github.io/tags/mtsp-%E5%A4%9A%E6%97%85%E8%A1%8C%E5%95%86%E9%97%AE%E9%A2%98/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>用遗传算法(GA)来解决 MTSP(多旅行商问题)</title>
+      <link>https://zhangzhengyi12.github.io/post/202009/%E7%94%A8%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95ga%E6%9D%A5%E8%A7%A3%E5%86%B3-mtsp%E5%A4%9A%E6%97%85%E8%A1%8C%E5%95%86%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Thu, 17 Sep 2020 22:00:30 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/202009/%E7%94%A8%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95ga%E6%9D%A5%E8%A7%A3%E5%86%B3-mtsp%E5%A4%9A%E6%97%85%E8%A1%8C%E5%95%86%E9%97%AE%E9%A2%98/</guid>
+      <description>引言 本文章会侧重实际运用，给出对于 MTSP 和 TSP 问题的一个 GA 算法，并具有较高可用性的方案。并在最后给出一个可以跑在Web Browser 上的可视化 Demo。 并且会</description>
+    </item>
+    
+  </channel>
+</rss>

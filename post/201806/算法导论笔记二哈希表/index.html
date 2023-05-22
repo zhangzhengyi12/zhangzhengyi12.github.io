@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="算法导论笔记 四 哈希表" />
+    <meta property="og:title" content="算法导论笔记 四 哈希表" />
+    <meta property="twitter:title" content="算法导论笔记 四 哈希表" />
+    
+
+    
+    <meta name="description" content="我曾赌咒说你美，认为你璀璨；但你却地狱一般黑，夜一般暗">
+    <meta property="og:description" content="我曾赌咒说你美，认为你璀璨；但你却地狱一般黑，夜一般暗" />
+    <meta property="twitter:description" content="我曾赌咒说你美，认为你璀璨；但你却地狱一般黑，夜一般暗" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>算法导论笔记 四 哈希表-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201806/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E4%BA%8C%E5%93%88%E5%B8%8C%E8%A1%A8/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/atom-one-dark.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+    <script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E5%93%B2%E5%AD%A6">哲学</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90">精神分析</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/gist/">Gist</a></li>
+                    
+                        <li><a href="/top/notebook/">Notebooks</a></li>
+                    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        <a class="tag" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        <a class="tag" href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                    </div>
+                    <h1>算法导论笔记 四 哈希表</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Sunday, July 29, 2018
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#直接寻址">直接寻址</a></li>
+<li><a href="#哈希表">哈希表</a>
+<ul>
+<li><a href="#链接法">链接法</a></li>
+<li><a href="#链接法性能分析">链接法性能分析</a></li>
+<li><a href="#解决碰撞之二-开放寻址法">解决碰撞之二 开放寻址法</a></li>
+<li><a href="#开放寻址法性能分析">开放寻址法性能分析</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<h2 id="直接寻址">直接寻址</h2>
+
+<p>相对于哈希表来说，直接寻址是一种更为简单的方法，即使用一组键集合 K 来代表一组相应的值 U,但是直接寻址受限于一个重要的缺陷，即K可能相比较于U会小很多，并且会出现数组浪费情况，很多槽都可能是空的，注意这里和是OOP里面的对象键值对没有联系，哈希表都是以数组的形式出现的，因为只有当自身是数组的时候，才能做到最快速的偏移，因为数组在绝大多数语言之中都是以一段连续的内存出现的，这就是为什么哈希表做到O(1)访问的原因。</p>
+
+<h2 id="哈希表">哈希表</h2>
+
+<blockquote>
+<p>哈希表（散列表）是一种直接寻址技术的增强，其核心思想在于，对原本的关键字进行一次hash()，也就是说，其在表中真正的key是<code>hash(k)</code>。</p>
+</blockquote>
+
+<p>散列表的最大好处就是利用hash缩减了数组的大小。</p>
+
+<p>但这会引发一个问题，即如果多次插入一个相同关键字，那么可能会插入一个相同的槽中，这被称为*碰撞*或者是*冲突*（collision）。</p>
+
+<p>对于这种情况，我们拥有一些解决方案</p>
+
+<h3 id="链接法">链接法</h3>
+
+<blockquote>
+<p>链接法是一种最为简单的解决冲突方案，当链接法遇见冲突的时候，就将同一插槽的元素合并成一个链表，并把插槽的指针指向链表的头部。</p>
+</blockquote>
+
+<p>所以我们可以预见当整个关键字集合基本相同时，我们将得到一个超长的列表，这时候所谓的表的概念会变得模糊，这也是链接法最差情况。<code>Θ(n)</code></p>
+
+<p>这里我们还需要引申出一个概念，装载因子 <code>α</code> 即 n / m 也就是当key为n个槽为m个的时候，每个槽平均对应多少个key,在hash算法为尽量平均分布的时候，我们的查找时间就是 <code>O(1 + α)</code>,由此可以看出，我们的哈希表时间复杂度和hash算法相关。并且分配越平均，越快。当然最快的情况肯定是一个键对应一个槽</p>
+
+<h3 id="链接法性能分析">链接法性能分析</h3>
+
+<p>既然我们的操作效率和hash算法非常相关，那么，什么样的hash函数才是一个号的hash函数呢？</p>
+
+<p>让我们看看我们的目标</p>
+
+<ul>
+<li>我们想要把key均匀分布到slot</li>
+<li>他的输出不会过于和key的输入相关 比如输入偶数必然输出某个值</li>
+</ul>
+
+<p><em>除法hash法</em></p>
+
+<p>这就是一种经典的快速hash算法</p>
+
+<p><code>h(k) = k mod m</code>
+&gt; k = 原始key  m = hashTable的长度</p>
+
+<p>但要注意，m也就是表的长度最好选择一个质数，否则其平均分布的特性会大打折扣</p>
+
+<p>当然还有一些别的的hash方法，比如乘法hash</p>
+
+<h3 id="解决碰撞之二-开放寻址法">解决碰撞之二 开放寻址法</h3>
+
+<blockquote>
+<p>开放寻址法的核心思想是构建一个Hash序列，当序列中的hash1无法找到空位的时，继续调用hash2,知道hash出一个插槽正好是空时，插入。查找也很类似，需要注意的是，这种方法在槽中是需要保存原始关键字的，因为在搜索的时候，需要比对原始key是否一致。</p>
+</blockquote>
+
+<p>这种方法最大的缺陷就是删除起来非常的麻烦。</p>
+
+<h3 id="开放寻址法性能分析">开放寻址法性能分析</h3>
+
+<p>既然核心是一个hash队列，那么我们的性能明显就和Hash算法的速度，整个实际运行序列的长度相关。</p>
+
+<p><em>线性探查</em></p>
+
+<blockquote>
+<p>给定一个普通的散列函数，获取一次h(key) 接下来遍历数组进行遍历（从h(key开始)，到末尾，又从t[0]开始，到h(k) - 1 结束），查找空位并插入，这就是线性探查，整个序列的最大长度就是m,他的理解和实现都相当的简单，但是问题也是存在的，这就是<em>一次群集</em> 。说白了就是槽很容易一大片都是满的，这样就不能实现很快速的插入了。并且会越来越严重，因为你本身插入就是在满的后面的空位插入。</p>
+</blockquote>
+
+<p><em>二次哈希</em></p>
+
+<blockquote>
+<p>h(k,i) = (h_1(k) + ih_2(k))mod m</p>
+
+<p>h_1 和 h_2 是hash函数 ，第i次的探查位置等于 上次探查的位置+这次计算出的hash模m,也就是说每次的探查会变的比较有跳跃性，并且和上一次探查相关，整体分布就会比较平均。</p>
+</blockquote>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201807/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E4%B8%83%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90%E8%A1%A8%E7%9A%84%E6%89%A9%E5%A2%9E%E5%8A%BF%E8%83%BD%E6%96%B9%E6%B3%95/" data-toggle="tooltip" data-placement="top" title="算法导论 七 平摊分析，表的扩增，势能方法">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/201806/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%9B%9B%E5%85%A8%E5%9F%9F%E5%93%88%E5%B8%8C%E5%92%8C%E5%AE%8C%E5%85%A8%E5%93%88%E5%B8%8C/" data-toggle="tooltip" data-placement="top" title="算法导论笔记 四 全域哈希和完全哈希">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/javascript" title="javascript">
+                            javascript
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/localstorage" title="localstorage">
+                            localstorage
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%93%B2%E5%AD%A6" title="哲学">
+                            哲学
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%B7%E5%9B%BD%E8%A7%82%E5%BF%B5%E8%AE%BA" title="德国观念论">
+                            德国观念论
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%84%8F%E8%AF%86%E5%BD%A2%E6%80%81" title="意识形态">
+                            意识形态
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%8B%89%E5%BA%B7" title="拉康">
+                            拉康
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6" title="离散数学">
+                            离散数学
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90" title="精神分析">
+                            精神分析
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E9%BB%91%E6%A0%BC%E5%B0%94" title="黑格尔">
+                            黑格尔
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E9%BD%90%E6%B3%BD%E5%85%8B" title="齐泽克">
+                            齐泽克
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2023
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-114001572-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+</body>
+</html>

@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="Element-UI Table组件用户自定义配置方案分享-自定义列宽、排序、显隐" />
+    <meta property="og:title" content="Element-UI Table组件用户自定义配置方案分享-自定义列宽、排序、显隐" />
+    <meta property="twitter:title" content="Element-UI Table组件用户自定义配置方案分享-自定义列宽、排序、显隐" />
+    
+
+    
+    <meta name="description" content="支持用户自定义列宽，排序，显隐并长期记忆化">
+    <meta property="og:description" content="支持用户自定义列宽，排序，显隐并长期记忆化" />
+    <meta property="twitter:description" content="支持用户自定义列宽，排序，显隐并长期记忆化" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Element-UI Table组件用户自定义配置方案分享-自定义列宽、排序、显隐-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/202007/element-ui-table%E7%BB%84%E4%BB%B6%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E6%89%A9%E5%B1%95%E6%96%B9%E6%A1%88%E5%88%86%E4%BA%AB/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/atom-one-dark.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+    <script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E5%93%B2%E5%AD%A6">哲学</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90">精神分析</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/gist/">Gist</a></li>
+                    
+                        <li><a href="/top/notebook/">Notebooks</a></li>
+                    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/vue.js" title="Vue.js">
+                            Vue.js
+                        </a>
+                        
+                        <a class="tag" href="/tags/element-ui" title="Element-UI">
+                            Element-UI
+                        </a>
+                        
+                    </div>
+                    <h1>Element-UI Table组件用户自定义配置方案分享-自定义列宽、排序、显隐</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Thursday, July 16, 2020
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#起因">起因</a></li>
+<li><a href="#方案选择">方案选择</a></li>
+<li><a href="#具体扩展">具体扩展</a></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<h2 id="起因">起因</h2>
+
+<p>最近有接受到这样的一个需求</p>
+
+<ul>
+<li>用户够能自定义表格列的 宽度/排序/显隐</li>
+<li>用户的设置能够持久化(保存到后端)</li>
+</ul>
+
+<p>目前该项目主要由 <code>Vue.js 2.0 + Element-UI</code> 构成，在经过一些实际的考虑之后，我定义了如下技术上的目标</p>
+
+<ul>
+<li>不希望过强的侵入式，避免过高的改造成本</li>
+<li>改造后继续遵循Element-UI Table组件的使用方法</li>
+<li>使用起来应该尽可能的简单</li>
+</ul>
+
+<h2 id="方案选择">方案选择</h2>
+
+<p>在思考过后，我选择了对<code>Element-UI Table</code>组件进行二次开发，扩展其中的方法，并发布到公司私有NPM仓库的方法。</p>
+
+<p>并且定义了 Table 实例上的三个方法，以及传递的数据格式</p>
+
+<pre><code class="language-js">const config = {
+  id:'' // table id 标识符 app内全局唯一
+  columnList:[
+    {
+      prop: '', // 属性key
+      sortIndex: '' // 用户主动配置的排序索引
+      width:'', // 用户主动配置的宽度
+      isHidden: true, // 用户主动配置的是否显示 需要做过滤
+      isFixed: false // 该列是否为固定列 只读
+    }
+  ]
+}
+
+_addHeaderWidthChangeHandler(callback) // 表格宽度变动回调
+
+_readConfig(config) // 读取表格配置
+
+_loadConfig():config // 更新表格配置
+</code></pre>
+
+<h2 id="具体扩展">具体扩展</h2>
+
+<p>首先Element Table组件本身是一个相当的庞大的组件，这意味着你想要通过传入的配置来动态更改整个表格的实际展示是一件相当复杂的事情。为了降低修改成本，我这里采用了一个取巧的方式。</p>
+
+<p>首先在 <code>Element-UI</code> 中 <code>table-column</code> 会在自己挂载完成之后，把自己的各种属性通过$parent属性 传递给 <code>table</code> 组件.</p>
+
+<pre><code class="language-js">// table-column
+export default {
+  computed: {
+    owner() {
+      let parent = this.$parent;
+      while (parent &amp;&amp; !parent.tableId) {
+        parent = parent.$parent;
+      }
+      return parent;
+  },
+  mounted(){
+     owner.store.commit('insertColumn', this.columnConfig, columnIndex, this.isSubColumn ? parent.columnConfig : null);
+  }
+}
+</code></pre>
+
+<p>接下我们在来看看 <code>table.store.commit</code> 方法</p>
+
+<pre><code class="language-js">  insertColumn(states, column, index, parent) {
+    let array = states._columns;
+    if (parent) {
+      array = parent.children;
+      if (!array) array = parent.children = [];
+    }
+
+    if (typeof index !== 'undefined') {
+      array.splice(index, 0, column);
+    } else {
+      array.push(column);
+    }
+
+    if (column.type === 'selection') {
+      states.selectable = column.selectable;
+      states.reserveSelection = column.reserveSelection;
+    }
+
+    if (this.table.$ready) {
+      this.updateColumns(); // hack for dynamics insert column
+      this.scheduleLayout();
+    }
+  }
+</code></pre>
+
+<p>我们可以看到，所有的列配置都会放到_column数组中，所以这个数组本质上就是最原始的数据，当然还有很多将这个数组通过里面的属性进行二次拆分的过程，比如固定列等逻辑，但是这些我们无需关心，我这次就选择对这个属性进行动态。</p>
+
+<p>我的基本思路是利用 <code>Object.defineProperties</code> 对 <code>store.states._columns</code> 属性进行劫持，所有的get都会经过我的逻辑，进行重排序，属性重写等功能。</p>
+
+<p>我会在table组件的mounted周期调用我的劫持初始化方法</p>
+
+<pre><code class="language-js">export default {
+  methods:{
+    // 劫持store.state.columns 做到过滤 等功能
+    initHijackColumns() {
+      this.store.states.__col = this.store.states.columns;
+      let that = this;
+      Object.defineProperty(this.store.states, '_columns', {
+        get: () =&gt; {
+          const config = that._tableConfig;
+          let columns = that.store.states.__col;
+
+          // 对table数据源按照外部配置进行清洗
+          if (config &amp;&amp; config.columnList.length &gt; 0) {
+            columns = that._columnFilterByConfig(columns, config.columnList);
+            columns = that._columnReSortByConfig(columns, config.columnList);
+            columns = that._columnWidthByConfig(columns, config.columnList);
+          }
+
+          return columns;
+        },
+        set: (value) =&gt; {
+          this.store.states.__col = value;
+        }
+      });
+
+      this.store.updateColumns();
+      this.store.scheduleLayout();
+    },
+
+    _addHeaderWidthChangeHandler(callback) {
+      // table-header &gt; header-dragend 触发后会调用该回调
+      this._onHeaderWidthChange = callback;
+    },
+
+    _onHeaderWidthChange() {
+      // noop
+    },
+
+    // 根据配置对列进行隐藏过滤
+    _columnFilterByConfig(arr, configList) {
+      return arr.filter((v) =&gt; {
+        let matchConfig = this._findMatchColumn(configList, v);
+
+        if (matchConfig &amp;&amp; matchConfig.isHidden === true) {
+          return false;
+        } else {
+          return true;
+        }
+      });
+    },
+
+    // 根据配置对列进行重排序
+    _columnReSortByConfig(arr, configList) {
+      return arr.sort((a, b) =&gt; {
+        const aMatchConfig = this._findMatchColumn(configList, a);
+        const bMatchConfig = this._findMatchColumn(configList, b);
+
+        if (aMatchConfig &amp;&amp; bMatchConfig) { // 双匹配 走配置排序
+          return aMatchConfig.sortIndex - bMatchConfig.sortIndex;
+        } else if (aMatchConfig &amp;&amp; !bMatchConfig) { // 单匹配 有匹配的在前面
+          return -1;
+        } else if (!aMatchConfig &amp;&amp; bMatchConfig) { // 单匹配 有匹配的在前面
+          return 1;
+        } else { // 无匹配
+          return -1;
+        }
+      });
+    },
+
+    // 根据配置对列进行宽度重设
+    _columnWidthByConfig(arr, configList) {
+      return arr.map(v =&gt; {
+        let matchConfig = this._findMatchColumn(configList, v);
+
+        if (matchConfig &amp;&amp; matchConfig.width &gt; 0) {
+          return {
+            ...v,
+            width: matchConfig.width
+          };
+        } else {
+          return v;
+        }
+      });
+    },
+
+    // a {element column data}
+    // b {custom column config data}
+    _isEqColumn(a, b) {
+      return a.property === b.prop &amp;&amp; a.label === b.label;
+    },
+
+    _findMatchColumn(arr, target) {
+      for (let i = 0, len = arr.length; i &lt; len; i++) {
+        let cur = arr[i];
+        if (this._isEqColumn(target, cur)) {
+          return cur;
+        }
+      }
+      return null;
+    },
+
+    // 读取配置 分状态读取
+    _readConfig() {
+      return this.store.states.columns.map((col, index) =&gt; {
+        return {
+          label: col.label,
+          prop: col.property,
+          sortIndex: index,
+          width: col.width,
+          isHidden: false,
+          isFixed: col.fixed
+        };
+      });
+    },
+
+    // 外部修改配置后 调用该方法 重新渲染表单
+    _loadConfig(newConfig) {
+      this._tableConfig = newConfig;
+      this.store.updateColumns();
+      this.store.scheduleLayout();
+    }
+  },
+  mounted(){
+    // ...
+    this.initHijackColumns();
+  }
+}
+</code></pre>
+
+<p>如此一来我们可以在项目使用该组件的时候，保持原来的结构，减少其侵入性，但是为了灵活我依然没有选择把配置表格相关的功能移入到table组件中。最终的调用形态大概是这样</p>
+
+<pre><code class="language-html">      &lt;el-table id=&quot;carrierPool_listTable&quot; stripe border :data=&quot;carrierList&quot; height=&quot;1&quot; ref=&quot;table&quot;&gt;
+        &lt;el-table-column label=&quot;操作&quot; width=&quot;80&quot; fixed=&quot;left&quot;&gt;
+          &lt;template slot-scope=&quot;scope&quot;&gt;
+            &lt;el-button type=&quot;text&quot; @click=&quot;handleClickReceiving(scope.row)&quot;&gt;领取&lt;/el-button&gt;
+          &lt;/template&gt;
+        &lt;/el-table-column&gt;
+        &lt;el-table-column label=&quot;账户&quot; prop=&quot;account&quot; width=&quot;120&quot;&gt;&lt;/el-table-column&gt;
+        &lt;!-- 一些列 ... --&gt;
+        &lt;template slot=&quot;empty&quot;&gt;暂无相关数据&lt;/template&gt;
+      &lt;/el-table&gt;
+      &lt;div class=&quot;d-flex ai-end jc-end pt-10&quot;&gt;
+        &lt;paging
+          ref=&quot;paging&quot;
+          :total=&quot;total&quot;
+          @changePage=&quot;handleChangePageOrRefresh&quot;
+          @refreshData=&quot;handleChangePageOrRefresh&quot;
+        &gt;&lt;/paging&gt;
+        &lt;!-- 通过table 进行连接 --&gt;
+        &lt;table-setting tableId=&quot;carrierPool_listTable&quot;/&gt; 
+      &lt;/div&gt;
+</code></pre>
+
+<p>table-setting 组件内部会通过 table的 id 查找找对应table组件实例</p>
+
+<pre><code class="language-js">initTableInstance () {
+  this.table = vueExt.findComponentDownward(this.$parent, 'ElTable', (com =&gt; {
+    const id = com.$el.getAttribute('id')
+    if (id === this.tableId) {
+      return true
+    } else {
+      return false
+    }
+  })
+}
+</code></pre>
+
+<p>至于具体的配置组件代码我就不贴了。</p>
+
+<p>由于 table 是一个全局唯一的东西，所以建议上一个工具链，在代码提交的时候，进行全局搜索检查，如果出现重复直接拒绝提交</p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/202007/javascript-%E4%B8%AD-console.log-%E5%87%BD%E6%95%B0%E5%88%B0%E5%BA%95%E6%9C%89%E5%A4%9A%E6%85%A2/" data-toggle="tooltip" data-placement="top" title="JavaScript中 Console.log 函数到底有多慢">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/202008/%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0/" data-toggle="tooltip" data-placement="top" title="红黑树的实现">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/javascript" title="javascript">
+                            javascript
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/localstorage" title="localstorage">
+                            localstorage
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%93%B2%E5%AD%A6" title="哲学">
+                            哲学
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%B7%E5%9B%BD%E8%A7%82%E5%BF%B5%E8%AE%BA" title="德国观念论">
+                            德国观念论
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%84%8F%E8%AF%86%E5%BD%A2%E6%80%81" title="意识形态">
+                            意识形态
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%8B%89%E5%BA%B7" title="拉康">
+                            拉康
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6" title="离散数学">
+                            离散数学
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90" title="精神分析">
+                            精神分析
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E9%BB%91%E6%A0%BC%E5%B0%94" title="黑格尔">
+                            黑格尔
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E9%BD%90%E6%B3%BD%E5%85%8B" title="齐泽克">
+                            齐泽克
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2023
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-114001572-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+</body>
+</html>

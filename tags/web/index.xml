@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Web on Yinode Blog</title>
+    <link>https://zhangzhengyi12.github.io/tags/web/</link>
+    <description>Recent content in Web on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 13 Jun 2019 19:15:28 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhangzhengyi12.github.io/tags/web/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>修复 iOS Web Input 输入框失去焦点无法还原页面滚动位置</title>
+      <link>https://zhangzhengyi12.github.io/post/201906/%E4%BF%AE%E5%A4%8Diosinput%E8%BE%93%E5%85%A5%E6%A1%86%E5%A4%B1%E5%8E%BB%E7%84%A6%E7%82%B9%E6%97%A0%E6%B3%95%E8%BF%98%E5%8E%9F%E9%A1%B5%E9%9D%A2%E6%BB%9A%E5%8A%A8/</link>
+      <pubDate>Thu, 13 Jun 2019 19:15:28 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201906/%E4%BF%AE%E5%A4%8Diosinput%E8%BE%93%E5%85%A5%E6%A1%86%E5%A4%B1%E5%8E%BB%E7%84%A6%E7%82%B9%E6%97%A0%E6%B3%95%E8%BF%98%E5%8E%9F%E9%A1%B5%E9%9D%A2%E6%BB%9A%E5%8A%A8/</guid>
+      <description>推荐注册到 Vue 全局 Mixin 里 并在 updated 生命周期中重新运行 const fixInputPaddingMixin = { mounted() { this._fixInput(); }, updated() { this._fixInput(); }, methods: { _fixInput() { let inputs = document.querySelectorAll(&#39;input&#39;); if (inputs.length &amp;gt;= 1) { for (let item of inputs) { item.addEventListener( &#39;focus&#39;, () =&amp;gt; { item.scrollTop = document.body.scrollTop; }, false, ); item.addEventListener( &#39;blur&#39;, () =&amp;gt; { document.body.scrollTop</description>
+    </item>
+    
+    <item>
+      <title>前端实现真正的遮罩穿透效果</title>
+      <link>https://zhangzhengyi12.github.io/post/201904/%E5%89%8D%E7%AB%AF%E5%AE%9E%E7%8E%B0%E7%9C%9F%E6%AD%A3%E7%9A%84%E9%81%AE%E7%BD%A9%E7%A9%BF%E9%80%8F%E6%95%88%E6%9E%9C/</link>
+      <pubDate>Sun, 14 Apr 2019 02:54:36 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201904/%E5%89%8D%E7%AB%AF%E5%AE%9E%E7%8E%B0%E7%9C%9F%E6%AD%A3%E7%9A%84%E9%81%AE%E7%BD%A9%E7%A9%BF%E9%80%8F%E6%95%88%E6%9E%9C/</guid>
+      <description>后续更新: 事实上大家如果有这个需求可以先去看看 css 里的 clip-path，是个更好的选择！ 最近在工作中要去做一个类似于一些软件游戏里面的引导的</description>
+    </item>
+    
+    <item>
+      <title>虚拟滚动的实现(适合大量的列表数据)</title>
+      <link>https://zhangzhengyi12.github.io/post/201904/%E8%99%9A%E6%8B%9F%E6%BB%9A%E5%8A%A8%E7%9A%84%E5%AE%9E%E7%8E%B0%E9%80%82%E5%90%88%E5%A4%A7%E9%87%8F%E7%9A%84%E5%88%97%E8%A1%A8%E6%95%B0%E6%8D%AE/</link>
+      <pubDate>Mon, 08 Apr 2019 04:41:32 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201904/%E8%99%9A%E6%8B%9F%E6%BB%9A%E5%8A%A8%E7%9A%84%E5%AE%9E%E7%8E%B0%E9%80%82%E5%90%88%E5%A4%A7%E9%87%8F%E7%9A%84%E5%88%97%E8%A1%A8%E6%95%B0%E6%8D%AE/</guid>
+      <description>假设我们拥有10w条数据，需要在Web上进行展现，但是如果我们进行实际的渲染就会发现，整个初次渲染的成本的非常之高，用户的体验是非常差的。所</description>
+    </item>
+    
+    <item>
+      <title>从JS的阻塞角度谈谈浏览器渲染原理</title>
+      <link>https://zhangzhengyi12.github.io/post/201901/%E4%BB%8Ejs%E7%9A%84%E9%98%BB%E5%A1%9E%E8%A7%92%E5%BA%A6%E8%B0%88%E8%B0%88%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Wed, 30 Jan 2019 23:08:15 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201901/%E4%BB%8Ejs%E7%9A%84%E9%98%BB%E5%A1%9E%E8%A7%92%E5%BA%A6%E8%B0%88%E8%B0%88%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86/</guid>
+      <description>前言 这样，在解析包含的javascript代码之前，页面的内容将完全呈现在浏览器中。而用户也会因为浏览器窗口显示空白页面的时间缩短而感到打</description>
+    </item>
+    
+    <item>
+      <title>移动端强制横屏方案</title>
+      <link>https://zhangzhengyi12.github.io/post/201901/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%BA%E5%88%B6%E6%A8%AA%E5%B1%8F%E6%96%B9%E6%A1%88/</link>
+      <pubDate>Fri, 25 Jan 2019 21:54:01 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201901/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%BA%E5%88%B6%E6%A8%AA%E5%B1%8F%E6%96%B9%E6%A1%88/</guid>
+      <description>最近工作中要开发一个横屏应用，无论用户是否开启手机旋转功能，进行强制横屏。  这里面也收获了一些经验，在这里和大家分享一下。 首先说明我的方案只</description>
+    </item>
+    
+    <item>
+      <title>DOM中的各种XY定位属性以及元素宽高属性</title>
+      <link>https://zhangzhengyi12.github.io/post/201901/javascript%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8Dxy%E5%AE%9A%E4%BD%8D%E5%B1%9E%E6%80%A7%E4%BB%A5%E5%8F%8A%E5%85%83%E7%B4%A0%E5%AE%BD%E9%AB%98%E5%B1%9E%E6%80%A7/</link>
+      <pubDate>Mon, 21 Jan 2019 05:16:10 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201901/javascript%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8Dxy%E5%AE%9A%E4%BD%8D%E5%B1%9E%E6%80%A7%E4%BB%A5%E5%8F%8A%E5%85%83%E7%B4%A0%E5%AE%BD%E9%AB%98%E5%B1%9E%E6%80%A7/</guid>
+      <description>我们都用过不少JS中的定位属性，比如scrollTop,clientX等等，但是其实单纯从命名上，我们是很难区分各种属性的含义的，我平时也经</description>
+    </item>
+    
+    <item>
+      <title>一些Web最佳实践的探索</title>
+      <link>https://zhangzhengyi12.github.io/post/201812/%E6%88%91%E7%9A%84%E5%89%8D%E7%AB%AF%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5anode%E5%8C%BF%E5%90%8D%E8%AE%BA%E5%9D%9Bdjango/</link>
+      <pubDate>Tue, 18 Dec 2018 05:57:25 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201812/%E6%88%91%E7%9A%84%E5%89%8D%E7%AB%AF%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5anode%E5%8C%BF%E5%90%8D%E8%AE%BA%E5%9D%9Bdjango/</guid>
+      <description>最近用 Django 整了一个匿名的论坛，包含主题回复点赞，板块，用户等系统，麻雀虽小，但是基本功能还是全的的。但是不对接多可惜啊。 正好这半年多的前端开发</description>
+    </item>
+    
+    <item>
+      <title>ECMAScript6 入门</title>
+      <link>https://zhangzhengyi12.github.io/post/201706/ecmascript6%E5%85%A5%E9%97%A8/</link>
+      <pubDate>Fri, 24 Nov 2017 05:27:33 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201706/ecmascript6%E5%85%A5%E9%97%A8/</guid>
+      <description>最近尝试了解一些函数式编程(Function program)的东西，但是很多的语法都用到了ES6，所以先开始学习一下ES6吧。特别是prom</description>
+    </item>
+    
+    <item>
+      <title>gulp&#43;webpack&#43;babel&#43;css压缩模块 实现自动构建工具</title>
+      <link>https://zhangzhengyi12.github.io/post/201707/gulpwebpackbabelcss%E5%8E%8B%E7%BC%A9%E6%A8%A1%E5%9D%97%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Fri, 24 Nov 2017 05:27:33 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201707/gulpwebpackbabelcss%E5%8E%8B%E7%BC%A9%E6%A8%A1%E5%9D%97%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/</guid>
+      <description>第一步 环境搭建流程 以下均按照流程 创建工程目录 C:. ├─.idea ├─app //开发目录 │ ├─.idea │ ├─css │ ├─doc │ ├─img │ ├─</description>
+    </item>
+    
+    <item>
+      <title>Javascript 设计模式</title>
+      <link>https://zhangzhengyi12.github.io/post/201707/javascript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Fri, 24 Nov 2017 05:27:33 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201707/javascript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <description>模式可以认为是前人对于编程问题的解决方案，而所有的设计模式的主题都是分离多变的部分和恒定的部分。 单例模式 单例模式值得就是只有一个实例的模式。</description>
+    </item>
+    
+    <item>
+      <title>Javascript 高阶函数</title>
+      <link>https://zhangzhengyi12.github.io/post/201707/javascript%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Fri, 24 Nov 2017 05:27:33 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201707/javascript%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E5%BA%94%E7%94%A8/</guid>
+      <description>最近在看一些关于设计模式的书。对高阶函数的应用方面做一些记录 AOP AOP意为面向切面编程，主要思想就是把那些跟业务逻辑无关的部分抽离出来，比如日</description>
+    </item>
+    
+    <item>
+      <title>JavaScript数据结构 二叉树</title>
+      <link>https://zhangzhengyi12.github.io/post/201706/javascript%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BA%8C%E5%8F%89%E6%A0%91/</link>
+      <pubDate>Fri, 24 Nov 2017 05:27:33 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201706/javascript%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BA%8C%E5%8F%89%E6%A0%91/</guid>
+      <description>JavaScript 二叉树 最近在学习一些数据结构方面的知识，稍作记录。 二叉树的创建 首先二叉树是一种树形的结构，那么他的特点就是每个构建树的节点最多只有两个子节</description>
+    </item>
+    
+    <item>
+      <title>Vue.js slot 初探</title>
+      <link>https://zhangzhengyi12.github.io/post/201709/vueslot%E4%BD%BF%E7%94%A8%E5%A6%82%E4%BD%95%E5%AF%B9%E5%85%B6%E8%BF%9B%E8%A1%8C%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C/</link>
+      <pubDate>Fri, 24 Nov 2017 05:27:33 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201709/vueslot%E4%BD%BF%E7%94%A8%E5%A6%82%E4%BD%95%E5%AF%B9%E5%85%B6%E8%BF%9B%E8%A1%8C%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C/</guid>
+      <description>假设你拥有父组件A,子轮播图组件B，你想在用A中使用B， 假设你使用slot对其进行模板的传递 &amp;lt;div class=&amp;quot;slider-wrapper&amp;quot;&amp;gt; &amp;lt;slider&amp;gt; &amp;lt;div v-for=&amp;quot;item of slider&amp;quot;&amp;gt; &amp;lt;a href=&amp;quot;&amp;quot;&amp;gt;&amp;lt;img :src=&amp;quot;item.pic&amp;quot; alt=&amp;quot;&amp;quot;&amp;gt;&amp;lt;/a&amp;gt; &amp;lt;/div&amp;gt; // slot &amp;lt;/slider&amp;gt; &amp;lt;/div&amp;gt; // 但是轮播必然牵</description>
+    </item>
+    
+    <item>
+      <title>利用 require.js 实现组件化开发</title>
+      <link>https://zhangzhengyi12.github.io/post/201706/%E5%88%A9%E7%94%A8require.js%E5%AE%9E%E7%8E%B0%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/</link>
+      <pubDate>Fri, 24 Nov 2017 05:27:33 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201706/%E5%88%A9%E7%94%A8require.js%E5%AE%9E%E7%8E%B0%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/</guid>
+      <description>最近使用require尝试开发了一个弹窗组件，所以把一些组件化的思想和过程记录下来。 使用的库 jQuery require jQueryUI 实现的功能 三种流行的弹窗 带有宽高位置设置 可</description>
+    </item>
+    
+    <item>
+      <title>利用gh-pages展示自己的DEMO</title>
+      <link>https://zhangzhengyi12.github.io/post/201706/%E5%88%A9%E7%94%A8ghpages%E5%B1%95%E7%A4%BA%E8%87%AA%E5%B7%B1%E7%9A%84demo/</link>
+      <pubDate>Fri, 24 Nov 2017 05:27:33 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201706/%E5%88%A9%E7%94%A8ghpages%E5%B1%95%E7%A4%BA%E8%87%AA%E5%B7%B1%E7%9A%84demo/</guid>
+      <description>之前一直都是用的git-demo-preview来展示预览自己做的DEMO和工程，但是有很多不足 会加载很多无关的JS 访问速度不够理想 所以最近</description>
+    </item>
+    
+    <item>
+      <title>利用require组件化开发侧边栏和轮播图</title>
+      <link>https://zhangzhengyi12.github.io/post/201706/%E5%88%A9%E7%94%A8require%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91%E4%BE%A7%E8%BE%B9%E6%A0%8F%E5%92%8C%E8%BD%AE%E6%92%AD%E5%9B%BE/</link>
+      <pubDate>Fri, 24 Nov 2017 05:27:33 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201706/%E5%88%A9%E7%94%A8require%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91%E4%BE%A7%E8%BE%B9%E6%A0%8F%E5%92%8C%E8%BD%AE%E6%92%AD%E5%9B%BE/</guid>
+      <description>最近学习require趁热打铁写了两个非常常见的组件，一个是侧边栏的插件，一个是轮播图或者叫他选项卡。不得不说组件化开发非常的清晰，便于管理</description>
+    </item>
+    
+    <item>
+      <title>对DOM样式操作浏览器前缀做抽象包装</title>
+      <link>https://zhangzhengyi12.github.io/post/201710/%E5%AF%B9dom%E6%A0%B7%E5%BC%8F%E6%93%8D%E4%BD%9C%E6%B5%8F%E8%A7%88%E5%99%A8%E5%89%8D%E7%BC%80%E5%81%9A%E6%8A%BD%E8%B1%A1%E5%8C%85%E8%A3%85/</link>
+      <pubDate>Fri, 24 Nov 2017 05:27:33 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201710/%E5%AF%B9dom%E6%A0%B7%E5%BC%8F%E6%93%8D%E4%BD%9C%E6%B5%8F%E8%A7%88%E5%99%A8%E5%89%8D%E7%BC%80%E5%81%9A%E6%8A%BD%E8%B1%A1%E5%8C%85%E8%A3%85/</guid>
+      <description>我们在做一些DOM操作的时候，常常利用到修改样式来进行一个动画，但是这种用到的样式属性往往是有前缀的。而在CSS中其实是有自动prefix的</description>
+    </item>
+    
+    <item>
+      <title>改写Node.js中的回调为Promise</title>
+      <link>https://zhangzhengyi12.github.io/post/201707/%E4%BD%BF%E7%94%A8promise%E6%9D%A5%E6%94%B9%E5%86%99node%E4%BC%A0%E7%BB%9F%E7%9A%84%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/</link>
+      <pubDate>Fri, 24 Nov 2017 05:27:33 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201707/%E4%BD%BF%E7%94%A8promise%E6%9D%A5%E6%94%B9%E5%86%99node%E4%BC%A0%E7%BB%9F%E7%9A%84%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/</guid>
+      <description>传统的回调 首先让我们看一下在NODE中传统的异步读取文件 let fs = require(&amp;quot;fs&amp;quot;) fs.readFile(&amp;quot;./justtest.html&amp;quot;,&amp;quot;utf-8&amp;quot;,(err,data)=&amp;gt;{ console.log(data); }) //普通的回调方式处理异步 我们可以看到，读取文件之后的回调被添加到了参</description>
+    </item>
+    
+    <item>
+      <title>组件化开发WebAPP(gulp&#43;webpack&#43;bebal&#43;es6)</title>
+      <link>https://zhangzhengyi12.github.io/post/201707/%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91webappgulpwebpackbebales6/</link>
+      <pubDate>Fri, 24 Nov 2017 05:27:33 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201707/%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91webappgulpwebpackbebales6/</guid>
+      <description>介绍 实现了那些功能 构建工具 最近glup玩的比较多，所以自己实现了一个自动构建的环境他的主要目的是从app目录的那些开发文件部署到server</description>
+    </item>
+    
+    <item>
+      <title>节流与防抖函数</title>
+      <link>https://zhangzhengyi12.github.io/post/201711/%E7%AE%97%E6%B3%95%E9%9B%86%E5%90%88%E9%98%B2%E6%8A%96%E4%B8%8E%E8%8A%82%E6%B5%81%E5%87%BD%E6%95%B0shufflejsonp%E8%BD%AC%E6%8D%A2json%E5%AF%B9%E8%B1%A1%E6%B7%B1%E5%BA%A6%E5%85%8B%E9%9A%86/</link>
+      <pubDate>Fri, 24 Nov 2017 05:27:33 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201711/%E7%AE%97%E6%B3%95%E9%9B%86%E5%90%88%E9%98%B2%E6%8A%96%E4%B8%8E%E8%8A%82%E6%B5%81%E5%87%BD%E6%95%B0shufflejsonp%E8%BD%AC%E6%8D%A2json%E5%AF%B9%E8%B1%A1%E6%B7%B1%E5%BA%A6%E5%85%8B%E9%9A%86/</guid>
+      <description>记录一下最近接触到的算法 节流与防抖 这两个函数都用于限制函数的执行。 debounce 函数防抖就是让某个函数在上一次执行后，满足等待某个时间内不再触发此函数后</description>
+    </item>
+    
+  </channel>
+</rss>

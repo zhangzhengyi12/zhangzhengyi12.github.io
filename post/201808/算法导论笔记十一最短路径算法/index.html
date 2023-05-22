@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="算法导论笔记 十一 最短路径算法" />
+    <meta property="og:title" content="算法导论笔记 十一 最短路径算法" />
+    <meta property="twitter:title" content="算法导论笔记 十一 最短路径算法" />
+    
+
+    
+    <meta name="description" content="我曾赌咒说你美，认为你璀璨；但你却地狱一般黑，夜一般暗">
+    <meta property="og:description" content="我曾赌咒说你美，认为你璀璨；但你却地狱一般黑，夜一般暗" />
+    <meta property="twitter:description" content="我曾赌咒说你美，认为你璀璨；但你却地狱一般黑，夜一般暗" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>算法导论笔记 十一 最短路径算法-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201808/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%8D%81%E4%B8%80%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/atom-one-dark.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+    <script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E5%93%B2%E5%AD%A6">哲学</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90">精神分析</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/gist/">Gist</a></li>
+                    
+                        <li><a href="/top/notebook/">Notebooks</a></li>
+                    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        <a class="tag" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        <a class="tag" href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                    </div>
+                    <h1>算法导论笔记 十一 最短路径算法</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Friday, August 31, 2018
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#最短路径">最短路径</a></li>
+<li><a href="#单源最短路径算法">单源最短路径算法</a>
+<ul>
+<li><a href="#bellman-ford-算法">bellman-ford 算法</a></li>
+</ul></li>
+<li><a href="#dijkstra-算法">Dijkstra 算法</a></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<h2 id="最短路径">最短路径</h2>
+
+<blockquote>
+<p>最短路径问题是图论研究中的一个经典算法问题，旨在寻找图（由结点和路径组成的）中两结点之间的最短路径。</p>
+</blockquote>
+
+<p>假设我们拥有一条路径 P P 经过一些节点 v1 v2 v3 &hellip;. vk 并且每条边都拥有的自己的权重（可以认为是他的长度），而所谓最短路径，就是寻找出总权重 W(P) 最小的一条路径,一般来说 最短路径的题目就是 给你开始节点和结束节点，求出一条最短路径。</p>
+
+<p>接下来我们需要一些代号来帮助我们进行分析</p>
+
+<blockquote>
+<p>δ(u,v) 代表从节点 U 到 V 的最短路径（之一）的权重值</p>
+</blockquote>
+
+<p>值得注意的我们的 最短路径在某些情况下是不存在的，比如在我们的路径中出现了某个内总权重为负数的环，那么我们将不断的在环中循环。或者 UV 之间根本没有路径将他们链接起来，这种情况下的<code>δ(u,v)</code> 为 +infinity</p>
+
+<h2 id="单源最短路径算法">单源最短路径算法</h2>
+
+<p>前置知识点</p>
+
+<blockquote>
+<p>δ(u,vx) &lt;= δ(u,x) + δ(x,v) // 既然是最短路径的总权重 必然小于或等于用某个未知节点进行拆分的两条路径之和。</p>
+</blockquote>
+
+<p>所谓单源最短路径，就是求从源点 S 到图中所有节点 V 的最短路径。在计算之前，我们先设立一个条件：所有的边都不为负，先让我们忽视负权重闭环的问题，其实只要求出了到所有点的问题，那么我们也就等于解决了到某个点的最短路径</p>
+
+<p>接下来，我们将使用贪心的思想来解决这个问题。先来描述前提条件</p>
+
+<blockquote>
+<ol>
+<li>S 是已知最短路径的顶点都集合 从源节点 s 到该集合中每个节点之间的最短路径已被找到。最初的 S 中必然有源点 s</li>
+<li>贪心策略：寻找与 S 中的元素连接 并且权重值最小的节点（本身不在集合 S 中）将其放入到集合 S 中</li>
+<li>更新某些点的估算距离</li>
+</ol>
+</blockquote>
+
+<p>再初步了解该算法的情况下，我认为这个算法有点像贪吃蛇，从 S 中去判断距离，每一步就将一个与 s 最短距离的节点放到集合 S 中，并不断扩张,修正最短选择。书中把不断修正的过程称之为 <strong>松弛</strong>。</p>
+
+<p>松弛是一个非常重要的概念，我在此贴出松弛的伪代码,针对于有向图 u 是出发点，v 是结束点，两者 uv 代表一条边 ，w 是权重函数,v 的 d 属性代表源点 s 到该节点的最短路径估计，而 v 的 π 属性则代表了该节点的前驱节点。</p>
+
+<pre><code class="language-js">RELAX(u,v,w){
+  if(v.d) &gt; u.d + w(u,v)
+    v.d = u.d + w(u,v)
+    v.π = u
+}
+</code></pre>
+
+<p>接下来是基本的初始化代码 遍历所有节点</p>
+
+<pre><code class="language-js">INIT(G,s){
+  for each vertex v of G.V
+    v.d = +infinity
+    v.π = null
+  s.d = 0
+}
+</code></pre>
+
+<h3 id="bellman-ford-算法">bellman-ford 算法</h3>
+
+<p>该算法是解决单源最短路径的一种方式，其算法复杂度为<code>O(VE)</code>.他的最大特点是能够检测该图中是否存在闭环，如果存在就返回 false。以下是我参照书中伪代码的实现，还是比较简单的。</p>
+
+<pre><code class="language-js">// 邻接矩阵 记录连通与路径权重
+const G = [
+  [0, 6, 0, 7, 0],
+  [0, 0, 5, 8, -4],
+  [0, -2, 0, 0, 0],
+  [0, 0, -3, 0, 9],
+  [0, 0, 7, 0, 0]
+]
+
+// 辅助表 帮助记录额外的信息 如前置元素 最短路径估计d
+const nodes = [
+  { name: 's' },
+  { name: 't' },
+  { name: 'x' },
+  { name: 'y' },
+  { name: 'z' }
+]
+
+// 松弛操作
+const relax = (u, v, nodes, g) =&gt; {
+  if (nodes[v].d &gt; nodes[u].d + g[u][v]) {
+    nodes[v].d = nodes[u].d + g[u][v]
+    nodes[v].π = nodes[u]
+  }
+}
+
+// 初始化
+const init = (nodes, s) =&gt; {
+  nodes.forEach(v =&gt; {
+    v.π = null
+    v.d = Infinity
+  })
+  nodes[s].d = 0
+}
+
+// 求单源最短路径
+const bellman_ford = (g, s, table) =&gt; {
+  init(table, s)
+  // 三层循环 可简化成两层 外层为G.V 即所有节点 内层为G.E即图内所有边
+  for (let i = 0; i &lt; g.length; i++) {
+    for (let j = 0; j &lt; g.length; j++) {
+      for (let n = 0; n &lt; g.length; n++) {
+        if (g[j][n] !== 0) {
+          relax(j, n, table, g)
+        }
+      }
+    }
+  }
+  // 闭环检测
+  for (let j = 0; j &lt; g.length; j++) {
+    for (let n = 0; n &lt; g.length; n++) {
+      if (g[j][n] !== 0) {
+        if (table[n].d &gt; table[j].d + g[j][n]) {
+          return false
+        }
+      }
+    }
+  }
+  return true
+}
+console.log(bellman_ford(G, 0, nodes))
+console.log(nodes)
+</code></pre>
+
+<p>图片版</p>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/18-9-14/95019153.jpg" alt="" /></p>
+
+<h2 id="dijkstra-算法">Dijkstra 算法</h2>
+
+<p>这是一种贪心算法，他对图有更加严格的要求，不允许闭环，且所有边的权重都必须大于 0</p>
+
+<p>这种算法的核心在于不断的将当前最近的节点加入到最终集合 S 中，并且利用到了优先队列。这个算法会稍微复杂一些，主要是用了优先队列，并对其进行了一些改造，松弛算法也进行了一些改造。</p>
+
+<p>他需求权重大于 0 的原因就是因为他的贪心策略不允许他回头重新计算某条边的新权重。</p>
+
+<p>他的时间复杂相比上面的算法更加快速,其实他从逻辑上就是断定当前未加入集合 S 的节点中，预计D最小的节点他的 D必然是真实确定的，可以被认为是已知最短路径。一个节点一旦被认为是正确答案加入到集合 S 中，那么他的 属性将永远不会改变。</p>
+
+<pre><code class="language-js">// 优先队列
+
+const left = i =&gt; 2 * i
+const right = i =&gt; 2 * i + 1
+const parent = i =&gt; Math.floor(i / 2)
+/**
+ * @param {Array} A 堆数组
+ * @param {number} i 处理下标
+ */
+function MIN_HEAPIFY(A, i) {
+  let l = left(i)
+  let r = right(i)
+  let cur = A[i]
+  let minimum = i
+  if (l &lt;= A.heapSize &amp;&amp; cur.key &gt; A[l].key) {
+    minimum = l
+  }
+  if (r &lt;= A.heapSize &amp;&amp; A[minimum].key &gt; A[r].key) {
+    minimum = r
+  }
+  // 以上总结一句话 我 左 右 三个里面找最小
+  if (minimum !== i) {
+    ;[A[i], A[minimum]] = [A[minimum], A[i]] // es6语法 解构 互换值
+    MIN_HEAPIFY(A, minimum)
+  }
+}
+
+function BUILD_MIN_HEAP(A) {
+  A.heapSize = A.length - 1
+  if (A.heapSize &lt; 0) return
+  for (let i = Math.floor(A.heapSize / 2); i &gt;= 0; i--) {
+    MIN_HEAPIFY(A, i)
+  }
+}
+
+class Q {
+  constructor(arr = []) {
+    this.heap = arr
+    BUILD_MIN_HEAP(this.heap)
+    this.heapSize = arr.length - 1
+  }
+  isEmpty() {
+    return this.heap.length &lt;= 0 || this.heap.heapSize &lt; 0
+  }
+  getMinimum() {
+    return this.heap[0]
+  }
+  extHeapMin() {
+    if (this.heap.heapSize &lt; 0) {
+      return false
+    }
+    let min = this.heap[0]
+    this.heap[0] = this.heap[this.heap.heapSize]
+    this.heap.heapSize--
+    MIN_HEAPIFY(this.heap, 0)
+    return min
+  }
+  reMinHeapify() {
+    MIN_HEAPIFY(this.heap, 0)
+  }
+  incrHeapKey(i, key) {
+    if (key &lt; this.heap[i].key) {
+      return false
+    }
+    this.heap[i].key = key
+    // 修改权重可能会破坏本身的特性 不断向上修复这个问题。
+    while (i &gt; 0 &amp;&amp; this.heap[parent(i)].key &gt; this.heap[i].key) {
+      ;[this.heap[i], this.heap[parent(i)]] = [
+        this.heap[parent(i)],
+        this.heap[i]
+      ]
+      i = parent(i)
+    }
+  }
+  insert(value) {
+    this.heap.heapSize++
+    this.heap[this.heap.heapSize] = value
+    this.incrHeapKey(this.heap.heapSize, value.key)
+  }
+  find(name) {
+    let index = -1
+    for (let i = 0; i &lt;= this.heap.heapSize; i++) {
+      if (this.heap[i].name === name) {
+        index = i
+      }
+    }
+    return index
+  }
+}
+
+// 邻接矩阵 记录连通与路径权重
+const G = [
+  [0, 10, 0, 5, 0],
+  [0, 0, 1, 2, 0],
+  [0, 0, 0, 0, 4],
+  [0, 3, 9, 0, 2],
+  [7, 0, 6, 0, 0]
+]
+
+// 辅助表 帮助记录额外的信息 如前置元素 最短路径估计d
+const nodes = [
+  { name: 's', sub: 0 },
+  { name: 't', sub: 1 },
+  { name: 'x', sub: 2 },
+  { name: 'y', sub: 3 },
+  { name: 'z', sub: 4 }
+]
+
+// 松弛操作
+const relax = (u, v, nodes, g, q) =&gt; {
+  if (nodes[v].key &gt; nodes[u].key + g[u][v]) {
+    nodes[v].key = nodes[u].key + g[u][v]
+    nodes[v].π = nodes[u]
+    // 额外内容 更新队列中的key
+    let qindex = q.find(nodes[v].name)
+    if (qindex === -1) return
+    q.incrHeapKey(qindex, nodes[u].key + g[u][v])
+  }
+}
+
+// 初始化
+const init = (nodes, s) =&gt; {
+  nodes.forEach(v =&gt; {
+    v.π = null
+    v.key = Infinity
+  })
+  nodes[s].key = 0
+}
+
+function Dijkstra(G, s, table) {
+  // 初始化 S是已知最短路径的集合
+  let S = []
+  init(table, s)
+  // 建立一个镜像优先队列
+  let q = new Q(table.slice())
+  // 如果不为空
+  while (!q.isEmpty()) {
+    // 取出一个当前预计总权重最低的节点 其实也就是离s最近的节点
+    let u = q.extHeapMin()
+    // 放入已知集合中
+    S.push(table[u.sub])
+    for (let i = 0; i &lt; G.length; i++) {
+      // 对改点进行松弛操作
+      if (G[u.sub][i] !== 0) {
+        relax(u.sub, i, table, G, q)
+      }
+    }
+  }
+  return S
+}
+
+console.log(Dijkstra(G, 0, nodes))
+</code></pre>
+
+<p>值得一提的是，如果你的图他的每条边的权重相同，那么可以利用广度优先搜索进一步的提升性能，广度优先搜索需要一个 FIFO 先进先出队列。他从源点 s 开始，不断的发现节点并松弛，将发现的节点加入到队列之中，每次循环都从先进先出队列里进行松弛操作，并把它的 u 加入到集合 S中。他的重要断定是当一个节点的 d 改变时，接下来他的 d 将不会再改变。实际的改变大致就是本来从优先队列拿的变成从 FIFO 里拿，拿出一个节点 u,然后对 uv进行松弛的同时，如果 v 从没被观察过，设置他的 d = u.d + 1 然后讲他放入队列的末尾。因为广度优先的搜索特性，其 d 越近的元素必然会更早的被遍历到。具体算法可查阅书中22章。</p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201808/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E5%8D%81%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/" data-toggle="tooltip" data-placement="top" title="算法导论笔记 十一 贪心算法 最小生成树">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/201809/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%95%AA%E5%A4%96%E7%AF%87%E5%A0%86%E4%B8%8E%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/" data-toggle="tooltip" data-placement="top" title="算法导论笔记 动态规划番外篇 堆与优先队列">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/javascript" title="javascript">
+                            javascript
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/localstorage" title="localstorage">
+                            localstorage
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%93%B2%E5%AD%A6" title="哲学">
+                            哲学
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%B7%E5%9B%BD%E8%A7%82%E5%BF%B5%E8%AE%BA" title="德国观念论">
+                            德国观念论
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%84%8F%E8%AF%86%E5%BD%A2%E6%80%81" title="意识形态">
+                            意识形态
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%8B%89%E5%BA%B7" title="拉康">
+                            拉康
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6" title="离散数学">
+                            离散数学
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90" title="精神分析">
+                            精神分析
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E9%BB%91%E6%A0%BC%E5%B0%94" title="黑格尔">
+                            黑格尔
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E9%BD%90%E6%B3%BD%E5%85%8B" title="齐泽克">
+                            齐泽克
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2023
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-114001572-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+</body>
+</html>

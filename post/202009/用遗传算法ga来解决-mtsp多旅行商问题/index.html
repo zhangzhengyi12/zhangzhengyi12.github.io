@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="用遗传算法(GA)来解决 MTSP(多旅行商问题)" />
+    <meta property="og:title" content="用遗传算法(GA)来解决 MTSP(多旅行商问题)" />
+    <meta property="twitter:title" content="用遗传算法(GA)来解决 MTSP(多旅行商问题)" />
+    
+
+    
+    <meta name="description" content="我曾赌咒说你美，认为你璀璨；但你却地狱一般黑，夜一般暗">
+    <meta property="og:description" content="我曾赌咒说你美，认为你璀璨；但你却地狱一般黑，夜一般暗" />
+    <meta property="twitter:description" content="我曾赌咒说你美，认为你璀璨；但你却地狱一般黑，夜一般暗" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>用遗传算法(GA)来解决 MTSP(多旅行商问题)-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/202009/%E7%94%A8%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95ga%E6%9D%A5%E8%A7%A3%E5%86%B3-mtsp%E5%A4%9A%E6%97%85%E8%A1%8C%E5%95%86%E9%97%AE%E9%A2%98/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/atom-one-dark.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+    <script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E5%93%B2%E5%AD%A6">哲学</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90">精神分析</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/gist/">Gist</a></li>
+                    
+                        <li><a href="/top/notebook/">Notebooks</a></li>
+                    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        <a class="tag" href="/tags/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95" title="遗传算法">
+                            遗传算法
+                        </a>
+                        
+                        <a class="tag" href="/tags/mtsp-%E5%A4%9A%E6%97%85%E8%A1%8C%E5%95%86%E9%97%AE%E9%A2%98" title="MTSP 多旅行商问题">
+                            MTSP 多旅行商问题
+                        </a>
+                        
+                    </div>
+                    <h1>用遗传算法(GA)来解决 MTSP(多旅行商问题)</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Thursday, September 17, 2020
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#引言">引言</a></li>
+<li><a href="#旅行商问题">旅行商问题</a></li>
+<li><a href="#遗传算法">遗传算法</a>
+<ul>
+<li><a href="#遗传算法的基本概念">遗传算法的基本概念</a></li>
+</ul></li>
+<li><a href="#用遗传算法解决-tsp-问题">用遗传算法解决 TSP 问题</a>
+<ul>
+<li><a href="#表示">表示</a></li>
+<li><a href="#cross-over">cross over</a></li>
+<li><a href="#mutate">mutate</a></li>
+<li><a href="#总体流程">总体流程</a></li>
+</ul></li>
+<li><a href="#用遗传算法解决-mtsp-问题">用遗传算法解决 MTSP 问题</a>
+<ul>
+<li><a href="#k-均值-常规-ga-算法">K 均值 + 常规 GA 算法</a></li>
+<li><a href="#单独使用-ga-算法">单独使用 GA 算法</a>
+<ul>
+<li><a href="#表示-1">表示</a></li>
+<li><a href="#如何生成更优质的下一代">如何生成更优质的下一代</a>
+<ul>
+<li><a href="#随机采样并进行组合突变">随机采样并进行组合突变</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><a href="#code">code</a></li>
+<li><a href="#引用">引用</a></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<h2 id="引言">引言</h2>
+
+<p>本文章会侧重实际运用，给出对于 MTSP 和 TSP 问题的一个 GA 算法，并具有较高可用性的方案。并在最后给出一个可以跑在Web Browser 上的可视化 Demo。</p>
+
+<p>并且会基于问题给出一些我自己的思路和最终结果。</p>
+
+<h2 id="旅行商问题">旅行商问题</h2>
+
+<blockquote>
+<p>旅行商问题（最短路径问题）（英语：travelling salesman problem, TSP）是这样一个问题：给定一系列城市和每对城市之间的距离，求解访问每一座城市一次并回到起始城市的最短回路。它是组合优化中的一个NP困难问题，在运筹学和理论计算机科学中非常重要。
+问题在1930年首次被形式化，并且是在最优化中研究最深入的问题之一。许多优化方法都用它作为一个基准。尽管问题在计算上很困难，但已经有了大量的启发式和精确方法，因此可以完全求解城市数量上万的实例，并且甚至能在误差1%范围内估计上百万个城市的问题。</p>
+</blockquote>
+
+<p>本文要解决的问题是属于旅行商问题的变种<strong>多旅行商问题(MTSP)</strong></p>
+
+<p>也就是求多个旅行商共同从某个起点出发，在各自经过一条汉密尔顿回路之后，回到起点。 <strong>求所有路径长度总和最小的一种走法</strong></p>
+
+<p>常规的回溯算法(也就是穷举)不可能多项式时间内解决该问题(无论是 TSP 还是 MSTP),所以基本没有实用性。所以本文介绍一种利用 GA（遗传算法）解决 MTSP 的方法。</p>
+
+<h2 id="遗传算法">遗传算法</h2>
+
+<blockquote>
+<p>遗传算法（英语：genetic algorithm (GA) ）是计算数学中用于解决最优化的搜索算法，是进化算法的一种。进化算法最初是借鉴了进化生物学中的一些现象而发展起来的，这些现象包括遗传、突变、自然选择以及杂交等等。</p>
+
+<p>遗传算法通常实现方式为一种计算机模拟。对于一个最优化问题，一定数量的候选解（称为个体）可抽象表示为染色体，使种群向更好的解进化。传统上，解用二进制表示（即0和1的串），但也可以用其他表示方法。进化从完全随机个体的种群开始，之后一代一代发生。在每一代中评价整个种群的适应度，从当前种群中随机地选择多个个体（基于它们的适应度），通过自然选择和突变产生新的生命种群，该种群在算法的下一次迭代中成为当前种群。</p>
+</blockquote>
+
+<p>遗传算法是一种仿生学算法，与之类似的还有<strong>蚁群算法</strong>和<strong>萤火虫算法</strong>,他们旨在模拟大自然中的一种现象，在迭代过程中不断趋向更好的结果，相比较而言，GA 是一种实现起来比较简单的算法，所以我采用了该算法来解决 MTSP 问题。</p>
+
+<h3 id="遗传算法的基本概念">遗传算法的基本概念</h3>
+
+<p>下面介绍一下 GA 算法的主要概念，当然这里面的某些概念可能并不是用 GA 算法所必须使用的。事实上我最后的解决方案就没用 Cross over.</p>
+
+<p><strong>population</strong></p>
+
+<p>族群，代表了当前一系列的解，映射到我们的 MTSP 问题中，族群中的一个人口就是一种 MSTP 的解决方案，族群一般会限定数量，比如一个族群里面有500个人口，代表有500个解。</p>
+
+<p><strong>fitness</strong></p>
+
+<p>健康程度，可以认为是这个解的优秀程度，对每个人口的健康程度进行评估，在每次进化过程中，尝试保留更健康的人口里的优秀基因，从而不断逼近最优解</p>
+
+<p><strong>cross over</strong></p>
+
+<p>这个过程类似我们大自然种两个个体的交配过程，汲取父母双方的基因，从而生出一个包涵父母双方特征的孩子。通常来说，我们更倾向于选择更优秀的后代来进行交配</p>
+
+<p><strong>mutate</strong></p>
+
+<p>基因突变，同样是一个仿生学概念，在生成孩子之后，我们可以配合一定的突变概率，对孩子的基因进行某种方式上的突变(比如对基因组进行 swap shuffle)，该方式能够在父母基因的基础之上增加一点变化，从而可能突变出更好基因。</p>
+
+<p><strong>evolution</strong></p>
+
+<p>结合上面的操作，我们将 <code>population</code> 进行健康评估 &gt; cross over &gt; mutate 之后，就能生成新一代的人口，通常来说，这个新一代的人口内部整体健康情况会优于上一代的人口。</p>
+
+<h2 id="用遗传算法解决-tsp-问题">用遗传算法解决 TSP 问题</h2>
+
+<p>我们先别把步子迈的太大，先考虑如何用 GA 解决 TSP 问题。</p>
+
+<p>这里介绍一个视频，我认为讲的很不错，适合入门，建议观看，这里给出 youtube 链接。</p>
+
+<p><a href="https://www.youtube.com/watch?v=M3KTWnTrU_c">Coding Challenge #35.4: Traveling Salesperson with Genetic Algorithm</a></p>
+
+<p>我这里简单介绍下他里面核心的 cross over 以及 mutate 过程</p>
+
+<h3 id="表示">表示</h3>
+
+<p>考虑我们拥有一组点 <code>['a','b','c','d']</code> 我们应该如何表示一种旅行商问题的解?</p>
+
+<p>事实上我们完全可以使用一个按照路径访问顺序放置的一维数组来表示我们的解决方案,比如 <code>['b','a','d','c']</code>代表<code>b &gt; a &gt; d &gt; c</code> 这样一条路径，为了写起来更方便，我们完全可以存储结构上不考虑回路回到起点，只要在计算距离的时候，加上最后一个节点到第一个节点的距离就可以。</p>
+
+<h3 id="cross-over">cross over</h3>
+
+<p>接下来考虑给定 A , B 两个解，如何得出两个解 Cross Over 后的结果。</p>
+
+<p>我们可以先根据数组的长度，生成一个随机的 <code>[i,j]</code> 的区间，先把 A 的 <code>[i,j]</code> 区间内的节点放置到 <code>result</code> 中，然后遍历 B , 把所有不包含在 A[i,j] 内的元素都放置到 <code>result</code>中。</p>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200920150127.png" alt="" /></p>
+
+<h3 id="mutate">mutate</h3>
+
+<p>在得到Cross Over 的结果后，我们可以考虑对其按照突变概率进行一定程度的突变。</p>
+
+<p>我们可以随机抓取两个元素 进行 swap 交换操作。当然你可以考虑随机生成两个区间 swap 两个区间。</p>
+
+<h3 id="总体流程">总体流程</h3>
+
+<ol>
+<li>初始化人口(随机生成路径序列)</li>
+<li>评估每个人口的健康程度 生成 fitness 数组 (需要归一化)</li>
+<li>根据健康程度，在当前族群里面抓取两个父母(越健康，抓取到概率就越大)</li>
+<li>根据两个父母进行 Cross Over 生成后代，并根据一定概率进行基因突变</li>
+<li>重复3,4步骤，直到生成目标的人口数量，完全生成新一代族群</li>
+<li>检查是否达到目标代数，达到则结束，否则继续进入步骤2</li>
+</ol>
+
+<h2 id="用遗传算法解决-mtsp-问题">用遗传算法解决 MTSP 问题</h2>
+
+<h3 id="k-均值-常规-ga-算法">K 均值 + 常规 GA 算法</h3>
+
+<p>其实我一开始解决 MTSP 问题的时候，采用的最初方案是先使用 K 均值分类 算法，先进行聚类，随后对每个类使用上述的 GA 算法进行迭代，但是这个方法有几个无法避免的问题。</p>
+
+<ol>
+<li>K 均值算法每次分类的结果不是特别稳定，这一块可以通过对 K 均值初始随机选点的过程进行优化解决</li>
+<li>每个组最终任务量可能会出现非常大的偏差，导致很难改进成均分任务的多旅行商问题(eq-mtsp)</li>
+<li>由于先进行分组，算法的可扩展性会大大降低，比如不但需要考虑距离上的因素，还要考虑时间，最大里程限制，等等额外的功能。</li>
+</ol>
+
+<p>在完成了第一版的方案后，我开始尝试单纯使用 GA 来解决 MTSP 问题。</p>
+
+<h3 id="单独使用-ga-算法">单独使用 GA 算法</h3>
+
+<h4 id="表示-1">表示</h4>
+
+<p>在思考解决方案之前，我们依旧需要先考虑一下我们应该如何表示多个旅行商，这里给出两种可行的表示，当然这两种方式本质相同，可以互相转化。</p>
+
+<p>我个人更推荐第二种方式，遍历路径起来可能会麻烦一点，但是操作效率更高，而且跟我接下来讲的操作会有直接关联。或者你可以使用冗余的方式，同时存储两种方式（初版算法可以更多的考虑可读性和扩展性，冗余也是可以接受的）。</p>
+
+<p><strong>二维数组</strong></p>
+
+<pre><code class="language-js">let paths = [
+    ['a','d','e'],
+    ['c','b']
+]
+</code></pre>
+
+<p><strong>一维数组+break</strong></p>
+
+<pre><code class="language-js">let paths = ['a','d','e','c','d']
+let breaks = [3,2]
+</code></pre>
+
+<p>breaks数组代表了分类区间，第一条路径包涵三个节点，第二条路径包涵两个节点</p>
+
+<h4 id="如何生成更优质的下一代">如何生成更优质的下一代</h4>
+
+<p>既然是遗传，核心在于如何在当前的人口基础之上生成更健康的下一代。带着这个问题，我自己设想并实现了第一版，但是收敛速度非常不理想，后面我搜索了一些论文，也了解了一些相关实现，试了很多方案，最终找到了一个收敛速度比较理想的方法，这里给出大致步骤。</p>
+
+<h5 id="随机采样并进行组合突变">随机采样并进行组合突变</h5>
+
+<p>该方法直接抛弃掉了 Cross Over 过程，转而单纯的采样优秀的样本进行各种组合突变。</p>
+
+<p>首先我们使用随机采样的方式来获取种群中的优秀基因，按序选择一个大小为10的区间，随后遍历该区间，找出健康程度最高的那个，复制出10个副本，对每个副本进行不同类型的突变</p>
+
+<pre><code class="language-js">  evo() {
+    let newPopulation = []
+    let rdPopIndexs = _.shuffle(this.population.map((v, i) =&gt; i))
+    for (let i = 0; i &lt; this.population.length; i += 10) { // 每次循环都会生成10个
+      // 随机抽取10个元素 找到其中最好的 然后复制出10个副本
+      const bestIndex = this.findBest(rdPopIndexs.slice(i, i + 10), this.fitness)
+      const best = this.population[bestIndex]
+      const bestPops = new Array(10).fill(1).map(() =&gt; best.getCopy())
+
+      // 对10个副本分别进行不同方式的基因突变
+      for (let i = 0; i &lt; 10; i++) {
+        bestPops[i].mutate(i)
+      }
+      newPopulation = newPopulation.concat(bestPops)
+    }
+    this.population = newPopulation
+  }
+</code></pre>
+
+<p>接下来就是组合运用不同类型的突变，所有的突变都基于我们上面说的第二种表示方法，必要时也会对线路进行重新分区，这意味着每条线路内的节点发生变化的同时，线路的长度也可能发生变化。</p>
+
+<pre><code class="language-js">  mutate(i) {
+    // // 第一种方式 选择随机区间然后随机插入
+    // // 复用之间的 break 重新生成 paths
+    if (i === 1) {
+      this.totalStore = this.swapInsert(this.totalStore)
+      this.genPathsByBreakRanges()
+    }
+
+    if (i === 2) {
+      this.totalStore = this.flipInset(this.totalStore)
+      this.genPathsByBreakRanges()
+    }
+
+    if (i === 3) {
+      this.totalStore = this.leftSlideInsert(this.totalStore)
+      this.genPathsByBreakRanges()
+    }
+
+    if (i === 4) {
+      this.totalStore = this.rightSlideInsert(this.totalStore)
+      this.genPathsByBreakRanges()
+    }
+
+    if (i === 5) {
+      this.breaks = this.getRouterRange()
+      this.genPathsByBreakRanges()
+    }
+
+    if (i === 6) {
+      this.totalStore = this.flipInset(this.totalStore)
+      this.breaks = this.getRouterRange()
+      this.genPathsByBreakRanges()
+    }
+
+    if (i === 7) {
+      this.totalStore = this.swapInsert(this.totalStore)
+      this.breaks = this.getRouterRange()
+      this.genPathsByBreakRanges()
+    }
+
+    if (i === 8) {
+      this.totalStore = this.leftSlideInsert(this.totalStore)
+      this.breaks = this.getRouterRange()
+      this.genPathsByBreakRanges()
+    }
+
+    if (i === 9) {
+      this.totalStore = this.rightSlideInsert(this.totalStore)
+      this.breaks = this.getRouterRange()
+      this.genPathsByBreakRanges()
+    }
+}
+</code></pre>
+
+<p>所以我介绍一下基本的突变方法</p>
+
+<pre><code class="language-js">// 在 total router 选择一个随机区间 最后随机插入
+  swapInsert(routers) {
+    const [i, j] = utils.randomSample(0, routers.length, 2)
+    const segment = routers.slice(i, j)
+    routers.splice(i, j - i)
+    const insertIndex = utils.random(0, routers.length - 1)
+    routers.splice(insertIndex, 0, ...segment)
+    return routers
+  }
+
+  // 在 total router 选择一个随机区间 然后反转 最后随机插入
+  flipInset(routers) {
+    const [i, j] = utils.randomSample(0, routers.length, 2)
+    const segment = routers.slice(i, j).reverse()
+    routers.splice(i, j - i)
+    const insertIndex = utils.random(0, routers.length - 1)
+    routers.splice(insertIndex, 0, ...segment)
+    return routers
+  }
+
+  // 在 total router 选择一个随机区间 然后将最右边的元素放到最左边 最后随机插入
+  leftSlideInsert(routers) {
+    const [i, j] = utils.randomSample(0, routers.length, 2)
+    const segment = routers.slice(i, j)
+    routers.splice(i, j - i)
+    segment.unshift(segment.pop())
+    const insertIndex = utils.random(0, routers.length - 1)
+    routers.splice(insertIndex, 0, ...segment)
+    return routers
+  }
+
+  // 在 total router 选择一个随机区间 然后将最右边的元素放到最左边 最后随机插入
+  rightSlideInsert(routers) {
+    const [i, j] = utils.randomSample(0, routers.length, 2)
+    const segment = routers.slice(i, j)
+    routers.splice(i, j - i)
+    segment.push(segment.shift())
+    const insertIndex = utils.random(0, routers.length - 1)
+    routers.splice(insertIndex, 0, ...segment)
+    return routers
+  }
+</code></pre>
+
+<p>然后是获取随机分区以及根据 breaks 进行重新分区方法，这里我做了冗余，也就是同时保存了两种表示方式，后面可以进一步优化性能。</p>
+
+<pre><code class="language-js">  // 获取一个随机化但是具有一定限制的区间
+  getRouterRange() {
+    const upper = (RM.getLocations().length)
+    // fa fb 代表了随机分区的上下限，也就是基于平均值的倍数
+    const fa = upper / config.lineCount * 8
+    const fb = upper / config.lineCount * 0.01
+
+    let a = utils.randomRange(this.totalStore.length, config.lineCount)
+    while (true) {
+      if (a.every(i =&gt; i &lt; fa &amp;&amp; i &gt; fb)) {
+        break
+      } else {
+        a = utils.randomRange(this.totalStore.length, config.lineCount)
+      }
+    }
+    return a
+  },
+  // 根据当前分隔区间和全部路由 重新分配到 paths 二维数组中
+  genPathsByBreakRanges() {
+    this.paths = new Array(this.breaks.length).fill(1).map(() =&gt; new Array())
+    let k = 0
+    for (let i = 0; i &lt; this.breaks.length; i++) {
+      let range = this.breaks[i]
+      while (range--) {
+        this.paths[i].push(this.totalStore[k++])
+      }
+    }
+  }
+</code></pre>
+
+<p>以上的突变方法特别感谢
+<a href="https://github.com/alex-cornejo/mTSP-IPGA">mTSP-IPGA</a> 提供的灵感，实际组合利用起来收敛速度非常快</p>
+
+<h2 id="code">code</h2>
+
+<p><a href="https://github.com/zhangzhengyi12/eq-mtsp">github</a></p>
+
+<p><a href="https://mtsp.yinode.tech/">live demo</a></p>
+
+<h2 id="引用">引用</h2>
+
+<p><a href="https://link.springer.com/chapter/10.1007/978-3-642-15220-7_12">A Novel Approach to Solve Multiple Traveling Salesmen Problem by Genetic Algorithm</a></p>
+
+<p><a href="https://link.springer.com/chapter/10.1007/978-3-642-21705-0_9">Optimization of Multiple Traveling Salesmen Problem by a Novel Representation Based Genetic Algorithm</a></p>
+
+<p>[离散数学及其运用 TSP部分]</p>
+
+<p><a href="https://github.com/alex-cornejo/mTSP-IPGA">mTSP-IPGA</a></p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/202009/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%BA%8C%E7%BB%B4%E5%B9%B3%E9%9D%A2%E4%B8%8A%E5%AF%BB%E6%89%BE%E6%9C%80%E8%BF%91%E7%9A%84%E4%B8%A4%E4%B8%AA%E7%82%B9%E5%88%86%E6%B2%BB%E6%B3%95/" data-toggle="tooltip" data-placement="top" title="如何在二维平面上寻找最近的两个点(分治法)">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/202105/%E6%9C%80%E7%9F%AD%E6%91%98%E8%A6%81%E7%9A%84%E7%94%9F%E6%88%90/" data-toggle="tooltip" data-placement="top" title="最短摘要的生成">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/javascript" title="javascript">
+                            javascript
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/localstorage" title="localstorage">
+                            localstorage
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%93%B2%E5%AD%A6" title="哲学">
+                            哲学
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%B7%E5%9B%BD%E8%A7%82%E5%BF%B5%E8%AE%BA" title="德国观念论">
+                            德国观念论
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%84%8F%E8%AF%86%E5%BD%A2%E6%80%81" title="意识形态">
+                            意识形态
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%8B%89%E5%BA%B7" title="拉康">
+                            拉康
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6" title="离散数学">
+                            离散数学
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90" title="精神分析">
+                            精神分析
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E9%BB%91%E6%A0%BC%E5%B0%94" title="黑格尔">
+                            黑格尔
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E9%BD%90%E6%B3%BD%E5%85%8B" title="齐泽克">
+                            齐泽克
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2023
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-114001572-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+</body>
+</html>

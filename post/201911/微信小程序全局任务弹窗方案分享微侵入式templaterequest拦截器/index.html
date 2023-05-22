@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="微信小程序 全局任务弹窗方案分享(微侵入式) Template &#43; Request 拦截器" />
+    <meta property="og:title" content="微信小程序 全局任务弹窗方案分享(微侵入式) Template &#43; Request 拦截器" />
+    <meta property="twitter:title" content="微信小程序 全局任务弹窗方案分享(微侵入式) Template &#43; Request 拦截器" />
+    
+
+    
+    <meta name="description" content="分享原生小程序关于全局弹窗的实现思路">
+    <meta property="og:description" content="分享原生小程序关于全局弹窗的实现思路" />
+    <meta property="twitter:description" content="分享原生小程序关于全局弹窗的实现思路" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>微信小程序 全局任务弹窗方案分享(微侵入式) Template &#43; Request 拦截器-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201911/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%85%A8%E5%B1%80%E4%BB%BB%E5%8A%A1%E5%BC%B9%E7%AA%97%E6%96%B9%E6%A1%88%E5%88%86%E4%BA%AB%E5%BE%AE%E4%BE%B5%E5%85%A5%E5%BC%8Ftemplaterequest%E6%8B%A6%E6%88%AA%E5%99%A8/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/atom-one-dark.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+    <script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E5%93%B2%E5%AD%A6">哲学</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90">精神分析</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/gist/">Gist</a></li>
+                    
+                        <li><a href="/top/notebook/">Notebooks</a></li>
+                    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                    </div>
+                    <h1>微信小程序 全局任务弹窗方案分享(微侵入式) Template &#43; Request 拦截器</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Friday, November 15, 2019
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#任务弹窗模板部分">任务弹窗模板部分</a></li>
+<li><a href="#引入-template-模板">引入 Template 模板</a></li>
+<li><a href="#修改请求中间件">修改请求中间件</a></li>
+<li><a href="#总结">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+                
+                <p>最近在工作中需要在微信小程序中加入一套任务系统，某些操作将会触发一个任务弹窗</p>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20191115140503.png" alt="" /></p>
+
+<p>整个子任务会比较分散，如果使用小程序的自定义组件系统，可能会导致过于过于偏离 <code>DRY 原则</code> 的代码，在经过一些调研以及和后端的协调之后，最终决定使用一套基于 <code>Request 中间件拦截</code> + <code>template WXML 模板</code> 共同组成的方案，由于微信小程序的限制(无法直接操作 DOM) ，所以不可避免的会拥有轻微的侵入性，不过好在这个代价应该还算是可以接受的。</p>
+
+<h2 id="任务弹窗模板部分">任务弹窗模板部分</h2>
+
+<p>首先需要建立我们的任务弹窗模板</p>
+
+<blockquote>
+<p>/template/missionDialog/index.wxml</p>
+</blockquote>
+
+<pre><code class="language-html">&lt;!-- 任务完成消息提示弹窗 --&gt;
+&lt;template name=&quot;mission&quot;&gt;
+  &lt;view wx:if=&quot;{{showMission}}&quot; class=&quot;mission-dialog-mask&quot;&gt;
+    &lt;view class=&quot;mission-dialog-box&quot;&gt;
+      &lt;image src=&quot;/images/ic-mission-bg.png&quot; class=&quot;bg&quot; /&gt;
+      &lt;view class=&quot;inner&quot;&gt;
+        &lt;view class=&quot;top&quot;&gt;
+          &lt;view class=&quot;title&quot;&gt;— 恭喜您 —&lt;/view&gt;
+          &lt;view class=&quot;text&quot;&gt;{{missionInfo.title}}&lt;/view&gt;
+          &lt;view class=&quot;text&quot;&gt;{{missionInfo.desc}}&lt;/view&gt;
+        &lt;/view&gt;
+        &lt;view class=&quot;style&quot;&gt;
+          &lt;image src=&quot;/images/ic-mission-light.png&quot; class=&quot;light&quot; /&gt;
+          &lt;image src=&quot;/images/ic-mission-ic.png&quot; class=&quot;ic&quot; /&gt;
+        &lt;/view&gt;
+        &lt;view class=&quot;btns {{missionInfo.showKnow ? 'double' : ''}}&quot;&gt;
+          &lt;view bind:tap=&quot;_handleTapMissionClose&quot; class=&quot;btn close&quot;&gt;关闭&lt;/view&gt;
+          &lt;view bind:tap=&quot;_handleTapMissionKnow&quot; class=&quot;btn know&quot; wx:if=&quot;{{missionInfo.showKnow}}&quot;&gt;
+            我知道了
+          &lt;/view&gt;
+        &lt;/view&gt;
+      &lt;/view&gt;
+    &lt;/view&gt;
+  &lt;/view&gt;
+&lt;/template&gt;
+</code></pre>
+
+<p>我们采用 <code>showMission</code> + <code>missionInfo</code> 对象来共同控制整个弹窗。这两个属性将会在所有需要启动该弹窗的页面实例上进行控制。</p>
+
+<h2 id="引入-template-模板">引入 Template 模板</h2>
+
+<p>接下来在所有需要启动任务弹窗的页面中嵌入引用</p>
+
+<pre><code class="language-html">&lt;import  src=&quot;/template/missionDialog/index.wxml&quot;&gt;&lt;/import&gt;
+&lt;template  is=&quot;mission&quot;  data=&quot;{{showMission:showMission,missionInfo:missionInfo}}&quot; /&gt;
+</code></pre>
+
+<h2 id="修改请求中间件">修改请求中间件</h2>
+
+<p>我们的约定是一但某个操作完成了一个目标任务，后端就会在请求结果里面的 task 字段中嵌入任务信息。比如说任务名称，任务奖励。所以我们能够在中间件中统一处理。</p>
+
+<pre><code class="language-js"> return function(appId, url, data, successCallback) {
+    const token = userInfo.getToken()
+    wx.showLoading({
+      title: '处理中'
+    })
+    wx.request({
+      method: method,
+      dataType: 'json',
+      responseType: 'text',
+      header: {
+        token: token,
+        'content-type': 'application/json'
+      },
+      // 该正则调试时使用
+      url: /mock/.test(host) ? `${host}${url}` : `${host}/${appId}${url}`,
+      data: data,
+      success: function(res) {
+       // xxx 某些业务
+        
+       // 先触发请求回调 该干嘛干嘛
+        successCallback(res.data)
+
+        // 如果完成了某个任务 弹出任务弹窗
+        setTimeout(() =&gt; {
+          const pages = getCurrentPages()
+          let context = pages[pages.length - 1]
+          if (res.data.tasks &amp;&amp; res.data.tasks.length &gt; 0) {
+            let taskInfo = res.data.tasks[0]
+            if (!context) {
+              return console.log(`请给${url}添加上下文`)
+            }
+            let title =
+              taskInfo.type === '10'
+                ? `完成${taskInfo.title}任务`
+                : `完成新手任务`
+            let desc =
+              taskInfo.type === '10'
+                ? `影响力+${taskInfo.influenceScore}`
+                : `${taskInfo.title}`
+
+            context._handleTapMissionClose = () =&gt; {
+              context.setData({
+                showMission: false
+              })
+              // 点击按钮 A 之后 xxx
+            }
+            context._handleTapMissionKnow = () =&gt; {
+              context.setData({
+                showMission: false
+              })
+              // 点击按钮 B 之后 xxx
+            }
+            
+            // 显示弹窗
+            context.setData({
+              showMission: true,
+              missionInfo: {
+                title: title,
+                desc: desc,
+                showKnow: true
+              }
+            })
+          }
+        }, 800)
+      },
+      fail: function(res) {
+        console.log(res)
+      },
+      complete: function(res) {
+        if (res.statusCode != 200) {
+          console.log(res)
+        }
+      }
+    })
+  }
+}
+</code></pre>
+
+<p>有两点值得注意</p>
+
+<ol>
+<li>我们可以通过 currentPages 获取页面上下文 从而 setData 来控制弹窗</li>
+<li>setTimeout 的主要目的是为了避免某些操作可能会切换页面，做一定的延迟处理</li>
+</ol>
+
+<h2 id="总结">总结</h2>
+
+<p>总的来说结果还是比较让人满意的，在付出较低的代价的情况下，做到了具有一定扩展性的技术方案</p>
+
+<p>事实上嵌入模板的操作通过手写一个打包器来进行所有页面的注入，但是因为整个项目体量并不是很大，所以还是没有这么做，不过这里还是希望微信能够放开一些打包部分的自定义能力。</p>
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201911/%E5%B0%8F%E7%A8%8B%E5%BA%8Fcanvas%E7%BB%98%E5%9B%BE%E7%94%9F%E6%88%90%E6%B5%B7%E6%8A%A5%E6%8E%92%E9%9B%B7%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/" data-toggle="tooltip" data-placement="top" title="小程序利用Canvas绘图生成海报排雷经验分享">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/202002/%E8%BF%9E%E7%9C%8B%E4%B8%AD%E7%9A%84%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95/" data-toggle="tooltip" data-placement="top" title="连连看中的广度优先搜索算法">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/javascript" title="javascript">
+                            javascript
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/localstorage" title="localstorage">
+                            localstorage
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%93%B2%E5%AD%A6" title="哲学">
+                            哲学
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%B7%E5%9B%BD%E8%A7%82%E5%BF%B5%E8%AE%BA" title="德国观念论">
+                            德国观念论
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%84%8F%E8%AF%86%E5%BD%A2%E6%80%81" title="意识形态">
+                            意识形态
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%8B%89%E5%BA%B7" title="拉康">
+                            拉康
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6" title="离散数学">
+                            离散数学
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90" title="精神分析">
+                            精神分析
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E9%BB%91%E6%A0%BC%E5%B0%94" title="黑格尔">
+                            黑格尔
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E9%BD%90%E6%B3%BD%E5%85%8B" title="齐泽克">
+                            齐泽克
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2023
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-114001572-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+</body>
+</html>

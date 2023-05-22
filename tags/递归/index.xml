@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>递归 on Yinode Blog</title>
+    <link>https://zhangzhengyi12.github.io/tags/%E9%80%92%E5%BD%92/</link>
+    <description>Recent content in 递归 on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 16 Oct 2018 00:20:24 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhangzhengyi12.github.io/tags/%E9%80%92%E5%BD%92/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>分享一个Fib数列实现 [reduce]</title>
+      <link>https://zhangzhengyi12.github.io/post/201810/%E5%88%86%E4%BA%AB%E4%B8%80%E4%B8%AA%E5%BE%88%E9%85%B7%E7%9A%84fib%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Tue, 16 Oct 2018 00:20:24 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201810/%E5%88%86%E4%BA%AB%E4%B8%80%E4%B8%AA%E5%BE%88%E9%85%B7%E7%9A%84fib%E5%AE%9E%E7%8E%B0/</guid>
+      <description>const fib = n =&amp;gt; Array(n) .fill(0) .reduce(pre =&amp;gt; [pre[1], pre[1] + pre[0]], [0, 1])[0] def fib(n): return reduce(lambda x, n: [x[1], x[0]+x[1]], range(n), [0, 1])[0] 性能也非常不错，迭代实现。从 Py 那边偷学的。 帅爆了有没有</description>
+    </item>
+    
+  </channel>
+</rss>

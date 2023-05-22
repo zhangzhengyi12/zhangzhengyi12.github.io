@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SICP on Yinode Blog</title>
+    <link>https://zhangzhengyi12.github.io/tags/sicp/</link>
+    <description>Recent content in SICP on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 13 Nov 2017 00:20:53 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhangzhengyi12.github.io/tags/sicp/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>SICP 计算机程序的构造与解释笔记</title>
+      <link>https://zhangzhengyi12.github.io/post/201711/sicp%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9E%84%E9%80%A0%E4%B8%8E%E8%A7%A3%E9%87%8A%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Mon, 13 Nov 2017 00:20:53 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201711/sicp%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9E%84%E9%80%A0%E4%B8%8E%E8%A7%A3%E9%87%8A%E7%AC%94%E8%AE%B0/</guid>
+      <description>前言 最近一直在学习SICP这本书，基本上结合书与视频一起学习，可以说这真的是一本奇书，他从高阶抽象开始到介绍DSL乃至流，最后又开始讨论la</description>
+    </item>
+    
+  </channel>
+</rss>

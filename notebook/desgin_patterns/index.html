@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="" />
+    <meta property="og:title" content="" />
+    <meta property="twitter:title" content="" />
+    
+
+    
+    <meta name="description" content="我曾赌咒说你美，认为你璀璨；但你却地狱一般黑，夜一般暗">
+    <meta property="og:description" content="我曾赌咒说你美，认为你璀璨；但你却地狱一般黑，夜一般暗" />
+    <meta property="twitter:description" content="我曾赌咒说你美，认为你璀璨；但你却地狱一般黑，夜一般暗" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Yinode Blog</title>
+
+    <link rel="canonical" href="/notebook/desgin_patterns/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/atom-one-dark.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+    <script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E5%93%B2%E5%AD%A6">哲学</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90">精神分析</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/gist/">Gist</a></li>
+                    
+                        <li><a href="/top/notebook/">Notebooks</a></li>
+                    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                    </div>
+                    <h1></h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                                Yinode Blog
+                         
+                        on 
+                        Monday, January 1, 0001
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li><a href="#设计模式">设计模式</a>
+<ul>
+<li><a href="#五大oop基本原则">五大OOP基本原则</a></li>
+<li><a href="#创建型模式">创建型模式</a>
+<ul>
+<li><a href="#abstractfactory-抽象工厂">AbstractFactory (抽象工厂)</a>
+<ul>
+<li><a href="#意图">意图</a></li>
+<li><a href="#适用场景">适用场景</a></li>
+<li><a href="#缺点">缺点</a></li>
+<li><a href="#代码实现">代码实现</a></li>
+</ul></li>
+<li><a href="#builder-生成器">Builder(生成器)</a>
+<ul>
+<li><a href="#适用场景-1">适用场景</a></li>
+<li><a href="#代码实现-1">代码实现</a></li>
+</ul></li>
+<li><a href="#factory-method-工厂方法">Factory Method (工厂方法)</a>
+<ul>
+<li><a href="#适用场景-2">适用场景</a></li>
+<li><a href="#缺点-1">缺点</a></li>
+</ul></li>
+<li><a href="#原型模式">原型模式</a>
+<ul>
+<li><a href="#适用场景-3">适用场景</a></li>
+<li><a href="#缺点-2">缺点</a></li>
+</ul></li>
+<li><a href="#单例模式">单例模式</a>
+<ul>
+<li><a href="#适用场景-4">适用场景</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#结构形模式">结构形模式</a>
+<ul>
+<li><a href="#适配器模式">适配器模式</a>
+<ul>
+<li><a href="#适用场景-5">适用场景</a></li>
+</ul></li>
+<li><a href="#桥接模式">桥接模式</a>
+<ul>
+<li><a href="#适用场景-6">适用场景</a></li>
+</ul></li>
+<li><a href="#组合模式-composite">组合模式(Composite)</a>
+<ul>
+<li><a href="#适用场景-7">适用场景</a></li>
+</ul></li>
+<li><a href="#修饰器模式-decorator">修饰器模式(Decorator)</a>
+<ul>
+<li><a href="#适用场景-8">适用场景</a></li>
+</ul></li>
+<li><a href="#外观模式-facade">外观模式(facade)</a>
+<ul>
+<li><a href="#适用性">适用性</a></li>
+</ul></li>
+<li><a href="#享元模式-flyweight">享元模式(flyweight)</a>
+<ul>
+<li><a href="#适用场景-9">适用场景</a></li>
+</ul></li>
+<li><a href="#代理模式">代理模式</a>
+<ul>
+<li><a href="#适用场景-10">适用场景</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#行为型模式">行为型模式</a>
+<ul>
+<li><a href="#职责链-chain-of-responsibility">职责链(chain of Responsibility)</a>
+<ul>
+<li><a href="#适用场景-11">适用场景</a></li>
+</ul></li>
+<li><a href="#命令模式-command">命令模式(Command)</a>
+<ul>
+<li><a href="#适用场景-12">适用场景</a></li>
+</ul></li>
+<li><a href="#解释器-interpreter">解释器(Interpreter)</a>
+<ul>
+<li><a href="#适用性-1">适用性</a></li>
+</ul></li>
+<li><a href="#迭代器-iterator">迭代器(Iterator)</a>
+<ul>
+<li><a href="#适用场景-13">适用场景</a></li>
+</ul></li>
+<li><a href="#中介者-mediator">中介者(Mediator)</a>
+<ul>
+<li><a href="#适用场景-14">适用场景</a></li>
+</ul></li>
+<li><a href="#备忘录-memento">备忘录(Memento)</a></li>
+<li><a href="#观察者-observer">观察者(Observer)</a>
+<ul>
+<li><a href="#适用场景-15">适用场景</a></li>
+</ul></li>
+<li><a href="#状态-state">状态(State)</a>
+<ul>
+<li><a href="#适用场景-16">适用场景</a></li>
+</ul></li>
+<li><a href="#策略-strategy">策略(Strategy)</a>
+<ul>
+<li><a href="#适用场景-17">适用场景</a></li>
+</ul></li>
+<li><a href="#模板方法-template-method">模板方法(Template Method)</a>
+<ul>
+<li><a href="#适用场景-18">适用场景</a></li>
+</ul></li>
+<li><a href="#访问者-visitor">访问者(Visitor)</a>
+<ul>
+<li><a href="#适用场景-19">适用场景</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<h1 id="设计模式">设计模式</h1>
+
+<h2 id="五大oop基本原则">五大OOP基本原则</h2>
+
+<h2 id="创建型模式">创建型模式</h2>
+
+<h3 id="abstractfactory-抽象工厂">AbstractFactory (抽象工厂)</h3>
+
+<h4 id="意图">意图</h4>
+
+<p><strong>提供一个接口以创建一系列相关或相互依赖的对象，而无需指定它们具体的类。</strong></p>
+
+<p>简单来说就是建立一个<strong>抽象工厂</strong>接口,以及一组继承了<strong>抽象工厂接口</strong>的<strong>具体工厂</strong>，让这些具体的工厂够能相互替换，提供拥有统一接口的<strong>产品</strong>。消除客户端在创建这些产品时候所产生的类耦合现象，同时增强同一类<strong>产品</strong>的依赖关系。</p>
+
+<h4 id="适用场景">适用场景</h4>
+
+<ul>
+<li>一个系统要独立于他的产品的创建、组合和表示(不希望与具体的类产品类耦合)</li>
+<li>一个系统要由多个产品系列中的一个来配置(比如可以轻易切换 macos 风格组件 和 ubuntu 风格组件)</li>
+<li>要强调一系列相关的产品对象的设计以便进行联合适用(工厂能够创建一组相关对象)</li>
+<li>提供一个产品类库，但只想显示它们的接口而不是实现</li>
+</ul>
+
+<h4 id="缺点">缺点</h4>
+
+<p>想要扩展工厂从而生产更多类型的产品会有些困难，因为你不仅需要修改接口，每个具体工厂都需要增加这方面的能力</p>
+
+<h4 id="代码实现">代码实现</h4>
+
+<pre><code class="language-swift">// MARK: Window Product
+
+protocol Window {
+    func close()
+}
+
+
+class MacOSWindow: Window {
+    func close() {
+        // some code
+    }
+}
+
+class UbuntuWindow: Window {
+    func close() {
+        // some code
+    }
+}
+
+// MARK: ScrollBar Product
+
+protocol Scrollbar {
+    func scrollTo(x: Float, y: Float)
+}
+
+class MacOSScrollbar: Scrollbar {
+    func scrollTo(x: Float, y: Float) {
+        // some code
+    }
+}
+
+class UbuntuScrollBar: Scrollbar {
+    func scrollTo(x: Float, y: Float) {
+        // some code
+    }
+}
+
+// Abstract Factory
+
+protocol WidgetFactory {
+    // singleton
+    static var shared: WidgetFactory { get }
+
+    func createWindow() -&gt; Window
+    func createScrollBar() -&gt; Scrollbar
+}
+
+// Concreate Factory
+
+class UbuntuWidgetFactory: WidgetFactory {
+    static let shared: WidgetFactory = UbuntuWidgetFactory()
+
+    func createWindow() -&gt; Window {
+        return UbuntuWindow()
+    }
+
+    func createScrollBar() -&gt; Scrollbar {
+        return UbuntuScrollBar()
+    }
+}
+
+class MacOSWidgetFactory: WidgetFactory {
+    static let shared: WidgetFactory = MacOSWidgetFactory()
+
+    func createWindow() -&gt; Window {
+        return MacOSWindow()
+    }
+
+    func createScrollBar() -&gt; Scrollbar {
+        return MacOSScrollbar()
+    }
+}
+
+
+// MARK: Using Factory create widget
+
+func run(widgetFactory: WidgetFactory) {
+    let window = widgetFactory.createWindow()
+    let scrollBar = widgetFactory.createScrollBar()
+
+    // some install code
+
+    scrollBar.scrollTo(x: 20, y: 50)
+    window.close()
+}
+
+
+run(widgetFactory: MacOSWidgetFactory())
+
+// if u want ubuntu style widget
+
+//run(widgetFactory: UbuntuWidgetFactory())
+</code></pre>
+
+<h3 id="builder-生成器">Builder(生成器)</h3>
+
+<p><strong>将一个复杂对象的构建与他的表示分离，使得同样的构建过程可以创建不同的表示。</strong></p>
+
+<p>Builder 模式，适用于你需要创建一系列复杂对象，Builder 模式可以帮助你把不同情况下的<strong>持续</strong>创建过程封装进一个抽象接口中。这里面有两个关键角色<strong>Builder(生成器)</strong> 和 <strong>Director(导向器)</strong>.</p>
+
+<p>想象一个你需要写一个文本格式转换软件，你已经拥有了一个某种原始格式，比如RTF，接下来需要你把 RTF 转换成多种格式，比如 .text .html 。这时候RTF 文档对象可以被认为是<strong>Director</strong>，而每种格式的构建过程则可以被认为是一个个<strong>Builder</strong>。</p>
+
+<p>通常来说，Builder 相比 Abstract Factory 模式，更加注重对象的逐步构建过程，以及最终返回一个结果。</p>
+
+<h4 id="适用场景-1">适用场景</h4>
+
+<ul>
+<li>当创建复杂对象的算法应该独立于该对象的组成部分以及它们的装配方式时(创建算法放到 Builder 中去,装配过程放到 Director 中去)</li>
+<li>当构造过程必须允许被构造的对象有不同的表示时(有多组类似的 Builder)</li>
+</ul>
+
+<p>Builder 本身能够被不同的 Director 复用，同时 Builder 同样易于扩展，也能提供精细化的构建过程控制</p>
+
+<h4 id="代码实现-1">代码实现</h4>
+
+<pre><code class="language-swift">protocol DocumentBuilder {
+    func convertChar(char: String)
+}
+
+class HTMLDocumentBuilder: DocumentBuilder {
+    var result: String = &quot;&quot;
+
+    func convertChar(char: String) {
+        // some translate code
+        result += char
+    }
+
+    func getHTML() -&gt; String {
+        return result
+    }
+}
+
+class TextDocumentBuilder: DocumentBuilder {
+    var result: String = &quot;&quot;
+
+    func convertChar(char: String) {
+        // some translate code
+        result += char
+    }
+
+    func getText() -&gt; String {
+        return result
+    }
+}
+
+class RTFDocument {
+    var text: String
+
+    init(text: String) {
+        self.text = text
+    }
+
+    func convertToHTML() -&gt; String {
+        let HTMLBuilder = HTMLDocumentBuilder()
+        convertForBuilder(builder: HTMLBuilder)
+        return HTMLBuilder.getHTML()
+    }
+
+    func convertToText() -&gt; String {
+        let textBuilder = TextDocumentBuilder()
+        convertForBuilder(builder: textBuilder)
+        return textBuilder.getText()
+    }
+
+    private func convertForBuilder(builder: DocumentBuilder) {
+        for char in text {
+            builder.convertChar(char: String(char))
+        }
+    }
+}
+
+let rtfDocument = RTFDocument(text: &quot;rtf:xkckjfkdj2h;h2&quot;)
+
+// u can convertTo Any
+rtfDocument.convertToHTML()
+rtfDocument.convertToText()
+
+</code></pre>
+
+<h3 id="factory-method-工厂方法">Factory Method (工厂方法)</h3>
+
+<p><strong>定义一个用于创建对象的接口，让子类决定实例化哪一个类，Factory Method 使一个类的实例化延迟到其子类</strong></p>
+
+<p>工厂模式同样可以用来创建钩子，连接平行的类</p>
+
+<h4 id="适用场景-2">适用场景</h4>
+
+<ul>
+<li>当一个类不知道它所必须创建的对象类型的时候</li>
+<li>当一个希望由它的子类来置顶它所创建的对象的时候</li>
+<li>当类将创建对象的职责委托个多个帮助子类中的某一个，并且你希望将哪一个帮助子类是代理这一信息局部化的时候（子类自己托管创建过程）</li>
+</ul>
+
+<h4 id="缺点-1">缺点</h4>
+
+<p>工厂方法通常来说会需要一个子类以便创建对象，即使你不希望创建一个子类</p>
+
+<p>比较简单，代码就不贴了</p>
+
+<h3 id="原型模式">原型模式</h3>
+
+<p><strong>用原型实例指定创建类型的种类，并且通过拷贝这些原型创建新的对象</strong></p>
+
+<p>原型模式的功能类似于构造工厂。假设你拥有一个框架类，这里面需要根据这个类的特定功能<strong>重复多次</strong>的创建一些关联对象 E，但是这个E你事先并不知道具体是哪个类，你只知道这个 E 实现了某个接口，问题就是你如何在框架类内部创建这个对象呢？很显然构造工厂可以解决这个问题，但是假设这个关联对象有很多子类，那么你就需要创建同样数量的工厂，这会造成大量的类。</p>
+
+<p>原型是另一种解决办法，他让 E 实现 一个 Clone 接口。作为一个原型传入到框架类中，框架类通过调用 clone 方法，来建立对象。</p>
+
+<p>当然我认为其实现在大多数语言都支持函数一等公民，也就是类似箭头函数，或者lambda表达式这样的东西，直接传入一个函数可能更加方便，所以原型的场景相对没有那么广泛。</p>
+
+<h4 id="适用场景-3">适用场景</h4>
+
+<ul>
+<li>当一个系统应该独立于它的产品创建、构成和表示时(不希望调用具体的类来创建对象 )</li>
+<li>当要实例化的类似在运行时指定，例如，通过动态装载。</li>
+<li>为了避免创建一个与产品类平行的工厂类层次时</li>
+<li>当一个类的实例只能有几个不同状态组合中的一种时。</li>
+</ul>
+
+<h4 id="缺点-2">缺点</h4>
+
+<p>需要手动实现clone操作是最大的困难</p>
+
+<h3 id="单例模式">单例模式</h3>
+
+<p><strong>保证一个类仅有一个实例，并提供一个访问它的全局访问点</strong></p>
+
+<p>单例就是可控制的全局+单次实例化。</p>
+
+<h4 id="适用场景-4">适用场景</h4>
+
+<ul>
+<li>当类只能有一个实例而且客户可以从一个众所周知的访问点去访问它时</li>
+<li>当这个唯一实例应该是通过子类化可扩展的，并且客户应该无需更改代码就能使用一个扩展的实例时</li>
+</ul>
+
+<p>通常用静态变量 + 给构造方法加上private权限 就能实现，相对比较复杂的是返回不同的子类</p>
+
+<h2 id="结构形模式">结构形模式</h2>
+
+<h3 id="适配器模式">适配器模式</h3>
+
+<p><strong>将一个类的接口转换成客户希望的另一个接口，从而让接口不兼容的类能够一起工作</strong></p>
+
+<p>适配器的的基本角色有</p>
+
+<ul>
+<li>target 希望兼容的接口目标</li>
+<li>client 某个使用者 他期望一个 target 类型</li>
+<li>Adaptee 一个已经存在的接口 无法兼容 target 类型</li>
+<li>Adapter 适配器，兼容 Target ， 同时内部拥有 Adaptee 能力(对于 client 不可见)</li>
+</ul>
+
+<p>实现方式一般有两种，分别是多继承(接口继承 target 实现继承 adaptee)以及对象组合(继承 target 内部建立 adaptee 对象，进行委托调用)</p>
+
+<h4 id="适用场景-5">适用场景</h4>
+
+<ul>
+<li>如果你想使用一个已经存在的类，但是它的接口不符合你的要求</li>
+<li>你想创建一个可以复用的类，该类可以与其他不相关的类或者不可预见的类协同工作</li>
+<li>你想使用一些已经存在的子类，但是不想继承每个子类来匹配接口，使用对象组合，一个适配器就能完成全部适配工作。</li>
+</ul>
+
+<h3 id="桥接模式">桥接模式</h3>
+
+<p><strong>将抽象部分与它的实现部分分离，使他们可以独立地变化</strong></p>
+
+<p>简单来说就是当整个继承机制只有一棵树的时候，实现和抽象共同存在一个颗树上，维护成本很高，并且对于客户端来说，他需要同时关心实现和抽象，挑选一个合适的子类运行（比如客户端选择一个 名为 TranslateForMacOSWindow 的类 看起来他的抽象是透明的 并且 使用了 Macos 的实现）</p>
+
+<p>而桥接模式就是将原来的一棵树，拆分成两棵继承树，一颗为接口(通常承载更加抽象，高层次的逻辑) ， 一颗为底层实现(通常承载较为底层的操作)，让这两棵树都能自由度展开，同时也能够让客户端自由组装抽象与实现，比如创建一个 TranslateWindow 的类，并且新建一个 MacOSWindow 的具体实现类，指定为  TranslateWindow 的实现对象。</p>
+
+<h4 id="适用场景-6">适用场景</h4>
+
+<ul>
+<li>你不希望在抽象和它的实现之间有一个固定的绑定关系。（比如为了运行时替换其实现部分）</li>
+<li>类的抽象以及它的实现都应该可以通过生成子类的方法加以扩充。bridge 模式用户运行你挑选不同的抽象和实现，并分别对他们进行扩充</li>
+</ul>
+
+<h3 id="组合模式-composite">组合模式(Composite)</h3>
+
+<p>将对象组合成树形结构以表示&rdquo;部分 - 整体&rdquo; 的层次接口。Composite 使得用户对单个对象和组合对象的使用具有一致性。</p>
+
+<p>组合模式的关键在于一个抽象类，他能够同时代表单个对象和单个对象组合起来的复合对象</p>
+
+<h4 id="适用场景-7">适用场景</h4>
+
+<ul>
+<li>你想表示对象的部分 - 整体层次结构</li>
+<li>你希望用户忽略组合对象与单个对象的不同，用户将统一地使用组合结构中的所有对象。</li>
+</ul>
+
+<h3 id="修饰器模式-decorator">修饰器模式(Decorator)</h3>
+
+<p><strong>动态的给一个对象添加一些额外的职责</strong></p>
+
+<p>相比较新增一个子类而言，修饰器更加灵活，能够避免子类的极速扩张，并且让以后的扩展变得更加横向而不是纵向。并且能够能够支持在运行时进行动态的切换，甚至是多重修饰。修饰器模式将会修改一个类的外壳</p>
+
+<p>修饰器模式需要你的目标对象以及修饰器共同继承某个抽象类，修饰器内部对请求进行修饰+转发。</p>
+
+<h4 id="适用场景-8">适用场景</h4>
+
+<ul>
+<li>在不影响其他对象的情况下，以动态、透明度方式给单个对象添加职责。</li>
+<li>处理那些可以撤销的职责</li>
+<li>当你想扩充某个类的功能，但是不希望创建的大量子类的时候</li>
+</ul>
+
+<h3 id="外观模式-facade">外观模式(facade)</h3>
+
+<p><strong>为子系统中的一组接口提供搞一个一致的界面，Facade 模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。</strong></p>
+
+<p>简单来说就是当拥有一个复杂的子系统的时候，直接提供给客户用是非常困难的，因为子系统通常伴随大量的类和概念。所以更好的方式就是利用外观模式创建一个<strong>外观</strong>,这个外观模式内部提供更加简单的接口以供客户调用，从而让子系统易于使用。</p>
+
+<p>外观模式通常可以作为单例存在。</p>
+
+<h4 id="适用性">适用性</h4>
+
+<ul>
+<li>当你想为一个复杂的子系统提供一个简单接口时</li>
+<li>客户程序与抽象类的实现部分存在很大的依赖性,(比如客户为了实现某个操作，需要调用大量的接口，并且可能是需要严格顺序)</li>
+<li>当你希望让子系统内部的类更不耦合的时候。</li>
+</ul>
+
+<h3 id="享元模式-flyweight">享元模式(flyweight)</h3>
+
+<p><strong>运用共享技术有效地支持大量细粒度的对象</strong></p>
+
+<p>享元模式的关键在于区分<strong>内部状态</strong>与<strong>外部状态</strong>通常来说，会由<strong>享元对象</strong>和<strong>上下文对象</strong>组合工作，两者分别对应前面的两种状态。</p>
+
+<p>享元模式的可用性取决于能够轻易的区分抽离内部状态和外部状态，如果外部状态的对象个数等同于利用享元模式之前的对象数量，那么通常无法减少内存的消耗。比较合理的情况的外部状态对象个数通常固定且有限。</p>
+
+<p>为了更好的组合内部状态和外部状态，通常的方式是与组合模式一起使用，建立两棵树，通过某个Key找到其上下文对象</p>
+
+<h4 id="适用场景-9">适用场景</h4>
+
+<ul>
+<li>一个应用程序使用了大量的对象</li>
+<li>完全由于使用大量的对象造成很大的存储开销</li>
+<li>对象的大多数状态都可变为外部状态</li>
+</ul>
+
+<h3 id="代理模式">代理模式</h3>
+
+<p><strong>为其他对象提供一种代理以控制对这个对象的访问</strong></p>
+
+<p>代理模式通常有四种目的</p>
+
+<ul>
+<li>远程代理，为一个对象在不同的地址空间提供局部代理</li>
+<li>虚代理 根据需要创建开销很大的对象</li>
+<li>保护代理 控制对原对象的访问</li>
+<li>智能引用 在访问对象时执行一些附加操作， 比如引用计数</li>
+</ul>
+
+<h4 id="适用场景-10">适用场景</h4>
+
+<p>与目的基本一一对应</p>
+
+<h2 id="行为型模式">行为型模式</h2>
+
+<p>行为型模式关注点在于算法和对象职责的分配。</p>
+
+<h3 id="职责链-chain-of-responsibility">职责链(chain of Responsibility)</h3>
+
+<p><strong>使多个对象都有机会处理请求，从而避免请求的发送者和接受者之间的耦合关系。将这些对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理它为止。</strong></p>
+
+<p>绝大多数的UI平台 其实内部处理用户操作的过程都是一个经典的响应链模式，从最内层的触发节点开始，不断向父节点传递请求</p>
+
+<p>这个链接过程通常可以通过引用达到目的。当然如果你没办法使用，那么手动维护一个链表也是可以的。UI领域的组合模式通常自带父子节点应用。</p>
+
+<h4 id="适用场景-11">适用场景</h4>
+
+<ul>
+<li>有多个对象可以处理一个请求，哪个对象处理该请求运行时自动确定</li>
+<li>你想在不明确指定接受者的情况下，向多个对象中的一个提交一个请求。</li>
+<li>可处理一个请求的对象集合应被动态指定</li>
+</ul>
+
+<h3 id="命令模式-command">命令模式(Command)</h3>
+
+<p><strong>将一个请求封装为一个对象，从而使你可用不同的请求对客户进行参数化,对请求排队或记录请求日志，以及支持可撤销的操作</strong></p>
+
+<p>命令模式提供了一个类似回调函数的机制，面对一些可响应用户操作的工具组件，提前定义好需要传入一个命令对象，一旦用户点击就调用命令对象的excute方法。这个过程类似iOS中的委托回调。而工具组件完全不需要知道这个命令对象的具体子类或者是具体操作。</p>
+
+<p>同时命令对象也能提供撤销以及重做的能力，类似编辑器中的 <ctrl+z> 。只要存储每一个用户操作的命令对象，并且每个命令对象在excute存储一些状态，以便unexcute的时候重新还原操作。只要一个类似链表的结构就能实现无限的重做与撤销功能</p>
+
+<h4 id="适用场景-12">适用场景</h4>
+
+<ul>
+<li>需要抽象出具体的动作，以便让组件嵌入不同的行为(类似回调的功能)</li>
+<li>在不同的时刻指定、排列和执行请求</li>
+<li>支持取消操作</li>
+<li>对一系列的操作记录日志</li>
+<li>实现事务</li>
+</ul>
+
+<h3 id="解释器-interpreter">解释器(Interpreter)</h3>
+
+<p><strong>给定一个语言，定义它的文法的一种表示，并定义一个解释器，这个解释器使用该标识来解释语言中的句子</strong></p>
+
+<p>解释器是一种非常类似于组合模式的一种结构，通过建立语法抽象树的结构并定义表达式基类，通过统一的接口来运行整个句子。</p>
+
+<p>与组合模式最大的特征在于，你是不是用句子的概念看整个结构。</p>
+
+<p>当然，解释器对应的是AST这一层级，如果你想要实现一个解释器或者编译器，依旧需要用状态机(词法分析)+递归下降(语法分析)等手段构成这棵树</p>
+
+<h4 id="适用性-1">适用性</h4>
+
+<p>当有一个语言需要解释执行，并且你可将该语言中的句子表示为一个语法抽象树时，可以使用，并且更加适合文法简单，没有性能要求的情况。</p>
+
+<h3 id="迭代器-iterator">迭代器(Iterator)</h3>
+
+<p><strong>提供一种方法顺序访问一个聚合对象中的各个元素，而又不需要暴露该对象的内部表示</strong></p>
+
+<p>迭代的关键在于分离了集合结构的实现与遍历操作，让我们能够在不需要知道具体内部结构的前提下，得以遍历整个接口。</p>
+
+<p>通过区分<strong>谁来控制迭代过程</strong>可以把迭代器分为两种类型，<strong>内部迭代器</strong>由迭代器自身控制迭代过程，客户不需要主动推进过程，<strong>外部迭代器</strong>需要客户主动推进。</p>
+
+<p>迭代器需要写的非常健壮，因为在迭代过程中对于集合的一些操作，非常有可能造成迭代错误，(重复，跳过)某些元素。</p>
+
+<p>通常来说，使用<strong>多态迭代器</strong>可以减少代码的耦合</p>
+
+<h4 id="适用场景-13">适用场景</h4>
+
+<ul>
+<li>访问一个聚合对象的内容而无需暴露它的内部表示</li>
+<li>支持对聚合对象的多种遍历</li>
+<li>为遍历不同的聚合结构提供一个统一的接口(多态迭代器)</li>
+</ul>
+
+<h3 id="中介者-mediator">中介者(Mediator)</h3>
+
+<p><strong>用一个中介对象来封装一系列的对象交互，中介者使各对象之间不需要先世地相互引用，从而使其耦合松散，而且可以独立的改变他们之间的交互</strong></p>
+
+<p>这个模式看上去有点类似于外观模式，但是核心概念不同，外观模式强调由<strong>Facade</strong>单向调用子系统里面的子类，而中介者是强调同事类(通常是一些平行的对象)单向调用中介者。让中介者统一控制协调所有的同事类，包括持续响应每个同事类的变更。</p>
+
+<p>常见MVC模式里面的Controller就可以被认为是一个中介者，因为通常子view都会通知到controller来进行统一处理。</p>
+
+<p>如果这组同事对象需要和不同的中介者来协同工作，那么建立一个中介者基类可能是更好的办法</p>
+
+<h4 id="适用场景-14">适用场景</h4>
+
+<ul>
+<li>一组对象以定义良好但复杂度方式进行通信，产生的相互依赖关系结构混乱且难以理解</li>
+<li>一个对象引用其他很多对象并且直接与这些对象通信，导致难以复用该对象</li>
+<li>想定制一个分布在多个类中的行为，而又不像生成太多的子类</li>
+</ul>
+
+<h3 id="备忘录-memento">备忘录(Memento)</h3>
+
+<p><strong>在不破坏封装性的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态，这样就可以将对象恢复到原先保存的状态</strong></p>
+
+<p>备忘录提供快速保存对象状态和还原状态的手段，但是通常会带来不可忽视的存储开销，特别是这个开销对于客户端来说不可预见。</p>
+
+<p>适用场景跟功能差不多</p>
+
+<h3 id="观察者-observer">观察者(Observer)</h3>
+
+<p><strong>定义对象间的一种一对多的依赖关系,当一个对象的状态发送改变时，所有依赖于它的对象都得到通知并被自动更新</strong></p>
+
+<p>观察者模式与发布订阅本质上是一种模式，但是我发现网上一般描述的发布订阅模式是观察者模式的一个变种，他弱化了目标的独立性，让更新变得局部(加入key)。这会让这个观察者模式更趋向于多对多订阅，实际上的派发者(触发Notify的角色)与观察者完全解耦，我更偏向于这是一种消息信道，当然这种模式也跟容易被滥用，变得整个更新派发的过程更加混乱。</p>
+
+<h4 id="适用场景-15">适用场景</h4>
+
+<ul>
+<li>一个抽象模式有两个方面，其中一个方面依赖于另一个方面，将这二者封装在独立的对象中，以使它们可以各自独立地改变和复用。</li>
+<li>对一个对象的改变需要同时改变其他对象，而不知道具体有多少对象有待改变</li>
+<li>一个对象必须通知其他对象，而它又不可能假定其他对象是谁。</li>
+</ul>
+
+<h3 id="状态-state">状态(State)</h3>
+
+<p><strong>允许一个对象在其内部状态改变时改变它的行为，对象看起来似乎修改了它的类</strong></p>
+
+<p>状态模式我认为本质就是利用多态特性替换掉状态机。消除状态机的条件语句（或者是表驱动），当然也不可避免的容易造成子类的扩张。</p>
+
+<p>状态模式会把根据状态而产生不同操作的内容放到State对象里面去，并通过State子类实现不同状态下的不同操作，值得注意到是State子类对象通常需要一次性或者重复的去创建，以便切换状态，具体选择那种看具体情况，不过这个问题在弱类型语言里面其实比较容易被解决(比如说js)</p>
+
+<h4 id="适用场景-16">适用场景</h4>
+
+<ul>
+<li>一个对象的行为取决于它的状态，并且它必须在运行时根据状态改变它的行为</li>
+<li>一个操作中拥有大量的条件分支语句，并且这些分支依赖于该对象的状态</li>
+</ul>
+
+<h3 id="策略-strategy">策略(Strategy)</h3>
+
+<p><strong>定义一系列的算法，把它们一个个封装起来，并且使他们可相互替换，本模式使得算法可独立于使用它的客户而变化</strong></p>
+
+<p>同样也是利用多态特性在能够支持不同的算法策略。</p>
+
+<h4 id="适用场景-17">适用场景</h4>
+
+<ul>
+<li>许多相关的类仅仅是行为有异</li>
+<li>需要使用一个算法的不同变体，比如定义一个空间换时间的算法，一个时间换空间的算法</li>
+<li>算法使用客户不应该知道的数据</li>
+<li>一个类定义了多种行为，并且以条件语句的形式出现</li>
+</ul>
+
+<h3 id="模板方法-template-method">模板方法(Template Method)</h3>
+
+<p><strong>定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法让子类可以不改变一个算法的结构就能改变该算法的某个特定步骤</strong></p>
+
+<p>该模式类似于工厂方法，将具体的算法步骤延迟到了子类之中</p>
+
+<p>该方式常用于各种框架和类库之中，用来实现各种各样的钩子，她能实现最基本的控制反转，也就是基类调用子类，底层调用高层。</p>
+
+<h4 id="适用场景-18">适用场景</h4>
+
+<ul>
+<li>一次性实现一个算法的不变部分，让变化的部分让给子类实现</li>
+<li>各子类中公共的行为应该被提取出来并集中到一个共同父类中以避免代码重复</li>
+<li>让子类能够扩展(Hook)</li>
+</ul>
+
+<h3 id="访问者-visitor">访问者(Visitor)</h3>
+
+<p><strong>表示一个作用于某对象结构中的各元素的操作，它使你可以在不改变各元素的类的前提下定义作用于这些元素的新操作。</strong></p>
+
+<p>多态的集中化</p>
+
+<h4 id="适用场景-19">适用场景</h4>
+
+<ul>
+<li>一个对象结构包含很多类对象，它们有不同的接口，而你你想对这些对象实施于具体类的操作</li>
+<li>需要对一个对象结构中的对象进行很多不同并且不相关的操作，而你想避免让这些操作污染这些对象的类</li>
+<li>定义对象结构的类很少改变，但是经常需要在此结构上定义新的操作</li>
+</ul>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/notebook/discrete_mathematics/" data-toggle="tooltip" data-placement="top" title="">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/notebook/data_structures/" data-toggle="tooltip" data-placement="top" title="">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/javascript" title="javascript">
+                            javascript
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/localstorage" title="localstorage">
+                            localstorage
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%93%B2%E5%AD%A6" title="哲学">
+                            哲学
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%B7%E5%9B%BD%E8%A7%82%E5%BF%B5%E8%AE%BA" title="德国观念论">
+                            德国观念论
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%84%8F%E8%AF%86%E5%BD%A2%E6%80%81" title="意识形态">
+                            意识形态
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%8B%89%E5%BA%B7" title="拉康">
+                            拉康
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6" title="离散数学">
+                            离散数学
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90" title="精神分析">
+                            精神分析
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E9%BB%91%E6%A0%BC%E5%B0%94" title="黑格尔">
+                            黑格尔
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E9%BD%90%E6%B3%BD%E5%85%8B" title="齐泽克">
+                            齐泽克
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2023
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-114001572-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+</body>
+</html>

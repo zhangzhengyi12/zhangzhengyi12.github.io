@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="算法" />
+    <meta property="og:title" content="算法" />
+    <meta property="twitter:title" content="算法" />
+    
+
+    
+    <meta name="description" content="我曾赌咒说你美，认为你璀璨；但你却地狱一般黑，夜一般暗">
+    <meta property="og:description" content="我曾赌咒说你美，认为你璀璨；但你却地狱一般黑，夜一般暗" />
+    <meta property="twitter:description" content="我曾赌咒说你美，认为你璀璨；但你却地狱一般黑，夜一般暗" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>算法-Yinode Blog</title>
+
+    <link rel="canonical" href="/tags/%E7%AE%97%E6%B3%95/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/atom-one-dark.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+    <script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E5%93%B2%E5%AD%A6">哲学</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90">精神分析</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/gist/">Gist</a></li>
+                    
+                        <li><a href="/top/notebook/">Notebooks</a></li>
+                    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+<header class="intro-header" style="background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>Yinode Blog </h1>
+                    
+		    <span class="subheading">断裂，就一直断裂</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+  
+<div class="container">
+    <div class="row">
+        
+        
+   	    <div class="
+            col-lg-8 col-lg-offset-1
+            col-md-8 col-md-offset-1
+            col-sm-12
+            col-xs-12
+            post-container
+        ">
+            
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/202105/%E6%9C%80%E7%9F%AD%E6%91%98%E8%A6%81%E7%9A%84%E7%94%9F%E6%88%90/">
+        <h2 class="post-title">
+            最短摘要的生成
+        </h2>
+	
+        <h3 class="post-subtitle">
+            分而治之
+        </h3>
+	
+        <div class="post-content-preview">
+	
+            最近好久没写文章了，大量的时间都花在了刷LeetCode上，最近开始重拾博客。 最短摘要 假设我们拥有一个分词数组W = [w1,w2,w3,w4,w5&hellip;] 并拥有一个query数组
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Wednesday, May 5, 2021
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/202009/%E7%94%A8%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95ga%E6%9D%A5%E8%A7%A3%E5%86%B3-mtsp%E5%A4%9A%E6%97%85%E8%A1%8C%E5%95%86%E9%97%AE%E9%A2%98/">
+        <h2 class="post-title">
+            用遗传算法(GA)来解决 MTSP(多旅行商问题)
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            引言 本文章会侧重实际运用，给出对于 MTSP 和 TSP 问题的一个 GA 算法，并具有较高可用性的方案。并在最后给出一个可以跑在Web Browser 上的可视化 Demo。 并且会
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Thursday, September 17, 2020
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/202009/%E5%A6%82%E4%BD%95%E5%9C%A8%E4%BA%8C%E7%BB%B4%E5%B9%B3%E9%9D%A2%E4%B8%8A%E5%AF%BB%E6%89%BE%E6%9C%80%E8%BF%91%E7%9A%84%E4%B8%A4%E4%B8%AA%E7%82%B9%E5%88%86%E6%B2%BB%E6%B3%95/">
+        <h2 class="post-title">
+            如何在二维平面上寻找最近的两个点(分治法)
+        </h2>
+	
+        <h3 class="post-subtitle">
+            分而治之
+        </h3>
+	
+        <div class="post-content-preview">
+	
+            给定一组在二维空间中的点(数量为 N)，如何快速找出最近的两点? 显然，可以通过遍历所有点之间的距离，然后直接选出这些距离之中的最小值，但是，这
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Thursday, September 3, 2020
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/202008/%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0/">
+        <h2 class="post-title">
+            红黑树的实现
+        </h2>
+	
+        <h3 class="post-subtitle">
+            JavaScript Version
+        </h3>
+	
+        <div class="post-content-preview">
+	
+            红黑树是一种非常高效的数据结构
+        
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Friday, August 14, 2020
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/202007/%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E6%B8%90%E8%BF%9B%E7%AC%A6%E5%8F%B7/">
+        <h2 class="post-title">
+            算法分析中的常见渐进符号
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            最近在重新复习算法，所以翻了下算法导论，查阅了点资料，记录下渐进符号。 O 读作 大 O 拉丁字母 O 描述一个函数数量级的渐近上界 O(g(n)) = f(n) , 存在正常量 c 和
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Sunday, July 12, 2020
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/202004/%E8%AE%A1%E7%AE%97%CF%80-%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B&#43;%E7%A2%B0%E6%92%9E%E8%AE%A1%E6%95%B0&#43;%E5%B7%B4%E5%A1%9E%E5%B0%94/">
+        <h2 class="post-title">
+            计算π [蒙特卡洛&#43;碰撞计数&#43;巴塞尔]
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            仅供娱乐 蒙特卡洛方法 基于统计的方法 发射大量的随机点，通过这个比值就能换算出π的值 至于判断点是否在圆内用简单的通项公式 sqrt((a - x) ^ 2 + (b - y) ^ 2) &lt;=
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Wednesday, May 6, 2020
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/202004/%E8%AE%A1%E7%AE%97%E4%BC%A0%E9%80%92%E9%97%AD%E5%8C%85/">
+        <h2 class="post-title">
+            计算传递闭包 [离散数学]
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            传递闭包 传递闭包、即在数学中，在集合 X 上的二元关系 R 的传递闭包是包含 R 的 X 上的最小的传递关系。 例如，如果 X 是(生或死)人的集合而 R 是关系“为
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Sunday, April 26, 2020
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/202003/%E7%94%9F%E6%88%90%E6%8E%92%E5%88%97%E4%B8%8E%E7%BB%84%E5%90%88-%E5%AD%97%E5%85%B8%E8%BF%AD%E4%BB%A3%E6%B3%95-%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/">
+        <h2 class="post-title">
+            生成排列与组合 [离散数学]
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            前置工具代码 一些前置的工具 下面代码不会再给出 // 求N的阶乘 const factorial = (() =&gt; { var f = [1, 1] var i = 2 return function factorial(n) { if (typeof f[n] != 'undefined') return f[n] var result = f[i - 1] for (; i &lt;= n; i++) f[i] = result =
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Sunday, March 22, 2020
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/202002/a-star-%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95-%E5%B8%B8%E7%94%A8%E4%BA%8E%E6%B8%B8%E6%88%8F%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84%E6%9F%A5%E6%89%BE/">
+        <h2 class="post-title">
+            A Star 搜索算法 常用于游戏中的路径查找
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            非常酷的一个启发式搜索算法，整体类似于dij最短路径算法，只不过加入了预估距离的概念，当然由于博客数据丢失，之前的博客内容没了，不过还好代码
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Tuesday, February 11, 2020
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/202002/%E8%BF%9E%E7%9C%8B%E4%B8%AD%E7%9A%84%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95/">
+        <h2 class="post-title">
+            连连看中的广度优先搜索算法
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            由于博客数据丢失，只剩下了代码。。。。。之前写的MD都没了。。 const gameConfig = { maxLevel: 10// 最大搜索层级 2代表 只搜索经过两次转角能到达的点 } // 简易队列系统 配合
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Saturday, February 1, 2020
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/201909/%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB%E7%AE%97%E6%B3%95%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E5%8D%95%E8%AF%8D%E4%B9%8B%E9%97%B4%E7%9A%84%E7%9B%B8%E4%BC%BC%E5%BA%A6/">
+        <h2 class="post-title">
+            编辑距离算法 - 计算两个单词之间的相似度
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            利用简单的编辑距离，来判断两个拉丁文单词直接的相似度，常用于输入纠错!
+        
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Thursday, September 12, 2019
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/201909/lru%E7%BC%93%E5%AD%98%E7%AE%97%E6%B3%95/">
+        <h2 class="post-title">
+            LRU 缓存算法
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            LRU 是一种 『最久未用优先淘汰』 的缓存管理算法
+        
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Friday, September 6, 2019
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/201909/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0k%E5%9D%87%E5%80%BC%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/">
+        <h2 class="post-title">
+            机器学习 K均值分类算法
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            基础且典型的一种无监督机器学习分类算法
+        
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Friday, September 6, 2019
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/201904/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%9A%84%E5%AE%9E%E7%8E%B0/">
+        <h2 class="post-title">
+            哈希表的实现
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            哈希表 散列表（Hash table，也叫哈希表），是根据键（Key）而直接访问在内存存储位置的数据结构。也就是说，它通过计算一个关于键值的函数
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Sunday, April 21, 2019
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/201903/%E7%AE%97%E6%B3%95%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97%E4%B8%8E01%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/">
+        <h2 class="post-title">
+            最长递增子序列 与 0 1 背包问题 [动态规划]
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            最长递增子序列 在计算机科学中，最长递增子序列（longest increasing subsequence）问题是指，在一个给定的数值序列中，找到一个子序列，使得
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Saturday, March 9, 2019
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/201812/%E5%87%A0%E7%A7%8D%E5%BF%AB%E6%8E%92%E7%9A%84%E5%AE%9E%E7%8E%B0/">
+        <h2 class="post-title">
+            JavaScript 中 几种快排的实现
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            其实也就是前段时间点阮一峰快排事件，正好去看看大家的实现，在这里记录一下，并写一下注释 实现 1 特点 简单 智力经济 性能较差 加随机化比较方便 只要把取
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Thursday, December 13, 2018
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/201810/%E7%AE%97%E6%B3%95%E5%AE%9E%E6%88%98%E6%96%87%E6%9C%AC%E6%A0%A1%E5%AF%B9%E5%B7%A5%E5%85%B7%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E5%BA%8F%E5%88%97/">
+        <h2 class="post-title">
+            算法实战 文本校对工具 最长公共子序列
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            前段时间公司里有需求需要一个文本对比工具，我在网上也收集到了一些资料，找到了一些对比 DEMO，仔细考虑之后恍然大悟，这东西不就是最长公共子序
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Saturday, October 20, 2018
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/201810/%E7%AE%97%E6%B3%95%E6%9C%80%E5%B0%8F%E7%A1%AC%E5%B8%81%E9%97%AE%E9%A2%98%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%AE%97%E6%B3%95/">
+        <h2 class="post-title">
+            最小硬币问题 [动态规划]
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            问题 假设你当前拥有 3 元 6 元 7 元的硬币 数量为无限。问 假设你需要组合出 18 元，如何使硬币的数量最少 分析：我认为这个问题有点类似于 01 背包问题，很明显
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Friday, October 12, 2018
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/201809/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%AE%97%E6%B3%95/">
+        <h2 class="post-title">
+            算法导论笔记 多线程算法
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            多线程算法 相对我来说比较局限，因为 js 是单线程的，所以只做了解，后续如果要用到可以在进行进一步的掌握。 首先来讲，目前的大部分算法都是基于单线程
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Friday, September 28, 2018
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/201809/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%8D%81%E4%BA%8C%E5%85%A8%E7%82%B9%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/">
+        <h2 class="post-title">
+            算法导论笔记  全点最短路径算法
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            复习 在我们之前的学习之中，已经了解三种不同的最短路径算法，他们在某些条件限制下拥有不同的性能 无权图 或者说权重全部相同 可以使用 广度优先搜索(借
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Thursday, September 27, 2018
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/201809/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%95%AA%E5%A4%96%E7%AF%87%E5%A0%86%E4%B8%8E%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/">
+        <h2 class="post-title">
+            算法导论笔记 动态规划番外篇 堆与优先队列
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            最近在学习动态规划的时候发现非常需要优先队列的的基础，所以转而先学习一下优先队列算法。这里就找了比较通用的堆来入手了解优先队列。 堆 首先这里的
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Saturday, September 8, 2018
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/201808/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%8D%81%E4%B8%80%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/">
+        <h2 class="post-title">
+            算法导论笔记 十一 最短路径算法
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            最短路径 最短路径问题是图论研究中的一个经典算法问题，旨在寻找图（由结点和路径组成的）中两结点之间的最短路径。 假设我们拥有一条路径 P P 经过一些
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Friday, August 31, 2018
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/201808/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E5%8D%81%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/">
+        <h2 class="post-title">
+            算法导论笔记 十一 贪心算法 最小生成树
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            图论 最小生成树需要你掌握基本的图论 在书的附录中有介绍，可以先去看看 设 V 为 有向图（v,e）的顶点集 那么遍历这个图的成本为 O(V ^ 2) 如果一个有向图 G
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Tuesday, August 21, 2018
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/201805/%E5%B8%B8%E8%A7%81%E7%9A%84%E5%87%A0%E7%A7%8D%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
+        <h2 class="post-title">
+            几种排序算法
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            最近一直在复习排序算法，也有了不少更深入的解读，拿出来分享一下 冒泡排序 冒泡排序顾名思义，就是将一个个数字冒泡一样的推送到他该去的地方。 冒泡算
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Sunday, July 29, 2018
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/201805/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E4%B8%80%E8%B5%B7%E6%AD%A5/">
+        <h2 class="post-title">
+            算法导论笔记 一 起步
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            算法 什么是算法 算法（algorithm），在数学（算学）和计算机科学之中，为任何良定义的具体计算步骤的一个序列，常用于计算、数据处理和自动推
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Sunday, July 29, 2018
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/201806/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E4%BA%8C%E5%88%86%E6%B2%BB%E6%B3%95/">
+        <h2 class="post-title">
+            算法导论笔记 二 分治法
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            名词解释 多项式级 即 n^2 n^3 可以被认为是可控的算法复杂度级别 指数级 x^n 级别 非常恐怖 分治法 分治法是一种极为重要的算法设计思想，他的核心思想就是把大问题
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Sunday, July 29, 2018
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/201807/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%85%AB%E7%AB%9E%E4%BA%89%E6%80%A7%E5%88%86%E6%9E%90%E8%87%AA%E7%BB%84%E7%BB%87%E8%A1%A8/">
+        <h2 class="post-title">
+            算法导论笔记 八 竞争性分析，自组织表
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            自组织表 先来理解两个概念 在线算法与离线算法 在线算法（也成为线上算法）：是一个处理数据的一种方式，他不要求建立数据结构的时候所有数据源全部就绪
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Sunday, July 29, 2018
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/201806/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E4%B8%89%E4%B8%AD%E4%BD%8D%E6%95%B0%E4%B8%8E%E9%A1%BA%E5%BA%8F%E7%BB%9F%E8%AE%A1/">
+        <h2 class="post-title">
+            算法导论笔记 四 中位数与顺序统计
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            选择算法 所谓的选择算法，其基本规则就是从一个无序的数组中，找到第 i 小的值。 最简单的做法其实就是将数组排序，下标+1 就是它的 i。但是，就算依托
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Sunday, July 29, 2018
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/201806/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%9B%9B%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">
+        <h2 class="post-title">
+            算法导论笔记 四 二叉搜索树
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            二叉树 二叉树本身就是非常常见的一种数据结构了，对于这种数据结构当然有一些基本操作 增删改查最大最小等等，一个二叉树的的基本操作都和二叉树的高度
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Sunday, July 29, 2018
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/201806/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%9B%9B%E5%85%A8%E5%9F%9F%E5%93%88%E5%B8%8C%E5%92%8C%E5%AE%8C%E5%85%A8%E5%93%88%E5%B8%8C/">
+        <h2 class="post-title">
+            算法导论笔记 四 全域哈希和完全哈希
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            HASH 算法的缺陷 首先，我们所了解到的所有简单的复杂的 HASH 函数总会拥有一些薄弱点，即输入一些特殊的 key 会很容易返回相同 KEY 导致多条数据插入到同一个槽中，
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Sunday, July 29, 2018
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/201806/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E4%BA%8C%E5%93%88%E5%B8%8C%E8%A1%A8/">
+        <h2 class="post-title">
+            算法导论笔记 四 哈希表
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            直接寻址 相对于哈希表来说，直接寻址是一种更为简单的方法，即使用一组键集合 K 来代表一组相应的值 U,但是直接寻址受限于一个重要的缺陷，即K可能相
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Sunday, July 29, 2018
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/201807/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E4%B8%83%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90%E8%A1%A8%E7%9A%84%E6%89%A9%E5%A2%9E%E5%8A%BF%E8%83%BD%E6%96%B9%E6%B3%95/">
+        <h2 class="post-title">
+            算法导论 七 平摊分析，表的扩增，势能方法
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            动态表 简单阐述一下动态表的基本思想，先建立一个表，当插入的元素大于表的大小时，建立一个新表（大小为旧表的两倍），并将旧表中的所有数据复制到新
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Saturday, July 21, 2018
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/201807/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E4%B9%9D%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+        <h2 class="post-title">
+            算法导论笔记 九 动态规划
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            动态规划 动态规划（英语：Dynamic programming，简称DP）是一种在数学、管理科学、计算机科学、经济学和生物信息学中使用的，通过
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Saturday, July 21, 2018
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/201807/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E4%BA%94%E6%89%A9%E5%85%85%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%8A%A8%E6%80%81%E6%9C%89%E5%BA%8F%E7%BB%9F%E8%AE%A1%E5%92%8C%E5%8C%BA%E9%97%B4%E6%A0%91/">
+        <h2 class="post-title">
+            算法导论笔记 五 扩充的数据结构、动态有序统计和区间树
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            这一章的主要内容其实是如何利用现有的数据结构来扩充成一个新的数据结构，并让这种新的数据结构具有一些神奇的特性。 动态顺序统计 我们在前面就学习了
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Saturday, July 21, 2018
+    
+    
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="https://zhangzhengyi12.github.io/post/201807/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%85%AD%E8%B7%B3%E8%B7%83%E8%A1%A8/">
+        <h2 class="post-title">
+            算法导论笔记 六 跳跃表
+        </h2>
+	
+        <div class="post-content-preview">
+	
+            跳跃表（skiplists） 跳跃表是一种增强版的链表，他能在O(lgn)的时间内完成搜索。 首先，我们熟知的链表本身具有的特性就是容易删除与增
+       
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Yinode Saturday, July 21, 2018
+    
+    
+    </p>
+
+</div>
+<hr>
+
+
+            
+
+
+
+       	</div>
+        
+
+<div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+    
+    
+    <section>
+        <hr class="hidden-sm hidden-xs">
+        <h5>FEATURED TAGS</h5>
+        <div class="tags">
+             
+            
+                
+                    <a href="/tags/canvas" title="canvas">
+                        canvas
+                    </a>
+                
+            
+                
+            
+                
+                    <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                        chrome扩展
+                    </a>
+                
+            
+                
+                    <a href="/tags/csapp" title="csapp">
+                        csapp
+                    </a>
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    <a href="/tags/github" title="github">
+                        github
+                    </a>
+                
+            
+                
+                    <a href="/tags/javascript" title="javascript">
+                        javascript
+                    </a>
+                
+            
+                
+            
+                
+            
+                
+                    <a href="/tags/localstorage" title="localstorage">
+                        localstorage
+                    </a>
+                
+            
+                
+            
+                
+                    <a href="/tags/nginx" title="nginx">
+                        nginx
+                    </a>
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    <a href="/tags/reactnative" title="reactnative">
+                        reactnative
+                    </a>
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    <a href="/tags/vue.js" title="vue.js">
+                        vue.js
+                    </a>
+                
+            
+                
+                    <a href="/tags/web" title="web">
+                        web
+                    </a>
+                
+            
+                
+            
+                
+            
+                
+                    <a href="/tags/websocket" title="websocket">
+                        websocket
+                    </a>
+                
+            
+                
+            
+                
+                    <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                        函数式编程
+                    </a>
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    <a href="/tags/%E5%93%B2%E5%AD%A6" title="哲学">
+                        哲学
+                    </a>
+                
+            
+                
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                        微信公众号
+                    </a>
+                
+            
+                
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                        微信小程序
+                    </a>
+                
+            
+                
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                        微信浏览器
+                    </a>
+                
+            
+                
+                    <a href="/tags/%E5%BE%B7%E5%9B%BD%E8%A7%82%E5%BF%B5%E8%AE%BA" title="德国观念论">
+                        德国观念论
+                    </a>
+                
+            
+                
+                    <a href="/tags/%E6%84%8F%E8%AF%86%E5%BD%A2%E6%80%81" title="意识形态">
+                        意识形态
+                    </a>
+                
+            
+                
+                    <a href="/tags/%E6%8B%89%E5%BA%B7" title="拉康">
+                        拉康
+                    </a>
+                
+            
+                
+            
+                
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                        数据结构
+                    </a>
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6" title="离散数学">
+                        离散数学
+                    </a>
+                
+            
+                
+                    <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                        算法
+                    </a>
+                
+            
+                
+                    <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                        算法导论
+                    </a>
+                
+            
+                
+                    <a href="/tags/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90" title="精神分析">
+                        精神分析
+                    </a>
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                        计算机原理
+                    </a>
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    <a href="/tags/%E9%BB%91%E6%A0%BC%E5%B0%94" title="黑格尔">
+                        黑格尔
+                    </a>
+                
+            
+                
+                    <a href="/tags/%E9%BD%90%E6%B3%BD%E5%85%8B" title="齐泽克">
+                        齐泽克
+                    </a>
+                
+            
+        </div>
+    </section>
+    
+
+    
+	
+    <section class="visible-md visible-lg">
+	<hr><h5><a href="/top/about">ABOUT ME</a></h5>
+        <div class="short-about">
+            
+            <a href="/top/about">
+               <img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229005935.jpeg" alt="avatar" style="cursor: pointer" />
+            </a>
+            
+            
+                <p>Software Developer</p>
+            
+           
+           <ul class="list-inline"> 
+               
+               <li>
+                   <a href='/tags/%E7%AE%97%E6%B3%95/index.xml' rel="alternate" type="application/rss+xml" title="Yinode Blog" >
+                       <span class="fa-stack fa-lg">
+                           <i class="fa fa-circle fa-stack-2x"></i>
+                           <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                       </span>
+                   </a>
+               </li>
+               
+               
+               
+               
+               
+               
+               <li>
+                   <a target="_blank" href="/eizoniko">
+                       <span class="fa-stack fa-lg">
+                           <i class="fa fa-circle fa-stack-2x"></i>
+                           <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                       </span>
+                   </a>
+               </li>
+               
+               
+               <li>
+                   <a target="_blank" href="https://github.com/zhangzhengyi12">
+                       <span class="fa-stack fa-lg">
+                           <i class="fa fa-circle fa-stack-2x"></i>
+                           <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                       </span>
+                   </a>
+               </li>
+               
+               
+               
+               
+               
+               
+            
+            
+               
+               
+                </ul>
+            </div>
+    </section>
+	
+    
+    
+
+    
+    
+</div>
+
+	</div>
+</div>
+
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='/tags/%E7%AE%97%E6%B3%95/index.xml' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2023
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-114001572-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+</body>
+</html>

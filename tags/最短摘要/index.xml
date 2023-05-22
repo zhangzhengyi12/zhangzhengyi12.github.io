@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>最短摘要 on Yinode Blog</title>
+    <link>https://zhangzhengyi12.github.io/tags/%E6%9C%80%E7%9F%AD%E6%91%98%E8%A6%81/</link>
+    <description>Recent content in 最短摘要 on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 05 May 2021 22:05:54 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhangzhengyi12.github.io/tags/%E6%9C%80%E7%9F%AD%E6%91%98%E8%A6%81/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>最短摘要的生成</title>
+      <link>https://zhangzhengyi12.github.io/post/202105/%E6%9C%80%E7%9F%AD%E6%91%98%E8%A6%81%E7%9A%84%E7%94%9F%E6%88%90/</link>
+      <pubDate>Wed, 05 May 2021 22:05:54 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/202105/%E6%9C%80%E7%9F%AD%E6%91%98%E8%A6%81%E7%9A%84%E7%94%9F%E6%88%90/</guid>
+      <description>最近好久没写文章了，大量的时间都花在了刷LeetCode上，最近开始重拾博客。 最短摘要 假设我们拥有一个分词数组W = [w1,w2,w3,w4,w5&amp;hellip;] 并拥有一个query数组</description>
+    </item>
+    
+  </channel>
+</rss>

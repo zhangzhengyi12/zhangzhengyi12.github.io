@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="一些Web最佳实践的探索" />
+    <meta property="og:title" content="一些Web最佳实践的探索" />
+    <meta property="twitter:title" content="一些Web最佳实践的探索" />
+    
+
+    
+    <meta name="description" content="我曾赌咒说你美，认为你璀璨；但你却地狱一般黑，夜一般暗">
+    <meta property="og:description" content="我曾赌咒说你美，认为你璀璨；但你却地狱一般黑，夜一般暗" />
+    <meta property="twitter:description" content="我曾赌咒说你美，认为你璀璨；但你却地狱一般黑，夜一般暗" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>一些Web最佳实践的探索-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201812/%E6%88%91%E7%9A%84%E5%89%8D%E7%AB%AF%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5anode%E5%8C%BF%E5%90%8D%E8%AE%BA%E5%9D%9Bdjango/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/atom-one-dark.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+    <script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E5%93%B2%E5%AD%A6">哲学</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90">精神分析</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/gist/">Gist</a></li>
+                    
+                        <li><a href="/top/notebook/">Notebooks</a></li>
+                    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/web" title="Web">
+                            Web
+                        </a>
+                        
+                    </div>
+                    <h1>一些Web最佳实践的探索</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Tuesday, December 18, 2018
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#目录结构">目录结构</a></li>
+<li><a href="#拦截器">拦截器</a></li>
+<li><a href="#restful">RESTFul</a></li>
+<li><a href="#组件化系统">组件化系统</a></li>
+<li><a href="#前端预渲染">前端预渲染</a></li>
+<li><a href="#打包优化">打包优化</a></li>
+<li><a href="#gh-pages">Gh-pages</a></li>
+<li><a href="#docker">docker</a></li>
+<li><a href="#代码可读性">代码可读性</a></li>
+<li><a href="#cdn-图片前端直接上传">CDN 图片前端直接上传</a></li>
+<li><a href="#stylus">Stylus</a></li>
+<li><a href="#pwa">PWA</a></li>
+<li><a href="#async-await">Async/await</a></li>
+<li><a href="#总结">总结</a></li>
+<li><a href="#code-preview">CODE &amp; Preview</a></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<p>最近用 Django 整了一个匿名的论坛，包含主题回复点赞，板块，用户等系统，麻雀虽小，但是基本功能还是全的的。但是不对接多可惜啊。</p>
+
+<p>正好这半年多的前端开发经验让我获得了一些最佳实践的灵感，所以正好乘这次机会，干脆写一个不受任何人，不受业务影响的情况下，我心目中的好项目。我想  把所有我新学习到，理解到的，想做的，觉得对项目有优势的东西，进行一个整合，我不希望在这个项目上有任何的业务妥协。</p>
+
+<p>主要围绕了以下几点进行</p>
+
+<ul>
+<li> 明确 干净 统一的目录系统</li>
+<li>请求拦截器的进阶使用</li>
+<li>RESTFul 风格的接口</li>
+<li>Views + components + base 的组件化系统</li>
+<li>前端预渲染</li>
+<li>打包优化</li>
+<li> 更加优雅便捷的部署到 Gh-pages</li>
+<li>docker 虚拟化</li>
+<li>Vue 组件内部可读性</li>
+<li> 后端给签名 前端直接上传到阿里云</li>
+<li>更好的去利用 Stylus 的变量</li>
+<li>PWA 的使用</li>
+<li>全面拥抱 Asyncawait 函数</li>
+</ul>
+
+<p> 接下来我会对我做到的一些事情进行更加详细的解释</p>
+
+<h2 id="目录结构">目录结构</h2>
+
+<pre><code>.
+├── babel.config.js
+├── dist
+├── git-pages-deploy.sh
+├── package.json
+├── public
+├── src
+│   ├── App.vue
+│   ├── api
+│   │   ├── request.js
+│   │   └── urls.js
+│   ├── assets
+│   ├── base
+│   │   └── shortcut-scroll
+│   │       └── shortcut-scroll.vue
+│   ├── common
+│   │   ├── config
+│   │   │   └── config.js
+│   │   ├── mixins
+│   │   │   └── mixins.js
+│   │   └── stylus
+│   │       ├── common.styl
+│   │       └── variable.styl
+│   ├── components
+│   │   ├── header
+│   │   │   └── header.vue
+│   │   ├── plate-nav
+│   │   │   └── plate-nav.vue
+│   │   ├── reply-box
+│   │   │   └── reply-box.vue
+│   │   ├── reply-item
+│   │   │   └── reply-item.vue
+│   │   ├── reply-view
+│   │   │   └── reply-view.vue
+│   │   ├── theme-item
+│   │   │   └── theme-item.vue
+│   │   └── theme-view
+│   │       └── theme-view.vue
+│   ├── main.js
+│   ├── registerServiceWorker.js
+│   ├── router
+│   │   └── index.js
+│   └── views
+│       ├── create-theme
+│       │   └── create-theme.vue
+│       ├── home
+│       │   └── home.vue
+│       ├── layout.vue
+│       ├── login.vue
+│       ├── search
+│       │   └── search.vue
+│       └── theme
+│           └── theme.vue
+├── vue.config.js
+├── yarn-error.log
+└── yarn.lock
+</code></pre>
+
+<p> 这一部分大家的习惯并不一样，但应该做到易于理解，避免特别深度的嵌套，尽可能的扁平化</p>
+
+<h2 id="拦截器">拦截器</h2>
+
+<p> 请求拦截器其实已经用的非常普遍了，这个东西是顺应了 AOP，面向切面编程的思想。我刚进入工作的时候，其实自己写了一个拦截器，但是没了解到 axios 的拦截器，所以重复造了一个不太好用的轮子，说来有点惭愧</p>
+
+<p>这一次，我进一步的使用了 axios 的拦截系统，让他做到了如下功能</p>
+
+<ol>
+<li>当服务器发送错误，或者请求不被允许时，自动调用 Message 组件 来告知用户的错误信息</li>
+<li> 登录拦截器，当请求必须登录时，自动调整到登录页（这个其实非常普遍了）</li>
+<li>自动重发请求（最大次数我设置为 3 次）</li>
+</ol>
+
+<p> 通过这样的一个系统，我能够极大的减轻判断接口错误与否 登录与否等情况检查的负担。让我的注意力能够放到应用的核心上</p>
+
+<pre><code class="language-js">import axios from 'axios'
+import { Message } from 'element-ui'
+import Router from '@/router'
+
+const baseURL =
+  process.env.NODE_ENV === 'development'
+    ? 'https://api.yinode.tech/anode/'
+    : 'https://api.yinode.tech/anode/'
+
+const request = axios.create({
+  baseURL,
+  timeOut: 10000,
+  reponseType: 'json'
+})
+
+// token检查
+request.interceptors.request.use(config =&gt; {
+  const token = localStorage.getItem('token')
+  if (token) {
+    config.headers.token = token
+  }
+  return config
+})
+
+request.defaults.retry = 2
+request.defaults.retryDelay = 3000
+// 错误码检查
+request.interceptors.response.use(
+  res =&gt; {
+    if (res.status === 200) {
+      return res.data
+    }
+    // TOKEN失效 重新登录
+    if (res.status === 401) {
+      Router.push({ name: 'login' })
+    } else {
+      // 其他错误
+      Message({
+        type: 'error',
+        message: res.data.msg
+      })
+      return Promise.reject(res.data.msg)
+    }
+  },
+  err =&gt; {
+    var config = err.config
+    if (!config || !config.retry) return Promise.reject(err)
+    config.__retryCount = config.__retryCount || 0
+
+    if (config.__retryCount &gt;= config.retry) {
+      Message({
+        type: 'error',
+        message: '重复请求次数已达上限，停止请求'
+      })
+      return Promise.reject(err)
+    }
+    config.__retryCount += 1
+
+    var backoff = new Promise(resolve =&gt; {
+      setTimeout(() =&gt; {
+        resolve()
+      }, config.retryDelay || 1)
+    })
+    Message({
+      type: 'error',
+      message: `${(err.response &amp;&amp;
+        err.response.data &amp;&amp;
+        err.response.data.msg) ||
+        '哎呀，请求出错了'}，正在尝试重新请求`
+    })
+    return backoff.then(() =&gt; {
+      return request(config)
+    })
+  }
+)
+
+export default request
+</code></pre>
+
+<h2 id="restful">RESTFul</h2>
+
+<p>这个东西其实需要后端配合，我觉得这个东西还是非常棒的，他充分利用了 HTTP 自身本来就很高的语义化，让整个请求过程变得更加易读易理解。</p>
+
+<p>我主要用了 Django + drf 这个框架写了整个后端系统。作为一个后端菜鸟，我  还是想谈谈我对 Django 的感觉。</p>
+
+<ul>
+<li>ORM 很强大 但让我感觉不透明 有点距离感</li>
+<li>django admin 很牛逼</li>
+<li>写起来感觉会有点笨重</li>
+<li>整体开发效率还是非常不错的。特别是用 ViewSet 来进行 API Path 的自动构建</li>
+</ul>
+
+<p>tips: 其实我们公司的 CODE 依旧是放到  响应结果的 JSON 里面的，但我这次直接利用的 HTTP 的 Status CODE 我觉得这更好 </p>
+
+<p>在前端部分我对于路由也尽可能的去贴近 RESTFul 的风格，比如查看主题详情</p>
+
+<blockquote>
+<p>/app/theme/47</p>
+</blockquote>
+
+<p>我放弃了用 query 传递 ID 的丑陋方式，完全拥抱更加符合资源定位的 URL</p>
+
+<h2 id="组件化系统">组件化系统</h2>
+
+<p>更加明确了整个组件化的概念</p>
+
+<p><strong>Views 是整个系统的核心骨架</strong></p>
+
+<pre><code>── views
+│       ├── create-theme
+│       │   └── create-theme.vue
+│       ├── home
+│       │   └── home.vue
+│       ├── layout.vue
+│       ├── login.vue
+│       ├── search
+│       │   └── search.vue
+│       └── theme
+│           └── theme.vue
+</code></pre>
+
+<p> 我的顶级 Views 其实只有两个，一个是应用的通用布局页面 layout(里面包含了 Header 这样的 components),另外一个是登录组件。</p>
+
+<p>而存活于 layout 组件的 router-view 中的 二级 Views 则被我封装到了同级的文件夹中。</p>
+
+<p><strong>components 应该是可以被  通用的，被复用，拥有一定业务逻辑（少量）的组件</strong></p>
+
+<p><strong>base 应该是没有明确业务逻辑，简单化的小型组件</strong></p>
+
+<p>当然 components 以及 base 类型的组件都应该控制里面的代码量，避免一个组件过于复杂，如果发现代码过多阅读困难，应进行拆分，我目前是控制在 200 行以内， 大部分在 100 行左右。</p>
+
+<h2 id="前端预渲染">前端预渲染</h2>
+
+<p>所谓  预渲染，其实就是在打包完成后，开启这个服务，并通过无头浏览器(没有 GUI)抓取里面的 HTML 结构（具体在页面加载到什么时候开始抓， 可以由你来确定），并输出到你最终打包结果的 HTML 中去。</p>
+
+<p>我这里用了一个 webpack 的 plugin</p>
+
+<p>由于我用了 vue-cli3 所以可以更方便的添加插件</p>
+
+<blockquote>
+<p>vue add prerender-spa</p>
+</blockquote>
+
+<p>接下来在你的项目目录下创建一个<code>.prerender-spa.json</code> 文件</p>
+
+<pre><code class="language-json">{
+  &quot;renderRoutes&quot;: [&quot;/&quot;],
+  &quot;useRenderEvent&quot;: true,
+  &quot;headless&quot;: true,
+  &quot;onlyProduction&quot;: true,
+  &quot;customRendererConfig&quot;: {
+    &quot;renderAfterDocumentEvent&quot;: &quot;now-pre-render&quot;
+  }
+}
+</code></pre>
+
+<p>我目前只需要预渲染根路由，接下来去 Home 组件的 mounted 中触发我的自定义抓取事件，插件就会自动去抓取当前的 HTML 内容。</p>
+
+<pre><code class="language-js">// home.vue
+export default {
+  mounted() {
+    // Now Pre render
+    document.dispatchEvent(new Event('now-pre-render'))
+  }
+}
+</code></pre>
+
+<p>最终输出的 Index.html 中就会有你触发自定义时间时的结构。</p>
+
+<p>通常  你抓取的时机就是你的整个页面骨架已经出来的时候。</p>
+
+<h2 id="打包优化">打包优化</h2>
+
+<p>这里我遇到了几个问题</p>
+
+<p><strong>elementui 全量打包容量太大</strong></p>
+
+<p>解决办法：按需打包</p>
+
+<p>在 babel.confis.js 中 设置如下内容</p>
+
+<pre><code class="language-js">module.exports = {
+  presets: ['@vue/app'],
+  plugins: [
+    [
+      'component',
+      { libraryName: 'element-ui', styleLibraryName: 'theme-chalk' }
+    ]
+  ]
+}
+</code></pre>
+
+<p>并安装 <code>babel-plugin-component</code> 这个插件</p>
+
+<p>接着不要直接引入整个 Element-ui ，用了什么，引入什么。</p>
+
+<pre><code class="language-js">import { Button, Select, Upload, Loading, Form } from 'element-ui'
+
+Vue.use(Form)
+// ... more
+</code></pre>
+
+<p><strong>moment.js 太大</strong></p>
+
+<p>解决方法：删除不必要的本地化时间格式化</p>
+
+<p>利用 Vue-cli webpack 插件暴露手段，注册 Webpack 的过滤组件</p>
+
+<pre><code class="language-js">// vue.config.js
+import webpack from 'webpack'
+module.exports = {
+  baseUrl: process.env.NODE_ENV === 'production' ? '/ANode-forum/' : '/',
+  chainWebpack: config =&gt; {
+    config
+      .plugin('ignore')
+      .use(new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/))
+  }
+}
+</code></pre>
+
+<h2 id="gh-pages">Gh-pages</h2>
+
+<p>我其实相当喜欢这个东西，用来放 Demo SPA 的前端部分都非常合适，这里从 Vue-cli3 的文档中偷学了一招（本来是利用的切换  分支的方式，操作麻烦，而且比较蠢）</p>
+
+<pre><code class="language-bash">#!/usr/bin/env sh
+
+# abort on errors
+set -e
+
+# build
+npm run build
+
+# navigate into the build output directory
+cd dist
+
+echo 'yinode.tech' &gt; CNAME
+
+git init
+git add -A
+git commit -m 'deploy'
+
+# if you are deploying to https://&lt;USERNAME&gt;.github.io
+# git push -f git@github.com:&lt;USERNAME&gt;/&lt;USERNAME&gt;.github.io.git master
+
+# if you are deploying to https://&lt;USERNAME&gt;.github.io/&lt;REPO&gt;
+git push -f git@github.com:zhangzhengyi12/ANode-forum.git master:gh-pages
+
+cd -
+</code></pre>
+
+<p>运行一下这个脚本就自动  打包部署了，同理其他的项目很多都可以利用这个东西。关键是利用了重新 init,之前怎么没想到呢</p>
+
+<h2 id="docker">docker</h2>
+
+<p>其实 python 对于环境的要求比 node.js 高，各种 pip 版本啥的，自带的依赖管理也不是很好用， 部署到服务器上可能会有问题。这里就分享一下我的 Docker 配置</p>
+
+<pre><code class="language-docker"># Dockerfile
+FROM python:3
+ENV PYTHONUNBUFFERED 1
+RUN mkdir /code
+WORKDIR /code
+ADD requirements.text /code/
+RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.text
+ADD . /code/
+
+RUN python3 manage.py migrate
+</code></pre>
+
+<pre><code class="language-yml">version: '3'
+services:
+  web:
+    build: .
+    command: python3 manage.py runserver 0.0.0.0:9528
+    volumes:
+      - .:/code
+    ports:
+      - '8020:9528'
+</code></pre>
+
+<p><strong> 自动构建镜像并守护运行</strong></p>
+
+<blockquote>
+<p>docker-compose up &ndash;build -d</p>
+</blockquote>
+
+<p><strong>持续构建</strong></p>
+
+<blockquote>
+<p>git pull</p>
+
+<p>docker-compose up -d</p>
+</blockquote>
+
+<h2 id="代码可读性">代码可读性</h2>
+
+<p><strong>多用 Vue 的 computed</strong></p>
+
+<p>避免在 模版中 写 <code>v-if=&quot;xxx.length &gt; 0&quot;</code> 这种东西，特别是复杂的判断，一定要写成计算属性 <code>v-if=&quot;isEmptyList&quot;</code> 这样可读性就好了非常多。</p>
+
+<p><strong>避免过多的 IF 嵌套</strong></p>
+
+<p>我基本上都是如果函数运行不下去 尽快 return</p>
+
+<pre><code class="language-js">// good
+function name(params) {
+  if (!params.xx || !params.bb) {
+    return
+  }
+  // go
+}
+// bad
+function name(params) {
+  if (params.xx) {
+    if (params.bb) {
+      // go
+    }
+  }
+}
+</code></pre>
+
+<p>
+可读性会有提高</p>
+
+<p><strong>多用更容易理解的迭代方式</strong></p>
+
+<p>map filter reduce some every 这些东西实在太棒了，写起来真的超级优美好吗，少用那些 For 循环吧，真的不好看，除非你特别需要性能。</p>
+
+<h2 id="cdn-图片前端直接上传">CDN 图片前端直接上传</h2>
+
+<p>这里我借鉴了一个 <a href="https://github.com/sikichan/oss-upload-nodejs">demo</a></p>
+
+<p>非常好用哦，把他放到你的服务器上 以后你的任何项目都可以独立的去调用，很方便。</p>
+
+<h2 id="stylus">Stylus</h2>
+
+<p> 其实大家用这些预编译 CSS 的时候，一定要充分利用这里面的系统哦，其实  我觉得好的 CSS 最难的地方就是高度复用性。整个 CSS 的类名就是一个组件，一个东西的样式只要附着一些比较通用的类名，然后稍微加点细节修改，就能拥有样式。并且能够利用权重覆盖系统，做到灵活，更少的  代码量。低耦合。</p>
+
+<p>其实我觉得 CSS 写得好真的很难。</p>
+
+<p>这次我大量用了主题的颜色 以及一些通用的类名。当然我觉得还能做的更好，继续努力 ！</p>
+
+<h2 id="pwa">PWA</h2>
+
+<p>这个东西的缓存能力实在太强了， 也能够优雅的降级，我找不到特别充分不去用的理由啊。</p>
+
+<p>赶紧去装起来吧。</p>
+
+<h2 id="async-await">Async/await</h2>
+
+<p>很多人说这个可能才是 JS 异步的终极解决方案，真的是超爽，这次我全面使用的 axios 来进行异步操作。</p>
+
+<pre><code class="language-js">export default {
+  async getThemeList() {
+    this.onLoadingThemeList = true
+    try {
+      const res = await this.$axios.get(theme, {
+        params: Object.assign({}, this.themeListOptions, {
+          title: decodeURIComponent(this.keywords)
+        })
+      })
+    } catch (e) {
+      return false
+    } finally {
+      this.onLoadingThemeList = false
+    }
+    if (res.data.length &lt;= 0) {
+      this.themeListIsEnd = true
+    }
+    this.themeList = this.themeList.concat(res.data)
+    this.themeTotal = res.total
+  }
+}
+</code></pre>
+
+<p>我觉得这个是一个比较典型的东西，我觉得是非常优雅的。用了这个之后你的库.js 大约会增加 20kb 我觉得还是非常  划算的。</p>
+
+<blockquote>
+<p>开启 Loading &gt;  请求 &gt; 错误直接返回 &gt; 关闭 Loading &gt; 成功后端数据处理</p>
+</blockquote>
+
+<h2 id="总结">总结</h2>
+
+<p>以上只是我个人的一些最佳实践的处理，欢迎大家讨论，纠正。共同进步，继续努力。</p>
+
+<h2 id="code-preview">CODE &amp; Preview</h2>
+
+<p><a href="https://github.com/zhangzhengyi12/vue-scrollbars">github</a>
+<a href="https://yinode.tech/ANode-forum/#/app/home">预览</a></p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201812/%E5%87%A0%E7%A7%8D%E5%BF%AB%E6%8E%92%E7%9A%84%E5%AE%9E%E7%8E%B0/" data-toggle="tooltip" data-placement="top" title="JavaScript 中 几种快排的实现">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/201812/vue%E6%BA%90%E7%A0%81%E4%B8%AD%E7%BC%96%E7%A8%8B%E6%89%8B%E6%B3%95/" data-toggle="tooltip" data-placement="top" title="Vue源码中编程技巧记录">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/javascript" title="javascript">
+                            javascript
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/localstorage" title="localstorage">
+                            localstorage
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%93%B2%E5%AD%A6" title="哲学">
+                            哲学
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%B7%E5%9B%BD%E8%A7%82%E5%BF%B5%E8%AE%BA" title="德国观念论">
+                            德国观念论
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%84%8F%E8%AF%86%E5%BD%A2%E6%80%81" title="意识形态">
+                            意识形态
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%8B%89%E5%BA%B7" title="拉康">
+                            拉康
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6" title="离散数学">
+                            离散数学
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90" title="精神分析">
+                            精神分析
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E9%BB%91%E6%A0%BC%E5%B0%94" title="黑格尔">
+                            黑格尔
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E9%BD%90%E6%B3%BD%E5%85%8B" title="齐泽克">
+                            齐泽克
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2023
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-114001572-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+</body>
+</html>

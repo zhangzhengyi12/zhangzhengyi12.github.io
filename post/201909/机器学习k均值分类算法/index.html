@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="机器学习 K均值分类算法" />
+    <meta property="og:title" content="机器学习 K均值分类算法" />
+    <meta property="twitter:title" content="机器学习 K均值分类算法" />
+    
+
+    
+    <meta name="description" content="基础且典型的一种无监督机器学习分类算法">
+    <meta property="og:description" content="基础且典型的一种无监督机器学习分类算法" />
+    <meta property="twitter:description" content="基础且典型的一种无监督机器学习分类算法" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>机器学习 K均值分类算法-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201909/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0k%E5%9D%87%E5%80%BC%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/atom-one-dark.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+    <script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E5%93%B2%E5%AD%A6">哲学</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90">精神分析</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/gist/">Gist</a></li>
+                    
+                        <li><a href="/top/notebook/">Notebooks</a></li>
+                    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        <a class="tag" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" title="机器学习">
+                            机器学习
+                        </a>
+                        
+                    </div>
+                    <h1>机器学习 K均值分类算法</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Friday, September 6, 2019
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#向量之间的距离">向量之间的距离</a></li>
+<li><a href="#向量之间的夹角">向量之间的夹角</a></li>
+<li><a href="#核心">核心</a></li>
+<li><a href="#文本分类算法介绍">文本分类算法介绍</a></li>
+<li><a href="#实现">实现</a></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<blockquote>
+<p>k-平均算法（英文：k-means clustering）源于信号处理中的一种向量量化方法，现在则更多地作为一种聚类分析方法流行于数据挖掘领域。k-平均聚类的目的是：把 n 个点（可以是样本的一次观察或一个实例）划分到 k 个聚类中，使得每个点都属于离他最近的均值（此即聚类中心）对应的聚类，以之作为聚类的标准。这个问题将归结为一个把数据空间划分为 Voronoi cells 的问题。</p>
+</blockquote>
+
+<p>学习这个算法的前置知识是<strong>线性代数</strong>领域,你必须了解向量空模型，该算法会将数据转化成一组向量，假设该向量具有 N 维，那么你可以把这个向量看成是在 N 维空间中的一个点，就好比向量 [1,2,3] 可以被看成是三维空间中的一个点。</p>
+
+<p>随后你需要理解如何判断两个向量直接的相似度，我这里给出两种常见的相似度计算方法，这两种方法在结果上是类似的。</p>
+
+<h2 id="向量之间的距离">向量之间的距离</h2>
+
+<p>你可以把两个向量之间的距离看做是多维空间内两个点的距离。</p>
+
+<p>并且向量的距离根据不同的形式可以分为，<strong>曼哈顿距离</strong>  <strong>欧式距离</strong>  <strong>切比雪夫距离</strong></p>
+
+<p>闵氏距离可以表现上述所有距离，只要改变 P 的取值 就能得出不同的距离 p = 1 为曼哈顿 p = 2 为欧式 p=3 为切比雪夫</p>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20190806102152.png" alt="" /></p>
+
+<p>距离越小说明两个向量直接更加类似</p>
+
+<h2 id="向量之间的夹角">向量之间的夹角</h2>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20190806102009.png" alt="" /></p>
+
+<p>夹角越小说明两个向量直接更加类似</p>
+
+<h2 id="核心">核心</h2>
+
+<p>该算法的主要思想就是先 设立 M 个质心 在该算法的初始启动过程中，这几个质心将会从你的所有数据集合中随机挑选，随后执行核心循环</p>
+
+<ol>
+<li><p>把数据挨个归类到离它最近的质心中(这里就会用到向量直接的相似度)</p></li>
+
+<li><p>重新计算每个质心的位置(新的质心位置是该质心下面所有数据向量的平均值)</p></li>
+
+<li><p>重复上述步骤，直到质心移动误差已经达到阈值，结束</p></li>
+</ol>
+
+<h2 id="文本分类算法介绍">文本分类算法介绍</h2>
+
+<p>在这里我要还要介绍一下关于一条文本如何转化为一个向量模型做一些介绍</p>
+
+<p>首先我们需要把文本进行一些基本的处理，分解成一个单词组 比如 [what,is,your,name]</p>
+
+<p>这里面中英文的分词算法事实上是非常不一样的，中文的分词算法更为复杂，比较常用的做法是利用隐马尔可夫模型。</p>
+
+<p>接着我们就可以用向量来代表一个文档 比如我们的整个文档库是这样的一个向量 [1,1,1,1,1,1] 他背后会拥有一个映射表 其中的每个维度其实都代表了一个单词 比如 [what,fuck,am,bitch,cool,big]。这时候我们进入一个文档的时候，就能把他和文档集合的向量进行匹配，生成一个维度相同的文档向量，如 &ldquo;fuck bitch&rdquo; 可以转化为 <a href="注意顺序要对应哦">0,1,0,1,0,0</a>，1代表该词出现，0代表不出现。</p>
+
+<p>但是这种方式其实没有那么的客观，因为某些关键词因为更加的特定，所以应该具有更加的权重，比如一句话里面</p>
+
+<p>&ldquo;what is java spring&rdquo;</p>
+
+<p>这里面 java 与 spring的权重应该需要更高，因为他属于更加特定的词汇。</p>
+
+<p>所以我们可以用IDF来定义单词的权重</p>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20190809131455.png" alt="" /></p>
+
+<p>其中 N 代表文档的数量 df 代表该词汇在整个文档集合中的出现频率，这样一来，该单词出现频率越低，代表该词的特定程度更高。</p>
+
+<h2 id="实现">实现</h2>
+
+<pre><code class="language-js">
+const  _  =  require('loadsh');
+
+// 每一条假设都是一篇文章
+
+const  corpus  =  [
+
+'avatar is fuck game',
+
+'The Java Programer use SpBoot',
+
+'The Java Code is good',
+
+'Do you like fuck game ?',
+
+'do you want play watch dogs game with me?',
+
+];
+
+  
+
+// 求两个向量之间的距离
+
+function  MKD(x, y, p) {
+
+var  sum  =  0;
+
+for (var  i  =  0, len  =  x.length; i  &lt;  len; i++) {
+
+sum  +=  Math.pow(Math.abs(x[i]  -  y[i]), p);
+
+}
+
+return  Math.sqrt(sum);
+
+}
+
+  
+
+// 简单英文分词算法
+
+function  splitWords(str) {
+
+// 拆分
+
+let  lib  =  str.split(/(,|\s)/).filter(v  =&gt;  v  !==  ','  &amp;&amp;  v  !==  ' '  &amp;&amp;  v  !==  '?');
+
+// 去重
+
+return  lib.filter((v, i) =&gt;  lib.indexOf(v) ===  i);
+
+}
+
+  
+
+function  transform(corpus) {
+
+let  corpusLen  =  corpus.length;
+
+let  dict  =  splitWords(corpus.join());
+
+let  result  =  [];
+
+for (const  corpu  of  corpus) {
+
+let  corpuVector  =  [];
+
+for (const  dictWord  of  dict) {
+
+// 未找到 该纬度的值 = 0
+
+if (corpu.indexOf(dictWord) &lt;=  -1) {
+
+corpuVector.push(0);
+
+} else {
+
+// 文档中出现该词的频率
+
+let  df  =  corpus.filter(v  =&gt;  v.indexOf(dictWord)).length  /  corpus.length;
+
+// 计算 IDF
+
+corpuVector.push(Math.log2(corpusLen  /  df));
+
+}
+
+}
+
+// 挂载一下原句 方便查看结果
+
+corpuVector._curpu  =  corpu;
+
+result.push(corpuVector);
+
+}
+
+return  result;
+
+}
+
+  
+
+// 求向量数组的 平均向量
+
+function  vectorsAVG(vectors) {
+
+const  len  =  vectors.length;
+
+const  latitude  =  vectors[0].length;
+
+let  res  =  [];
+
+for (let  i  =  0; i  &lt;  latitude; i++) {
+
+let  sum  =  0;
+
+for (let  j  =  0; j  &lt;  len; j++) {
+
+sum  +=  vectors[j][i];
+
+}
+
+res.push(sum  /  len);
+
+}
+
+return  res;
+
+}
+
+  
+
+// 把我们亲爱的样本转换成向量数组 其中每个 item 代表了每个句子的向量
+
+// 向量的纬度等于 所有的句子 去重 去特殊符号 之后 单词个数总和
+
+let  vectors  =  transform(corpus);
+
+  
+
+/*
+
+这个算法的名称是 K 均值（K-Means）聚类算法，
+
+它让我们可以在一个任意多的数据上，
+
+得到一个事先定好群组数量（K）的聚类结果。
+
+1. 从 N 个数据对象中随机选取 k 个对象作为质心，这里每个群组的质心定义是，群组内所有成员对象的平均值。因为是第一轮，所以第 i 个群组的质心就是第 i 个对象，而且这时候我们只有这一个组员。
+
+2. 对剩余的对象，测量它和每个质心的相似度，并把它归到最近的质心所属的群组。这里我们可以说距离，也可以说相似度，只是两者呈现反比关系。
+
+3. 重新计算已经得到的各个群组的质心。这里质心的计算是关键，如果使用特征向量来表示的数据对象，那么最基本的方法是取群组内成员的特征向量，将它们的平均值作为质心的向量表示
+
+4. 迭代上面的第 2 步和第 3 步，直至新的质心与原质心相等或相差之值小于指定阈值，算法结束。
+
+*/
+
+function  KMeans(k, vectors) {
+
+// 初始质心 与 group 对应
+
+const  centroids  =  _.shuffle(vectors).slice(0, k);
+
+let  group;
+
+// 初始误差
+
+let  thresHolder  =  100;
+
+while (thresHolder  &gt;  0.001) {
+
+group  =  new  Array(k).fill(1).map(() =&gt;  []);
+
+// 计算每个目标与与当前所有质心的距离
+
+for (const  corpu  of  vectors) {
+
+let  min  =  Infinity;
+
+let  minCentroidIndex  =  0;
+
+centroids.forEach((centroid, index) =&gt; {
+
+let  len  =  MKD(corpu, centroid, 2);
+
+if (len  &lt;  min) {
+
+min  =  len;
+
+minCentroidIndex  =  index;
+
+}
+
+});
+
+// 把单个 corpu 放置到对应最短欧式距离 group 里
+
+group[minCentroidIndex].push(corpu);
+
+}
+
+  
+
+// 重新计算每个质❤️
+
+// 为每个 group 的中心点
+
+let  maxThresHolder  =  0;
+
+for (let  i  =  0; i  &lt;  k; i++) {
+
+let  temp  =  centroids[i];
+
+centroids[i]  =  vectorsAVG(group[i]);
+
+maxThresHolder  =  Math.max(maxThresHolder, MKD(temp, centroids[i], 2));
+
+}
+
+// 误差为所有质心里面最大的那一个
+
+thresHolder  =  maxThresHolder;
+
+}
+
+console.log('完成分类');
+
+group.forEach((g, i) =&gt; {
+
+console.log(`分类${i}:`);
+
+g.forEach(v  =&gt; {
+
+console.log(v._curpu);
+
+});
+
+console.log('-------');
+
+});
+
+}
+
+  
+
+KMeans(2, vectors);
+
+</code></pre>
+
+<p>K均值分类属于<strong>无监督机器学习</strong>算法，简单来说就是无监督机器学习算法的运行结果是未知的，你只能绝对分成几个类，并不能指定每个类的主题。</p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201908/%E5%AD%97%E5%85%B8%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0/" data-toggle="tooltip" data-placement="top" title="字典树的实现">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/201909/lru%E7%BC%93%E5%AD%98%E7%AE%97%E6%B3%95/" data-toggle="tooltip" data-placement="top" title="LRU 缓存算法">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/javascript" title="javascript">
+                            javascript
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/localstorage" title="localstorage">
+                            localstorage
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%93%B2%E5%AD%A6" title="哲学">
+                            哲学
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%B7%E5%9B%BD%E8%A7%82%E5%BF%B5%E8%AE%BA" title="德国观念论">
+                            德国观念论
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%84%8F%E8%AF%86%E5%BD%A2%E6%80%81" title="意识形态">
+                            意识形态
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%8B%89%E5%BA%B7" title="拉康">
+                            拉康
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6" title="离散数学">
+                            离散数学
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90" title="精神分析">
+                            精神分析
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E9%BB%91%E6%A0%BC%E5%B0%94" title="黑格尔">
+                            黑格尔
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E9%BD%90%E6%B3%BD%E5%85%8B" title="齐泽克">
+                            齐泽克
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2023
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-114001572-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+</body>
+</html>

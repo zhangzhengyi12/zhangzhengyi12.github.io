@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>企业微信 on Yinode Blog</title>
+    <link>https://zhangzhengyi12.github.io/tags/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1/</link>
+    <description>Recent content in 企业微信 on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 03 Aug 2021 22:56:40 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhangzhengyi12.github.io/tags/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>H5跳转微信小程序(个人微信&#43;企业微信)的实现</title>
+      <link>https://zhangzhengyi12.github.io/post/202108/h5%E8%B7%B3%E8%BD%AC%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%AA%E4%BA%BA%E5%BE%AE%E4%BF%A1&#43;%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Tue, 03 Aug 2021 22:56:40 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/202108/h5%E8%B7%B3%E8%BD%AC%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%AA%E4%BA%BA%E5%BE%AE%E4%BF%A1&#43;%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+      <description>从H5打开小程序是一个非常常见的功能，但是实现起来也颇有一些坑，作为过来人给大家指指路。 我将分别讲述如何在个人微信以及企业微信中的自带浏览器</description>
+    </item>
+    
+  </channel>
+</rss>

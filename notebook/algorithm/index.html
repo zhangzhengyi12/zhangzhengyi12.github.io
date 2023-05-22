@@ -1,0 +1,3578 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="" />
+    <meta property="og:title" content="" />
+    <meta property="twitter:title" content="" />
+    
+
+    
+    <meta name="description" content="我曾赌咒说你美，认为你璀璨；但你却地狱一般黑，夜一般暗">
+    <meta property="og:description" content="我曾赌咒说你美，认为你璀璨；但你却地狱一般黑，夜一般暗" />
+    <meta property="twitter:description" content="我曾赌咒说你美，认为你璀璨；但你却地狱一般黑，夜一般暗" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Yinode Blog</title>
+
+    <link rel="canonical" href="/notebook/algorithm/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/atom-one-dark.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+    <script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E5%93%B2%E5%AD%A6">哲学</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90">精神分析</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/gist/">Gist</a></li>
+                    
+                        <li><a href="/top/notebook/">Notebooks</a></li>
+                    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                    </div>
+                    <h1></h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                                Yinode Blog
+                         
+                        on 
+                        Monday, January 1, 0001
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li><a href="#review">Review</a>
+<ul>
+<li><a href="#复杂度计算的几种方式">复杂度计算的几种方式</a>
+<ul>
+<li><a href="#递归树方法">递归树方法</a></li>
+<li><a href="#主方法">主方法</a></li>
+</ul></li>
+<li><a href="#数组">数组</a></li>
+<li><a href="#链表">链表</a></li>
+<li><a href="#栈">栈</a></li>
+<li><a href="#队列">队列</a></li>
+<li><a href="#递归">递归</a></li>
+<li><a href="#排序算法比较">排序算法比较</a></li>
+<li><a href="#二分查找">二分查找</a></li>
+<li><a href="#跳表">跳表</a></li>
+<li><a href="#散列表">散列表</a></li>
+<li><a href="#哈希">哈希</a></li>
+<li><a href="#二叉树">二叉树</a>
+<ul>
+<li><a href="#顺序存储">顺序存储</a></li>
+<li><a href="#链式存储">链式存储</a></li>
+<li><a href="#遍历">遍历</a></li>
+<li><a href="#平衡二叉树">平衡二叉树</a></li>
+<li><a href="#红黑树">红黑树</a></li>
+</ul></li>
+<li><a href="#堆">堆</a>
+<ul>
+<li><a href="#堆排序">堆排序</a></li>
+<li><a href="#堆的应用">堆的应用</a></li>
+</ul></li>
+<li><a href="#图">图</a></li>
+<li><a href="#广度优先搜索">广度优先搜索</a></li>
+<li><a href="#深度优先搜索">深度优先搜索</a></li>
+<li><a href="#字符串匹配">字符串匹配</a></li>
+<li><a href="#单模式字符串匹配">单模式字符串匹配</a>
+<ul>
+<li><a href="#多模式字符串匹配">多模式字符串匹配</a></li>
+</ul></li>
+<li><a href="#trie树">Trie树</a></li>
+<li><a href="#动态规划">动态规划</a></li>
+<li><a href="#位运算">位运算</a>
+<ul>
+<li><a href="#常见二进制操作操作">常见二进制操作操作</a></li>
+<li><a href="#常用的位运算操作">常用的位运算操作</a></li>
+<li><a href="#进阶位运算操作">进阶位运算操作</a></li>
+</ul></li>
+<li><a href="#贪心">贪心</a></li>
+<li><a href="#回溯算法">回溯算法</a></li>
+<li><a href="#并查集">并查集</a></li>
+<li><a href="#布隆过滤器">布隆过滤器</a></li>
+</ul></li>
+<li><a href="#算法">算法</a>
+<ul>
+<li><a href="#排序">排序</a>
+<ul>
+<li><a href="#冒泡排序">冒泡排序</a></li>
+<li><a href="#插入排序">插入排序</a></li>
+<li><a href="#选择排序">选择排序</a></li>
+<li><a href="#快速排序">快速排序</a></li>
+<li><a href="#归并排序">归并排序</a></li>
+<li><a href="#计数排序">计数排序</a></li>
+<li><a href="#三路快排">三路快排</a></li>
+</ul></li>
+<li><a href="#统计">统计</a>
+<ul>
+<li><a href="#寻找无序数组内的第k大的数">寻找无序数组内的第k大的数</a></li>
+</ul></li>
+<li><a href="#分治">分治</a>
+<ul>
+<li><a href="#分治法算法复杂度计算">分治法算法复杂度计算</a></li>
+</ul></li>
+<li><a href="#链表-1">链表</a>
+<ul>
+<li><a href="#跳跃表的实现">跳跃表的实现</a></li>
+<li><a href="#链表的反转">链表的反转</a></li>
+<li><a href="#链表的中点">链表的中点</a></li>
+<li><a href="#环的判断">环的判断</a></li>
+<li><a href="#两个有序链表合并">两个有序链表合并</a></li>
+<li><a href="#删除链表的从后往前第n个节点">删除链表的从后往前第N个节点</a></li>
+</ul></li>
+<li><a href="#栈-1">栈</a>
+<ul>
+<li><a href="#基于链表的栈">基于链表的栈</a></li>
+</ul></li>
+<li><a href="#队列-1">队列</a>
+<ul>
+<li><a href="#基于链表的队列">基于链表的队列</a></li>
+<li><a href="#基于数组的循环队列">基于数组的循环队列</a></li>
+</ul></li>
+<li><a href="#二分查找-1">二分查找</a></li>
+<li><a href="#简单二分查找">简单二分查找</a></li>
+<li><a href="#一些变种">一些变种</a>
+<ul>
+<li><a href="#利用二分查找求平方根">利用二分查找求平方根</a></li>
+</ul></li>
+<li><a href="#二叉搜索树">二叉搜索树</a>
+<ul>
+<li><a href="#求最大最小节点">求最大最小节点</a></li>
+<li><a href="#前驱和后继节点">前驱和后继节点</a></li>
+</ul></li>
+<li><a href="#红黑树-1">红黑树</a></li>
+<li><a href="#堆和堆排序">堆和堆排序</a>
+<ul>
+<li><a href="#利用堆构成优先队列">利用堆构成优先队列</a></li>
+</ul></li>
+<li><a href="#其他">其他</a>
+<ul>
+<li><a href="#用二进制模拟加法">用二进制模拟加法</a></li>
+<li><a href="#牛顿法求平方根">牛顿法求平方根</a></li>
+</ul></li>
+<li><a href="#散列表-1">散列表</a>
+<ul>
+<li><a href="#类v8的hash实现">类V8的Hash实现</a></li>
+</ul></li>
+<li><a href="#字符串搜索算法">字符串搜索算法</a>
+<ul>
+<li><a href="#bm-搜索算法">BM 搜索算法</a></li>
+<li><a href="#kmp-匹配算法">KMP 匹配算法</a></li>
+</ul></li>
+<li><a href="#回溯算法-1">回溯算法</a>
+<ul>
+<li><a href="#8皇后问题">8皇后问题</a></li>
+<li><a href="#01背包问题-重量版-回溯解法">01背包问题 重量版 回溯解法</a></li>
+<li><a href="#01背包问题-重量-价值-只能选一次-回溯算法">01背包问题 重量+价值 只能选一次 回溯算法</a></li>
+<li><a href="#求排列组合">求排列组合</a></li>
+</ul></li>
+<li><a href="#动态规划-1">动态规划</a>
+<ul>
+<li><a href="#01背包纯重量">01背包纯重量</a></li>
+<li><a href="#01背包重量限制-最大价值">01背包重量限制 + 最大价值</a></li>
+<li><a href="#莱文斯坦编辑距离距离">莱文斯坦编辑距离距离</a></li>
+<li><a href="#最长公共子序列-lcs">最长公共子序列 LCS</a></li>
+</ul></li>
+<li><a href="#图-1">图</a>
+<ul>
+<li><a href="#dij-单源最短路径">Dij 单源最短路径</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<h1 id="review">Review</h1>
+
+<h2 id="复杂度计算的几种方式">复杂度计算的几种方式</h2>
+
+<h3 id="递归树方法">递归树方法</h3>
+
+<p>递归树方法的核心就是构造一个子任务分解树，然后对每个节点的复杂度进行汇总分析，尝试找出规律。下面是一颗常见的归并排序的递归树。</p>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200928162922.png" alt="" /></p>
+
+<p>fib数列会相对麻烦一点。每个节点的复杂度其实是一次加法。
+然后可以根据每次子任务的分解情况计算出这个树的最终高度是多少。</p>
+
+<p><img src="https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200928163005.png" alt="" /></p>
+
+<h3 id="主方法">主方法</h3>
+
+<p>适用于满足递推关系的算法</p>
+
+<p>$$
+f(n) = af(n/b) + cn^d <br />
+其中 n = b^k ，k是一个正整数，a &gt;= 1,c 和 d 是实数 \
+满足c是正的且b是非负的
+$$</p>
+
+<p>$$
+如果 a &lt; b^d 那么 f(n) = O(n^d)
+$$</p>
+
+<p>$$
+如果 a = b^d 那么 f(n) = O(n^dlogn)
+$$</p>
+
+<p>$$
+如果 a &gt; b^d 那么 f(n) = O(n^{log_ba})
+$$</p>
+
+<p>举个例子，归并排序满足公式 $f(n) = 2f(n/2) + 1 * n^1$</p>
+
+<p>$a = 2 并且 a = 2^1$ 所以可以得到复杂度 $O(n^1logn) = O(nlogn)$</p>
+
+<h2 id="数组">数组</h2>
+
+<p>一种线性表结构，连续内存的，直接通过下标访问地址
+访问 O(1) 插入和删除O(n)
+容易被CPU缓存加速</p>
+
+<p>想要实现一个更好的类数组容器，那么动态伸缩非常重要</p>
+
+<p>访问快，但是插入和删除效率低，适合变动不激烈的数据</p>
+
+<h2 id="链表">链表</h2>
+
+<p>一种线性表结构，离散的内存块
+访问O(n) 插入删除O(1)</p>
+
+<p>访问慢，但是删除和插入效率非常高</p>
+
+<h2 id="栈">栈</h2>
+
+<p>一种操作受限的线性表，先进后出，从实现方式上可以分为<strong>顺序栈</strong>和<strong>链式栈</strong></p>
+
+<h2 id="队列">队列</h2>
+
+<p>一种操作受限的线性表，先进先出，从实现方式上分为<strong>顺序队列</strong>,<strong>链式队列</strong>，<strong>循环队列</strong></p>
+
+<p>循环队列判断已满的方法为 (tail + 1) % n === head</p>
+
+<p>阻塞队列就是一种生产消费者模型，并发队列是线程安全的队列</p>
+
+<p>无界队列可能导致过长时间的等待，或者占用大量内存，基于循环队列的有界队列更加合适</p>
+
+<h2 id="递归">递归</h2>
+
+<p>递归要注意两个问题，重复计算和堆栈溢出</p>
+
+<h2 id="排序算法比较">排序算法比较</h2>
+
+<table>
+<thead>
+<tr>
+<th align="left">排序算法</th>
+<th>复杂度</th>
+<th>原地排序</th>
+<th>是否稳定</th>
+<th>基于比较</th>
+<th>特点</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">冒泡排序</td>
+<td>O(n ^ 2)</td>
+<td>原地排序</td>
+<td>稳定</td>
+<td>基于比较</td>
+<td></td>
+</tr>
+
+<tr>
+<td align="left">插入排序</td>
+<td>O(n ^ 2)</td>
+<td>原地排序</td>
+<td>稳定</td>
+<td>基于比较</td>
+<td>比冒泡轻量级很多</td>
+</tr>
+
+<tr>
+<td align="left">选择排序</td>
+<td>O(n ^ 2)</td>
+<td>原地排序</td>
+<td>不稳定</td>
+<td>基于比较</td>
+<td>不是稳定排序，相比冒泡和插入没有优势</td>
+</tr>
+
+<tr>
+<td align="left">归并排序</td>
+<td>O(nlogn)</td>
+<td>非原地排序</td>
+<td>稳定</td>
+<td>基于比较</td>
+<td>从上到下</td>
+</tr>
+
+<tr>
+<td align="left">快速排序</td>
+<td>O(nlogn)</td>
+<td>原地排序</td>
+<td>不稳定</td>
+<td>基于比较</td>
+<td>从下到上，可以通过随机化pivot改善最差情况</td>
+</tr>
+
+<tr>
+<td align="left">桶排序</td>
+<td>O(m * k * logk) k是每个桶内的平均元素数 m是桶个数</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td><div style="width:100px">对数据有要求，必须能分到m个桶里面去，而且每个桶自带顺序，适合外部排序</div></td>
+</tr>
+
+<tr>
+<td align="left">计数排序</td>
+<td>O(n)</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td><div style="width:100px">本质是桶排序的特殊情况(每个桶内部元素都是相同) 只能用在范围不大的情况下，如果数据范围k大于数据个数很多就不合适，而且要求非负整数</div></td>
+</tr>
+
+<tr>
+<td align="left">基数排序</td>
+<td>O(kn) 如果k是一个常数 可以认为是n</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td><div style="width:100px">需要比较的数据具有位特性，而且高位权重碾压低位，每个位的比较可以利用计数排序或者桶排序</div></td>
+</tr>
+</tbody>
+</table>
+
+<p>小规模数据用插入排序，大规模可以用快排</p>
+
+<h2 id="二分查找">二分查找</h2>
+
+<p>二分查找的速度非常快，每次都能把任务砍半，二分查找必须依赖顺序表结构，一般就是数组，并且必须有序！</p>
+
+<p><strong>复杂度</strong></p>
+
+<blockquote>
+<p>$O(logn)$</p>
+</blockquote>
+
+<p><strong>二分查找需要注意可能出错的点</strong></p>
+
+<ol>
+<li>循环退出条件 low&lt;=high</li>
+<li>mid更新 mid = low + (high - low) / 2</li>
+<li>low 和 high 的更新</li>
+</ol>
+
+<p>四种变种很重要
+<strong>查找第一个值等于给定值的元素</strong>
+<strong>查找最后一个值等于给定值的元素</strong>
+<strong>查找最后一个小于等于给定值的元素</strong>
+<strong>查找第一个大于等于给定值的元素</strong></p>
+
+<p>数量太小徒增复杂度，数据量太大会导致数据占用内存太多(1G连续内存事实上压力已经很大了)，也不合适。</p>
+
+<p>但是相对于散列表和二叉树这种结构，还是相对比较省内存的，比较只是存储的数组.</p>
+
+<h2 id="跳表">跳表</h2>
+
+<p>链表+多级索引结构就是跳表，他牺牲了空间换取时间，查询复杂度O(logn)</p>
+
+<p>每一层索引结构的节点数量是下一层的一半</p>
+
+<p><strong>复杂度</strong></p>
+
+<blockquote>
+<p>查询/插入/删除  $O(logn)$</p>
+</blockquote>
+
+<p>插入到时候要随机出这个节点会被索引到第几层。删除的时候也要删除这个节点的所有索引节点。</p>
+
+<p>随机函数对跳跃表单性能影响很大</p>
+
+<p>跳跃表相比红黑树而言，最大的特点是实现起来简单，而且能够支持<strong>区间查找</strong>,这是相比红黑树最大的优势</p>
+
+<blockquote>
+<p>跳跃表可以很好的跟散列表结合起来使用，集合两者的优势</p>
+</blockquote>
+
+<h2 id="散列表">散列表</h2>
+
+<p>散列表用的是数组支持按照下标随机访问数据的特性，所以散列表其实就是数组的一种扩展，由数组演化而来。可以说，如果没有数组，就没有散列表。</p>
+
+<p><strong>复杂度</strong></p>
+
+<blockquote>
+<p>查询/插入/删除  $O(1)$</p>
+</blockquote>
+
+<p><strong>解决散列冲突</strong></p>
+
+<p>散列冲突有如下解决方式</p>
+
+<ul>
+<li>开放寻址法（线性探测，二次探测，再Hash法） 在装载因子比较高的情况下 非常容易冲突，而且对于删除数据需要特殊标注 适合装载因子不高，数据量小的情况</li>
+<li>链表法 冲突了内部就放个链表，对装载因子没有依赖，在冲突几率很高的情况下，可以考虑换成跳表或者红黑树，降低查询时间 适合数据量比较大的情况</li>
+</ul>
+
+<p>构建一个散列表需要注意如下</p>
+
+<ul>
+<li>根据装载因子做好动态扩容机制（可以考虑穿插扩容，非一次性，降低阻塞情况）</li>
+<li>HASH函数必须均匀分配 用公开HASH可能是更好的选择 MurmurHash</li>
+</ul>
+
+<p>散列表本身访问删除都很快，但是对应顺序遍历很乏力，而链表访问很慢，但是顺序遍历非常快。所以散列表可以跟链表很好的结合起来。
+结合起来一个链表元素可以拥有next和hnext两个指针，分别完成作为普通链表内的连接，和作为HASH表冲突情况下的连接。</p>
+
+<h2 id="哈希">哈希</h2>
+
+<p>哈希的一些用途</p>
+
+<ol>
+<li>安全加密 利用单向特性避免明文存储原始数据 比如数据库密码</li>
+<li>唯一标识 利用哈希算法快速判断重复，比如对网页URL进行HASH，来避免重复抓取</li>
+<li>数据校验 对一些大数据库进行HASH签名，判断是否和云端一致</li>
+<li>散列函数 用于散列表的Index计算</li>
+<li>数据分片 把大块的数据进行分片，每个片分配到不同的机器上去</li>
+<li>分布式系统，利用取余分配到不同的机器上，如果动态增扩容，可以用哈希环</li>
+</ol>
+
+<h2 id="二叉树">二叉树</h2>
+
+<p>二叉树是一种非线表数据结构。</p>
+
+<p><strong>满二叉树</strong></p>
+
+<p>一个二叉树叶子节点都在最底层，并且除了叶子节点之外，每个节点都有左右两个子节点,最大特点就是每一层上的节点数都是最大节点数</p>
+
+<p><strong>完全二叉树</strong></p>
+
+<p>一个二叉树叶子节点都在最后两层，最后一层的叶子节点都靠左排列，并且除了最后一层，其他层的节点数都要最大</p>
+
+<p>完全二叉树的主要意义在于，面对<strong>顺序存储</strong>的情况，完全二叉树不会浪费空间</p>
+
+<p>二叉树有两种存储方式，分别是</p>
+
+<h3 id="顺序存储">顺序存储</h3>
+
+<p>利用数组来存储二叉树，根节点的索引为i = 1 / 左节点的索引为 i * 2 / 右节点的索引为 i * 2 + 1</p>
+
+<p>面对相对静态的完全二叉树，可以使用，否则还是用链式比较好</p>
+
+<p>堆其实就是一种完全二叉树</p>
+
+<h3 id="链式存储">链式存储</h3>
+
+<p>利用离散的内存区块存储二叉树。</p>
+
+<h3 id="遍历">遍历</h3>
+
+<pre><code class="language-js">void preOrder(Node* root) {
+  if (root == null) return;
+  print root // 此处为伪代码，表示打印root节点
+  preOrder(root-&gt;left);
+  preOrder(root-&gt;right);
+}
+
+void inOrder(Node* root) {
+  if (root == null) return;
+  inOrder(root-&gt;left);
+  print root // 此处为伪代码，表示打印root节点
+  inOrder(root-&gt;right);
+}
+
+void postOrder(Node* root) {
+  if (root == null) return;
+  postOrder(root-&gt;left);
+  postOrder(root-&gt;right);
+  print root // 此处为伪代码，表示打印root节点
+}
+</code></pre>
+
+<h3 id="平衡二叉树">平衡二叉树</h3>
+
+<p>平衡二叉树就是看起来左右比较对称的二叉树，只要树的高度不比 $log_2n$ 高很多，其实都算平衡二叉树</p>
+
+<h3 id="红黑树">红黑树</h3>
+
+<p>红黑树就是一种平衡二叉树。</p>
+
+<p><strong>复杂度</strong></p>
+
+<blockquote>
+<p>查找/插入/删除  $O(logn)$</p>
+</blockquote>
+
+<h2 id="堆">堆</h2>
+
+<p>堆是一种特殊的树，需要满足如下两个条件</p>
+
+<ul>
+<li>一颗完全二叉树</li>
+<li>堆中的每一个节点的值都大于等于(或者小于等于)其子树中每一个节点的值</li>
+</ul>
+
+<p>可以分为<strong>最大堆</strong>和<strong>最小堆</strong></p>
+
+<p>堆支持如下操作</p>
+
+<ol>
+<li>插入 插入元素到末尾，然后进行自底向上的堆化</li>
+<li>删除 删除堆顶元素，然后把最后一个元素放置到堆顶 进行自上到下的堆化</li>
+<li>初始建堆</li>
+</ol>
+
+<p><strong>复杂度</strong></p>
+
+<blockquote>
+<p>插入/删除 $O(logn)$ 插入删除的核心都是堆化操作</p>
+
+<p>初始建堆 $O(nlogn) 精确O(n)$</p>
+</blockquote>
+
+<h3 id="堆排序">堆排序</h3>
+
+<p>堆排序分为两个步骤，建堆和排序，其中建堆的复杂度为 $O(n)$ , 排序过程要进行n次删除堆顶元素操作，这个部分复杂度是 $O(nlogn)$，所以最终复杂度为 $O(nlogn)$。</p>
+
+<p>虽然堆排序和快速排序拥有相同的复杂度，但是其实跑起来因为过多的交换操作，实际性能会比快速排序差。并且整体数据访问比较跳跃，不适合CPU缓存。</p>
+
+<h3 id="堆的应用">堆的应用</h3>
+
+<p>主要方向有构建优先队列和TopK问题</p>
+
+<p><strong>构建优先级队列</strong></p>
+
+<p>利用堆可以构建一个优先级队列。</p>
+
+<p>比如说100个有序小文件合并问题，就可以构建一个大小为100的堆，从每个小文件里面取第一个子数据，进行建堆。然后每次都取堆顶元素，写入到最终文件里，然后把堆顶元素对应的小文件里面再取一个文件，进行插入，这样每次获取一个子数据的成本就是 $O(logn)$</p>
+
+<p>还有比如Dij最短路径算法，也同样需要一个优先级队列</p>
+
+<p><strong>TopK问题</strong></p>
+
+<p>TopK问题分为<strong>静态数据</strong>和<strong>动态数据</strong></p>
+
+<p>静态数据就是给你一个大小为N的数组，要求求这个数组里面最大或者最小的K个元素，如果是K个最大数据，那么就可以维护大小为K的最小堆。扫描数据每个项，如果大于堆顶元素，直接删除堆顶元素，然后插入这个项。</p>
+
+<p>动态数据可以是每次插入数据到原始集合的时候，都去动态维护这个堆的情况，维护方式和上面的方式其实是相同的。</p>
+
+<p><strong>求中位数</strong></p>
+
+<p>这个情况通常适用于动态数据集合，普通静态数据用快排思想做分治查找就可以</p>
+
+<p>维护两个堆，分别为最大堆和最小堆，其中最大堆存储我们集合中前半部分数据，最小堆存储后半部分，其中最小堆的所有数据都小于最大堆。</p>
+
+<p>如果新加入的数据小于等于大顶堆的堆顶元素，我们就将这个新数据插入到大顶堆；否则，我们就将这个新数据插入到小顶堆。</p>
+
+<p>并且需要考虑平衡的问题，如果n偶数，那么两者数量都应该是 $n / 2$。如果是奇数，那么大顶堆的数量是 $floor(n / 2) + 1$ 小顶堆是 $floor(n/2)$。所以要进行两个堆之间元素的移动来保持性质。</p>
+
+<h2 id="图">图</h2>
+
+<p>图的存储方式有两种<strong>邻接矩阵</strong>和<strong>邻接表</strong>
+邻接矩阵适合不适合稀疏图</p>
+
+<h2 id="广度优先搜索">广度优先搜索</h2>
+
+<p>利用队列遍历即可，队列内部放置的是所有已经被访问，但是所有相连顶点还没有没处理的节点。注意需要做重复访问检测</p>
+
+<p><strong>复杂度</strong></p>
+
+<blockquote>
+<p>$O(E)$</p>
+</blockquote>
+
+<h2 id="深度优先搜索">深度优先搜索</h2>
+
+<p>一般利用递归实现，要处理好已经访问的标识，和found标签，避免递归问题重复。</p>
+
+<p><strong>复杂度</strong></p>
+
+<blockquote>
+<p>$O(E)$</p>
+</blockquote>
+
+<h2 id="字符串匹配">字符串匹配</h2>
+
+<h2 id="单模式字符串匹配">单模式字符串匹配</h2>
+
+<p>常见算法</p>
+
+<ol>
+<li>BF 暴力匹配</li>
+<li>BM 基于好后缀 尽量一次性多移动位数， 需要提前计算suffix</li>
+<li>KMP 基于好前缀+坏字符 和BM算法原理类似</li>
+</ol>
+
+<h3 id="多模式字符串匹配">多模式字符串匹配</h3>
+
+<p>AC自动机，类似KMP的多模式版本，本质是在字典树的基础之构建失败指针。</p>
+
+<h2 id="trie树">Trie树</h2>
+
+<p>也叫字典树或者前缀树,其本质在于把重复的前缀在树上进行合并，从而降低搜索时间。</p>
+
+<p><strong>复杂度</strong></p>
+
+<blockquote>
+<p>构建 $O(n)$ n = 所有字符串长度总和
+查询 $O(k)$ k = 查询字符串的长度</p>
+</blockquote>
+
+<p>如果说对内存没有要求或者树的平均高度比较低，可以使用数组存储所有子节点。但是数组存储有个比较致命的内存利用率较低的问题。</p>
+
+<p>所以面对内存比较紧张或者字符串集很大的情况(比如中文常用汉字特别多)，可以把存储子子结构变成跳表，散列表，红黑树等结构，从而降低内存消耗，并且保留相对较好的查询时间。</p>
+
+<p><strong>字典树的应用场景</strong></p>
+
+<ol>
+<li>字符集太大，要么浪费内存要么浪费时间 只能二选一</li>
+<li>字符串必须大量重合，比如很适合拉丁文</li>
+<li>用了指针，访问起来不适合CPU缓存</li>
+</ol>
+
+<p>所以字典树场景并没有那么多，可能红黑树或者散列表更加合适</p>
+
+<h2 id="动态规划">动态规划</h2>
+
+<p>动态规划需要满足<strong>一个模型</strong>和<strong>三个特征</strong></p>
+
+<p>所谓一个模型，就是多阶段决策模型，可以把我们的问题分成一系列具体的阶段，每个阶段都可以计算出这个阶段的最优解。最终不断向后推导，直到产生最终期望的最优解。</p>
+
+<ol>
+<li>最优子结构，问题的最优解包涵了子问题的最优解</li>
+<li>无后效性，我们只关心前面阶段的状态，不关心状态到底是怎么计算出来的，并且一旦某个子问题的状态确定，无论之后的决策阶段如何变化，都不会影响之前子问题的状态的正确性</li>
+<li>重复子问题，这个可以通过画递归树来进行判断。</li>
+</ol>
+
+<p><strong>动态规划的解决思路</strong></p>
+
+<ol>
+<li>状态转移表法，这种方法本质就是填表格，通常可能是一维或二维数组，通过对于问题的分析，我们建立表格模型，在这个表格上不断通过i-1 j-1区域内的值进行计算，但是通常要注意哨兵。</li>
+<li>状态转移方程，就是找出状态转移方程，然后通过<strong>迭代递推</strong>或者<strong>递归+备忘录</strong>来解决，具体要看情况，递归可能更加简单。</li>
+</ol>
+
+<h2 id="位运算">位运算</h2>
+
+<h3 id="常见二进制操作操作">常见二进制操作操作</h3>
+
+<pre><code>x ^ 0 = 0
+x ^ 1s = ~x
+x ^ (~x) = 1s
+x ^ x = 0
+a ^ b = c =&gt; a ^ c = b , b ^ c = a
+a ^ b ^ c = a ^ (b ^ c) = (a ^ b) ^ c
+</code></pre>
+
+<h3 id="常用的位运算操作">常用的位运算操作</h3>
+
+<pre><code>x &amp; 1 == 1 | == 0 判断奇偶性 查看最后一位是0还是1
+x = x &amp; (x - 1) 让最低位的1变成0
+x &amp; -x 得到最低位的1 (-x 就是按位取反然后+1变成补码)
+</code></pre>
+
+<!-- 000001 移动4位
+010100
+101011
+ -->
+
+<h3 id="进阶位运算操作">进阶位运算操作</h3>
+
+<ul>
+<li><code>x &amp; (~0 &lt;&lt; n)</code> 将x 最右边的 n 位清零</li>
+<li><code>(x &gt;&gt; n) &amp; 1</code> 获取 X 的 第 n 位</li>
+<li><code>x &amp; (1 &lt;&lt; (n-1))</code> 获取 x 的 第 n 位的幂值</li>
+<li><code>x | (1 &lt;&lt; n)</code> 把 x 的 第 n 位 设为 1</li>
+<li><code>x &amp; (~(1 &lt;&lt; n))</code> 把 x 的 第 n 位 设为 0</li>
+<li><code>x &amp; ((1 &lt;&lt; n) - 1)</code> 将 x 最高位至第 n 位清零</li>
+<li><code>x &amp; (~((1 &lt;&lt; (n+1)) - 1))</code> 将 x 的第 n 位到第0位清零 清零</li>
+</ul>
+
+<h2 id="贪心">贪心</h2>
+
+<p>贪心本质是动态规划的一个特殊情况，把重复子问题变成贪心选择性，也就是说贪心算法会强调<strong>局部最优解构成全局最优解</strong></p>
+
+<h2 id="回溯算法">回溯算法</h2>
+
+<p>回溯的本质就是暴力枚举，但是通过合理的剪枝可以降低复杂度，一般来说就是面对不可能的case,直接在递归过程中return，避免继续递归调用</p>
+
+<h2 id="并查集">并查集</h2>
+
+<pre><code class="language-js">class QuickUnionUF {
+  constructor(n) {
+    this.roots = Array(n)
+      .fill()
+      .map((v, i) =&gt; i)
+  }
+
+  findRoot(i) {
+    let root = i
+    while (this.roots[root] != root) {
+      root = this.roots[root]
+    }
+    while (this.roots[i] !== i) {
+      let temp = this.roots[i]
+      this.roots[i] = root
+      i = temp
+    }
+    return root
+  }
+
+  isConnected(p, q) {
+    return this.findRoot(p) === this.findRoot(q)
+  }
+
+  union(p, q) {
+    let pr = this.findRoot(p)
+    this.findRoot(q)
+    this.roots[q] = pr
+  }
+}
+
+</code></pre>
+
+<h2 id="布隆过滤器">布隆过滤器</h2>
+
+<p>在允许一定错误率的情况下对大量数据进行判重</p>
+
+<h1 id="算法">算法</h1>
+
+<h2 id="排序">排序</h2>
+
+<h3 id="冒泡排序">冒泡排序</h3>
+
+<pre><code class="language-js">function bubbleSort(arr) {
+  let n = arr.length
+  if (n &lt;= 1) {
+    return arr
+  }
+
+  for (let i = 0; i &lt; n; i++) {
+    let flag = true
+    for (let j = 0; j &lt; n - i - 1; j++) {
+      if (arr[j] &gt; arr[j + 1]) {
+        flag = false
+        let temp = arr[j]
+        arr[j] = arr[j + 1]
+        arr[j + 1] = temp
+      }
+    }
+    if (flag) {
+      break
+    }
+  } 
+
+  return arr
+}
+</code></pre>
+
+<h3 id="插入排序">插入排序</h3>
+
+<pre><code class="language-js">function insertSort(arr) {
+  let n = arr.length
+  if (n &lt;= 1) {
+    return arr
+  }
+
+  for (let i = 1; i &lt; n; i++) {
+    let val = arr[i]
+    let j = i - 1
+    for (; j &gt;= 0; j--) {
+      if (arr[j] &gt; val) {
+        arr[j + 1] = arr[j]
+      } else {
+        break
+      }
+    }
+    arr[j + 1] = val
+  }
+
+  return arr
+}
+</code></pre>
+
+<h3 id="选择排序">选择排序</h3>
+
+<pre><code class="language-js">function selectSort(arr) {
+  let n = arr.length
+  if (n &lt;= 1) return arr
+
+  for (let i = 0; i &lt; n; i++) {
+    let j = i + 1
+    let min = i
+
+    for (; j &lt; n; j++) {
+      if (arr[j] &lt; arr[min]) {
+        min = j
+      }
+    }
+
+    let temp = arr[min]
+    arr[min] = arr[i]
+    arr[i] = temp
+  }
+
+  return arr
+}
+</code></pre>
+
+<h3 id="快速排序">快速排序</h3>
+
+<pre><code class="language-js">function quickSort(arr,isSmall) {
+  // 优化 随机pivot
+    const partition = (arr, p, r) =&gt; {
+    let pivotIndex = rd(p, r)
+    let pivot = arr[pivotIndex]
+    let i = p
+    for (let j = p; j &lt;= r; j++) {
+      if (arr[j] &lt; pivot) {
+        if (i === pivotIndex) {
+          pivotIndex = j
+        }
+        let temp = arr[j]
+        arr[j] = arr[i]
+        arr[i] = temp
+        i++
+      }
+    }
+
+    arr[pivotIndex] = arr[i]
+    arr[i] = pivot
+
+    return i
+  }
+
+  const quick_partition = (arr, p, r) =&gt; {
+    let pivot = arr[r]
+    let i = p
+
+    for (let j = p; j &lt; r; j++) {
+      if (isSmall(arr[j],pivot)) {
+        let temp = arr[i]
+        arr[i] = arr[j]
+        arr[j] = temp
+        i++
+      }
+    }
+
+    arr[r] = arr[i]
+    arr[i] = pivot
+
+    return i
+  }
+  const _quickSort = (arr, p, r) =&gt; {
+    if (p &gt;= r) return
+
+    q = quick_partition(arr, p, r)
+    _quickSort(arr, p, q - 1)
+    _quickSort(arr, q + 1, r)
+  }
+
+  _quickSort(arr, 0, arr.length - 1)
+
+  return arr
+}
+</code></pre>
+
+<h3 id="归并排序">归并排序</h3>
+
+<pre><code class="language-js">function mergeSort(arr) {
+  const _mergeSort = (arr, p, r) =&gt; {
+    if (p === r) return
+
+    let q = Math.floor((p + r) / 2)
+
+    _mergeSort(arr, p, q)
+
+    _mergeSort(arr, q + 1, r)
+
+    let len = r - p
+    let temp = []
+    let i = p
+    let j = q + 1
+    while (i &lt;= q &amp;&amp; j &lt;= r) {
+      if (arr[i] &lt; arr[j]) {
+        temp.push(arr[i++])
+      } else {
+        temp.push(arr[j++])
+      }
+    }
+
+    while (i &lt;= q) {
+      temp.push(arr[i++])
+    }
+
+    while (j &lt;= r) {
+      temp.push(arr[j++])
+    }
+
+    for (let i = 0; i &lt;= len; i++) {
+      arr[p + i] = temp[i]
+    }
+
+    return arr
+  }
+  return _mergeSort(arr, 0, arr.length - 1)
+}
+</code></pre>
+
+<h3 id="计数排序">计数排序</h3>
+
+<pre><code class="language-js">const countingSort = (arr) =&gt; {
+  let len = arr.length;
+  if (len &lt;= 1) return;
+
+  // 查询最大数据范围
+  let max = arr[0];
+  for (let i = 1; i &lt; len; i++) {
+    if (arr[i] &gt; max) {
+      max = arr[i];
+    }
+  }
+
+  // 初始化计数数组
+  let c = [];
+  for (let i = 0; i &lt;= max; i++) {
+    c[i] = 0;
+  }
+
+  // 计数
+  for (let i = 0; i &lt; len; i++) {
+    c[arr[i]]++;
+  }
+
+  // 累加
+  for (let i = 1; i &lt;= max; i++) {
+    c[i] = c[i - 1] + c[i];
+  }
+
+  // 排序
+  let r = [];
+  for (let i =n -1; i &gt;= 0; i++) {
+    let index = c[arr[i]] - 1;
+    r[index] = arr[i];
+    c[arr[i]]--;
+  }
+
+  for (let i = 0; i &lt; len; i++) {
+    arr[i] = r[i];
+  }
+};
+</code></pre>
+
+<h3 id="三路快排">三路快排</h3>
+
+<pre><code class="language-js">const tSort = (arr) =&gt; {
+  let len = arr.length
+  if (len &lt;= 1) return
+
+  let left = 0
+  let right = len - 1
+
+  for (let i = 0; i &lt;= right; i++) {
+    if (arr[i] === 0) {
+      swap(arr, i, left)
+      left++
+    }
+
+    if (arr[i] === 2) {
+      swap(arr, i--, right)
+      right--
+    }
+  }
+
+  return arr
+}
+</code></pre>
+
+<h2 id="统计">统计</h2>
+
+<h3 id="寻找无序数组内的第k大的数">寻找无序数组内的第k大的数</h3>
+
+<pre><code class="language-js">const partition = (arr, p, r) =&gt; {
+  let pivot = arr[r]
+  let i = p
+  for (let j = p; j &lt; r; j++) {
+    if (arr[j] &lt; pivot) {
+      let temp = arr[i]
+      arr[i] = arr[j]
+      arr[j] = temp
+      i++
+    }
+  }
+
+  arr[r] = arr[i]
+  arr[i] = pivot
+
+  return i
+}
+
+const findKth = (arr, k) =&gt; {
+  const len = arr.length
+  if (k &gt; len) return -1
+
+  let start = 0
+  let end = len - 1
+  let p = partition(arr, start, end)
+
+  while (p + 1 !== k) {
+    if (k &lt; p + 1) {
+      // left
+      end = p - 1
+      p = partition(arr, start, p - 1)
+    } else {
+      // right
+      start = p + 1
+      p = partition(arr, p + 1, end)
+    }
+  }
+
+  return arr[p]
+}
+
+
+const testArr = new Array(500000).fill(1).map(() =&gt; Math.random())
+
+console.time('yh')
+console.log(findKth(testArr,10001))
+console.timeEnd('yh')
+</code></pre>
+
+<h2 id="分治">分治</h2>
+
+<h3 id="分治法算法复杂度计算">分治法算法复杂度计算</h3>
+
+<p><strong>递推关系</strong></p>
+
+<blockquote>
+<p>f(n) = af(n/b) + g(n)</p>
+</blockquote>
+
+<p>n = 问题规模
+a = 子问题拆解的个数
+n/b = 子问题的规模
+g(n) = 治所需要的运算</p>
+
+<p><strong>主方法</strong></p>
+
+<blockquote>
+<p>f(n)  = af(n/b) + c*n^d</p>
+</blockquote>
+
+<ul>
+<li>如果 a &lt; b^d 那么 O(n^d)</li>
+<li>如果 a == b^d 那么 O(n^dlogn) log底为2</li>
+<li>如果 a &gt; b^d 那么 O(n ^ (logba)) b为log的底</li>
+</ul>
+
+<h2 id="链表-1">链表</h2>
+
+<h3 id="跳跃表的实现">跳跃表的实现</h3>
+
+<pre><code class="language-js">class Node {
+  constructor(val) {
+    this.val = val
+    this.forwards = [] // forward[i] 代表该节点在第i层的下一个节点
+  }
+}
+
+class SkipList {
+  constructor() {
+    // 每一层的生成几率
+    this.SKIP_LIST_PERCENT = 0.5
+    // 最高层级
+    this.maxLevel = 16
+    // 当前层级
+    this.levelCount = 1
+    // 傀儡头指针
+    this.head = new Node(null)
+  }
+
+  insert(val) {
+    let level = this.getRandomLevel()
+    let node = new Node(val)
+
+    // update update[i] 代表 第 i 层 目标插入位置的前置节点
+    // 也就是说 update[i].next = newNode
+    // 这里先初始化为head
+    let update = []
+    for (let i = 0; i &lt; level; i++) {
+      update[i] = this.head
+    }
+
+    // 按层级从高到低 位置从Head到foward 找到每一层的update[i]节点
+    let p = this.head
+    for (let i = level - 1; i &gt;= 0; i--) {
+      while (p.forwards[i] &amp;&amp; p.forwards[i].val &lt; val) {
+        p = p.forwards[i]
+      }
+      update[i] = p
+    }
+
+    // 进行插入更新
+    for (let i = 0; i &lt; level; i++) {
+      node.forwards[i] = update[i].forwards[i]
+      update[i].forwards[i] = node
+    }
+
+    // 更新最大层级
+    if (level &gt; this.levelCount) this.levelCount = level
+  }
+
+  find(val) {
+    let p = this.head
+
+    for (let i = this.levelCount - 1; i &gt;= 0; i--) {
+      while (p.forwards[i] &amp;&amp; p.forwards[i].val &lt; val) {
+        p = p.forwards[i]
+      }
+    }
+
+    if (p.forwards[0] &amp;&amp; p.forwards[0].val === val) {
+      return p.forwards[0]
+    } else {
+      return null
+    }
+  }
+
+  delete(val) {
+    let p = this.head
+    let update = []
+    for (let i = this.levelCount - 1; i &gt;= 0; i--) {
+      while (p.forwards[i] &amp;&amp; p.forwards[i].val &lt; val) {
+        p = p.forwards[i]
+      }
+      update[i] = p
+    }
+
+    if (p.forwards[0] &amp;&amp; p.forwards[0].val === val) {
+      for (let i = this.levelCount - 1; i &gt;= 0; i--) {
+        if (update[i].forwards[i] &amp;&amp; update[i].forwards[i].val === val) {
+          update[i].forwards[i] = update[i].forwards[i].forwards[i]
+        }
+      }
+    }
+
+    while (this.levelCount &gt; 1 &amp;&amp; !this.head.forwards[this.levelCount]) {
+      this.levelCount--
+    }
+  }
+
+  getRandomLevel() {
+    let level = 1
+    while (Math.random() &lt; this.SKIP_LIST_PERCENT &amp;&amp; level &lt; this.maxLevel) {
+      level++
+    }
+    return level
+  }
+}
+
+let skipList = new SkipList()
+skipList.insert(10)
+skipList.insert(12)
+skipList.insert(9)
+skipList.insert(20)
+
+console.log(skipList.find(12))
+skipList.delete(12)
+console.log(skipList.find(12))
+console.log(skipList.find(10))
+</code></pre>
+
+<h3 id="链表的反转">链表的反转</h3>
+
+<p><strong>指针法</strong></p>
+
+<pre><code class="language-c++">ListNode *p, *q, *r;
+p = head;
+q = p-&gt;next;
+p-&gt;next = NULL;
+while(q){
+  r = q-&gt;next;
+  q-&gt;next = p;
+  p = q;
+  q = r;
+}
+
+// p = 反转之后的头指针
+// head = 最初的头指针(反转后的尾指针)
+</code></pre>
+
+<h3 id="链表的中点">链表的中点</h3>
+
+<p><strong>快慢指针法</strong></p>
+
+<p>慢指针一次走一步
+快指针一次走两步</p>
+
+<pre><code class="language-c++">ListNode *fast = head, *slow = head;
+
+while(slow-&gt;next &amp;&amp; fast-&gt;next &amp;&amp; fast-&gt;next-&gt;next){
+    slow = slow-&gt;next;
+    fast = fast-&gt;next-&gt;next;
+}
+
+if(!fast-&gt;next){
+  // 该链表的节点数为奇数 目前的slow指针正好处于这个中点上
+  // 比如 1 2 3 4 5 这时候的slow指针指向 3
+}else {
+  // 该链表的节点数为偶数 slow 指针指向 (n / 2) 的位置上
+  // 比如 1 2 3 4 这时候的slow指针指向 2
+}
+</code></pre>
+
+<h3 id="环的判断">环的判断</h3>
+
+<pre><code class="language-c++">ListNode *slow = head , *fast = head;
+while(fast &amp;&amp; fast-&gt;next){
+  slow = slow-&gt;next;
+  fast = fast-&gt;next-&gt;next; // 这里的步长可以调整 不影响正确性，但是有可能过大的步长会导致性能问题
+  
+  if(slow == fast){
+      return true;
+  }
+}
+
+return false;
+</code></pre>
+
+<h3 id="两个有序链表合并">两个有序链表合并</h3>
+
+<pre><code class="language-js">class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        ListNode dummy(INT_MIN); // 利用了傀儡节点 作为哨兵
+        ListNode *tail = &amp;dummy;
+        
+        while(l1 &amp;&amp; l2){
+            if(l1-&gt;val &lt; l2-&gt;val){
+                tail-&gt;next = l1;
+                l1 = l1-&gt;next;
+            }else {
+                tail-&gt;next = l2;
+                l2 = l2-&gt;next;
+            }
+            
+            tail = tail-&gt;next;
+        }
+        
+        tail-&gt;next = l1 ? l1 : l2;
+            
+        return dummy.next;
+    }
+};
+</code></pre>
+
+<h3 id="删除链表的从后往前第n个节点">删除链表的从后往前第N个节点</h3>
+
+<pre><code class="language-c++">class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode *slow = head, *fast = head;
+        
+        for(int i = 0; i &lt; n ; i++){
+            fast = fast-&gt;next;
+        }
+        
+        if(!fast){
+            return head-&gt;next;
+        }
+        
+        while(fast-&gt;next){
+            fast = fast-&gt;next;
+            slow = slow-&gt;next;
+        }
+        
+        slow-&gt;next = slow-&gt;next-&gt;next;
+        
+        return head;
+    }
+};
+</code></pre>
+
+<h2 id="栈-1">栈</h2>
+
+<h3 id="基于链表的栈">基于链表的栈</h3>
+
+<pre><code class="language-js">class Node {
+  constructor(val) {
+    this.val = val
+    this.next = null
+  }
+}
+
+class ListStack {
+  constructor() {
+    this.top = null
+  }
+
+  push(val) {
+    let newNode = new Node(val)
+    if (!this.top) {
+      this.top = newNode
+    } else {
+      newNode.next = this.top
+      this.top = newNode
+    }
+  }
+
+  pop() {
+    if (!this.top) {
+      return null
+    }
+    let res = this.top.val
+    this.top = this.top.next
+    return res
+  }
+}
+
+let s = new ListStack()
+s.push(1)
+s.push(2)
+s.push(3)
+
+console.log(s.pop())
+console.log(s.pop())
+console.log(s.pop())
+console.log(s.pop())
+</code></pre>
+
+<h2 id="队列-1">队列</h2>
+
+<h3 id="基于链表的队列">基于链表的队列</h3>
+
+<pre><code class="language-js">class ListQuque {
+  constructor() {
+    this.head = null
+    this.tail = null
+  }
+
+  enqueue(val) {
+    let node = new Node(val)
+    if (!this.tail) {
+      this.head = node
+      this.tail = node
+    } else {
+      this.tail.next = node
+      this.tail = node
+    }
+  }
+
+  dequeue() {
+    if (!this.head) {
+      return null
+    }
+    let val = this.head.val
+    this.head = this.head.next
+
+    return val
+  }
+}
+</code></pre>
+
+<h3 id="基于数组的循环队列">基于数组的循环队列</h3>
+
+<pre><code class="language-js">class CircularQueue {
+  constructor(cap) {
+    this.head = 0
+    this.tail = 0
+    this.items = []
+    this.n = cap + 1
+  }
+
+  enqueue(val) {
+    let node = new Node(val)
+    if(this.isFullyQueue()){
+      return false
+    }
+    this.items[this.tail] = node
+    this.tail = (this.tail + 1) % this.n
+    return true
+  }
+
+  dequeue() {
+    if(this.isEmptyQueue()) return false
+    let val = this.items[this.head].val
+    this.head = (this.head + 1) % this.n
+    return val
+  }
+
+  isEmptyQueue(){
+    return this.head === this.tail
+  }
+
+  isFullyQueue(){
+    return (this.tail + 1) % this.n === this.head
+  }
+}
+
+
+let s = new CircularQueue(3)
+s.enqueue(1)
+s.enqueue(2)
+s.enqueue(3)
+s.enqueue(4)
+
+console.log(s.dequeue())
+console.log(s.dequeue())
+console.log(s.dequeue())
+console.log(s.dequeue())
+</code></pre>
+
+<h2 id="二分查找-1">二分查找</h2>
+
+<h2 id="简单二分查找">简单二分查找</h2>
+
+<pre><code class="language-js">function bSearch(arr, value) {
+  let n = arr.length
+  let low = 0
+  let high = n - 1
+  let mid = null
+
+  while (low &lt;= high) {
+    mid = Math.floor((low + high) / 2)
+    let val = arr[mid]
+    if (val === value) {
+      return mid
+    } else if (val &lt; value) {
+      low = mid + 1
+    } else {
+      high = mid - 1
+    }
+  }
+
+  return -1
+}
+</code></pre>
+
+<h2 id="一些变种">一些变种</h2>
+
+<pre><code class="language-js">// 二分查找变种 寻找第一个相等的元素
+const bSearchFindFirstEq = (arr, value) =&gt; {
+  let low = 0
+  let high = arr.length - 1
+
+  while (low &lt;= high) {
+    let mid = parseInt(low + (high - low) / 2)
+
+    if (arr[mid] &gt; value) {
+      high = mid - 1
+    } else if (arr[mid] &lt; value) {
+      low = mid + 1
+    } else {
+      if (mid === 0 || arr[mid - 1] !== value) return mid
+      high = mid - 1
+    }
+  }
+
+  return -1
+}
+
+// 二分查找变种 寻找最后一个相等的元素
+
+const bSearchFindLastEq = (arr, value) =&gt; {
+  let low = 0
+  let high = arr.length - 1
+
+  while (low &lt;= high) {
+    let mid = parseInt(low + (high - low) / 2)
+
+    if (arr[mid] &gt; value) {
+      high = mid - 1
+    } else if (arr[mid] &lt; value) {
+      low = mid + 1
+    } else {
+      if (mid === arr.length - 1 || arr[mid + 1] !== value) return mid
+      low = mid + 1
+    }
+  } 
+
+  return -1
+}
+
+// 找到第一个大于等于的元素
+const bSearchFindFirstBEq = (arr, value) =&gt; {
+  let low = 0
+  let high = arr.length - 1
+
+  while (low &lt;= high) {
+    let mid = parseInt(low + (high - low) / 2)
+
+    if (arr[mid] &gt;= value) {
+      if (mid === 0 || arr[mid - 1] &lt; value) return mid
+      high = mid - 1
+    } else {
+      low = mid + 1
+    }
+  }
+
+  return -1
+}
+
+// 找到最后一个小于等于的元素
+const bSearchFindLastSEq = (arr, value) =&gt; {
+  let low = 0
+  let high = arr.length - 1
+
+  while (low &lt;= high) {
+    let mid = parseInt(low + (high - low) / 2)
+
+    if (arr[mid] &lt;= value) {
+      if (mid === arr.length - 1 || arr[mid + 1] &gt; value) return mid
+      low = mid + 1
+    } else {
+      high = mid - 1
+    }
+  }
+}
+
+// 高低边界查找
+
+// 寻找第一个大于等于 target 的数
+const low_bound = (arr, target) =&gt; {
+  let low = 0
+  let high = arr.length
+  while (low &lt; high) {
+    let m = Math.floor((high + low) / 2)
+    if (arr[m] &lt; target) {
+      low = m + 1
+    } else {
+      high = m
+    }
+  }
+  return arr[low]
+}
+
+// 寻找最后一个小于等于 target 的数
+const high_bound = (arr, target) =&gt; {
+  let low = -1
+  let high = arr.length - 1
+  while (low &lt; high) {
+    let m = Math.ceil((high + low) / 2)
+    if (arr[m] &gt; target) {
+      high = m - 1
+    } else {
+      low = m
+    }
+  }
+  return arr[high]
+}
+
+// 旋转排序数组中二分查找
+// [4,5,6,7,0,1,2]
+var search = function(nums, target) {
+  let low = 0
+  let high = nums.length - 1
+  
+  while(low &lt;= high){
+      let mid = parseInt(low + (high - low) / 2)
+      
+      if(nums[mid] === target) return mid
+      
+      if(nums[low] &lt;= nums[mid]){ // left sorted
+          if(target &gt;= nums[low] &amp;&amp; target &lt; nums[mid]) {
+              high = mid - 1 
+          }else {
+              low = mid + 1
+          }
+      }else { // right sorted
+          if(target &lt;= nums[high] &amp;&amp; target &gt; nums[mid]) {
+              low = mid + 1
+          }else {
+              high = mid - 1
+          }
+      }
+  }
+      
+  return -1;
+};
+
+console.log(bSearchFindFirstEq([3, 6, 6, 6, 9, 10], 6))
+console.log(bSearchFindLastEq([3, 6, 6, 6, 9, 10], 6))
+console.log(bSearchFindFirstBEq([3, 6, 6, 6, 9, 10], 7))
+console.log(bSearchFindLastSEq([3, 6, 6, 6, 9, 10], 6))
+</code></pre>
+
+<h3 id="利用二分查找求平方根">利用二分查找求平方根</h3>
+
+<pre><code class="language-js">function sqrt(x) {
+  let mid = x / 2
+  let low = 0
+  let high = x
+
+  while (Math.abs(x - mid * mid) &gt; 0.00000001) {
+    mid = (low + high) / 2
+    let gr = mid * mid
+    if (gr === x) {
+      break
+    } else if (gr &lt; x) {
+      low = mid
+    } else {
+      high = mid
+    }
+  }
+
+  return mid
+}
+</code></pre>
+
+<h2 id="二叉搜索树">二叉搜索树</h2>
+
+<h3 id="求最大最小节点">求最大最小节点</h3>
+
+<pre><code class="language-js">function minmum(x){
+  while(x.left){
+    x = x.left
+  }
+  return x
+}
+
+function maximum(x){
+  while(x.right){
+    x = x.right
+  }
+  return x
+}
+</code></pre>
+
+<h3 id="前驱和后继节点">前驱和后继节点</h3>
+
+<pre><code class="language-js">// 后继
+function successor(x){
+  if(x.right){
+    return minmum(x.right)
+  }
+  let y = x.parent
+  while(y &amp;&amp; y.right === x){
+    x = y
+    y = y.parent
+  }
+  return y
+}
+
+// 前驱
+function predecssesor(x){
+  if(x.left){
+    return maxmum(x.left)
+  }
+  let y = x.parent
+  while(y &amp;&amp; y.left === x){
+    x = y
+    y = y.parent
+  }
+  return y
+}
+</code></pre>
+
+<h2 id="红黑树-1">红黑树</h2>
+
+<pre><code class="language-js">const layerOffstY = 70
+const layerOffsetBaseX = 300
+const layerOffsetRatioX = 40
+
+class Node {
+  constructor(key, value) {
+    // 默认为红色
+    this.color = 'red'
+    this.key = key
+    this.value = value
+    this.parent = null
+    this.left = null
+    this.right = null
+  }
+
+  isRed() {
+    return this.color === 'red'
+  }
+
+  isBlack() {
+    return this.color === 'black'
+  }
+
+  setBlack() {
+    this.color = 'black'
+  }
+
+  setRed() {
+    this.color = 'red'
+  }
+
+  setColor(color) {
+    this.color = color
+  }
+
+  toggleColor() {
+    if (this.isRed()) {
+      this.color = 'black'
+    } else {
+      this.color = 'red'
+    }
+  }
+
+  // 交换颜色
+  swapColor(node) {
+    let temp = node.color
+    node.color = this.color
+    this.color = temp
+  }
+
+  toggleDrawBgFillStyle() {
+    if (this.isRed()) {
+      ctx.fillStyle = &quot;#F30&quot;
+    } else {
+      ctx.fillStyle = &quot;#333&quot;
+    }
+  }
+
+  // 获取子树的宽度
+  getChildWidth() {
+    let leftWidth = 0
+    let righgWidth = 0
+
+    if (this.left) {
+      leftWidth = this.left.getChildWidth()
+    }
+    if (this.right) {
+      righgWidth = this.right.getChildWidth()
+    }
+
+    return leftWidth + righgWidth
+  }
+
+  drawLine(ctx, startX, startY, endX, endY) {
+    ctx.beginPath()
+    ctx.moveTo(startX, startY)
+    ctx.lineTo(endX, endY)
+    ctx.stroke()
+  }
+
+  draw(ctx, x, y) {
+    this.toggleDrawBgFillStyle()
+    ctx.beginPath()
+    ctx.arc(x, y, 25, 0, 2 * Math.PI, true)
+    ctx.fill()
+
+    // 绘制key文字
+    ctx.font = &quot;16px serif&quot;;
+    ctx.fillStyle = &quot;#fff&quot;
+    let text = ctx.measureText(this.key)
+    ctx.fillText(this.key, x - text.width / 2, y + 6)
+  }
+}
+
+let sharedNullNode = new Node(null, null)
+sharedNullNode.setBlack()
+
+class RedBlackTree {
+  constructor() {
+    this.root = sharedNullNode
+  }
+
+  // 搜索
+  search(key) {
+    let x = this.root
+    while (x !== sharedNullNode &amp;&amp; x.key !== key) {
+      if (key &lt; x.key) {
+        x = x.left
+      } else {
+        x = x.right
+      }
+    }
+
+    return x === sharedNullNode ? null : x
+  }
+
+  // 插入
+  insert(key, value) {
+    let y = sharedNullNode
+    let x = this.root
+    let z = new Node(key, value)
+
+    while (x !== sharedNullNode) {
+      y = x
+      if (z.key &lt; x.key) {
+        x = x.left
+      } else {
+        x = x.right
+      }
+    }
+    z.parent = y
+
+    if (y === sharedNullNode) { // 只有一个节点的情况
+      this.root = z
+    } else if (z.key &lt; y.key) {
+      y.left = z
+    } else {
+      y.right = z
+    }
+
+    z.left = sharedNullNode
+    z.right = sharedNullNode
+
+    // 修复
+    this.insertFixUp(z)
+  }
+
+  // 主要角色
+  // Z 节点 一个颜色为红色的节点 初始为刚插入到新节点
+  // y z 节点的叔叔节点
+  // 修复过程的核心理念是让 Z 节点在整棵树中不断的上移 最坏情况就是一路上移到根节点
+  insertFixUp(z) {
+    while (z.parent.isRed()) { // 终止条件为没有产生双红
+      // 这里注意下 z.parent.parent 必然为黑，因为我们的破坏节点为 z ，不会影响到上层的性质，简单来说就是目前的破坏只限于 z 和 z.parent 两者出现双红
+      if (z.parent === z.parent.parent.left) { // 和下面的 else 互为镜像
+        let y = z.parent.parent.right
+        if (y.isRed()) {
+          // 情况1 叔节点为红色
+          // 解决方案 把叔叔节点和自己的父节点都涂黑 设置祖父节点为红色 并设置祖父为新的 z 节点
+          // 这样一来就在没有破坏新的性质的情况下 让 z 节点成功上移
+          z.parent.setBlack()
+          y.setBlack()
+          z.parent.parent.setRed()
+          z = z.parent.parent
+        } else if (z === z.parent.right) {
+          // 情况2 叔节点为黑色 并且 z 是 其父节点的右节点
+          // 解决方案 对z.parent 进行 左旋 目的是进入 case3 而且必然进入 case3
+          // 由于z 和 z.parent 都为红色 所以不会造成破坏新的性质
+          z = z.parent
+          this.leftRotate(z)
+        } else {
+          // 情况3 叔节点为红色 并且 z 是 其父节点的左节点
+          // 解决方案 交换 z 的父亲和祖父节点的颜色 并对 祖父进行右旋
+          // 等于说是利用颜色交换消除双红 但是 z.parent.parent 左右的黑高其实被破坏了(右边的黑高因为z.parent.parent 变成红色 减少了1)
+          // 所以我们利用旋转 让z.parent 接替 z.parent.parent 的位置 得以完全修复
+          // 结束后由于 z.parent 必然为黑 所有循环直接结束
+          z.parent.setBlack()
+          z.parent.parent.setRed()
+          this.rightRotate(z.parent.parent)
+        }
+      } else {
+        let y = z.parent.parent.left
+        if (y.isRed()) {
+          z.parent.setBlack()
+          y.setBlack()
+          z.parent.parent.setRed()
+          z = z.parent.parent
+        } else if (z === z.parent.left) {
+          z = z.parent
+          this.rightRotate(z)
+        } else {
+          z.parent.setBlack()
+          z.parent.parent.setRed()
+          this.leftRotate(z.parent.parent)
+        }
+      }
+    }
+
+    this.root.setBlack()
+  }
+
+  remove(key) {
+    // 先搜索 再删除
+    const removeNode = this.search(key)
+    if (removeNode) {
+      console.log('new remove')
+      this.delete(removeNode)
+    }
+  }
+
+  // 主要角色:
+  // z = 目标删除节点
+  // y = 将要替换到 z 位置的节点
+  // x = 将要替换到 y 位置的节点
+  // originYColor = y 的原始颜色 可以判断删除结束后 是否有有可能破坏了一条或者多条红黑规则
+  delete(z) {
+    let y = z
+    // 保存原始的 Y 颜色
+    let originYColor = y.color
+    let x = y
+    if (z.left === sharedNullNode) { // 删除节点只有一个右节点 case1
+      x = z.right
+      this.transplant(z, z.right)
+    } else if (z.right === sharedNullNode) { // 删除节点只有一个左节点 case 2
+      x = z.left
+      this.transplant(z, z.left)
+    } else {  // 删除节点拥有两组节点 case 3
+      y = this.minimum(z.right) // 找到能够代替 z 节点的 y 节点 也就是 z 的右子树里面最小的
+      originYColor = y.color
+      x = y.right
+      if (y.parent === z) { // y 和 z 有直接连接 不需要处理 y 移动后的断连问题
+        x.parent = y
+      } else { // y 移动之后 y.parent  和 y.right 需要进行连接 所以提前进行移动
+        this.transplant(y, y.right)
+        y.right = z.right
+        y.right.parent = y
+      }
+
+      // 把 Y 移动到原来 Z 的位置上
+      this.transplant(z, y)
+      y.left = z.left
+      y.left.parent = y
+      y.color = z.color // 这个很重要 可以维持从 z 点开始的黑高保持不变
+
+      // case1/2 的情况下 y == z 并且 y 是红色，那么因为只有单子树 不会造成黑高变化 同时 双红肯定不会出现
+      // case3 的情况下 如果 y 是红色 那么 x 必然为黑色 所以把 x 放到 y 的位置上 不会造成双红 由于 y.left 必然为 null 所有不用考虑黑高变化
+      // 并且由于 y.color = z.color 所以不用担心 z 的颜色发生变化 所以也是安全的
+      // 综上所述 originYColor === red 是绝对安全的
+      if (originYColor === 'black') { // 可能被破坏 开始修复
+        this.deleteFixUp(x)
+      }
+    }
+  }
+
+  // 主要角色:
+  // x 目前有双重黑色的节点 如果该节点为黑色 你可以认为他自带两个黑高 如果红色 你可以认为是黑红
+  // w x的兄弟节点 全部的case按照这个节点的具体情况展开
+  // 修复的核心理念在于让x作为一个拥有额外一层黑色的节点，不断的让这个黑色节点向上转移，直到可以通过旋转等手段把这个额外的黑色给消化掉，同时不破坏任何性质
+  deleteFixUp(x) {
+    while (x !== this.root &amp;&amp; x.isBlack()) {
+      // root === x 代表多余的黑高已经放到root上 而root本身代表100个黑高也不会影响到所有根节点的黑高
+      // 而红色则代表该节点可以被认为是黑红的 直接设置成黑色 就能抵消黑高的变化 并且由于这个节点是红色 x.parent 必然为黑色 也不会出现双红冲突 所以问题结束
+      if (x === x.parent.left) { // 和下面的else 互为镜像
+        let w = x.parent.right // x 的兄弟节点
+        if (w.isRed()) {
+          // 情况1 兄弟节点是红色
+          // 方案 染红x.parent 并且对x.parent进行左旋 结束后 x.parent 必然为红 并且 新的w必然为黑（新的w是老w的left，而w为红）
+          // 该情况可以被认为是进入case2/3/4的手段 让w的颜色转换为黑色
+          w.setBlack()
+          x.parent.setRed()
+          this.leftRotate(x.parent)
+          w = x.parent.right
+        }
+
+        // 这里可以断言 w 必然为黑色
+
+        if (w.left.isBlack() &amp;&amp; w.right.isBlack()) {
+          // 情况2 w 是黑色的同时 左右子节点都为黑
+          // 方案 把w设置为红色 然后把x.parent设置为 x 这代表着额外黑高的向上转移
+          // 如果这种情况是从情况1转换来的，那么其实到这里循环就结束了，因为我们之前给x.parent设置为红色 所以下一次while不会进循环了
+          w.setRed()
+          x = x.parent
+        } else {
+          if (w.right.isBlack()) {
+            // 情况3 w的右节点为黑色 左节点是红色
+            // 方案 交换w.left 和 w 的颜色，w.left就变成了黑色 w变成红色 接着对w进行右旋 w.left和w交换位置 w变成w.left的右子节点
+            // 这样一来 w.right自然变成了红色 就能进入case4
+            w.left.setBlack()
+            w.setRed()
+            this.rightRotate(w)
+            w = x.parent.right
+          }
+
+          // 情况4 w的右节点E为红色 左节点是黑色
+          // 方案 本质上通过颜色交换和旋转 让原本的 x.parent 节点来分担 x 额外的黑高 ， w 作为新的子树根节点，w 的黑色就传递到 e 上面
+          w.setColor(x.parent.color)
+          x.parent.setBlack()
+          w.right.setBlack()
+          this.leftRotate(x.parent)
+          x = this.root // 不破坏原本性质的情况下 分担了额外的黑色 所以直接结束
+        }
+      } else {
+        let w = x.parent.left
+        if (w.isRed()) {
+          w.setBlack()
+          x.parent.setRed()
+          this.rightRotate(x.parent)
+          w = x.parent.left
+        }
+        if (w.right.isBlack() &amp;&amp; w.left.isBlack()) {
+          w.setRed()
+          x = x.parent
+        } else {
+          if (w.left.isBlack()) {
+            w.right.setBlack()
+            w.setRed()
+            this.rightRotate(w)
+            w = x.parent.left
+          }
+          w.setColor(x.parent.color)
+          x.parent.setBlack()
+          w.left.setBlack()
+          this.rightRotate(x.parent)
+          x = this.root
+        }
+      }
+    }
+
+    x.setBlack()
+  }
+
+  // 让 v 接替 u 的位置
+  transplant(u, v) {
+    if (u.parent === sharedNullNode) {
+      this.root = v
+    } else if (u === u.parent.left) {
+      u.parent.left = v
+    } else {
+      u.parent.right = v
+    }
+    v.parent = u.parent
+  }
+
+  // 获取子树中的最小节点
+  minimum(x) {
+    while (x.left !== sharedNullNode) {
+      x = x.left
+    }
+    return x
+  }
+
+
+  // MARK: Utils 工具库
+
+  // 获取叔节点
+  getUncleNode(node) {
+    if (!node || !node.parent || !node.parent.parent) return null
+
+    const grandfatherNode = node.parent.parent
+    if (grandfatherNode.left === node.parent) {
+      return node.parent.parent.right
+    } else {
+      return node.parent.left
+    }
+  }
+
+  // 获取兄弟节点
+  getBrotherNode(node) {
+    if (!node || !node.parent) return null
+
+    if (node.parent.left === node) {
+      return node.right
+    } else {
+      return node.left
+    }
+  }
+
+  // 左旋
+  // 围绕X与他的右节点Y进行旋转
+  // 结束时 Y 将会处于 X 的位置 并且 X 作为 Y 的左子节点
+  leftRotate(x) {
+    const y = x.right
+
+    // 1. 把 y 的 左子树放到 x 的右边
+    x.right = y.left
+    if (y.left !== sharedNullNode) {
+      y.left.parent = x
+    }
+
+    // 2. 更新 y 对 parent的引用
+    y.parent = x.parent
+
+    // 更新parent 到 Y 的引用
+    if (x.parent === sharedNullNode) {
+      this.root = y
+    } else if (x === x.parent.left) {
+      x.parent.left = y
+    } else {
+      x.parent.right = y
+    }
+
+    // 重新建立x y 之间的关系
+    y.left = x
+    x.parent = y
+  }
+
+  // 右旋
+  // 围绕X与他的左节点Y进行旋转
+  // 结束时 Y 将会处于 X 的位置 并且 X 作为 Y 的右子节点
+  rightRotate(x) {
+    const y = x.left
+
+    // 1. 把 y 的 右子树放到 x 的左边
+    x.left = y.right
+    if (y.right !== sharedNullNode) {
+      y.right.parent = x
+    }
+
+    // 2. 更新 y 对 parent的引用
+    y.parent = x.parent
+
+    // 更新parent 到 Y 的引用
+    if (x.parent === sharedNullNode) {
+      this.root = y
+    } else if (x === x.parent.left) {
+      x.parent.left = y
+    } else {
+      x.parent.right = y
+    }
+
+    // 重新建立x y 之间的关系
+    y.right = x
+    x.parent = y
+  }
+
+  getChildWidthMap(node, map) {
+    if (!node) return 0
+    if (!map[node.key]) {
+      let leftWidth = 0
+      let rightWidth = 0
+      let base = 0
+      if (!node.left &amp;&amp; !node.right) {
+        base = 60
+      }
+      if (node.left) {
+        leftWidth = this.getChildWidthMap(node.left, map)
+      }
+      if (node.right) {
+        rightWidth = this.getChildWidthMap(node.right, map)
+      }
+      const width = leftWidth + rightWidth + base
+      map[node.key] = width
+    }
+    return map[node.key]
+  }
+
+  draw(ctx, width, height) {
+    let widthMap = {}
+    this.getChildWidthMap(this.root, widthMap)
+    const _draw = (node, x, y, parentX, parentY) =&gt; {
+      let leftWidth = 0
+      if (node.left) {
+        leftWidth = widthMap[node.left.key]
+      }
+      let rightWidth = 0
+      if (node.right) {
+        rightWidth = widthMap[node.right.key]
+      }
+      // X 偏离计算 左右子树的宽度不同 所以需要重新偏移
+      if (leftWidth &amp;&amp; rightWidth) {
+        x -= (rightWidth - leftWidth) / 2
+      }
+      if (node.left) {
+        let leftX = leftWidth / 2
+        _draw(node.left, x - leftX, y + 60, x, y)
+      }
+      if (node.right) {
+        let rightX = rightWidth / 2
+        _draw(node.right, x + rightX, y + 60, x, y)
+      }
+      node.drawLine(ctx, x, y, parentX, parentY)
+      node.draw(ctx, x, y)
+    }
+
+    _draw(this.root, width / 2, 50)
+  }
+}
+</code></pre>
+
+<h2 id="堆和堆排序">堆和堆排序</h2>
+
+<pre><code class="language-js">// 最大堆
+class Heap {
+  constructor() {
+    this.count = 0
+    this.arr = []
+  }
+
+  left(i) {
+    return i * 2
+  }
+
+  right(i) {
+    return i * 2 + 1
+  }
+
+  parent(i) {
+    return Math.floor(i / 2)
+  }
+
+  swap(arr, a, b) {
+    let temp = arr[a]
+    arr[a] = arr[b]
+    arr[b] = temp
+  }
+
+  insert(value) {
+    this.arr[++this.count] = value
+    let i = this.count
+    while (this.parent(i) &gt; 0 &amp;&amp; this.arr[i] &gt; this.arr[this.parent(i)]) {
+      this.swap(this.arr, i, this.parent(i))
+      i = this.parent(i)
+    }
+  }
+
+  removeMax() {
+    if (this.count &lt; 1) return null
+    const max = this.arr[1]
+    this.arr[1] = this.arr[this.count]
+    this.count--
+    this.heapify(this.arr, 1, this.count)
+    return max
+  }
+
+  heapify(arr, i, n) {
+    while (true) {
+      let maxIndex = i
+      if (this.left(i) &lt;= n &amp;&amp; arr[this.left(i)] &gt; arr[maxIndex]) maxIndex = this.left(i)
+      if (this.right(i) &lt;= n &amp;&amp; arr[this.right(i)] &gt; arr[maxIndex]) maxIndex = this.right(i)
+      if (maxIndex === i) break
+      this.swap(arr, i, maxIndex)
+      i = maxIndex
+    }
+  }
+
+  // 快速建堆
+  load(arr) {
+    for (let i = 0; i &lt; arr.length; i++) {
+      this.arr[i + 1] = arr[i]
+    }
+    this.count = arr.length
+    for (let i = Math.floor(this.count / 2); i &gt;= 1; i--) {
+      this.heapify(this.arr, i, this.count)
+    } 
+  }
+
+  // 堆排序
+  sort(arr) {
+    this.load(arr)
+    let k = this.count
+    while (k &gt; 1) {
+      this.swap(this.arr, 1, k)
+      k--
+      this.heapify(this.arr, 1, k)
+    }
+  }
+}
+
+const heap = new Heap()
+heap.sort([1, 5, 9, 7, 2, 5, 3])
+</code></pre>
+
+<h3 id="利用堆构成优先队列">利用堆构成优先队列</h3>
+
+<pre><code class="language-js">// JS 优先队列 等同于堆
+const left = (i) =&gt; 2 * i
+const right = (i) =&gt; 2 * i + 1
+const parent = (i) =&gt; Math.floor(i / 2)
+const swap = (arr, a, b) =&gt; {
+  let temp = arr[a]
+  arr[a] = arr[b]
+  arr[b] = temp
+  temp = arr[a].i
+  arr[a].i = arr[b].i
+  arr[b].i = temp
+}
+
+class PriorityNode {
+  constructor(key, value) {
+    this.key = key
+    this.value = value
+    this.i = -1
+  }
+}
+// 优先队列 最大优先队列
+class PriorityQueue {
+  /**
+   *Creates an instance of PriorityQueue.
+   * @param {*} [compareFunc=(a, b) =&gt; a - b] 比较函数 默认为最小堆
+   * @memberof PriorityQueue
+   */
+  constructor(compareFunc = (a, b) =&gt; a - b) {
+    this.arr = [null]
+    this.map = {} // 加速访问 利用 Key 更新优先级更加方便
+    this.count = 0
+    this.compareFunc = compareFunc
+  }
+
+  size() {
+    return this.count
+  }
+
+  offer(key, value = key) {
+    const node = new PriorityNode(key, value)
+    this.map[key] = node
+    this.arr[++this.count] = node
+    let i = this.count
+    node.i = i
+    while (parent(i) &gt; 0 &amp;&amp; this.compareFunc(this.arr[parent(i)].value, this.arr[i].value) &gt; 0) {
+      swap(this.arr, i, parent(i))
+      i = parent(i)
+    }
+  }
+
+  peak() {
+    if (this.count &gt; 0) {
+      return this.arr[1].value
+    } else {
+      return null
+    }
+  }
+
+  isEmpty() {
+    return this.count &lt;= 0
+  }
+
+  poll() {
+    if (this.isEmpty()) return
+    return this.removeElement(1)
+  }
+
+  remove(key) {
+    let index = this.arr.findIndex((v) =&gt; v &amp;&amp; v.key === key)
+    if (!index || index &lt;= -1) return
+    this.removeElement(index)
+  }
+
+  removeElement(index) {
+    let ele = this.arr[index]
+    this.arr[index] = this.arr[this.count]
+    this.arr[this.count] = null
+    this.map[ele.key] = null
+    this.count--
+    this.heapify(this.arr, index, this.count)
+    return ele.value
+  }
+
+  heapify(arr, i, n) {
+    while (true) {
+      let limitIndex = i
+      if (left(i) &lt;= n &amp;&amp; this.compareFunc(arr[limitIndex].value, arr[left(i)].value) &gt; 0)
+        limitIndex = left(i)
+      if (right(i) &lt;= n &amp;&amp; this.compareFunc(arr[limitIndex].value, arr[right(i)].value) &gt; 0)
+        limitIndex = right(i)
+
+      if (limitIndex === i) break
+      swap(arr, limitIndex, i)
+      i = limitIndex
+    }
+  }
+
+  update(key, value) {
+    // 先删除 再插入
+    const removeIndex = this.map[key].i
+    this.removeElement(removeIndex)
+    this.offer(key, value)
+  }
+}
+</code></pre>
+
+<h2 id="其他">其他</h2>
+
+<h3 id="用二进制模拟加法">用二进制模拟加法</h3>
+
+<p>&amp;是进位加法
+^是不进位加法 拆分成两个部分</p>
+
+<pre><code class="language-js">function add(a, b) {
+  if (a === 0) return b
+  if (b === 0) return a
+
+  let newA = (a &amp; b) &lt;&lt; 1
+  let newB = a ^ b
+
+  return add(newA, newB)
+}
+</code></pre>
+
+<h3 id="牛顿法求平方根">牛顿法求平方根</h3>
+
+<pre><code class="language-js">function sqrt(x) {
+  let g = 2
+  while (Math.abs(x - (g * g)) &gt; 0.00000001) {
+    g = ((x / g) + g) / 2 // 核心 收敛速度非常快 比二分法快很多很多
+  }
+  return g
+}
+</code></pre>
+
+<h2 id="散列表-1">散列表</h2>
+
+<h3 id="类v8的hash实现">类V8的Hash实现</h3>
+
+<pre><code class="language-js">function hash_for_string(str, length) {
+  let hash = 0
+  for (let i = 0, len = str.length; i &lt; len; i++) {
+    let r = str.charCodeAt(i)
+    hash = 31 * hash + r
+  }
+  hash ^= hash &gt;&gt; 16
+
+  // length必须为2的幂次
+  // 返回必定为正整数
+  return hash &amp; (length - 1)
+}
+</code></pre>
+
+<h2 id="字符串搜索算法">字符串搜索算法</h2>
+
+<h3 id="bm-搜索算法">BM 搜索算法</h3>
+
+<pre><code class="language-js">const fs = require('fs')
+
+function bmMatch(a, b) {
+  let n = a.length
+  let m = b.length
+  const bc = generateBC(b)
+  const { prefix, suffix } = generateGS(b)
+
+  let i = 0 // 主串中的对比索引
+  while (i &lt;= n - m) { // 如果剩下的的小于 m 那么匹配必然失败
+    let j = 0 // 模式串中坏字符的索引
+    for (j = m - 1; j &gt;= 0; --j) {  // 从后往前搜索 找出坏字符
+      if (a[j + i] !== b[j]) break
+    }
+
+    if (j === -1) return i // 成功找到匹配
+
+    let x = j - bc[a[i + j]] // 坏字符串情况下 需要移动的位数 这里需要注意 x 在某些情况下可能为负数
+    let y = 0
+    if (j &lt; m - 1) { // 存在好后缀
+      y = moveByGS(j, b.length, suffix, prefix) // 好后缀情况下 需要移动的位数
+    }
+
+    i += Math.max(x, y)
+  }
+
+  return -1
+}
+
+// 生成一个坏字符散列表
+// bc[s] = 模式串中与字符s相等的所有字符中**最后的**那个字符的下标
+// 这里面取最后一个相等字符下标的原因是避免后面移动的时候 一下子移动太多位导致错过匹配
+// exp: 假设我们拥有一个模式串 &quot;abda&quot;
+// 那么 访问 bc[a] 得的就是 3 访问 bc[b] 得到的就是1
+
+/**
+ * @description 生成一个坏字符散列表
+ * bc[s] = 模式串中与字符s相等的所有字符中**最后的**那个字符的下标
+ * 这里面取最后一个相等字符下标的原因是避免后面移动的时候 一下子移动太多位导致错过匹配
+ * exp: 假设我们拥有一个模式串 &quot;abda&quot;
+ * 那么 访问 bc[a] 得的就是 3 访问 bc[b] 得到的就是1
+ *
+ * @param {String} b 模式字符串
+ * @returns bc 字典
+ */
+function generateBC(b) {
+  let m = b.length
+  let bc = {}
+  for (let i = 0; i &lt; m; i++) {
+    bc[b[i]] = i
+  }
+  return new Proxy(bc, {
+    get(target, prop) {
+      if (bc[prop] !== null &amp;&amp; bc[prop] !== undefined) {
+        return bc[prop]
+      } else {
+        return -1
+      }
+    }
+  })
+}
+
+
+
+/**
+ * @description 生成 Prefix 和 suffx 辅助数组
+ * 首先解释一下后缀子串 假设我们拥有字符串&quot;cabcab&quot; 那么他的字符子串为 [b,ab,cab,bcab,abcab] 长度为 K 的后缀子串数量唯一，所以可以用 K代表长度为 k 的后缀子串
+ *  
+ * prefix数组代表特定长度的后缀子串是否同样属于该字符串的前缀子串 比如上面的示例 cab 就属于一个前缀子串，所以 prefix[3] = true
+ * 
+ * suffix数组代表特定长度的额外后缀子串(除最后的之外)中，最后的那个的起始下标，如果不包含额外的后缀子串，那么就 = -1，
+ * 还是上面的示例，假设 k = 4 = &quot;bacb&quot; suffix[4] = -1 因为除了最后的那个 bacb 之外，模式串里面已经没有额外的 bacb 了
+ * 假设 k = 2 = &quot;ab&quot; suffx[2] = 1
+ * 如果有多个额外的后缀子串，那么取最后一个的下标，原因和好字符的规则相同，都是为了避免滑动距离过多，错过匹配
+ * @param {String} b 模式字符串
+ * @returns {prefix:[Boolean],suffix:[Number]} 返回 prefix 和 suffix 对象
+ */
+function generateGS(b) {
+  const m = b.length
+  let prefix = []
+  let suffix = []
+
+  // 初始化
+  for (let i = 0; i &lt; m; i++) {
+    prefix[i] = false
+    suffix[i] = -1
+  }
+
+  for (let i = 0; i &lt; m - 1; i++) {
+    let j = i
+    let k = 0
+    while (j &gt;= 0 &amp;&amp; b[j] === b[m - 1 - k]) {
+      j--
+      k++
+      suffix[k] = j + 1 // 前面刚刚--了 所以要加1 回到原来的起始位置
+    }
+    if (j === -1) prefix[k] = true // j == -1 就代表该子串一路匹配到了头上 所以属于前缀
+  }
+
+  return { prefix, suffix }
+}
+
+function moveByGS(j, m, suffix, prefix) {
+  let k = m - 1 - j // 好后缀的长度
+  if (suffix[k] !== -1) return j - suffix[k] + 1 // case1 拥有额外的后缀子串 额外的 + 1 是为了进行对齐 j - suffix[k] 只能让 suffx[x] 移动到 j 的位置
+  // case 2 这个好后缀同时也是一个前缀 我们把这个前缀和后缀进行对齐
+  // 这里 r 的起始值为 j + 2 ,一方面因为 m 本身是长度 所以和下标算区间距离需要+1 
+  // 另外一方面 上面的匹配失败说明 prefix[上面的 k] 必然为false （否则上面早就匹配成功了） 可以直接跳过 所以 k = 上面的 k + 1
+  for (let r = j + 2; r &lt;= m - 1; r++) {
+    if (prefix[m - r] == true) {
+      return r
+    }
+  }
+  // case 3 最差情况 没有找到额外好后缀或者前缀 直接移动模式串的长度
+  return m
+}
+</code></pre>
+
+<h3 id="kmp-匹配算法">KMP 匹配算法</h3>
+
+<pre><code class="language-js">function kmp(a, b) {
+  let m = b.length
+  let n = a.length
+  const next = getNexts(b)
+  let j = 0 // j + 1 代表好前缀的结尾下标
+  for (let i = 0; i &lt; n; i++) {
+    // 不断尝试进行对齐，两种跳出可能
+    // 第一是 j === 0 那么前缀都被安详送走了 肯定没有相容的前缀了
+    // 第二是 arr[i] === arr[j] 代表匹配依然很成功，不需要进行移动
+    while (j &gt; 0 &amp;&amp; a[i] !== b[j]) {
+      j = next[j - 1] + 1
+    }
+
+    if (a[i] === b[j]) {
+      j++
+    }
+
+    if (j === m) return i - m + 1
+  }
+
+  return -1
+}
+
+function getNexts(b) {
+  let m = b.length
+  let next = []
+  next[0] = -1
+  let k = -1
+  for (let i = 1; i &lt; m; i++) {
+    while (k !== -1 &amp;&amp; b[k + 1] !== b[i]) { // 不断尝试用更小的公共前缀 知道找到匹配 能够在某个基础之上进行叠加，或者是未找到可以作为递推的子公共前缀
+      k = next[k]
+    }
+    if (b[k + 1] === b[i]) {
+      ++k
+    }
+    next[i] = k
+  }
+  return next
+}
+</code></pre>
+
+<h2 id="回溯算法-1">回溯算法</h2>
+
+<h3 id="8皇后问题">8皇后问题</h3>
+
+<pre><code class="language-js">let res = []
+function cal8queen(row) {
+  if (row === 8) {
+    printQueens()
+    return
+  }
+  for (let col = 0; col &lt; 8; col++) {
+    if (isPlaceOk(row, col)) {
+      res[row] = col
+      cal8queen(row + 1)
+    }
+  }
+}
+
+// 检查在 第 row 行 第 col 列放置一个皇后是否会破坏性质，从下到上
+function isPlaceOk(row, col) {
+  let leftUp = col - 1
+  let rightUp = col + 1
+  for (let i = row - 1; i &gt;= 0; i--) {
+    if (res[i] === col) return false
+    if (res[i] === leftUp &amp;&amp; leftUp &gt;= 0) return false
+    if (res[i] === rightUp &amp;&amp; rightUp &lt; 8) return false
+
+    leftUp--
+    rightUp++
+  }
+
+  return true
+}
+
+
+function printQueens() {
+  for (let row = 0; row &lt; 8; row++) {
+    let line = ''
+    for (let col = 0; col &lt; 8; col++) {
+      if (res[row] === col) {
+        line += 'Q '
+      } else {
+        line += 'B '
+      }
+    }
+    console.log(line)
+  }
+  console.log('----------------')
+}
+
+cal8queen(0)
+</code></pre>
+
+<h3 id="01背包问题-重量版-回溯解法">01背包问题 重量版 回溯解法</h3>
+
+<p>我们有一个背包，背包总的承载重量是 Wkg。现在我们有 n 个物品，每个物品的重量不等，并且不可分割。我们现在期望选择几件物品，装载到背包中。在不超过背包所能装载重量的前提下，如何让背包中物品的总重量最大？</p>
+
+<p>不考虑价值</p>
+
+<pre><code class="language-js">// 当前已经尝试的所有可能里，最大的重量
+let maxW = 0
+
+/**
+ * 
+ * @param {Number} i 当前正在考虑的物品下标
+ * @param {Number} cw 当前的背包重量
+ * @param {[Number]} items 物品数组 值为物品的重量
+ * @param {Number} w 背包的最大重量
+ */
+function f(i, cw, items, w) {
+  if (cw === w || i === items.length - 1) { // 物品已经达到上限 或者 已经选择所有物品 不需要继续向下递归 剪枝
+    if (cw &gt; maxW) { // 发现了一个总重更大的装法
+      maxW = cw
+    }
+    return
+  }
+
+  f(i + 1, cw, items, w) // 不考虑当前物品，直接考虑下一个
+  if (cw + items[i] &lt;= w) { // 如果还能放下当前物品 
+    f(i + 1, cw + items[i], items, w) // 放入背包 继续搜索
+  }
+}
+
+f(0, 0, [10, 30, 30, 50], 60)
+console.log(maxW)
+</code></pre>
+
+<h3 id="01背包问题-重量-价值-只能选一次-回溯算法">01背包问题 重量+价值 只能选一次 回溯算法</h3>
+
+<pre><code class="language-js">let maxValue = 0
+
+function f(i, cw, cv, vItems, wItems, w) {
+  if (cw === w || i === vItems.length - 1) {
+    if (cv &gt; maxValue) {
+      maxValue = cv
+    }
+    return
+  }
+
+  f(i + 1, cw, cv, vItems, wItems, w)
+
+  if (cw + wItems[i] &lt;= w) {
+    f(i + 1, cw + wItems[i], cv + vItems[i], vItems, wItems, w)
+  }
+}
+
+f(0, 0, 0, [20, 10, 40, 50], [10, 20, 30, 40], 30)
+console.log(maxValue)
+</code></pre>
+
+<h3 id="求排列组合">求排列组合</h3>
+
+<pre><code class="language-js">function p(choose, options, r) {
+  if (r === 0) {
+    return console.log(choose)
+  }
+
+  for (let i = 0, len = options.length; i &lt; len; i++) {
+    let newChoose = choose.slice()
+    let newOptions = options.slice()
+    newChoose.push(options[i])
+    newOptions.splice(i, 1)
+    p(newChoose, newOptions, r - 1)
+  }
+}
+
+function c(choose, options, r) {
+  if (options.length &lt; r) { // 剪枝
+    return
+  }
+  if (r === 0) {
+    return console.log(choose)
+  }
+
+  for (let i = 0, len = options.length; i &lt; len; i++) {
+    let newChoose = choose.slice()
+    let newOptions = options.slice(i + 1, len)
+    newChoose.push(options[i])
+    c(newChoose, newOptions, r - 1)
+  }
+}
+</code></pre>
+
+<h2 id="动态规划-1">动态规划</h2>
+
+<h3 id="01背包纯重量">01背包纯重量</h3>
+
+<pre><code class="language-js">// s[i][j] 等于 true 代表 在考虑前 i 个物品的情况下 装下 总重为 j 的物品是可行的
+// 状态转移方程 state[i][j] = (state[i-1][j] || state[i-1][j - w[i]])
+// 对应两种情况 面对一个物品，我们只有拿和不拿两种选择，后者需要尝试基于当前重量(j)减去当前物品重量(w[i])的情况下，去尝试配对
+function knapsack(w, c) {
+  const len = w.length
+  let states = new Array(len).fill(1).map(() =&gt; new Array(c + 1).fill(false))
+  // 初始化
+  states[0][0] = true
+  if (w[0] &lt;= c) {
+    states[0][w[0]] = true
+  }
+
+  for (let i = 1; i &lt; len; i++) {
+    let cw = w[i]
+    for (let j = 0; j &lt;= c; j++) {
+      states[i][j] = states[i - 1][j]
+      if (j &gt;= cw &amp;&amp; states[i - 1][j - cw]) {
+        states[i][j] = true
+      }
+    }
+  }
+
+  for (let i = c; i &gt;= 0; --i) {
+    if (states[len - 1][i]) return i
+  }
+
+  return -1
+}
+
+console.log(knapsack([2, 2, 4, 6, 3], 9))
+</code></pre>
+
+<h3 id="01背包重量限制-最大价值">01背包重量限制 + 最大价值</h3>
+
+<pre><code class="language-js">// 状态转移方程
+// state[i][j] = max(state[i-1][j],state[i-1][j-w[i]] + v[i])
+function knapsack(w, v, c) {
+  let len = w.length
+  let states = new Array(len).fill(1).map(() =&gt; new Array(c + 1).fill(0))
+
+  for (let j = 0; j &lt;= len; j++) {
+    states[0][j] = j &gt;= w[0] ? v[0] : 0
+  }
+
+  for (let i = 1; i &lt; len; i++) {
+    let cw = w[i]
+    let cv = v[i]
+    for (let j = 0; j &lt;= c; j++) {
+      states[i][j] = states[i - 1][j]
+      if (j &gt;= cw) {
+        states[i][j] = Math.max(states[i][j], states[i - 1][j - cw] + cv)
+      }
+    }
+  }
+
+  return Math.max(...states[len - 1])
+}
+
+console.log(knapsack([40, 20, 30, 35], [10, 20, 30, 35], 100))
+</code></pre>
+
+<h3 id="莱文斯坦编辑距离距离">莱文斯坦编辑距离距离</h3>
+
+<p>衡量拉丁文本之间的相似度</p>
+
+<pre><code class="language-js">// 状态转移方程:
+// if { a[i] === b[j] } lcs[i][j] = min(lcs[i-1][j] + 1, lcs[i][j-1] + 1, lcs[i-1][j-1])
+// if { a[i] !== b[j] } lcs[i][j] = min(lcs[i-1][j] + 1, lcs[i][j-1] + 1, lcs[i-1][j-1] + 1)
+function lwstDP(a, b) {
+  const n = a.length
+  const m = b.length
+  let minDist = new Array(n).fill(1).map(() =&gt; new Array(m).fill(0))
+
+  // 填充第一行
+  for (let j = 0; j &lt; m; j++) {
+    if (a[0] === b[j]) minDist[0][j] = j
+    else if (j !== 0) {
+      minDist[0][j] = minDist[0][j - 1] + 1
+    } else {
+      minDist[0][j] = 1
+    }
+  }
+
+  // 填充第一列
+  for (let i = 0; i &lt; n; i++) {
+    if (a[i] === b[0]) minDist[i][0] = i
+    else if (i !== 0) {
+      minDist[i][0] = minDist[i - 1][0] + 1
+    } else {
+      minDist[i][0] = 1
+    }
+  }
+
+  for (let i = 1; i &lt; n; i++) {
+    for (let j = 1; j &lt; m; j++) {
+      if (a[i] === b[j]) {
+        minDist[i][j] = Math.min(minDist[i - 1][j] + 1, minDist[i][j - 1] + 1, minDist[i - 1][j - 1])
+      } else {
+        minDist[i][j] = Math.min(minDist[i - 1][j] + 1, minDist[i][j - 1] + 1, minDist[i - 1][j - 1] + 1)
+      }
+    }
+  }
+
+  return minDist[n - 1][m - 1]
+}
+</code></pre>
+
+<h3 id="最长公共子序列-lcs">最长公共子序列 LCS</h3>
+
+<pre><code class="language-js">// 状态转移方程:
+// if { a[i] === b[j] } lcs[i][j] = max(lcs[i-1][j] + 1,lcs[i][j-1] + 1,lcs[i-1][j-1] + 1)
+// if { a[i] !== b[j] } lcs[i][j] = max(lcs[i-1][j], lcs[i][j-1], lcs[i-1][j-1])
+function lcs(a, b) {
+  const n = a.length
+  const m = b.length
+  let maxlcs = new Array(n).fill(1).map(() =&gt; new Array(m).fill(0))
+
+  // 填写第一行
+  for (let j = 0; j &lt; m; j++) {
+    if (a[0] === b[j]) maxlcs[0][j] = 1
+    else if (j !== 0) maxlcs[0][j] = maxlcs[0][j - 1]
+    else maxlcs[0][j] = 0
+  }
+
+  // 填写第一列
+  for (let i = 0; i &lt; n; i++) {
+    if (a[i] === b[0]) maxlcs[i][0] = 1
+    else if (i !== 0) maxlcs[i][0] = maxlcs[i - 1][0]
+    else maxlcs[i][0] = 0
+  }
+
+  for (let i = 1; i &lt; n; i++) {
+    for (let j = 1; j &lt; m; j++) {
+      if (a[i] === b[j]) {
+        maxlcs[i][j] = Math.max(maxlcs[i - 1][j], maxlcs[i][j - 1], maxlcs[i - 1][j - 1] + 1)
+      } else {
+        maxlcs[i][j] = Math.max(maxlcs[i - 1][j], maxlcs[i][j - 1], maxlcs[i - 1][j - 1])
+      }
+    }
+  }
+
+  return maxlcs[n - 1][m - 1]
+}
+
+lcs('abcdgggbnm', '23904920abcd33bnm')
+</code></pre>
+
+<h2 id="图-1">图</h2>
+
+<h3 id="dij-单源最短路径">Dij 单源最短路径</h3>
+
+<pre><code class="language-js">/ 邻接矩阵 记录连通与路径权重
+const G = [
+  [0, 6, 0, 7, 0],
+  [0, 0, 5, 8, -4],
+  [0, -2, 0, 0, 0],
+  [0, 0, -3, 0, 9],
+  [0, 0, 7, 0, 0]
+]
+
+// 辅助表 帮助记录额外的信息 如前置元素 最短路径估计d
+const nodes = [
+  { name: 's' },
+  { name: 't' },
+  { name: 'x' },
+  { name: 'y' },
+  { name: 'z' }
+]
+
+// 松弛操作
+const relax = (u, v, nodes, g) =&gt; {
+  if (nodes[v].d &gt; nodes[u].d + g[u][v]) {
+    nodes[v].d = nodes[u].d + g[u][v]
+    nodes[v].π = nodes[u]
+  }
+}
+
+// 初始化
+const init = (nodes, s) =&gt; {
+  nodes.forEach(v =&gt; {
+    v.π = null
+    v.d = Infinity
+  })
+  nodes[s].d = 0
+}
+
+// 求单源最短路径
+const bellman_ford = (g, s, table) =&gt; {
+  init(table, s)
+  // 三层循环 可简化成两层 外层为G.V 即所有节点 内层为G.E即图内所有边
+  for (let i = 0; i &lt; g.length; i++) {
+    for (let j = 0; j &lt; g.length; j++) {
+      for (let n = 0; n &lt; g.length; n++) {
+        if (g[j][n] !== 0) {
+          relax(j, n, table, g)
+        }
+      }
+    }
+  }
+  // 闭环检测
+  for (let j = 0; j &lt; g.length; j++) {
+    for (let n = 0; n &lt; g.length; n++) {
+      if (g[j][n] !== 0) {
+        if (table[n].d &gt; table[j].d + g[j][n]) {
+          return false
+        }
+      }
+    }
+  }
+  return true
+}
+console.log(bellman_ford(G, 0, nodes))
+console.log(nodes)
+</code></pre>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/notebook/computer_graphics/" data-toggle="tooltip" data-placement="top" title="">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/notebook/algo-template/" data-toggle="tooltip" data-placement="top" title="">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/javascript" title="javascript">
+                            javascript
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/localstorage" title="localstorage">
+                            localstorage
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%93%B2%E5%AD%A6" title="哲学">
+                            哲学
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%B7%E5%9B%BD%E8%A7%82%E5%BF%B5%E8%AE%BA" title="德国观念论">
+                            德国观念论
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%84%8F%E8%AF%86%E5%BD%A2%E6%80%81" title="意识形态">
+                            意识形态
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%8B%89%E5%BA%B7" title="拉康">
+                            拉康
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6" title="离散数学">
+                            离散数学
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90" title="精神分析">
+                            精神分析
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E9%BB%91%E6%A0%BC%E5%B0%94" title="黑格尔">
+                            黑格尔
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E9%BD%90%E6%B3%BD%E5%85%8B" title="齐泽克">
+                            齐泽克
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2023
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-114001572-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+</body>
+</html>

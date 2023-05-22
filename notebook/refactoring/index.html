@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="" />
+    <meta property="og:title" content="" />
+    <meta property="twitter:title" content="" />
+    
+
+    
+    <meta name="description" content="我曾赌咒说你美，认为你璀璨；但你却地狱一般黑，夜一般暗">
+    <meta property="og:description" content="我曾赌咒说你美，认为你璀璨；但你却地狱一般黑，夜一般暗" />
+    <meta property="twitter:description" content="我曾赌咒说你美，认为你璀璨；但你却地狱一般黑，夜一般暗" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Yinode Blog</title>
+
+    <link rel="canonical" href="/notebook/refactoring/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/atom-one-dark.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+    <script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E5%93%B2%E5%AD%A6">哲学</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90">精神分析</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/gist/">Gist</a></li>
+                    
+                        <li><a href="/top/notebook/">Notebooks</a></li>
+                    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                    </div>
+                    <h1></h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                                Yinode Blog
+                         
+                        on 
+                        Monday, January 1, 0001
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li><a href="#refactoring">refactoring</a>
+<ul>
+<li><a href="#坏味道">坏味道</a>
+<ul>
+<li><a href="#神秘命名">神秘命名</a></li>
+<li><a href="#重复代码">重复代码</a></li>
+<li><a href="#过长函数">过长函数</a></li>
+<li><a href="#过长参数列表">过长参数列表</a></li>
+<li><a href="#全局数据">全局数据</a></li>
+<li><a href="#可变数据">可变数据</a></li>
+<li><a href="#发散变化">发散变化</a></li>
+<li><a href="#散弹修改">散弹修改</a></li>
+<li><a href="#依恋情节">依恋情节</a></li>
+<li><a href="#数据泥团">数据泥团</a></li>
+<li><a href="#基本类型偏执">基本类型偏执</a></li>
+<li><a href="#重复的switch">重复的switch</a></li>
+<li><a href="#循环语句">循环语句</a></li>
+<li><a href="#夸夸其谈通用性">夸夸其谈通用性</a></li>
+<li><a href="#临时字段">临时字段</a></li>
+<li><a href="#过长的消息链">过长的消息链</a></li>
+<li><a href="#中间人">中间人</a></li>
+<li><a href="#内幕交易">内幕交易</a></li>
+<li><a href="#过大的类">过大的类</a></li>
+<li><a href="#异曲同工的类">异曲同工的类</a></li>
+<li><a href="#纯数据类">纯数据类</a></li>
+<li><a href="#被拒绝的遗增">被拒绝的遗增</a></li>
+<li><a href="#注释">注释</a></li>
+</ul></li>
+<li><a href="#基本手法">基本手法</a>
+<ul>
+<li><a href="#提炼函数">提炼函数</a></li>
+<li><a href="#提炼变量">提炼变量</a></li>
+<li><a href="#封装变量">封装变量</a></li>
+<li><a href="#引入参数对象">引入参数对象</a></li>
+<li><a href="#函数组合成类">函数组合成类</a></li>
+<li><a href="#拆分阶段">拆分阶段</a></li>
+</ul></li>
+<li><a href="#封装">封装</a>
+<ul>
+<li><a href="#封装记录">封装记录</a></li>
+<li><a href="#封装集合">封装集合</a></li>
+<li><a href="#用对象取代基本类型">用对象取代基本类型</a></li>
+<li><a href="#用查询取代临时变量">用查询取代临时变量</a></li>
+<li><a href="#提炼类">提炼类</a></li>
+<li><a href="#隐藏委托关系">隐藏委托关系</a></li>
+<li><a href="#替换算法">替换算法</a></li>
+<li><a href="#搬移函数">搬移函数</a></li>
+<li><a href="#搬移字段">搬移字段</a></li>
+<li><a href="#搬移语句到函数">搬移语句到函数</a></li>
+<li><a href="#用函数调用取代内联代码">用函数调用取代内联代码</a></li>
+<li><a href="#移动语句">移动语句</a></li>
+<li><a href="#拆分循环">拆分循环</a></li>
+<li><a href="#用管道取代循环">用管道取代循环</a></li>
+<li><a href="#移除死代码">移除死代码</a></li>
+</ul></li>
+<li><a href="#重新组织数据">重新组织数据</a>
+<ul>
+<li><a href="#拆分变量">拆分变量</a></li>
+<li><a href="#字段改名">字段改名</a></li>
+<li><a href="#用查询取代派生变量">用查询取代派生变量</a></li>
+<li><a href="#将引用对象改成值对象">将引用对象改成值对象</a></li>
+<li><a href="#将值对象改成引用对象">将值对象改成引用对象</a></li>
+</ul></li>
+<li><a href="#简化条件逻辑">简化条件逻辑</a>
+<ul>
+<li><a href="#分解条件分支语句">分解条件分支语句</a></li>
+<li><a href="#合并条件表达式">合并条件表达式</a></li>
+<li><a href="#使用卫语句取代嵌套条件表达式">使用卫语句取代嵌套条件表达式</a></li>
+<li><a href="#利用多态改写条件语句">利用多态改写条件语句</a></li>
+<li><a href="#引入特例对象">引入特例对象</a></li>
+</ul></li>
+<li><a href="#重构api">重构API</a>
+<ul>
+<li><a href="#将查询函数和修改函数分离">将查询函数和修改函数分离</a></li>
+<li><a href="#函数参数化">函数参数化</a></li>
+<li><a href="#保持对象完整">保持对象完整</a></li>
+<li><a href="#用查询取代参数">用查询取代参数</a></li>
+<li><a href="#移除设值函数">移除设值函数</a></li>
+<li><a href="#用工厂函数取代构造函数">用工厂函数取代构造函数</a></li>
+<li><a href="#用命令取代函数">用命令取代函数</a></li>
+</ul></li>
+<li><a href="#处理继承关系">处理继承关系</a>
+<ul>
+<li><a href="#函数上移">函数上移</a></li>
+<li><a href="#字段上移">字段上移</a></li>
+<li><a href="#构造函数本体上移">构造函数本体上移</a></li>
+<li><a href="#用子类取代类型码">用子类取代类型码</a></li>
+<li><a href="#提炼超类">提炼超类</a></li>
+<li><a href="#折叠继承体系">折叠继承体系</a></li>
+<li><a href="#用委托取代子类">用委托取代子类</a></li>
+<li><a href="#用委托取代父类">用委托取代父类</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<h1 id="refactoring">refactoring</h1>
+
+<p>快速回忆，不追求细节，一句话表达意图</p>
+
+<h2 id="坏味道">坏味道</h2>
+
+<h3 id="神秘命名">神秘命名</h3>
+
+<p>好的命名很难，多想多重构</p>
+
+<h3 id="重复代码">重复代码</h3>
+
+<p>多提炼</p>
+
+<h3 id="过长函数">过长函数</h3>
+
+<h3 id="过长参数列表">过长参数列表</h3>
+
+<h3 id="全局数据">全局数据</h3>
+
+<h3 id="可变数据">可变数据</h3>
+
+<h3 id="发散变化">发散变化</h3>
+
+<p>程序的变化应该集中，要修改的时候应该尽可能少的触碰其他代码</p>
+
+<h3 id="散弹修改">散弹修改</h3>
+
+<p>改起来到处都是细小的更改点</p>
+
+<h3 id="依恋情节">依恋情节</h3>
+
+<p>模块过于亲密</p>
+
+<h3 id="数据泥团">数据泥团</h3>
+
+<p>总是成群结队的三两个数据，尝试把数据改成对象</p>
+
+<h3 id="基本类型偏执">基本类型偏执</h3>
+
+<p>尽量自己构建一些基本类型，不要天天用字符串和number</p>
+
+<h3 id="重复的switch">重复的switch</h3>
+
+<p>要是增加一个可选项，直接爆炸</p>
+
+<h3 id="循环语句">循环语句</h3>
+
+<p>少用循环多Map</p>
+
+<h3 id="夸夸其谈通用性">夸夸其谈通用性</h3>
+
+<p>过于离谱的通用型设计</p>
+
+<h3 id="临时字段">临时字段</h3>
+
+<p>特例情况的字段要干掉</p>
+
+<h3 id="过长的消息链">过长的消息链</h3>
+
+<p>猛委托谁顶得住呢？隐藏起来吧，对外不暴露委托对象</p>
+
+<h3 id="中间人">中间人</h3>
+
+<p>一半的函数都委托给别人，可以考虑直接暴露委托，或者把委托对象直接进行应用</p>
+
+<h3 id="内幕交易">内幕交易</h3>
+
+<p>两个模块过于高频率的交换数据</p>
+
+<h3 id="过大的类">过大的类</h3>
+
+<p>多抽离</p>
+
+<h3 id="异曲同工的类">异曲同工的类</h3>
+
+<p>相似的类接口最好一致</p>
+
+<h3 id="纯数据类">纯数据类</h3>
+
+<p>只拥有数据的类一般都会过渡耦合，最好是尝试把一些操作函数搬移到数据类里</p>
+
+<h3 id="被拒绝的遗增">被拒绝的遗增</h3>
+
+<p>父类的某些东西子类不想要，需要对继承体系进行重构</p>
+
+<h3 id="注释">注释</h3>
+
+<p>让注释变得更有意义</p>
+
+<h2 id="基本手法">基本手法</h2>
+
+<h3 id="提炼函数">提炼函数</h3>
+
+<p>写颗粒度足够细的函数，可以消除注释</p>
+
+<h3 id="提炼变量">提炼变量</h3>
+
+<p>将长表达式内部的子表达式抽离成解释性变量</p>
+
+<h3 id="封装变量">封装变量</h3>
+
+<p>针对全局数据建立get set函数 更好的控制访问</p>
+
+<h3 id="引入参数对象">引入参数对象</h3>
+
+<p>将常见的参数组合成一个对象或者结构，比如 iOS中的 CGFloat CGRect CGPoint 通常都是含有 x y 等值</p>
+
+<h3 id="函数组合成类">函数组合成类</h3>
+
+<p>如果一组函数+一组变量高频率的出现，抽离成一个类</p>
+
+<h3 id="拆分阶段">拆分阶段</h3>
+
+<p>将一个函数拆分成多个阶段，并建立起 第一阶段的输出是第二阶段的输入这一过程。可以建立一个中转数据结构</p>
+
+<h2 id="封装">封装</h2>
+
+<p>封装其实就是让程序的某一个子模块尽可能少的了解程序的其他部分</p>
+
+<h3 id="封装记录">封装记录</h3>
+
+<p>将基本的记录结构(Map/Set etc)转换成更加具有解释性意义的类,让这种结构更加直观</p>
+
+<h3 id="封装集合">封装集合</h3>
+
+<p>对某个类内部集合的操作进一步细化，一方面要让内部集合不可以直接被修改。一方面提供更加语义化的修改API</p>
+
+<h3 id="用对象取代基本类型">用对象取代基本类型</h3>
+
+<p>把常用类型转换成更加强大的结构</p>
+
+<p>比如说手机号，优先级，地区，可以扩展函数来增加各种相关功能</p>
+
+<h3 id="用查询取代临时变量">用查询取代临时变量</h3>
+
+<p>利用计算属性或者方法等功能，消除临时变量。</p>
+
+<h3 id="提炼类">提炼类</h3>
+
+<p>当一个类中的逻辑越来越复杂，责任不够单一，尝试抽离出一个与之配合的类。</p>
+
+<p>拥有反向重构 内联内。具体看类内部的责任分配</p>
+
+<h3 id="隐藏委托关系">隐藏委托关系</h3>
+
+<p>通过隐藏某个类内部的委托对象，来尽可能减少类内部实现的暴露。</p>
+
+<p>如果内部需要委托的部分太多，需要反向重构 移除中间人</p>
+
+<h3 id="替换算法">替换算法</h3>
+
+<p>在没有明显性能要求的情况下，尽可能用更简单，简短，自解释的算法来达成目的。</p>
+
+<h3 id="搬移函数">搬移函数</h3>
+
+<p>根据函数的通用性，上下文访问情况，将函数搬移到更合适的位置</p>
+
+<p>越亲密的东西应该越放在一起</p>
+
+<h3 id="搬移字段">搬移字段</h3>
+
+<p>将数据结构移动到更合适的类中，让数据更加唯一，更加贴合类的职责</p>
+
+<h3 id="搬移语句到函数">搬移语句到函数</h3>
+
+<p>将一些语句放到某个函数中，从而消除重复，让函数更整体</p>
+
+<p>反向重构为搬移语句到调用者。适合边界开始模糊的情况</p>
+
+<h3 id="用函数调用取代内联代码">用函数调用取代内联代码</h3>
+
+<p>尽可能多利用已有的函数，比如List 提供 contain findIndex</p>
+
+<p>避免更加基础的循环等语句</p>
+
+<h3 id="移动语句">移动语句</h3>
+
+<p>将关联的语句放在一起
+声明变量语句可以放到靠近使用的地方</p>
+
+<h3 id="拆分循环">拆分循环</h3>
+
+<p>一个循环只做一件事</p>
+
+<h3 id="用管道取代循环">用管道取代循环</h3>
+
+<p>尽可能的利用map filter some every 这样的函数，简洁富有表达力</p>
+
+<h3 id="移除死代码">移除死代码</h3>
+
+<p>删就完事了，用不到的都得删</p>
+
+<h2 id="重新组织数据">重新组织数据</h2>
+
+<h3 id="拆分变量">拆分变量</h3>
+
+<p>一个变量应该只承担一个责任，如果出现重复，那么拆分成多个变量</p>
+
+<h3 id="字段改名">字段改名</h3>
+
+<p>不赘述</p>
+
+<h3 id="用查询取代派生变量">用查询取代派生变量</h3>
+
+<p>如果某个变量是通过一些基本变量结合计算而来，那么把这个变量变成一个计算属性。 可以避免复杂的维护</p>
+
+<h3 id="将引用对象改成值对象">将引用对象改成值对象</h3>
+
+<p>通过改成值对象来加强数据不可变性，前提是不需要进行共享</p>
+
+<h3 id="将值对象改成引用对象">将值对象改成引用对象</h3>
+
+<p>多实例内部共享同一个引用对象，可以利用对象仓库实现</p>
+
+<h2 id="简化条件逻辑">简化条件逻辑</h2>
+
+<h3 id="分解条件分支语句">分解条件分支语句</h3>
+
+<p>将条件语句到每个部分进行函数提炼</p>
+
+<h3 id="合并条件表达式">合并条件表达式</h3>
+
+<p>条件不同，最终行为相同 ，那么可以考虑合并条件，或者进一步使用函数提炼</p>
+
+<p>前提是 a b c 两者条件是有关联的</p>
+
+<h3 id="使用卫语句取代嵌套条件表达式">使用卫语句取代嵌套条件表达式</h3>
+
+<p>如果是If语句包涵优先级关系，比如一些提前退出，异常情况，特殊情况， 对于这些相对少见的情况，应该使用卫语句</p>
+
+<h3 id="利用多态改写条件语句">利用多态改写条件语句</h3>
+
+<p>用多态承载不同的行为，把不同的行为封装到不同的子类中去，调用同一类接口</p>
+
+<p>同样可以使用多态来抽离一些类似的类，不一样非得通常意义上的继承，也可以是比较抽象的继承</p>
+
+<h3 id="引入特例对象">引入特例对象</h3>
+
+<p>把对特殊对象(比如空对象，错误对象)的操作都放到一个特例类中，从而消除各种处理语句</p>
+
+<h2 id="重构api">重构API</h2>
+
+<h3 id="将查询函数和修改函数分离">将查询函数和修改函数分离</h3>
+
+<p>明确函数的副作用，将函数的修改部分和查询部分分离，强调每个有返回值的函数都不应该有返回值</p>
+
+<h3 id="函数参数化">函数参数化</h3>
+
+<p>将一组相似的函数，通过增加参数的方式进行合并</p>
+
+<h3 id="保持对象完整">保持对象完整</h3>
+
+<p>避免把对象里面的值析构出来，又重新组装的情况。</p>
+
+<h3 id="用查询取代参数">用查询取代参数</h3>
+
+<p>将查询逻辑内嵌到函数中去，纯函数可以不用</p>
+
+<p>反向重构为用参数取代查询</p>
+
+<p>这里的关键是你是否希望参数耦合，如果不喜欢，那么拆分参数，如果可以接受，那么可以全部用查询</p>
+
+<h3 id="移除设值函数">移除设值函数</h3>
+
+<p>明确其不可变性</p>
+
+<h3 id="用工厂函数取代构造函数">用工厂函数取代构造函数</h3>
+
+<p>用更加灵活多样的工程函数来创建对象</p>
+
+<h3 id="用命令取代函数">用命令取代函数</h3>
+
+<p>面对过于复杂的函数，可以建立一个命令对象，拆分其内部的逻辑</p>
+
+<p>反向重构为用函数取代命令，边界在于函数的复杂度</p>
+
+<h2 id="处理继承关系">处理继承关系</h2>
+
+<h3 id="函数上移">函数上移</h3>
+
+<p>如果子类里面的函数重复，那么移动到父类</p>
+
+<p>有反向重构函数下移</p>
+
+<p>适用于只有一部分子类需要这个函数</p>
+
+<h3 id="字段上移">字段上移</h3>
+
+<p>相同</p>
+
+<p>也有反向重构字段下移</p>
+
+<h3 id="构造函数本体上移">构造函数本体上移</h3>
+
+<p>可以移动一部分的构造函数 移动到父类 比如初始化某个字段</p>
+
+<h3 id="用子类取代类型码">用子类取代类型码</h3>
+
+<p>如果某个类型的特定处理逻辑太多，抽子类可以用多态消除这些条件逻辑</p>
+
+<p>有方向重构移除子类，原因大多是子类过于单薄</p>
+
+<h3 id="提炼超类">提炼超类</h3>
+
+<p>如果两个类过于相似，那么可以尝试提炼，通常是组合运用上移手法</p>
+
+<h3 id="折叠继承体系">折叠继承体系</h3>
+
+<p>如果子类和超类过于相似，那么可以合并成一个</p>
+
+<h3 id="用委托取代子类">用委托取代子类</h3>
+
+<p>组合比继承更轻量，不容易出错，可以建立一个委托类，委托类可以承载与父类不同的逻辑</p>
+
+<h3 id="用委托取代父类">用委托取代父类</h3>
+
+<p>将一些共享的逻辑抽离成一个委托对象，作为变量持有，如果喜欢同类型共享，可以考虑使用引用方式改写，也就是值对象转换成引用对象。</p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/notebook/machine_learning/" data-toggle="tooltip" data-placement="top" title="">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/javascript" title="javascript">
+                            javascript
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/localstorage" title="localstorage">
+                            localstorage
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%93%B2%E5%AD%A6" title="哲学">
+                            哲学
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%B7%E5%9B%BD%E8%A7%82%E5%BF%B5%E8%AE%BA" title="德国观念论">
+                            德国观念论
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%84%8F%E8%AF%86%E5%BD%A2%E6%80%81" title="意识形态">
+                            意识形态
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%8B%89%E5%BA%B7" title="拉康">
+                            拉康
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6" title="离散数学">
+                            离散数学
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90" title="精神分析">
+                            精神分析
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E9%BB%91%E6%A0%BC%E5%B0%94" title="黑格尔">
+                            黑格尔
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E9%BD%90%E6%B3%BD%E5%85%8B" title="齐泽克">
+                            齐泽克
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2023
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-114001572-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+</body>
+</html>

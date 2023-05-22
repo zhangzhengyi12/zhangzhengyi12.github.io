@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Interviews on Yinode Blog</title>
+    <link>https://zhangzhengyi12.github.io/interview/</link>
+    <description>Recent content in Interviews on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    
+	<atom:link href="https://zhangzhengyi12.github.io/interview/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>https://zhangzhengyi12.github.io/interview/interview/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/interview/interview/</guid>
+      <description>数组扁平化 let flat = arr =&amp;gt; arr.reduce((list, v) =&amp;gt; list.concat(Array.isArray(v) ? flat(v) : v), [])  v2
+function flat(arr) { let res = [] for (let item of arr) { if (Array.isArray(item)) { res = res.concat(flat(item)) } else { res.push(item) } } return res }  类型 加法操作符的基本规则  两者都为数字 进行普通的数字相加 一方为字符串 则转换另一方为字符串后进行字符串拼接 一方为对象类型 转换为字符串后 继续应用上一条规则 null + 1 = 1 原因是null被转换成了数字 这和红宝书上有冲突，应该null undefined会和另外一项进行自适应 如果是数字 自己也变数字，如果是字符 自己也变字符  相等操作符的运算规则 [] == !</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangzhengyi12.github.io/interview/jobs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/interview/jobs/</guid>
+      <description> 工作面试列表  周二上午 10:00 亿景智联 15~22k 视频面试 ps:说不加班 双休 周二下午 14:00 第一秒电商 18~25K 现场 周三上午 10:30 景栗 15~25k 现场 周三下午 14:30 车厘子科技 20~25k 现场 周四上午 10:30 食亨 18~30k 现场 周四下午 15:00 东浦科技 13~25k 电话面试
+ 下周二下午 14:00 静安区 去不去啊？
+ 下周一下午 14:00 13~18K VSPN 搞电竞
+  对公司问题  公司规模大概多大，主营业务是什么 前端团队大概有多少人，我进来之后承担什么角色 加班情况如何，年终奖如何  </description>
+    </item>
+    
+  </channel>
+</rss>

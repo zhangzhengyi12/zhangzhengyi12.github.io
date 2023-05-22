@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="利用 require.js 实现组件化开发" />
+    <meta property="og:title" content="利用 require.js 实现组件化开发" />
+    <meta property="twitter:title" content="利用 require.js 实现组件化开发" />
+    
+
+    
+    <meta name="description" content="我曾赌咒说你美，认为你璀璨；但你却地狱一般黑，夜一般暗">
+    <meta property="og:description" content="我曾赌咒说你美，认为你璀璨；但你却地狱一般黑，夜一般暗" />
+    <meta property="twitter:description" content="我曾赌咒说你美，认为你璀璨；但你却地狱一般黑，夜一般暗" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>利用 require.js 实现组件化开发-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201706/%E5%88%A9%E7%94%A8require.js%E5%AE%9E%E7%8E%B0%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/atom-one-dark.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+    <script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E5%93%B2%E5%AD%A6">哲学</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90">精神分析</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/gist/">Gist</a></li>
+                    
+                        <li><a href="/top/notebook/">Notebooks</a></li>
+                    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/web" title="Web">
+                            Web
+                        </a>
+                        
+                    </div>
+                    <h1>利用 require.js 实现组件化开发</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Friday, November 24, 2017
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#使用的库">使用的库</a></li>
+<li><a href="#实现的功能">实现的功能</a></li>
+<li><a href="#基本思想">基本思想</a></li>
+<li><a href="#调用和实现">调用和实现</a>
+<ul>
+<li><a href="#调用方式">调用方式</a></li>
+<li><a href="#整体框架">整体框架</a></li>
+<li><a href="#自定义事件的实现">自定义事件的实现</a></li>
+<li><a href="#样式">样式</a></li>
+<li><a href="#其他">其他</a></li>
+</ul></li>
+<li><a href="#总结">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<p>最近使用require尝试开发了一个弹窗组件，所以把一些组件化的思想和过程记录下来。</p>
+
+<h2 id="使用的库">使用的库</h2>
+
+<ul>
+<li>jQuery</li>
+<li>require</li>
+<li>jQueryUI</li>
+</ul>
+
+<h2 id="实现的功能">实现的功能</h2>
+
+<ul>
+<li>三种流行的弹窗</li>
+<li>带有宽高位置设置</li>
+<li>可以设置按钮的内容以及显示内容</li>
+<li>可以设置是否模态</li>
+<li>可以添加额外的皮肤</li>
+<li>拥有自定义的事件机制 一个click事件触发多个自定义事件</li>
+</ul>
+
+<p><img src="http://i1.piimg.com/1949/f3a4f9e34a66c278.gif" alt="Markdown" /></p>
+
+<h2 id="基本思想">基本思想</h2>
+
+<p>这个来源于网上的材料，我照着自己实现了一下，来记录一下我觉得的重点，最关键的是一种组件化的思想，也就是组件和组件之间的依赖关系。require是个非常棒的东西。 定义一个组件，然后把这个组件暴露出去 并在main里进行调用。另外一点组件最好是由一个抽象类统一进行管理，让抽象类调用一些抽象的方法，然后让具体的类进行一个实现。</p>
+
+<h2 id="调用和实现">调用和实现</h2>
+
+<h3 id="调用方式">调用方式</h3>
+
+<pre><code>$('.confirm').click(function () {
+        new w.window().confirm({
+            title:&quot;系统消息&quot;,
+            content:&quot;您确定要删除这个文件吗&quot;,
+            confirmBtn:&quot;是&quot;,
+            cancelBtn:&quot;否&quot;,
+            dragHanle:&quot;.wiw_header&quot;,
+            hasMask:true,
+            maskFlash:true,
+        }).on(&quot;confirm&quot;,function () {
+            alert(&quot;sure&quot;);
+        }).on(&quot;cancel&quot;,function () {
+            alert(&quot;cancel&quot;);
+        })
+    })
+</code></pre>
+
+<p>以上是一个调用实例，首先添加事件然后传参进行new，其中参数用了json进行传输，我认为在不跨前后端的情况下不是很需要传入字符串形式的json,对象形式的json可以和方便的传送回调函数</p>
+
+<p>因为实现了三种弹窗，所以支持alert和promot 传进去的参数类型也有所不同 在window构造函数中会设置一些默认的值，没有传参也已正常的运行</p>
+
+<h3 id="整体框架">整体框架</h3>
+
+<pre><code>Wiw.prototype = $.extend({},new widget.widget(),{...自定义的方法｝
+</code></pre>
+
+<p>首先利用对象的合并，让原型对象变成一个抽象类与自定义方法的合体。</p>
+
+<pre><code>confirm:function (cfg) {
+        $.extend(true,this.config,cfg,{winType:&quot;confirm&quot;});
+        this.render();
+        return this;
+    }
+</code></pre>
+
+<p>这里是实际调用的中心， 首先会进行一个深层次的对象合并 接着执行render（）方法</p>
+
+<p>这个方法来源于抽象类，他扮演调用中心的角色，而具体的实现则由window来实现</p>
+
+<pre><code>render:function (container) {
+        this.renderUI(); //建造盒子和内容
+        this.handlers = {}; //初始化自定义事件容器
+        this.bindUI(); //绑定事件
+        this.syncUI(); //设置样式
+        $(container || document.body).append(this.boundingBox); //所有完成 添加到文档
+    },
+</code></pre>
+
+<p>所有的弹窗都被拆分成了这么几个抽象步骤，在这些方法中进行一个具体实现，可以很好的提高代码可读性。</p>
+
+<p>而摧毁盒子也是如此的结构</p>
+
+<pre><code>destory:function () {
+        this.destructor();
+        this.boundingBox.off();
+        this.boundingBox.remove();
+    }
+</code></pre>
+
+<p>所有的方法都是公用的 比如alert 和 confirm 调用的都是同样的方法 ，但区分在于在自身的config属性中添加winType 通过对于自身类型的识别，我们可以做到不同的措施。</p>
+
+<h3 id="自定义事件的实现">自定义事件的实现</h3>
+
+<pre><code>on:function (type,handler) {
+        if(typeof this.handlers[type] == &quot;undefined&quot;){
+            console.log(type);
+            this.handlers[type] = [];
+        }//如果在字典中响应类型没有事件存储 就创建一个数组以便村粗
+
+        this.handlers[type].push(handler);
+        return this;
+    },
+    fire:function (type,data) {
+        //检测相应类型数组是否存在 存在则全部吐出来执行
+        //如果传进来了输入就放入参数之中调用
+        if(this.handlers[type] instanceof Array){
+            console.log(&quot;fire&quot;);
+            var handlers = this.handlers[type];
+            for(var i=0,len=handlers.length; i&lt;len; i++){
+                handlers[i](data);
+            }
+        }
+    },
+</code></pre>
+
+<p>自定义事件的原理利用了堆栈结构，在执行on方法的时候 在自身handlers属性对象内部的相应type存放函数，而在fire的时候按照相应的参数type 来寻找那个数组 并且遍历都触发一遍。</p>
+
+<p><img src="http://i1.piimg.com/1949/8d84812c6bc4c097.jpg" alt="Markdown" /></p>
+
+<h3 id="样式">样式</h3>
+
+<p>样式部分我利用了外联css 我认为利用css比较的方便修改
+我的所有class名都使用了wiw_前缀 以保证不和其他DOM冲突</p>
+
+<h3 id="其他">其他</h3>
+
+<ul>
+<li>级联 在调用的最后加上return this</li>
+<li>模态 在创建弹出窗的时候在其后面加上一个覆盖整个窗口的div</li>
+<li>拖动使用jQueryUI 非常方便</li>
+</ul>
+
+<h2 id="总结">总结</h2>
+
+<p>组件化毫无疑问是我的未来学习方向，我认为学习组件最重要的是要抛弃以前那种从下往上思考的习惯，应该从抽象的层次思考，然后向下写具体的代码，只有从更高的层次看整个程序，才能写出真正可复用，可维护的代码。</p>
+
+<p>地址 ： <a href="https://github.com/zhangzhengyi12/require-window">https://github.com/zhangzhengyi12/require-window</a></p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201706/%E5%88%A9%E7%94%A8ghpages%E5%B1%95%E7%A4%BA%E8%87%AA%E5%B7%B1%E7%9A%84demo/" data-toggle="tooltip" data-placement="top" title="利用gh-pages展示自己的DEMO">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/201709/%E4%BD%BF%E7%94%A8socket.io%E5%AE%9E%E7%8E%B0%E6%9E%81%E7%AE%80%E5%8D%B3%E6%97%B6%E9%80%9A%E8%AE%AF/" data-toggle="tooltip" data-placement="top" title="使用socket.io实现极简即时通讯">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/javascript" title="javascript">
+                            javascript
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/localstorage" title="localstorage">
+                            localstorage
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%93%B2%E5%AD%A6" title="哲学">
+                            哲学
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%B7%E5%9B%BD%E8%A7%82%E5%BF%B5%E8%AE%BA" title="德国观念论">
+                            德国观念论
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%84%8F%E8%AF%86%E5%BD%A2%E6%80%81" title="意识形态">
+                            意识形态
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%8B%89%E5%BA%B7" title="拉康">
+                            拉康
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6" title="离散数学">
+                            离散数学
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90" title="精神分析">
+                            精神分析
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E9%BB%91%E6%A0%BC%E5%B0%94" title="黑格尔">
+                            黑格尔
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E9%BD%90%E6%B3%BD%E5%85%8B" title="齐泽克">
+                            齐泽克
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2023
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-114001572-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+</body>
+</html>

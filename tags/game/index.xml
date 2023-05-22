@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Game on Yinode Blog</title>
+    <link>https://zhangzhengyi12.github.io/tags/game/</link>
+    <description>Recent content in Game on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 24 Nov 2017 05:27:33 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhangzhengyi12.github.io/tags/game/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>LOL模拟抽奖</title>
+      <link>https://zhangzhengyi12.github.io/post/201707/lol%E6%A8%A1%E6%8B%9F%E6%8A%BD%E5%A5%96/</link>
+      <pubDate>Fri, 24 Nov 2017 05:27:33 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201707/lol%E6%A8%A1%E6%8B%9F%E6%8A%BD%E5%A5%96/</guid>
+      <description>最近试着写了一个LOL模拟抽奖的页面，大家可以随便玩玩，也没任何广告。 删除了一小部分失效的英雄，皮肤部分没动。 所有英雄皮肤的几率都是正好平分</description>
+    </item>
+    
+  </channel>
+</rss>

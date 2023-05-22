@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tops on Yinode Blog</title>
+    <link>https://zhangzhengyi12.github.io/top/</link>
+    <description>Recent content in Tops on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    
+	<atom:link href="https://zhangzhengyi12.github.io/top/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>https://zhangzhengyi12.github.io/top/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/top/about/</guid>
+      <description> WHO 前端开发工程师 民间哲学爱好者 拉康主义者
+领域  Web iOS CocosCreator 算法&amp;amp;数据架构 哲学  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangzhengyi12.github.io/top/books/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/top/books/</guid>
+      <description> Books 正在学习或者已经学习过的  《计算机程序的构造与解释 》 《算法导论》 《离散数学及其应用》 《JavaScrip高级程序设计》 《深入理解计算机系统》  已经纳入计划之中  《编译原理》 《计算机图形学》 《设计模式》  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangzhengyi12.github.io/top/gist/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/top/gist/</guid>
+      <description> Gist代码片段集合 算法 图形学 Alpha颜色合成
+ 图 计算邻接矩阵顶点之间的通路数
+ 全点对最短路径 floydWarshell
+ 单源最短路径 dijkstra
+ 数学 计数问题 求排列数
+ 其他 </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangzhengyi12.github.io/top/notebook/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/top/notebook/</guid>
+      <description>笔记本 算法集合
+离散数学
+重构
+设计模式
+计算机图形学</description>
+    </item>
+    
+  </channel>
+</rss>

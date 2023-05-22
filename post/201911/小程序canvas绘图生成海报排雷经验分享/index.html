@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Yinode Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png">
+    <meta property="twitter:image" content="https://zhangzhengyi12.github.io//https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200229004246.png" />
+    
+
+    
+    <meta name="title" content="小程序利用Canvas绘图生成海报排雷经验分享" />
+    <meta property="og:title" content="小程序利用Canvas绘图生成海报排雷经验分享" />
+    <meta property="twitter:title" content="小程序利用Canvas绘图生成海报排雷经验分享" />
+    
+
+    
+    <meta name="description" content="最近小程序搞的比较多，最烦人的就是这个海报生成，踩雷不少，跟大家分享一点经验，也许可以解决你的问题">
+    <meta property="og:description" content="最近小程序搞的比较多，最烦人的就是这个海报生成，踩雷不少，跟大家分享一点经验，也许可以解决你的问题" />
+    <meta property="twitter:description" content="最近小程序搞的比较多，最烦人的就是这个海报生成，踩雷不少，跟大家分享一点经验，也许可以解决你的问题" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Yinode zhangzhengyi Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>小程序利用Canvas绘图生成海报排雷经验分享-Yinode Blog</title>
+
+    <link rel="canonical" href="/post/201911/%E5%B0%8F%E7%A8%8B%E5%BA%8Fcanvas%E7%BB%98%E5%9B%BE%E7%94%9F%E6%88%90%E6%B5%B7%E6%8A%A5%E6%8E%92%E9%9B%B7%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/atom-one-dark.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+    <script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yinode Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/tech">tech</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E5%93%B2%E5%AD%A6">哲学</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90">精神分析</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="/top/gist/">Gist</a></li>
+                    
+                        <li><a href="/top/notebook/">Notebooks</a></li>
+                    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://yinodimage.oss-cn-hangzhou.aliyuncs.com/20200228230137.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        <a class="tag" href="/tags/canvas" title="Canvas">
+                            Canvas
+                        </a>
+                        
+                    </div>
+                    <h1>小程序利用Canvas绘图生成海报排雷经验分享</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Yinode
+                         
+                        on 
+                        Saturday, November 9, 2019
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#前言">前言</a></li>
+<li><a href="#绘制完成后导出-发现内容缺失">绘制完成后导出 发现内容缺失</a></li>
+<li><a href="#ios-下绘制多行文本发现排版错乱">IOS 下绘制多行文本发现排版错乱</a></li>
+<li><a href="#安卓下有几率触发排版错乱">安卓下有几率触发排版错乱</a></li>
+<li><a href="#在线图片无法绘制">在线图片无法绘制</a></li>
+<li><a href="#某些本地图片-drawimage-无法绘制">某些本地图片 drawImage 无法绘制</a></li>
+<li><a href="#小程序-动态生成二维码-scene-参数编解码工具函数">小程序 动态生成二维码 Scene 参数编解码工具函数</a></li>
+<li><a href="#使用">使用</a></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<h2 id="前言">前言</h2>
+
+<p>最近小程序搞的比较多，最烦人的就是这个海报生成，踩雷不少，跟大家分享一点经验，也许可以解决你的问题</p>
+
+<h2 id="绘制完成后导出-发现内容缺失">绘制完成后导出 发现内容缺失</h2>
+
+<p>这个第一是 最后调用 draw 的时候必须使用回调函数，第二是光回调还不够，你得再加点延迟，再导出</p>
+
+<pre><code class="language-js"> // 完成
+      ctx.draw(false, () =&gt; {
+        console.log('drawText')
+        setTimeout(() =&gt; {
+          wx.canvasToTempFilePath({
+            x: 0,
+            y: 0,
+            width: 690,
+            height: 1190,
+            destWidth: 690 * 2,
+            destHeight: 1190 * 2,
+            canvasId: 'shareCanvas',
+            success: res =&gt; {
+              callback(res.tempFilePath)
+            }
+          })
+        }, 100)
+      })
+</code></pre>
+
+<h2 id="ios-下绘制多行文本发现排版错乱">IOS 下绘制多行文本发现排版错乱</h2>
+
+<p>请避免换行符</p>
+
+<pre><code class="language-js">this.firstCargo.content.replace(/[\r\n]/g, '')
+</code></pre>
+
+<h2 id="安卓下有几率触发排版错乱">安卓下有几率触发排版错乱</h2>
+
+<p>比如说一些字体的颜色一会正常，一会可能是黄色，绿色，他的位置可能也会有问题，甚至同一行字能在不同地方以不同样式出现两次</p>
+
+<p>这个问题查了一下，貌似无解，安卓特有，目前微信还没解决</p>
+
+<h2 id="在线图片无法绘制">在线图片无法绘制</h2>
+
+<p>请使用微信的 API 获取图片缓存到本地之后再绘制，记得图片的域名要在微信的合法域名里面配置，放到 download 下</p>
+
+<pre><code>const promisify = api =&gt; {
+  return (options, ...params) =&gt; {
+    return new Promise((resolve, reject) =&gt; {
+      const extras = {
+       success: resolve,
+        fail: resolve,
+        complate: resolve
+      }
+      api({ ...options, ...extras }, ...params)
+    })
+  }
+}
+
+const wxGetImageInfo = promisify(wx.getImageInfo)
+
+Promise.all([
+    wxGetImageInfo({
+      src: &quot;某个在线地址&quot;
+    })
+]).then(images=&gt;{
+// 获取到图片之后再进行绘制
+  ctx.drawImage(images[0].path, 96, 1050, 120, 120)
+})
+</code></pre>
+
+<h2 id="某些本地图片-drawimage-无法绘制">某些本地图片 drawImage 无法绘制</h2>
+
+<p>这个也是毒的不行，我的解决方法是，把绘制图片的代码从 A 拷贝到 B 然后从 B 拷贝到 A， 结果就好了！！！。至今没明白咋回事</p>
+
+<h2 id="小程序-动态生成二维码-scene-参数编解码工具函数">小程序 动态生成二维码 Scene 参数编解码工具函数</h2>
+
+<p>适用于小程序动态生成二维码的时候，scene 参数的诸多限制，可以避免 HTTP query 参数本身的干扰和微信的限制，能够存放 KV 对</p>
+
+<blockquote>
+<p>scene 最大32个可见字符，只支持数字，大小写英文以及部分特殊字符：<code>!#$&amp;'()*+,/:;=?@-._~</code>，其它字符请自行编码为合法字符（因不支持<code>%</code>，中文无法使用 <code>urlencode</code> 处理，请使用其他编码方式）</p>
+</blockquote>
+
+<pre><code>const encodeScene = obj =&gt; {
+  let keys = Object.keys(obj)
+
+  let res = []
+
+  for (let key of keys) {
+    res.push(key)
+    res.push('_')
+    res.push(obj[key] || '')
+    res.push('__')
+  }
+  res.pop()
+  return res.join('')
+}
+
+const decodeScene = str =&gt; {
+  let res = {}
+  let kvList = str.split('__')
+
+  for (let kv of kvList) {
+    let kvcdr = kv.split('_')
+    if (kvcdr.length === 2) {
+      res[kvcdr[0]] = kvcdr[1] || ''
+    }
+  }
+  return res
+}
+</code></pre>
+
+<h2 id="使用">使用</h2>
+
+<pre><code>// 编码
+let params =encodeScene({
+      t: 'p',
+      fuid: &quot;5&quot;
+    })
+wx.getImageInfo({
+src: `${
+          net.host
+        }/100328/api/user/share/qrcode?page=${encodeURIComponent(
+          'pages/system/login/index'
+        )}&amp;scene=${params}&amp;width=120&amp;uid=${userInfo.getToken()}`
+})
+
+// 解码
+
+onLoad: function(options) {
+    let scene = options.scene
+    try {
+      scene = util.decodeScene(scene)
+      this.setData({
+        target: scene.t || '',
+        fromUserId: scene.fuid || '',
+        id: scene.id || ''
+      })
+    } catch (e) {
+      console.log(e)
+    }
+}
+</code></pre>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/201911/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E8%BD%AC/" data-toggle="tooltip" data-placement="top" title="计算机中的 原码、反码、补码 [转]">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/201911/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%85%A8%E5%B1%80%E4%BB%BB%E5%8A%A1%E5%BC%B9%E7%AA%97%E6%96%B9%E6%A1%88%E5%88%86%E4%BA%AB%E5%BE%AE%E4%BE%B5%E5%85%A5%E5%BC%8Ftemplaterequest%E6%8B%A6%E6%88%AA%E5%99%A8/" data-toggle="tooltip" data-placement="top" title="微信小程序 全局任务弹窗方案分享(微侵入式) Template &#43; Request 拦截器">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/canvas" title="canvas">
+                            canvas
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/chrome%E6%89%A9%E5%B1%95" title="chrome扩展">
+                            chrome扩展
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/csapp" title="csapp">
+                            csapp
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/github" title="github">
+                            github
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/javascript" title="javascript">
+                            javascript
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/localstorage" title="localstorage">
+                            localstorage
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/nginx" title="nginx">
+                            nginx
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reactnative" title="reactnative">
+                            reactnative
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vue.js" title="vue.js">
+                            vue.js
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/web" title="web">
+                            web
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/websocket" title="websocket">
+                            websocket
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" title="函数式编程">
+                            函数式编程
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E5%93%B2%E5%AD%A6" title="哲学">
+                            哲学
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7" title="微信公众号">
+                            微信公众号
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F" title="微信小程序">
+                            微信小程序
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%AE%E4%BF%A1%E6%B5%8F%E8%A7%88%E5%99%A8" title="微信浏览器">
+                            微信浏览器
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E5%BE%B7%E5%9B%BD%E8%A7%82%E5%BF%B5%E8%AE%BA" title="德国观念论">
+                            德国观念论
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%84%8F%E8%AF%86%E5%BD%A2%E6%80%81" title="意识形态">
+                            意识形态
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%8B%89%E5%BA%B7" title="拉康">
+                            拉康
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" title="数据结构">
+                            数据结构
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6" title="离散数学">
+                            离散数学
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" title="算法导论">
+                            算法导论
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%B2%BE%E7%A5%9E%E5%88%86%E6%9E%90" title="精神分析">
+                            精神分析
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86" title="计算机原理">
+                            计算机原理
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/%E9%BB%91%E6%A0%BC%E5%B0%94" title="黑格尔">
+                            黑格尔
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E9%BD%90%E6%B3%BD%E5%85%8B" title="齐泽克">
+                            齐泽克
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href='' rel="alternate"
+                            type="application/rss+xml" title="Yinode Blog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:zhangzhengyi12@live.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    
+                    
+                    
+
+                    
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="/eizoniko">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zhangzhengyi12">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yinode Blog 2023
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async (u, c) {
+        var d = document,
+            t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) {
+            o.addEventListener('load', function (e) {
+                c(null, e);
+            }, false);
+        }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if ($('#tag_cloud').length !== 0) {
+        async ("/js/jquery.tagcloud.js", function () {
+            $.fn.tagcloud.defaults = {
+                
+                color: {
+                    start: '#bbbbee',
+                    end: '#0085a1'
+                },
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async ("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-114001572-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>计算机原理 on Yinode Blog</title>
+    <link>https://zhangzhengyi12.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/</link>
+    <description>Recent content in 计算机原理 on Yinode Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 09 Nov 2019 17:32:07 +0000</lastBuildDate>
+    
+	<atom:link href="https://zhangzhengyi12.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>计算机中的 原码、反码、补码 [转]</title>
+      <link>https://zhangzhengyi12.github.io/post/201911/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E8%BD%AC/</link>
+      <pubDate>Sat, 09 Nov 2019 17:32:07 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201911/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E8%BD%AC/</guid>
+      <description>觉得很不错，所以第一次转载。 作者：张子秋 出处：ziqiu.zhang - 博客园 本文版权归作者和博客园共有，欢迎转载，但未经作者同意必须保留此段</description>
+    </item>
+    
+    <item>
+      <title>计算机中的补码与无符号编码 [笔记]</title>
+      <link>https://zhangzhengyi12.github.io/post/201910/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E8%A1%A5%E7%A0%81%E4%B8%8E%E6%97%A0%E7%AC%A6%E5%8F%B7%E7%BC%96%E7%A0%81%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Thu, 31 Oct 2019 23:00:57 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201910/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E8%A1%A5%E7%A0%81%E4%B8%8E%E6%97%A0%E7%AC%A6%E5%8F%B7%E7%BC%96%E7%A0%81%E7%AC%94%E8%AE%B0/</guid>
+      <description>在计算机中，我们可以采用 补码 以及 无符号 两种方式来存储我们的整数，两者的主要差别如下 补码 第一位为符号位，当符号为 = 1 时，代表一个负权，= 0 时，</description>
+    </item>
+    
+    <item>
+      <title>不用第三个Temp变量 实现两个变量之间交换的方法 [XOR 运算]</title>
+      <link>https://zhangzhengyi12.github.io/post/201910/%E4%B8%8D%E7%94%A8%E7%AC%AC%E4%B8%89%E4%B8%AAtemp%E5%8F%98%E9%87%8F%E5%AE%9E%E7%8E%B0%E4%B8%A4%E4%B8%AA%E5%8F%98%E9%87%8F%E4%B9%8B%E9%97%B4%E4%BA%A4%E6%8D%A2%E7%9A%84%E6%96%B9%E6%B3%95xor%E6%8C%89%E4%BD%8D%E6%88%96%E5%BC%82%E8%BF%90%E7%AE%97/</link>
+      <pubDate>Thu, 31 Oct 2019 15:13:07 +0000</pubDate>
+      
+      <guid>https://zhangzhengyi12.github.io/post/201910/%E4%B8%8D%E7%94%A8%E7%AC%AC%E4%B8%89%E4%B8%AAtemp%E5%8F%98%E9%87%8F%E5%AE%9E%E7%8E%B0%E4%B8%A4%E4%B8%AA%E5%8F%98%E9%87%8F%E4%B9%8B%E9%97%B4%E4%BA%A4%E6%8D%A2%E7%9A%84%E6%96%B9%E6%B3%95xor%E6%8C%89%E4%BD%8D%E6%88%96%E5%BC%82%E8%BF%90%E7%AE%97/</guid>
+      <description>相信平时大家应该经常会遇到需要交换两个变量值的情况，最常见的做法就是建立一个 temp 临时变量，用于交换，代码大概是这样。 // javascript // swap let a = 1 ,b = 2 let temp</description>
+    </item>
+    
+  </channel>
+</rss>
